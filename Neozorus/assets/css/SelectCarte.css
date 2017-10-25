@@ -1,0 +1,114 @@
+@font-face
+		{
+			font-family: 'army_rangers';
+			src:url('../font/army_rangers/armyrangers.ttf');
+		}
+
+@font-face
+{
+	font-family: 'fira_code';
+	src:url('../font/fira-code/FiraCode-Medium.otf');
+}
+
+@font-face
+{
+	font-family: 'godzilla';
+	src:url('../font/army_rangers/Godzilla.ttf');
+}
+
+.dinotheme{
+	background-image: url("../img/background_jungle.jpg");
+}
+
+.matrixtheme{
+	background-image: url("../img/background_matrix.jpg");
+}
+body, a, a:visited{
+	color:white;
+}
+
+
+.affichageCarte{
+	width: 60%;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: flex-start;
+	align-items: flex-start;
+}
+
+.mesGabarits{
+	margin: 10px 10px;
+}
+
+.mesGabarits img{
+	width: 150px;
+}
+
+.PuissanceCarteSortCreature{
+	position: relative;
+	z-index: 3;
+	font-family: 'army_rangers';
+	top: -167px;
+	left:-105px;
+}
+
+.PuissanceCarteSpeciale{
+	position: relative;
+	z-index: 3;
+	font-family: 'army_rangers';
+	top: -180px;
+	left:-132px;
+}
+
+.ManaSortOuVitaCreature{
+	position: relative;
+	z-index: 3;
+	font-family: 'army_rangers';
+	top: -142px;
+	left:-129px;
+}
+
+.VitaCarteSpeciale{
+	position: relative;
+	z-index: 3;
+	font-family: 'army_rangers';
+	top: -155px;
+	left:-139px;
+}
+
+.ManaCarteCreature{
+	position: relative;
+	z-index: 3;
+	font-family: 'army_rangers';
+	top: -112px;
+	left:-144px;
+}
+.ManaCarteSpeciale{
+	position: relative;
+	z-index: 3;
+	font-family: 'army_rangers';
+	top: -132px;
+	left:-144px;
+}
+
+.IndiceCarteCreature {
+	font-size: 12px;
+	position: relative;
+	font-family: 'army_rangers';
+	top: -189px;
+	left:135px;
+}
+
+.IndiceCarteCreature p {
+	margin:0;
+	padding:0.5px;
+	padding-left: 2px;
+	padding-bottom: 3px;
+	z-index: 3;
+	width: 10px;
+	height: 10px;
+	color:black;
+	background-color: white;
+	border-radius: 50%;
+}
