@@ -69,6 +69,8 @@ function displayBoard($tab){
             echo 'puissance = '.$carte->getPuissance();
             echo '<br>';
             echo 'PV = '.$carte->getPvMax();
+            echo '<br>';
+            echo 'active = '.$carte->getactive();
             echo '</div>';
             echo '<img src="' . $carte->getPath() . '">';
         }

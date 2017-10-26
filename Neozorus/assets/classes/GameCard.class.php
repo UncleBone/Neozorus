@@ -12,6 +12,7 @@ class GameCard
     private $localisation;
     private $indice;
     private $path;
+    private $active = 0;
 
     const LOC_DECK = 1;
     const LOC_MAIN = 2;
@@ -76,5 +77,12 @@ class GameCard
     }
     function setPath(){
         $this->path = COMMON_PATH . DS . $this->getType() . DS . $this->getId() . '.png';
+    }
+
+    function getActive(){
+        return $this->active;
+    }
+    function setActive($a = int){
+        $this->active = $a;
     }
 }

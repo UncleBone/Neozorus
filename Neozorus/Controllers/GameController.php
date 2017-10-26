@@ -86,6 +86,7 @@ class GameController extends CoreController{
             }
             if($this->getJeton()!=$clone->getJeton()) {
                 $this->setPiocheEtMana(0);
+                $this->activateCards($this->getPlayer($this->getJeton()));
                 if($this->getJeton()==0) {
                     $this->tourPlus();
                 }
@@ -178,6 +179,16 @@ class GameController extends CoreController{
             $player->addMana($tour);
         }else{
             $player->addMana(10);
+        }
+    }
+
+    public function activateCards($player){
+        if(!empty($player->getPlateau())){
+            foreach ($player->getPlateau()as $carte){
+                if($carte->getActive() == 0){
+                    $carte->setActive(1);
+                }
+            }
         }
     }
 }
