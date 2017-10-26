@@ -27,8 +27,8 @@
 				<span class='PV'><?=$heros[1]->getH_PvMax() ?></span>
 			</div>
 		</nav> 
-		<script src='js/Select_Hero_Common.js'></script>
-		<script src='js/Select_Hero_Neutre.js'></script>
+		<script src='assets/js/Select_Hero_Common.js'></script>
+		<script src='assets/js/Select_Hero_Neutre.js'></script>
 	</div>
 </body>
 </html>
