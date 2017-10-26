@@ -8,6 +8,7 @@ class GameCard
     private $pvMax;
     private $mana;
 
+    private $pv;
     private $localisation;
     private $indice;
     private $path;
@@ -23,6 +24,7 @@ class GameCard
         $this->type = $type;
         $this->puissance = $puissance;
         $this->pvMax = $pvMax;
+        $this->pv = $pvMax;
         $this->mana = $mana;
         $this->localisation = $localisation;
         $this->indice = $indice;
@@ -45,12 +47,28 @@ class GameCard
         return $this->puissance;
     }
 
+    function getPv(){
+        return $this->pv;
+    }
+
+    function getPvMax(){
+        return $this->pvMax;
+    }
+
     function setLocalisation($loc){
         $this->localisation = $loc;
     }
 
     function getLocalisation(){
         return $this->localisation;
+    }
+
+    function getIndice() {
+        return $this->indice;
+    }
+
+    function getMana() {
+        return $this->mana;
     }
 
     function getPath(){
