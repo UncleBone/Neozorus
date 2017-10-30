@@ -2,7 +2,7 @@
 
 class Joueur{
 	private $id;
-	private $deck = array();
+	private $deck;
 	private $main = array();
 	private $pioche = array();
 	private $plateau = array();
@@ -28,6 +28,14 @@ class Joueur{
 
 	public function setPv($val = int){
 	    $this->pv = $val;
+    }
+
+    public function subPv($val = int){
+	    $a = $this->getPv() - $val;
+	    if($a<0){
+	        $a = 0;
+        }
+        $this->setPv($a);
     }
 
     public function getPv(){
@@ -87,9 +95,40 @@ class Joueur{
         return 1;
     }
 
-    public function jouerCarte($identifiant){
-        $this->plateau[$identifiant] = $this->main[$identifiant];
-        $this->subMana($this->main[$identifiant]->getMana());
-        unset($this->main[$identifiant]);
+    public function jouerCarte($identifiant,$jeton){
+        if($this->main[$identifiant]->getType() == 'sort'){
+            $this->ciblage($identifiant,$jeton);
+        }else{
+            $this->plateau[$identifiant] = $this->main[$identifiant];
+            $this->subMana($this->main[$identifiant]->getMana());
+            unset($this->main[$identifiant]);
+        }
+    }
+
+    public function ciblage($att,$jeton){
+        header('Location:?controller=game&action=jeu&jeton='.$jeton.'&att='.$att);
+    }
+
+    public function attaquer($type,$att,$cible,$oPlayer){
+        if(!empty($this->main[$att]) && $this->main[$att]->getType() == 'sort') {
+            $carteAtt = $this->main[$att];
+        }else {
+            $carteAtt = $this->plateau[$att];
+        }
+        if($type == 'j'){
+           $cible->subPv($carteAtt->getPuissance());
+        }elseif ($type == 'c'){
+            $cibleIndice = substr($cible,-1);
+            $cibleId = substr($cible,0, strlen($cible)-1);
+            if (!empty($oPlayer->getPlateau()[$cible])){
+                $carteCible = $oPlayer->getPlateau()[$cible];
+            }
+            $carteCible->subPv($carteAtt->getPuissance());
+        }
+        if($carteAtt->getType()=='sort') {
+            $this->defausse[$att] = $this->main[$att];
+            $this->subMana($this->main[$att]->getMana());
+            unset($this->main[$att]);
+        }
     }
 }

@@ -52,6 +52,18 @@ class GameCard
         return $this->pv;
     }
 
+    function setPv($pv){
+        $this->pv = $pv;
+    }
+
+    function subPv($val){
+        $a = $this->getPv() - $val;
+        if($a <0 ){
+            $a = 0;
+        }
+        $this->setPv($a);
+    }
+
     function getPvMax(){
         return $this->pvMax;
     }

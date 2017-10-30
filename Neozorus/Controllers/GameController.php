@@ -111,6 +111,15 @@ class GameController extends CoreController{
         $plateau1 = $this->players[0]->getPlateau();
         $plateau2 = $this->players[1]->getPlateau();
         $jeton = $this->getJeton();
+        if(!empty($this->parameters['error'])){
+            $error = $this->parameters['error'];
+        }
+        if(!empty($this->parameters['att'])){
+            $att = $this->parameters['att'];
+        }
+        if(!empty($this->parameters['cible'])){
+            $cible = $this->parameters['cible'];
+        }
         require_once( VIEWS_PATH . DS . 'Game' . DS . 'TestGame.php' );
     }
 
@@ -142,6 +151,7 @@ class GameController extends CoreController{
 
 	public function tour($jeton){
 	    $player = $this->getPlayer($jeton);
+	    $otherPlayer = $this->getPlayer(($jeton==0 ? 1 : 0));
         if($this->getTour() == 1){
             if($this->piocheEtMana == 0){
                 for($i=0;$i<3;$i++){$player->pioche();}
@@ -161,11 +171,27 @@ class GameController extends CoreController{
             if (!empty($player->getMain()[$this->parameters['jouer']])){
                 $carte = $player->getMain()[$this->parameters['jouer']];
                 if($carte->getMana() <= $player->getMana()) {
-                    $player->jouerCarte($this->parameters['jouer']);
+                    $player->jouerCarte($this->parameters['jouer'],$jeton);
+                }else{
+                    $error = 'not_enough_mana';
+                    $this->error($error);
+                }
+            }
+        }elseif (!empty($this->parameters['att'])){
+            if(!empty($this->parameters['cible'])){
+                if(strpos($cible = $this->parameters['cible'],'J')!==false){
+                    $p = substr($cible,-1);
+                    $player->attaquer('j',$this->parameters['att'],$this->getPlayer($p),$otherPlayer);
+                }else {
+                    $player->attaquer('c', $this->parameters['att'], $this->parameters['cible'],$otherPlayer);
                 }
             }
         }
         $this->saveAndRefreshView();
+    }
+
+    public function error($e){
+	    header('Location:?controller=game&action=jeu&jeton='.$this->getJeton().'&error='.$e);
     }
 
     public function quitter(){
