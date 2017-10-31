@@ -98,7 +98,7 @@ class GameController extends CoreController{
         }
     }
 
-    public function saveAndRefreshView(){
+    public function saveAndRefreshView($message = null){
         $this->saveGame();
         $this->loadGame();
         $tour = $this->getTour();
@@ -110,6 +110,8 @@ class GameController extends CoreController{
         $main2 = $this->players[1]->getMain();
         $plateau1 = $this->players[0]->getPlateau();
         $plateau2 = $this->players[1]->getPlateau();
+        $defausse1 = $this->players[0]->getDefausse();
+        $defausse2 = $this->players[1]->getDefausse();
         $jeton = $this->getJeton();
         if(!empty($this->parameters['error'])){
             $error = $this->parameters['error'];
@@ -139,19 +141,33 @@ class GameController extends CoreController{
         $this->saveNewGame();
 	}
 
+	public function checkEog(){
+	    $retour = false;
+	    for($i=0;$i<2;$i++){
+            if($this->players[$i]->getPv()<=0 || empty($this->players[$i]->getPioche())){
+                $this->setEog(true);
+                $retour = $this->players[($i==0 ? 1 : 0)];
+            }
+        }
+        return $retour;
+    }
+
 	public function jeu(){
 
 	    $this->loadGame();
+	    if(!($winner = $this->checkEog())){
+            $this->tour($this->jeton);
+        }else{
+            $message = 'Partie terminée<br>Vainqueur: '.$winner->getId();
+            $this->saveAndRefreshView($message);
+        }
 
-//        if($this->getJeton()==0) {
-//            $this->tourPlus();
-//        }
-        $this->tour($this->jeton);
 	}
 
 	public function tour($jeton){
 	    $player = $this->getPlayer($jeton);
 	    $otherPlayer = $this->getPlayer(($jeton==0 ? 1 : 0));
+	    $message = null;
         if($this->getTour() == 1){
             if($this->piocheEtMana == 0){
                 for($i=0;$i<3;$i++){$player->pioche();}
@@ -181,13 +197,15 @@ class GameController extends CoreController{
             if(!empty($this->parameters['cible'])){
                 if(strpos($cible = $this->parameters['cible'],'J')!==false){
                     $p = substr($cible,-1);
-                    $player->attaquer('j',$this->parameters['att'],$this->getPlayer($p),$otherPlayer);
+                    $player->attaquer('j',$this->parameters['att'],$this->getPlayer($p),$otherPlayer,$jeton);
                 }else {
-                    $player->attaquer('c', $this->parameters['att'], $this->parameters['cible'],$otherPlayer);
+                    $player->attaquer('c', $this->parameters['att'], $this->parameters['cible'],$otherPlayer,$jeton);
                 }
+            }else{
+                $message = "cliquez sur la cible";
             }
         }
-        $this->saveAndRefreshView();
+        $this->saveAndRefreshView($message);
     }
 
     public function error($e){

@@ -18,11 +18,28 @@
                 color: Black;
                 background-color: rgb(200,100,100);
             }
+            .message
+            {
+                position: absolute;
+                left:50vw;
+                top:0;
+                transform: translateX(-50%);
+                color: Black;
+                background-color: lightgreen;
+            }
+            .defausse
+            {
+                border: 1px solid lightgrey;
+                float: right;
+            }
         </style>
     </head>
     <?php
     if(!empty($error)){
         displayError($error);
+    }
+    if(!empty($message)){
+        displayMessage($message);
     }
     echo 'Tour n°'.$tour;
     if(!isset($att)){$att = null;}
@@ -38,6 +55,8 @@
     displayHand($main1,$jeton);
     echo '<p>Plateau:</p>';
     displayBoard($plateau1,$jeton,$att);
+    displayDefausse($defausse1);
+    echo '<hr>';
     if(!empty($att)){
         echo '<a href="?controller=game&action=jeu&jeton='.$jeton.'&att='.$att.'&cible=J'.($jeton==0 ? 1 : 0).'">
 <h1>Joueur 2:</h1>';
@@ -50,6 +69,7 @@
     displayHand($main2,$jeton);
     echo '<p>Plateau:</p>';
     displayBoard($plateau2,$jeton,$att);
+    displayDefausse($defausse2);
     echo '<br>';
     echo '<a href="?controller=game&action=jeu&jeton='.($jeton==0 ? 1 : 0).'">Fin de tour</a>';
     echo '<br>';
@@ -95,15 +115,25 @@ function displayBoard($tab,$jeton,$att){
             echo '<br>';
             echo 'active = '.$carte->getactive();
             echo '</div>';
-            if(!empty($att)){
+            if(!empty($att) && $att != $carte->getId().$carte->getIndice()){
                 echo '<a href="?controller=game&action=jeu&jeton='.$jeton.'&att='.$att.'&cible='.$carte->getId().$carte->getIndice().'">
                 <img src="' . $carte->getPath() . '"></a>';
             }else{
-                echo '<img src="' . $carte->getPath() . '">';
+                echo '<a href="?controller=game&action=jeu&jeton='.$jeton.'&att='.$carte->getId().$carte->getIndice().'">
+                <img src="' . $carte->getPath() . '"></a>';
             }
 
         }
     }
+}
+
+function displayDefausse($defausse = null){
+    echo '<div class="defausse">';
+    echo 'Défausse:<br>';
+    if($carte = end($defausse)){
+        echo '<img src="' . $carte->getPath() . '">';
+    }
+    echo '</div>';
 }
 
 function displayError($error){
@@ -113,6 +143,12 @@ function displayError($error){
     }
     echo '<div class="error">';
     echo $errorMessage;
+    echo '</div>';
+}
+
+function displayMessage($message){
+    echo '<div class="message">';
+    echo $message;
     echo '</div>';
 }
 ?>

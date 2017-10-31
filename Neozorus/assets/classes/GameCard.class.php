@@ -62,6 +62,7 @@ class GameCard
             $a = 0;
         }
         $this->setPv($a);
+        return $a;
     }
 
     function getPvMax(){

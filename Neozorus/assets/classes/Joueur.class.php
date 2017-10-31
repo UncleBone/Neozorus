@@ -36,6 +36,7 @@ class Joueur{
 	        $a = 0;
         }
         $this->setPv($a);
+	    return $a;
     }
 
     public function getPv(){
@@ -84,6 +85,10 @@ class Joueur{
         return $this->plateau;
     }
 
+    public function getDefausse(){
+        return $this->defausse;
+    }
+
     public function initPioche(){
         $this->pioche = $this->getDeck()->getCartes();
     }
@@ -109,26 +114,34 @@ class Joueur{
         header('Location:?controller=game&action=jeu&jeton='.$jeton.'&att='.$att);
     }
 
-    public function attaquer($type,$att,$cible,$oPlayer){
+    public function attaquer($type,$att,$cible,$oPlayer,$jeton){
         if(!empty($this->main[$att]) && $this->main[$att]->getType() == 'sort') {
             $carteAtt = $this->main[$att];
         }else {
             $carteAtt = $this->plateau[$att];
         }
         if($type == 'j'){
-           $cible->subPv($carteAtt->getPuissance());
+           $alive = $cible->subPv($carteAtt->getPuissance());
         }elseif ($type == 'c'){
             $cibleIndice = substr($cible,-1);
             $cibleId = substr($cible,0, strlen($cible)-1);
             if (!empty($oPlayer->getPlateau()[$cible])){
                 $carteCible = $oPlayer->getPlateau()[$cible];
+                $carteCiblePlayer = $oPlayer;
             }
-            $carteCible->subPv($carteAtt->getPuissance());
+            $alive = $carteCible->subPv($carteAtt->getPuissance());
+            if($alive == 0){
+                $carteCiblePlayer->defausse[$cible] = $carteCiblePlayer->getPlateau()[$cible];
+                unset($carteCiblePlayer->plateau[$cible]);
+            }
         }
         if($carteAtt->getType()=='sort') {
             $this->defausse[$att] = $this->main[$att];
             $this->subMana($this->main[$att]->getMana());
             unset($this->main[$att]);
+        }elseif ($carteAtt->getType()=='creature'){
+            $carteAtt->setActive(0);
         }
+        header('Location:?controller=game&action=jeu&jeton='.$jeton);
     }
 }
