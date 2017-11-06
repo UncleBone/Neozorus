@@ -9,6 +9,7 @@ class Joueur{
 	private $defausse = array();
 	private $pv;
 	private $mana;
+	private $visable;
 
 	const MANA_MAX = 10;
 
@@ -17,6 +18,7 @@ class Joueur{
 		$this->deck = new GameDeck($deckId);
 		$this->setPv(20);
         $this->setMana(0);
+        $this->setVisable(1);
 	}
 
 	public function setId($id){
@@ -49,6 +51,12 @@ class Joueur{
 
     public function getMana(){
         return $this->mana;
+    }
+    public function getVisable(){
+        return $this->visable;
+    }
+    public function setVisable($val = int){
+        $this->visable = $val;
     }
 
     public function addMana($val = int){
@@ -95,23 +103,33 @@ class Joueur{
 
     public function pioche(){
         $carte = array_shift($this->pioche);
-	    $carte->setLocalisation(GameCard::LOC_MAIN);
-	    $this->main[$carte->getId().$carte->getIndice()] = $carte;
-        return 1;
+        if(!is_null($carte)){
+            $carte->setLocalisation(GameCard::LOC_MAIN);
+            $this->main[$carte->getId().$carte->getIndice()] = $carte;
+            return 1;
+        }else{
+            return 0;
+        }
+
     }
 
     public function jouerCarte($identifiant,$jeton){
         if($this->main[$identifiant]->getType() == 'sort'){
-            $this->ciblage($identifiant,$jeton);
-        }else{
+            $this->ciblage($identifiant,$jeton,$this->main[$identifiant]->getAbilite());
+        }else {
             $this->plateau[$identifiant] = $this->main[$identifiant];
             $this->subMana($this->main[$identifiant]->getMana());
             unset($this->main[$identifiant]);
+            if($this->plateau[$identifiant]->getAbilite()>=2){
+                for($i=1;$i<$this->plateau[$identifiant]->getAbilite();$i++){
+                    $this->pioche();
+                }
+            }
         }
     }
 
-    public function ciblage($att,$jeton){
-        header('Location:?controller=game&action=jeu&jeton='.$jeton.'&att='.$att);
+    public function ciblage($att,$jeton,$abilite){
+        header('Location:?controller=game&action=play&jeton='.$jeton.'&att='.$att.'&abilite='.$abilite);
     }
 
     public function attaquer($type,$att,$cible,$oPlayer,$jeton){
@@ -142,6 +160,6 @@ class Joueur{
         }elseif ($carteAtt->getType()=='creature'){
             $carteAtt->setActive(0);
         }
-        header('Location:?controller=game&action=jeu&jeton='.$jeton);
+        header('Location:?controller=game&action=play&jeton='.$jeton);
     }
 }

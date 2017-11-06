@@ -102,26 +102,27 @@ class GameController extends CoreController{
         $this->saveGame();
         $this->loadGame();
         $tour = $this->getTour();
-        $pv1 = $this->getPlayer(0)->getPv();
-        $pv2 = $this->getPlayer(1)->getPv();
-        $mana1 = $this->getPlayer(0)->getMana();
-        $mana2 = $this->getPlayer(1)->getMana();
-        $main1 = $this->players[0]->getMain();
-        $main2 = $this->players[1]->getMain();
-        $plateau1 = $this->players[0]->getPlateau();
-        $plateau2 = $this->players[1]->getPlateau();
-        $defausse1 = $this->players[0]->getDefausse();
-        $defausse2 = $this->players[1]->getDefausse();
+        for($i=0;$i<2;$i++){
+            $pv[$i] = $this->getPlayer($i)->getPv();
+            $mana[$i] = $this->getPlayer($i)->getMana();
+            $main[$i] = $this->getPlayer($i)->getMain();
+            $plateau[$i] = $this->getPlayer($i)->getPlateau();
+            $defausse[$i] = $this->getPlayer($i)->getDefausse();
+            $visable[$i] = $this->getPlayer($i)->getVisable();
+        }
         $jeton = $this->getJeton();
+        $eog = $this->getEog();
         if(!empty($this->parameters['error'])){
             $error = $this->parameters['error'];
         }
         if(!empty($this->parameters['att'])){
             $att = $this->parameters['att'];
         }
+        $abilite = (!empty($this->parameters['abilite']) ? $this->parameters['abilite'] : 0);
         if(!empty($this->parameters['cible'])){
             $cible = $this->parameters['cible'];
         }
+        $this->checkVisable();
         require_once( VIEWS_PATH . DS . 'Game' . DS . 'TestGame.php' );
     }
 
@@ -152,7 +153,7 @@ class GameController extends CoreController{
         return $retour;
     }
 
-	public function jeu(){
+	public function play(){
 
 	    $this->loadGame();
 	    if(!($winner = $this->checkEog())){
@@ -161,13 +162,13 @@ class GameController extends CoreController{
             $message = 'Partie terminée<br>Vainqueur: '.$winner->getId();
             $this->saveAndRefreshView($message);
         }
-
 	}
 
 	public function tour($jeton){
 	    $player = $this->getPlayer($jeton);
 	    $otherPlayer = $this->getPlayer(($jeton==0 ? 1 : 0));
 	    $message = null;
+
         if($this->getTour() == 1){
             if($this->piocheEtMana == 0){
                 for($i=0;$i<3;$i++){$player->pioche();}
@@ -201,6 +202,11 @@ class GameController extends CoreController{
                 }else {
                     $player->attaquer('c', $this->parameters['att'], $this->parameters['cible'],$otherPlayer,$jeton);
                 }
+                if(!empty($this->parameters['abilite']) && $this->parameters['abilite']>=2){
+                    for($i=1;$i<$this->parameters['abilite'];$i++){
+                        $player->pioche();
+                    }
+                }
             }else{
                 $message = "cliquez sur la cible";
             }
@@ -209,12 +215,12 @@ class GameController extends CoreController{
     }
 
     public function error($e){
-	    header('Location:?controller=game&action=jeu&jeton='.$this->getJeton().'&error='.$e);
+	    header('Location:?controller=game&action=play&jeton='.$this->getJeton().'&error='.$e);
     }
 
     public function quitter(){
 	    unset($_SESSION['neozorus']['GAME']);
-	    header('Location:?controller=game&action=jeu');
+	    header('Location:?controller=game&action=play');
     }
 
     public function increaseMana($player){
@@ -231,6 +237,40 @@ class GameController extends CoreController{
             foreach ($player->getPlateau()as $carte){
                 if($carte->getActive() == 0){
                     $carte->setActive(1);
+                }
+            }
+        }
+    }
+
+    public function checkVisable(){
+        for($i=0;$i<2;$i++){
+            $bouclier = 'off';
+
+            if(!empty($this->getPlayer($i)->getPlateau())){
+
+                foreach($this->getPlayer($i)->getPlateau() as $carte){
+                    if($carte->getAbilite() == GameCard::ABILITE_BOUCLIER){
+
+                        $bouclier = 'on';
+                        break;
+                    }
+                }
+                if($bouclier == 'on'){
+                    $this->getPlayer($i)->setVisable(0);
+                    foreach($this->getPlayer($i)->getPlateau() as $carte){
+                        if($carte->getVisable() == 1 && $carte->getAbilite() != GameCard::ABILITE_BOUCLIER){
+
+                            $carte->setVisable(0);
+
+                        }
+                    }
+                }else{
+                    $this->getPlayer($i)->setVisable(1);
+                    foreach($this->getPlayer($i)->getPlateau() as $carte){
+                        if($carte->getVisable() == 0){
+                            $carte->setVisable(1);
+                        }
+                    }
                 }
             }
         }

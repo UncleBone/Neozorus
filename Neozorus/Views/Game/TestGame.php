@@ -43,42 +43,39 @@
     }
     echo 'Tour n°'.$tour;
     if(!isset($att)){$att = null;}
-    if(!empty($att)){
-        echo '<a href="?controller=game&action=jeu&jeton='.$jeton.'&att='.$att.'&cible=J'.($jeton==0 ? 1 : 0).'">
-<h1>Joueur 1:</h1>';
-    }else{
-        echo '<h1>Joueur 1:</h1>';
-        }
-    echo 'PV = '.$pv1.'<br>';
-    echo 'mana = '.$mana1;
-    echo '<p>Main:</p>';
-    displayHand($main1,$jeton);
-    echo '<p>Plateau:</p>';
-    displayBoard($plateau1,$jeton,$att);
-    displayDefausse($defausse1);
+    displayGame(0,$att,$visable,$eog,$jeton,$abilite,$pv,$mana,$main,$plateau,$defausse);
+
     echo '<hr>';
-    if(!empty($att)){
-        echo '<a href="?controller=game&action=jeu&jeton='.$jeton.'&att='.$att.'&cible=J'.($jeton==0 ? 1 : 0).'">
-<h1>Joueur 2:</h1>';
-    }else{
-        echo '<h1>Joueur 2:</h1>';
-    }
-    echo 'PV = '.$pv2.'<br>';
-    echo 'mana = '.$mana2;
-    echo '<p>Main:</p>';
-    displayHand($main2,$jeton);
-    echo '<p>Plateau:</p>';
-    displayBoard($plateau2,$jeton,$att);
-    displayDefausse($defausse2);
+    displayGame(1,$att,$visable,$eog,$jeton,$abilite,$pv,$mana,$main,$plateau,$defausse);
+
     echo '<br>';
-    echo '<a href="?controller=game&action=jeu&jeton='.($jeton==0 ? 1 : 0).'">Fin de tour</a>';
+    if(!$eog){
+        echo '<a href="?controller=game&action=play&jeton='.($jeton==0 ? 1 : 0).'">Fin de tour</a>';
+    }
     echo '<br>';
     echo '<a href="?controller=game&action=quitter">Quitter la partie</a>';
     ?>
 </html>
 
 <?php
-function displayHand($tab,$jeton){
+
+function displayGame($i,$att,$visable,$eog,$jeton,$abilite,$pv,$mana,$main,$plateau,$defausse){
+    if(!empty($att) && $visable[$i] == 1 && !$eog){
+        echo '<a href="?controller=game&action=play&jeton='.$jeton.'&att='.$att.'&cible=J'.($jeton==0 ? 1 : 0).'&abilite='.$abilite.'">
+<h1>Joueur '.($i+1).':</h1></a>';
+    }else{
+        echo '<h1>Joueur '.($i+1).':</h1>';
+    }
+    echo 'PV = '.$pv[$i].'<br>';
+    echo 'mana = '.$mana[$i];
+    echo '<p>Main:</p>';
+    displayHand($main[$i],$jeton,$i,$eog);
+    echo '<p>Plateau:</p>';
+    displayBoard($plateau[$i],$jeton,$att,$i,$eog,$abilite);
+    displayDefausse($defausse[$i]);
+}
+
+function displayHand($tab,$jeton,$joueur,$eog){
     if(!empty($tab)) {
         foreach ($tab as $carte) {
             echo '<div class="carte">';
@@ -92,13 +89,19 @@ function displayHand($tab,$jeton){
             echo 'puissance = '.$carte->getPuissance();
             echo '<br>';
             echo 'PV = '.$carte->getPv();
+            echo '<br>';
+            echo 'abilité = '.$carte->getAbilite();
             echo '</div>';
-            echo '<a href="?controller=game&action=jeu&jeton='.$jeton.'&jouer='.$carte->getId().$carte->getIndice().'">
+            if($jeton == $joueur && !$eog){
+                echo '<a href="?controller=game&action=play&jeton='.$jeton.'&jouer='.$carte->getId().$carte->getIndice().'">
             <img src="' . $carte->getPath() . '"></a>';
+            }else{
+                echo '<img src="' . $carte->getPath() . '">';
+            }
         }
     }
 }
-function displayBoard($tab,$jeton,$att){
+function displayBoard($tab,$jeton,$att,$joueur,$eog,$abilite){
     if(!empty($tab)) {
         foreach ($tab as $carte) {
             echo '<div class="carte">';
@@ -113,14 +116,20 @@ function displayBoard($tab,$jeton,$att){
             echo '<br>';
             echo 'PV = '.$carte->getPv();
             echo '<br>';
-            echo 'active = '.$carte->getactive();
+            echo 'abilité = '.$carte->getAbilite();
+            echo '<br>';
+            echo 'active = '.$carte->getActive();
+            echo '<br>';
+            echo 'visable = '.$carte->getVisable();
             echo '</div>';
-            if(!empty($att) && $att != $carte->getId().$carte->getIndice()){
-                echo '<a href="?controller=game&action=jeu&jeton='.$jeton.'&att='.$att.'&cible='.$carte->getId().$carte->getIndice().'">
+            if(!empty($att) && $att != $carte->getId().$carte->getIndice() && $carte->getVisable() == 1 && !$eog){
+                echo '<a href="?controller=game&action=play&jeton='.$jeton.'&att='.$att.'&cible='.$carte->getId().$carte->getIndice().'&abilite='.$abilite.'">
+                <img src="' . $carte->getPath() . '"></a>';
+            }elseif($jeton == $joueur && $carte->getActive()==1 && !$eog){
+                echo '<a href="?controller=game&action=play&jeton='.$jeton.'&att='.$carte->getId().$carte->getIndice().'&abilite='.$abilite.'">
                 <img src="' . $carte->getPath() . '"></a>';
             }else{
-                echo '<a href="?controller=game&action=jeu&jeton='.$jeton.'&att='.$carte->getId().$carte->getIndice().'">
-                <img src="' . $carte->getPath() . '"></a>';
+                echo '<img src="' . $carte->getPath() . '">';
             }
 
         }
