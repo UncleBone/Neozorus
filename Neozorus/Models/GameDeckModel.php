@@ -2,10 +2,11 @@
 class GameDeckModel extends coreModel{
 
     public function getCards($deckID){
-        $req = 'SELECT c_id as id, c_libelle as libelle, c_type as type, c_puissance as puissance, c_pvMax as pvMax, c_mana as mana, d_c_nbExemplaire as nbExemplaire 
+        $req = 'SELECT c_id as id, c_libelle as libelle, c_type as type, c_puissance as puissance, c_pvMax as pvMax, c_mana as mana, d_c_nbExemplaire as nbExemplaire, c_a_abilite_fk as abilite 
                 FROM `carte` 
-				INNER JOIN d_c_inclure ON d_c_carte_fk = c_id 
-				WHERE d_c_deck_fk = :id';
+                INNER JOIN d_c_inclure ON d_c_carte_fk = c_id 
+                LEFT JOIN c_a_inclure ON c_a_carte_fk = c_id
+                WHERE d_c_deck_fk = :id';
         $param = [ 'id' => $deckID ];
         return $this->makeSelect($req,$param);
     }

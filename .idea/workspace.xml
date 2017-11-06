@@ -4,8 +4,10 @@
     <list default="true" id="49906005-9db9-4df2-9591-a0bf00cb850b" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Neozorus/Controllers/GameController.php" afterPath="$PROJECT_DIR$/Neozorus/Controllers/GameController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Neozorus/Models/GameDeckModel.php" afterPath="$PROJECT_DIR$/Neozorus/Models/GameDeckModel.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Neozorus/Views/Game/TestGame.php" afterPath="$PROJECT_DIR$/Neozorus/Views/Game/TestGame.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Neozorus/assets/classes/GameCard.class.php" afterPath="$PROJECT_DIR$/Neozorus/assets/classes/GameCard.class.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Neozorus/assets/classes/GameDeck.class.php" afterPath="$PROJECT_DIR$/Neozorus/assets/classes/GameDeck.class.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Neozorus/assets/classes/Joueur.class.php" afterPath="$PROJECT_DIR$/Neozorus/assets/classes/Joueur.class.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -30,8 +32,8 @@
       <file leaf-file-name="TestGame.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Neozorus/Views/Game/TestGame.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="340">
-              <caret line="41" column="33" lean-forward="false" selection-start-line="41" selection-start-column="33" selection-end-line="41" selection-end-column="33" />
+            <state relative-caret-position="-1271">
+              <caret line="48" column="32" lean-forward="false" selection-start-line="48" selection-start-column="32" selection-end-line="48" selection-end-column="32" />
               <folding />
             </state>
           </provider>
@@ -40,8 +42,8 @@
       <file leaf-file-name="GameController.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Neozorus/Controllers/GameController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1038">
-              <caret line="207" column="42" lean-forward="false" selection-start-line="207" selection-start-column="42" selection-end-line="207" selection-end-column="42" />
+            <state relative-caret-position="-322">
+              <caret line="110" column="62" lean-forward="false" selection-start-line="110" selection-start-column="62" selection-end-line="110" selection-end-column="62" />
               <folding />
             </state>
           </provider>
@@ -50,8 +52,8 @@
       <file leaf-file-name="Joueur.class.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Neozorus/assets/classes/Joueur.class.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2091">
-              <caret line="123" column="61" lean-forward="true" selection-start-line="123" selection-start-column="61" selection-end-line="123" selection-end-column="61" />
+            <state relative-caret-position="340">
+              <caret line="20" column="29" lean-forward="false" selection-start-line="20" selection-start-column="29" selection-end-line="20" selection-end-column="29" />
               <folding />
             </state>
           </provider>
@@ -71,7 +73,7 @@
         <entry file="file://$PROJECT_DIR$/Neozorus/assets/classes/GameCard.class.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="324">
-              <caret line="58" column="17" lean-forward="false" selection-start-line="58" selection-start-column="17" selection-end-line="58" selection-end-column="17" />
+              <caret line="40" column="29" lean-forward="false" selection-start-line="40" selection-start-column="29" selection-end-line="40" selection-end-column="29" />
               <folding />
             </state>
           </provider>
@@ -80,8 +82,8 @@
       <file leaf-file-name="GameDeck.class.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Neozorus/assets/classes/GameDeck.class.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="510">
-              <caret line="30" column="35" lean-forward="false" selection-start-line="30" selection-start-column="35" selection-end-line="30" selection-end-column="35" />
+            <state relative-caret-position="578">
+              <caret line="34" column="165" lean-forward="false" selection-start-line="34" selection-start-column="165" selection-end-line="34" selection-end-column="165" />
               <folding />
             </state>
           </provider>
@@ -90,17 +92,22 @@
       <file leaf-file-name="GameDeckModel.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Neozorus/Models/GameDeckModel.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="9" column="46" lean-forward="false" selection-start-line="9" selection-start-column="46" selection-end-line="9" selection-end-column="46" />
+            <state relative-caret-position="119">
+              <caret line="7" column="46" lean-forward="false" selection-start-line="7" selection-start-column="46" selection-end-line="7" selection-end-column="46" />
               <folding>
-                <marker date="1509011747877" expanded="true" signature="101:360" ph="SELECT c_id carte" />
-                <marker date="1509011747877" expanded="true" signature="510:559" ph="SELECT d_per... deck" />
+                <marker date="1509457061017" expanded="true" signature="101:472" ph="SELECT c_id carte" />
+                <marker date="1509457061017" expanded="true" signature="622:671" ph="SELECT d_per... deck" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
     </leaf>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>jeu</find>
+    </findStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -122,10 +129,12 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/Neozorus/index.php" />
+        <option value="$PROJECT_DIR$/Neozorus/Models/GameDeckModel.php" />
+        <option value="$PROJECT_DIR$/Neozorus/assets/classes/GameDeck.class.php" />
         <option value="$PROJECT_DIR$/Neozorus/assets/classes/GameCard.class.php" />
         <option value="$PROJECT_DIR$/Neozorus/assets/classes/Joueur.class.php" />
-        <option value="$PROJECT_DIR$/Neozorus/Views/Game/TestGame.php" />
         <option value="$PROJECT_DIR$/Neozorus/Controllers/GameController.php" />
+        <option value="$PROJECT_DIR$/Neozorus/Views/Game/TestGame.php" />
       </list>
     </option>
   </component>
@@ -160,6 +169,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -215,7 +225,6 @@
         </subPane>
       </pane>
       <pane id="Scope" />
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -248,18 +257,21 @@
       <updated>1509011935490</updated>
       <workItem from="1509011936693" duration="11001000" />
       <workItem from="1509355414595" duration="11189000" />
-      <workItem from="1509436674225" duration="6251000" />
+      <workItem from="1509436674225" duration="13443000" />
+      <workItem from="1509609620818" duration="7633000" />
+      <workItem from="1509695769861" duration="743000" />
+      <workItem from="1509975390591" duration="1973000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="28441000" />
+    <option name="totallyTimeSpent" value="45982000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1912" y="173" width="1456" height="916" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25716332" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2679083" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -289,6 +301,207 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/Neozorus/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="34" lean-forward="false" selection-start-line="6" selection-start-column="34" selection-end-line="6" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Neozorus/Views/Game/TestGame.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1088">
+          <caret line="64" column="31" lean-forward="false" selection-start-line="64" selection-start-column="31" selection-end-line="64" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Neozorus/assets/classes/Joueur.class.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2023">
+          <caret line="119" column="9" lean-forward="true" selection-start-line="119" selection-start-column="9" selection-end-line="119" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Neozorus/Controllers/coreController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Neozorus/assets/classes/GameCard.class.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="680">
+          <caret line="40" column="29" lean-forward="false" selection-start-line="40" selection-start-column="29" selection-end-line="40" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Neozorus/assets/classes/GameDeck.class.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="578">
+          <caret line="34" column="165" lean-forward="false" selection-start-line="34" selection-start-column="165" selection-end-line="34" selection-end-column="165" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Neozorus/Models/GameDeckModel.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="46" lean-forward="false" selection-start-line="7" selection-start-column="46" selection-end-line="7" selection-end-column="46" />
+          <folding>
+            <marker date="1509457061017" expanded="true" signature="101:472" ph="SELECT c_id carte" />
+            <marker date="1509457061017" expanded="true" signature="622:671" ph="SELECT d_per... deck" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Neozorus/Controllers/GameController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4148">
+          <caret line="244" column="26" lean-forward="true" selection-start-line="244" selection-start-column="26" selection-end-line="244" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Neozorus/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Neozorus/Views/Game/TestGame.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1088">
+          <caret line="64" column="31" lean-forward="false" selection-start-line="64" selection-start-column="31" selection-end-line="64" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Neozorus/Controllers/GameController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2091">
+          <caret line="123" column="34" lean-forward="true" selection-start-line="123" selection-start-column="34" selection-end-line="123" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Neozorus/assets/classes/Joueur.class.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2023">
+          <caret line="119" column="9" lean-forward="true" selection-start-line="119" selection-start-column="9" selection-end-line="119" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Neozorus/Controllers/coreController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Neozorus/assets/classes/GameCard.class.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="680">
+          <caret line="40" column="29" lean-forward="false" selection-start-line="40" selection-start-column="29" selection-end-line="40" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Neozorus/assets/classes/GameDeck.class.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="578">
+          <caret line="34" column="165" lean-forward="false" selection-start-line="34" selection-start-column="165" selection-end-line="34" selection-end-column="165" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Neozorus/Models/GameDeckModel.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="46" lean-forward="false" selection-start-line="7" selection-start-column="46" selection-end-line="7" selection-end-column="46" />
+          <folding>
+            <marker date="1509457061017" expanded="true" signature="101:472" ph="SELECT c_id carte" />
+            <marker date="1509457061017" expanded="true" signature="622:671" ph="SELECT d_per... deck" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Neozorus/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="34" lean-forward="false" selection-start-line="6" selection-start-column="34" selection-end-line="6" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Neozorus/Views/Game/TestGame.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2227">
+          <caret line="131" column="142" lean-forward="false" selection-start-line="131" selection-start-column="142" selection-end-line="131" selection-end-column="142" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Neozorus/assets/classes/Joueur.class.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1989">
+          <caret line="117" column="17" lean-forward="true" selection-start-line="115" selection-start-column="16" selection-end-line="117" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Neozorus/Controllers/coreController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Neozorus/assets/classes/GameCard.class.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="629">
+          <caret line="37" column="78" lean-forward="false" selection-start-line="37" selection-start-column="78" selection-end-line="37" selection-end-column="78" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Neozorus/assets/classes/GameDeck.class.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="578">
+          <caret line="34" column="165" lean-forward="false" selection-start-line="34" selection-start-column="165" selection-end-line="34" selection-end-column="165" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Neozorus/Models/GameDeckModel.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="46" lean-forward="false" selection-start-line="7" selection-start-column="46" selection-end-line="7" selection-end-column="46" />
+          <folding>
+            <marker date="1509457061017" expanded="true" signature="101:472" ph="SELECT c_id carte" />
+            <marker date="1509457061017" expanded="true" signature="622:671" ph="SELECT d_per... deck" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Neozorus/Controllers/GameController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3519">
+          <caret line="207" column="42" lean-forward="true" selection-start-line="207" selection-start-column="42" selection-end-line="207" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Neozorus/index.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
@@ -342,8 +555,8 @@
         <state relative-caret-position="153">
           <caret line="9" column="46" lean-forward="true" selection-start-line="9" selection-start-column="46" selection-end-line="9" selection-end-column="46" />
           <folding>
-            <marker date="1509011747877" expanded="true" signature="101:360" ph="SELECT c_id carte" />
-            <marker date="1509011747877" expanded="true" signature="510:559" ph="SELECT d_per... deck" />
+            <marker date="1509457061017" expanded="true" signature="101:472" ph="SELECT c_id carte" />
+            <marker date="1509457061017" expanded="true" signature="622:671" ph="SELECT d_per... deck" />
           </folding>
         </state>
       </provider>
@@ -401,8 +614,8 @@
         <state relative-caret-position="153">
           <caret line="9" column="46" lean-forward="true" selection-start-line="9" selection-start-column="46" selection-end-line="9" selection-end-column="46" />
           <folding>
-            <marker date="1509011747877" expanded="true" signature="101:360" ph="SELECT c_id carte" />
-            <marker date="1509011747877" expanded="true" signature="510:559" ph="SELECT d_per... deck" />
+            <marker date="1509457061017" expanded="true" signature="101:472" ph="SELECT c_id carte" />
+            <marker date="1509457061017" expanded="true" signature="622:671" ph="SELECT d_per... deck" />
           </folding>
         </state>
       </provider>
@@ -415,22 +628,22 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Neozorus/Models/GameDeckModel.php">
+    <entry file="file://$PROJECT_DIR$/Neozorus/assets/classes/GameDeck.class.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="46" lean-forward="false" selection-start-line="9" selection-start-column="46" selection-end-line="9" selection-end-column="46" />
-          <folding>
-            <marker date="1509011747877" expanded="true" signature="101:360" ph="SELECT c_id carte" />
-            <marker date="1509011747877" expanded="true" signature="510:559" ph="SELECT d_per... deck" />
-          </folding>
+        <state relative-caret-position="578">
+          <caret line="34" column="165" lean-forward="false" selection-start-line="34" selection-start-column="165" selection-end-line="34" selection-end-column="165" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Neozorus/assets/classes/GameDeck.class.php">
+    <entry file="file://$PROJECT_DIR$/Neozorus/Models/GameDeckModel.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="30" column="35" lean-forward="false" selection-start-line="30" selection-start-column="35" selection-end-line="30" selection-end-column="35" />
-          <folding />
+        <state relative-caret-position="119">
+          <caret line="7" column="46" lean-forward="false" selection-start-line="7" selection-start-column="46" selection-end-line="7" selection-end-column="46" />
+          <folding>
+            <marker date="1509457061017" expanded="true" signature="101:472" ph="SELECT c_id carte" />
+            <marker date="1509457061017" expanded="true" signature="622:671" ph="SELECT d_per... deck" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -445,7 +658,7 @@
     <entry file="file://$PROJECT_DIR$/Neozorus/assets/classes/GameCard.class.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="324">
-          <caret line="58" column="17" lean-forward="false" selection-start-line="58" selection-start-column="17" selection-end-line="58" selection-end-column="17" />
+          <caret line="40" column="29" lean-forward="false" selection-start-line="40" selection-start-column="29" selection-end-line="40" selection-end-column="29" />
           <folding />
         </state>
       </provider>
@@ -460,24 +673,24 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Neozorus/assets/classes/Joueur.class.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2091">
-          <caret line="123" column="61" lean-forward="true" selection-start-line="123" selection-start-column="61" selection-end-line="123" selection-end-column="61" />
+        <state relative-caret-position="340">
+          <caret line="20" column="29" lean-forward="false" selection-start-line="20" selection-start-column="29" selection-end-line="20" selection-end-column="29" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Neozorus/Views/Game/TestGame.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="41" column="33" lean-forward="false" selection-start-line="41" selection-start-column="33" selection-end-line="41" selection-end-column="33" />
+        <state relative-caret-position="-1271">
+          <caret line="48" column="32" lean-forward="false" selection-start-line="48" selection-start-column="32" selection-end-line="48" selection-end-column="32" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Neozorus/Controllers/GameController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1038">
-          <caret line="207" column="42" lean-forward="false" selection-start-line="207" selection-start-column="42" selection-end-line="207" selection-end-column="42" />
+        <state relative-caret-position="-322">
+          <caret line="110" column="62" lean-forward="false" selection-start-line="110" selection-start-column="62" selection-end-line="110" selection-end-column="62" />
           <folding />
         </state>
       </provider>
