@@ -7,19 +7,26 @@ class GameCard
     private $puissance;
     private $pvMax;
     private $mana;
+    private $abilite = self::ABILITE_AUCUNE;
 
     private $pv;
     private $localisation;
     private $indice;
     private $path;
     private $active = 0;
+    private $visable;
 
-    const LOC_DECK = 1;
+    const LOC_PIOCHE = 1;
     const LOC_MAIN = 2;
     const LOC_PLATEAU = 3;
     const LOC_DEFAUSSE = 4;
 
-    function __construct($id,$libelle,$type,$puissance,$pvMax,$mana,$indice,$localisation = self::LOC_DECK){
+    const ABILITE_AUCUNE = 0;
+    const ABILITE_BOUCLIER = 1;
+    const ABILITE_PIOCHE_1 = 2;
+    const ABILITE_PIOCHE_2 = 3;
+
+    function __construct($id,$libelle,$type,$puissance,$pvMax,$mana,$indice,$abilite,$localisation = self::LOC_PIOCHE){
         $this->id = $id;
         $this->libelle = $libelle;
         $this->type = $type;
@@ -29,7 +36,9 @@ class GameCard
         $this->mana = $mana;
         $this->localisation = $localisation;
         $this->indice = $indice;
+        $this->abilite = (is_null($abilite) ? self::ABILITE_AUCUNE : $abilite);
         $this->setPath();
+        $this->setVisable(1);
     }
 
     function getId(){
@@ -85,6 +94,10 @@ class GameCard
         return $this->mana;
     }
 
+    function getAbilite(){
+        return $this->abilite;
+    }
+
     function getPath(){
         return $this->path;
     }
@@ -97,5 +110,13 @@ class GameCard
     }
     function setActive($a = int){
         $this->active = $a;
+    }
+
+    function getVisable(){
+        return $this->visable;
+    }
+
+    function setVisable($a = int){
+        $this->visable = $a;
     }
 }
