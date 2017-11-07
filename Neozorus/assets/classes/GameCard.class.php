@@ -1,0 +1,122 @@
+<?php
+class GameCard
+{
+    private $id;
+    private $libelle;
+    private $type;
+    private $puissance;
+    private $pvMax;
+    private $mana;
+    private $abilite = self::ABILITE_AUCUNE;
+
+    private $pv;
+    private $localisation;
+    private $indice;
+    private $path;
+    private $active = 0;
+    private $visable;
+
+    const LOC_PIOCHE = 1;
+    const LOC_MAIN = 2;
+    const LOC_PLATEAU = 3;
+    const LOC_DEFAUSSE = 4;
+
+    const ABILITE_AUCUNE = 0;
+    const ABILITE_BOUCLIER = 1;
+    const ABILITE_PIOCHE_1 = 2;
+    const ABILITE_PIOCHE_2 = 3;
+
+    function __construct($id,$libelle,$type,$puissance,$pvMax,$mana,$indice,$abilite,$localisation = self::LOC_PIOCHE){
+        $this->id = $id;
+        $this->libelle = $libelle;
+        $this->type = $type;
+        $this->puissance = $puissance;
+        $this->pvMax = $pvMax;
+        $this->pv = $pvMax;
+        $this->mana = $mana;
+        $this->localisation = $localisation;
+        $this->indice = $indice;
+        $this->abilite = (is_null($abilite) ? self::ABILITE_AUCUNE : $abilite);
+        $this->setPath();
+        $this->setVisable(1);
+    }
+
+    function getId(){
+        return $this->id;
+    }
+
+    function getLibelle(){
+        return $this->libelle;
+    }
+
+    function getType(){
+        return $this->type;
+    }
+
+    function getPuissance(){
+        return $this->puissance;
+    }
+
+    function getPv(){
+        return $this->pv;
+    }
+
+    function setPv($pv){
+        $this->pv = $pv;
+    }
+
+    function subPv($val){
+        $a = $this->getPv() - $val;
+        if($a <0 ){
+            $a = 0;
+        }
+        $this->setPv($a);
+        return $a;
+    }
+
+    function getPvMax(){
+        return $this->pvMax;
+    }
+
+    function setLocalisation($loc){
+        $this->localisation = $loc;
+    }
+
+    function getLocalisation(){
+        return $this->localisation;
+    }
+
+    function getIndice() {
+        return $this->indice;
+    }
+
+    function getMana() {
+        return $this->mana;
+    }
+
+    function getAbilite(){
+        return $this->abilite;
+    }
+
+    function getPath(){
+        return $this->path;
+    }
+    function setPath(){
+        $this->path = COMMON_PATH . DS . $this->getType() . DS . $this->getId() . '.png';
+    }
+
+    function getActive(){
+        return $this->active;
+    }
+    function setActive($a = int){
+        $this->active = $a;
+    }
+
+    function getVisable(){
+        return $this->visable;
+    }
+
+    function setVisable($a = int){
+        $this->visable = $a;
+    }
+}
