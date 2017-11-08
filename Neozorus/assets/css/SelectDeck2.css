@@ -1,0 +1,81 @@
+@font-face {
+
+		font-family: 'army_rangers';
+		src:url('../../assets/font/army_rangers/armyrangers.ttf');
+}
+
+@font-face {
+
+	font-family: 'fira_code';
+	src:url('../../assets/font/fira-code/FiraCode-Bold.otf');
+}
+
+@font-face {
+
+	font-family: 'godzilla';
+	src:url('../../assets/font/army_rangers/Godzilla.ttf');
+}
+
+body {
+
+	margin: 0;
+}
+
+#mainContainer {
+
+	background-image: url('../../assets/img/fond_mixte.png');
+}
+
+#marginContainer, #action {
+
+	display: flex;
+	align-items: center;
+}
+
+#marginContainer {
+
+	width: 900px;
+	height: 1200px;
+	margin: auto;
+	flex-direction: column;
+	background-color: rgba(0,0,0,0.8);
+}
+
+#logo {
+	
+	margin-right: 30px;
+}
+
+#action {
+	
+	width: 100%;
+	margin-top: 70px;
+	justify-content: space-around;
+}
+
+#t_rex img {
+	
+	width: 165.6px;
+	height: 240px;
+}
+
+#creer, #modifier {
+	
+	font-family: 'army_rangers', Verdana;
+	font-size: 2.5em;
+}
+
+#creer a, #modifier a {
+
+	text-decoration: none; 
+	color: #C80000;
+}
+
+#decksExistants {
+
+	font-family: 'army_rangers', Verdana;
+	font-size: 3em;
+	margin: 10px 40px 0 0;
+	color: #56E703;
+
+}
