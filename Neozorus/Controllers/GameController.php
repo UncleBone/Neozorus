@@ -275,12 +275,7 @@ class GameController extends CoreController{
      * augmente le mana du joueur courant en fonction du n° du tour
      */
     public function increaseMana($player){
-        $tour = $this->getTour();
-        if($tour<=10){
-            $player->addMana($tour);
-        }else{
-            $player->addMana(10);
-        }
+        $player->addMana(1);
     }
 
     /*
@@ -330,6 +325,8 @@ class GameController extends CoreController{
                         }
                     }
                 }
+            }else{
+                $this->getPlayer($i)->setVisable(1);
             }
         }
     }
