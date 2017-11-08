@@ -9,12 +9,12 @@ class GameCard
     private $mana;
     private $abilite = self::ABILITE_AUCUNE;
 
-    private $pv;
-    private $localisation;
+    private $pv;                    // pv actuels de la carte
+    private $localisation;          // localisation (pioche, main, plateau ou défausse)
     private $indice;
-    private $path;
-    private $active = 0;
-    private $visable;
+    private $path;                  // chemin du gabarit
+    private $active = 0;            // 1: peut attaquer, 0: ne peut pas attaquer
+    private $visable;               // 1: peut être attaqué, 0: ne peut pas être attaqué
 
     const LOC_PIOCHE = 1;
     const LOC_MAIN = 2;
@@ -65,6 +65,9 @@ class GameCard
         $this->pv = $pv;
     }
 
+    /*
+     * diminue les pv d'une certaine valeur et retourne la nouvelle valeur
+     */
     function subPv($val){
         $a = $this->getPv() - $val;
         if($a <0 ){

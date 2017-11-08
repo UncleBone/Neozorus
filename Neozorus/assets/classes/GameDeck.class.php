@@ -1,8 +1,8 @@
 <?php
 class GameDeck{
-	private $id;
-	private $cartes = array();
-	private $heros;
+	private $id;                    // id du deck
+	private $cartes = array();      // tableau d'objets de type cartes
+	private $heros;                 // id du héros associé au deck
 
 	public function __construct($id){
 		$this->setId($id);
@@ -27,6 +27,13 @@ class GameDeck{
 	    $this->heros = $deck->getHeros($this->getId());
     }
 
+    public function getHeros(){
+        return $this->heros;
+    }
+
+    /*
+     * remplit le tableau cartes avec les cartes composant le deck
+     */
     function fillDeck(){
         $testGame = new GameDeckModel;
         $data = $testGame->getCards($this->getId());
@@ -37,6 +44,9 @@ class GameDeck{
         }
     }
 
+    /*
+     * mélange les cartes
+     */
     function shuffle(){
         shuffle($this->cartes);
     }
