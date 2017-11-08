@@ -123,7 +123,7 @@ class GameController extends CoreController{
             $cible = $this->parameters['cible'];
         }
         $this->checkVisable();
-        require_once( VIEWS_PATH . DS . 'Game' . DS . 'TestGame.php' );
+        require_once( VIEWS_PATH . DS . 'Game' . DS . 'Layout'. DS .'gameLayout.php' );
     }
 
 	public function init($idP1,$idD1,$idP2,$idD2){

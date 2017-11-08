@@ -23,6 +23,16 @@ body {
 	margin: 0;
 }
 
+.message{
+	margin:0px;
+	position: fixed;
+	top:15px;
+	left:30px;
+	font-family: 'fira_code';
+	font-size: 25px;
+	color:white;
+}
+
 #plateau{
 	position: absolute;
 	width: 100%;
@@ -237,6 +247,13 @@ body {
 	position: absolute;
 	right: 43px;
 	bottom: 35px;
+}
+/*BOUTTON QUITER*/
+#quitter a{
+	color:white;
+	text-decoration: none;
+	position: relative;
+	left:25px;
 }
 
 
