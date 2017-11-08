@@ -4,7 +4,6 @@ class GameController extends CoreController{
 	private $id;                    // identifiant de la partie
     private $players = array();     // tableau de deux objets de type Joueur
 	private $tour;                  // compteur de tour
-    private $t;                      // timestamp (pour éviter les retours en arrière)
 	private $EoG = false;           // End of Game, la partie est terminée si = true
 	private $jeton = 0;             // 0 = tour du joueur 1, 1 = tour du joueur 2
 	private $piocheEtMana = 0;      // détermine si l'étape pioche + augmentation de mana a eu lieu pour le joueur courant d'un tour donné
@@ -42,14 +41,6 @@ class GameController extends CoreController{
 
 	public function getTour(){
 	    return $this->tour;
-    }
-
-    public function getT(){
-	    return $this->t;
-    }
-
-    public function setT(){
-        $this->t = time();
     }
 
     public function setEog($eog = bool){
@@ -102,23 +93,17 @@ class GameController extends CoreController{
             $this->setPlayer($clone->getPlayer(1));
             $this->setTour($clone->getTour());
             $this->setEog($clone->getEog());
-            $this->setT();
-            if (!empty($this->parameters['jeton'])) {
+            if(!empty($this->parameters['jeton'])){
                 $this->setJeton($this->parameters['jeton']);
             }
-            if($this->parameters['t']<=$this->getT()) {
-                if ($this->getJeton() != $clone->getJeton()) {
-                    $this->setPiocheEtMana(0);
-                    $this->activateCards($this->getPlayer($this->getJeton()));
-                    if ($this->getJeton() == 0) {
-                        $this->tourPlus();
-                    }
-                } else {
-                    $this->setPiocheEtMana($clone->piocheEtMana);
+            if($this->getJeton()!=$clone->getJeton()) {
+                $this->setPiocheEtMana(0);
+                $this->activateCards($this->getPlayer($this->getJeton()));
+                if($this->getJeton()==0) {
+                    $this->tourPlus();
                 }
             }else{
-            $this->setPiocheEtMana($clone->piocheEtMana);
-            $this->setjeton($clone->getJeton());
+                $this->setPiocheEtMana($clone->piocheEtMana);
             }
         }else {
             $this->init(1, 1, 2, 2);
@@ -128,36 +113,32 @@ class GameController extends CoreController{
       * Sauvegarde + chargement + affichage
       */
     public function saveAndRefreshView($message = null){
-
-            $this->saveGame();
-            $this->loadGame();
-            $tour = $this->getTour();
-            $t = $this->getT();
-            for($i=0;$i<2;$i++){
-                $pv[$i] = $this->getPlayer($i)->getPv();
-                $mana[$i] = $this->getPlayer($i)->getMana();
-                $main[$i] = $this->getPlayer($i)->getMain();
-                $plateau[$i] = $this->getPlayer($i)->getPlateau();
-                $defausse[$i] = $this->getPlayer($i)->getDefausse();
-                $visable[$i] = $this->getPlayer($i)->getVisable();
-                $heros[$i] = $this->getPlayer($i)->getDeck()->getHeros();
-            }
-            $jeton = $this->getJeton();
-            $eog = $this->getEog();
-            if(!empty($this->parameters['error'])){
-                $error = $this->parameters['error'];
-            }
-            if(!empty($this->parameters['att'])){
-                $att = $this->parameters['att'];
-            }
-            $abilite = (!empty($this->parameters['abilite']) ? $this->parameters['abilite'] : 0);
-            if(!empty($this->parameters['cible'])){
-                $cible = $this->parameters['cible'];
-            }
-            $this->checkVisable();
-            require_once( VIEWS_PATH . DS . 'Game' . DS . 'TestGame.php' );
-
-
+        $this->saveGame();
+        $this->loadGame();
+        $tour = $this->getTour();
+        for($i=0;$i<2;$i++){
+            $pv[$i] = $this->getPlayer($i)->getPv();
+            $mana[$i] = $this->getPlayer($i)->getMana();
+            $main[$i] = $this->getPlayer($i)->getMain();
+            $plateau[$i] = $this->getPlayer($i)->getPlateau();
+            $defausse[$i] = $this->getPlayer($i)->getDefausse();
+            $visable[$i] = $this->getPlayer($i)->getVisable();
+            $heros[$i] = $this->getPlayer($i)->getDeck()->getHeros();
+        }
+        $jeton = $this->getJeton();
+        $eog = $this->getEog();
+        if(!empty($this->parameters['error'])){
+            $error = $this->parameters['error'];
+        }
+        if(!empty($this->parameters['att'])){
+            $att = $this->parameters['att'];
+        }
+        $abilite = (!empty($this->parameters['abilite']) ? $this->parameters['abilite'] : 0);
+        if(!empty($this->parameters['cible'])){
+            $cible = $this->parameters['cible'];
+        }
+        $this->checkVisable();
+        require_once( VIEWS_PATH . DS . 'Game' . DS . 'TestGame.php' );
     }
 
     /*
@@ -166,8 +147,6 @@ class GameController extends CoreController{
      */
 	public function init($idP1,$idD1,$idP2,$idD2){
 		$this->setTour(1);
-		$this->setT();
-		$this->parameters['t']=$this->getT();
 		$this->parameters['jeton']=$this->getJeton();
 		$p1 = new Joueur($idP1,$idD1);
         $p2 = new Joueur($idP2,$idD2);
@@ -281,7 +260,7 @@ class GameController extends CoreController{
      * Renvoie vers un lien qui affiche un message d'erreur
      */
     public function error($e){
-	    header('Location:?controller=game&action=play&t='.$this->getT().'&jeton='.$this->getJeton().'&error='.$e);
+	    header('Location:?controller=game&action=play&jeton='.$this->getJeton().'&error='.$e);
     }
 
     /*
