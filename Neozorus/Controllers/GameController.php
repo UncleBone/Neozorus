@@ -4,6 +4,7 @@ class GameController extends CoreController{
 	private $id;                    // identifiant de la partie
     private $players = array();     // tableau de deux objets de type Joueur
 	private $tour;                  // compteur de tour
+    private $t;                      // timestamp
 	private $EoG = false;           // End of Game, la partie est terminée si = true
 	private $jeton = 0;             // 0 = tour du joueur 1, 1 = tour du joueur 2
 	private $piocheEtMana = 0;      // détermine si l'étape pioche + augmentation de mana a eu lieu pour le joueur courant d'un tour donné
@@ -41,6 +42,14 @@ class GameController extends CoreController{
 
 	public function getTour(){
 	    return $this->tour;
+    }
+
+    public function getT(){
+	    return $this->t;
+    }
+
+    public function setT(){
+        $this->t = time();
     }
 
     public function setEog($eog = bool){
@@ -92,6 +101,7 @@ class GameController extends CoreController{
             $this->setPlayer($clone->getPlayer(0));
             $this->setPlayer($clone->getPlayer(1));
             $this->setTour($clone->getTour());
+            $this->setT();
             $this->setEog($clone->getEog());
             if(!empty($this->parameters['jeton'])){
                 $this->setJeton($this->parameters['jeton']);
@@ -113,6 +123,7 @@ class GameController extends CoreController{
       * Sauvegarde + chargement + affichage
       */
     public function saveAndRefreshView($message = null){
+        echo 't='.$this->getT();
         $this->saveGame();
         $this->loadGame();
         $tour = $this->getTour();
@@ -147,6 +158,7 @@ class GameController extends CoreController{
      */
 	public function init($idP1,$idD1,$idP2,$idD2){
 		$this->setTour(1);
+		$this->setT();
 		$this->parameters['jeton']=$this->getJeton();
 		$p1 = new Joueur($idP1,$idD1);
         $p2 = new Joueur($idP2,$idD2);
