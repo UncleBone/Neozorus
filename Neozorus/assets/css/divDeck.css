@@ -1,0 +1,52 @@
+#headerDecks, #action {
+
+	display: flex;
+	align-items: center;
+}
+
+#headerDecks {
+
+	width: 900px;
+	height: 600px;
+	margin: auto;
+	flex-direction: column;
+}
+
+#logo {
+	
+	margin-right: 30px;
+}
+
+#action {
+	
+	width: 100%;
+	margin-top: 70px;
+	justify-content: space-around;
+}
+
+#t_rex img {
+	
+	width: 165.6px;
+	height: 240px;
+}
+
+#creer, #modifier {
+	
+	font-family: 'army_rangers', Verdana;
+	font-size: 2.5em;
+}
+
+#creer a, #modifier a {
+
+	text-decoration: none; 
+	color: #C80000;
+}
+
+#decksExistants {
+
+	font-family: 'army_rangers', Verdana;
+	font-size: 3em;
+	margin: 10px 40px 0 0;
+	color: #56E703;
+
+}
