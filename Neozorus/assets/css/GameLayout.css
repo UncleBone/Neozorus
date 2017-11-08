@@ -159,7 +159,7 @@ body {
 	height: 100%;
 }
 
-.stat1,.stat2,.stat3{
+.stat1,.stat2,.stat3,.stat1Speciale,.stat2Speciale,.stat3Speciale{
 	position: absolute;
 	z-index:10;
 	color:white;
@@ -177,6 +177,19 @@ body {
 .stat3{
 	top:90px;
 	left: 33px;
+}
+
+.stat1Speciale{
+	top:18px;
+	left: 30px;
+}
+.stat2Speciale{
+	top:44px;
+	left: 30px;
+}
+.stat3Speciale{
+	top:72px;
+	left: 30px;
 }
 
 .indice{
@@ -220,7 +233,7 @@ body {
 	text-align: center; 
 }
 
-.stat1Miniature,.stat2Miniature,.stat3Miniature{
+.stat1Miniature,.stat2Miniature,.stat3Miniature,.stat1MiniatureSpeciale,.stat2MiniatureSpeciale,.stat3MiniatureSpeciale{
 	position: absolute;
 	z-index:10;
 	color:white;
@@ -238,6 +251,19 @@ body {
 }
 .stat3Miniature{
 	top:48px;
+	left:13px;
+}
+
+.stat1MiniatureSpeciale{
+	top:10px;
+	left:13px;
+}
+.stat2MiniatureSpeciale{
+	top:24px;
+	left: 13px;
+}
+.stat3MiniatureSpeciale{
+	top:37px;
 	left:13px;
 }
 
