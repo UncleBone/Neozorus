@@ -1,15 +1,15 @@
 <?php
 
 class Joueur{
-	private $id;
-	private $deck;
-	private $main = array();
-	private $pioche = array();
-	private $plateau = array();
-	private $defausse = array();
-	private $pv;
-	private $mana;
-	private $visable;
+	private $id;                    // ID du joueur
+	private $deck;                  // deck du joueur pour la partie (objet de type GameDeck)
+	private $main = array();        // Tableau d'objet de type GameCard représentant la main du joueur
+	private $pioche = array();      // Tableau d'objet de type GameCard représentant la pioche du joueur
+	private $plateau = array();     // Tableau d'objet de type GameCard représentant les cartes en jeu du joueur
+	private $defausse = array();    // Tableau d'objet de type GameCard représentant la défausse du joueur
+	private $pv;                    // pv du joueur
+	private $mana;                  // mana du joueur
+	private $visable;               // 0 : ne peut pas être visé, 1 : peut être visé
 
 	const MANA_MAX = 10;
 
@@ -101,6 +101,9 @@ class Joueur{
         $this->pioche = $this->getDeck()->getCartes();
     }
 
+    /*
+     * retire une carte du tableau pioche pour la mettre dans le tableau main
+     */
     public function pioche(){
         $carte = array_shift($this->pioche);
         if(!is_null($carte)){
@@ -113,6 +116,10 @@ class Joueur{
 
     }
 
+    /*
+     * retire une carte du tableau main pour la mettre dans le tableau plateau
+     * si la carte est un sort, lance la méthode 'ciblage'
+     */
     public function jouerCarte($identifiant,$jeton){
         if($this->main[$identifiant]->getType() == 'sort'){
             $this->ciblage($identifiant,$jeton,$this->main[$identifiant]->getAbilite());
@@ -128,10 +135,16 @@ class Joueur{
         }
     }
 
+    /*
+     * renvoie l'identifiant et l'abilité éventuelle du sort au GameController
+     */
     public function ciblage($att,$jeton,$abilite){
         header('Location:?controller=game&action=play&jeton='.$jeton.'&att='.$att.'&abilite='.$abilite);
     }
 
+    /*
+     *
+     */
     public function attaquer($type,$att,$cible,$oPlayer,$jeton){
         if(!empty($this->main[$att]) && $this->main[$att]->getType() == 'sort') {
             $carteAtt = $this->main[$att];
@@ -139,10 +152,8 @@ class Joueur{
             $carteAtt = $this->plateau[$att];
         }
         if($type == 'j'){
-           $alive = $cible->subPv($carteAtt->getPuissance());
+           $cible->subPv($carteAtt->getPuissance());
         }elseif ($type == 'c'){
-            $cibleIndice = substr($cible,-1);
-            $cibleId = substr($cible,0, strlen($cible)-1);
             if (!empty($oPlayer->getPlateau()[$cible])){
                 $carteCible = $oPlayer->getPlateau()[$cible];
                 $carteCiblePlayer = $oPlayer;

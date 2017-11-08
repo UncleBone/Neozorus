@@ -1,12 +1,12 @@
 <?php
 class GameController extends CoreController{
 
-	private $id;
-    private $players = array();
-	private $tour;
-	private $EoG = false;
-	private $jeton = 0;
-	private $piocheEtMana = 0;
+	private $id;                    // identifiant de la partie
+    private $players = array();     // tableau de deux objets de type Joueur
+	private $tour;                  // compteur de tour
+	private $EoG = false;           // End of Game, la partie est terminée si = true
+	private $jeton = 0;             // 0 = tour du joueur 1, 1 = tour du joueur 2
+	private $piocheEtMana = 0;      // détermine si l'étape pioche + augmentation de mana a eu lieu pour le joueur courant d'un tour donné
 
 	public function setPlayer($p = Joueur){
 		$this->players[] = $p;
@@ -24,6 +24,9 @@ class GameController extends CoreController{
         $this->id = $id;
     }
 
+    /*
+     * initialise l'ID de la partie (ID joueur 1 . ID joueur 2 . time())
+     */
     function initId(){
         $this->id = $this->players[0]->getId() . $this->players[1]->getId() . time();
     }
@@ -61,16 +64,25 @@ class GameController extends CoreController{
         return $this->jeton;
     }
 
+    /*
+     * Sauvegarde d'un nouvelle partie dans la BDD
+     */
     public function saveNewGame(){
         $gameModel = new GameModel();
         $gameModel->saveNewGame($this);
     }
 
+    /*
+     * Sauvegarde d'une partie existante
+     */
     public function saveGame(){
 	    $gameModel = new GameModel();
 	    $gameModel->saveGame($this);
     }
 
+    /*
+     * Chargement d'une partie existante ou lancement de l'initialisation d'une nouvelle partie
+     */
     public function loadGame(){
         $gameModel = new GameModel();
         if(!empty($_SESSION['neozorus']['GAME'])){
@@ -97,7 +109,9 @@ class GameController extends CoreController{
             $this->init(1, 1, 2, 2);
         }
     }
-
+     /*
+      * Sauvegarde + chargement + affichage
+      */
     public function saveAndRefreshView($message = null){
         $this->saveGame();
         $this->loadGame();
@@ -126,6 +140,10 @@ class GameController extends CoreController{
         require_once( VIEWS_PATH . DS . 'Game' . DS . 'TestGame.php' );
     }
 
+    /*
+     * Initialisation d'une partie
+     * Paramètres: ID du joueur 1, ID du deck du joueur 1, ID du joueur 2, ID du deck du joueur 2
+     */
 	public function init($idP1,$idD1,$idP2,$idD2){
 		$this->setTour(1);
 		$this->parameters['jeton']=$this->getJeton();
@@ -142,6 +160,9 @@ class GameController extends CoreController{
         $this->saveNewGame();
 	}
 
+	/*
+	 * Vérifie si les conditions de victoire d'un des joueurs sont vérifiées et retourne le vainqueur
+	 */
 	public function checkEog(){
 	    $retour = false;
 	    for($i=0;$i<2;$i++){
@@ -153,6 +174,9 @@ class GameController extends CoreController{
         return $retour;
     }
 
+    /*
+     * Si la partie est terminée, affiche le vainqueur, sinon lance le tour du joueur courant
+     */
 	public function play(){
 
 	    $this->loadGame();
@@ -164,12 +188,18 @@ class GameController extends CoreController{
         }
 	}
 
+	/*
+	 * Deroulement du tour du joueur défini par le jeton
+	 */
 	public function tour($jeton){
 	    $player = $this->getPlayer($jeton);
 	    $otherPlayer = $this->getPlayer(($jeton==0 ? 1 : 0));
 	    $message = null;
 
-        if($this->getTour() == 1){
+        /*
+        *Pioche et augmentation de mana
+        */
+        if($this->getTour() == 1){      // Lors du premier tour de jeu, on pioche 3 cartes
             if($this->piocheEtMana == 0){
                 for($i=0;$i<3;$i++){$player->pioche();}
                 $this->increaseMana($player);
@@ -184,6 +214,11 @@ class GameController extends CoreController{
                 $this->saveAndRefreshView();
             }
         }
+
+        /*  Si le joueur a cliqué sur une carte de sa main et qu'il a assez de mana pour la jouer,
+         *  lance la fonction de la classe Joueur 'jouerCarte'
+         *  renvoie un message d'erreur si pas assez de mana
+         */
         if(!empty($this->parameters['jouer'])){
             if (!empty($player->getMain()[$this->parameters['jouer']])){
                 $carte = $player->getMain()[$this->parameters['jouer']];
@@ -194,14 +229,20 @@ class GameController extends CoreController{
                     $this->error($error);
                 }
             }
+            /*
+             * Si le joueur veut attaquer avec une carte mais n'a pas désigné de cible,
+             * renvoie un message l'invitant à cliquer sur une cible,
+             * si la cible a été désignée, lance la fonction de la classe joueur 'attaquer'
+             */
         }elseif (!empty($this->parameters['att'])){
             if(!empty($this->parameters['cible'])){
-                if(strpos($cible = $this->parameters['cible'],'J')!==false){
+                if(strpos($cible = $this->parameters['cible'],'J')!==false){    // si la cible est un joueur
                     $p = substr($cible,-1);
                     $player->attaquer('j',$this->parameters['att'],$this->getPlayer($p),$otherPlayer,$jeton);
-                }else {
+                }else {     // sinon, la cible est une carte
                     $player->attaquer('c', $this->parameters['att'], $this->parameters['cible'],$otherPlayer,$jeton);
                 }
+                // si la carte jouée dispose d'une capacité de pioche -> pioche x cartes
                 if(!empty($this->parameters['abilite']) && $this->parameters['abilite']>=2){
                     for($i=1;$i<$this->parameters['abilite'];$i++){
                         $player->pioche();
@@ -214,15 +255,24 @@ class GameController extends CoreController{
         $this->saveAndRefreshView($message);
     }
 
+    /*
+     * Renvoie vers un lien qui affiche un message d'erreur
+     */
     public function error($e){
 	    header('Location:?controller=game&action=play&jeton='.$this->getJeton().'&error='.$e);
     }
 
+    /*
+     * En théorie pour quitter la partie, en pratique reinitialise la partie
+     */
     public function quitter(){
 	    unset($_SESSION['neozorus']['GAME']);
 	    header('Location:?controller=game&action=play');
     }
 
+    /*
+     * augmente le mana du joueur courant en fonction du n° du tour
+     */
     public function increaseMana($player){
         $tour = $this->getTour();
         if($tour<=10){
@@ -232,6 +282,9 @@ class GameController extends CoreController{
         }
     }
 
+    /*
+     * Active les cartes du plateau inactives
+     */
     public function activateCards($player){
         if(!empty($player->getPlateau())){
             foreach ($player->getPlateau()as $carte){
@@ -242,6 +295,10 @@ class GameController extends CoreController{
         }
     }
 
+    /*
+     * Vérifie si une carte bouclier se trouve sur le plateau,
+     * si c'est le cas, rend les autres cartes non bouclier du même joueur non visables, ainsi que le joueur lui-même
+     */
     public function checkVisable(){
         for($i=0;$i<2;$i++){
             $bouclier = 'off';
