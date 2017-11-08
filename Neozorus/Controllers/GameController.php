@@ -123,6 +123,7 @@ class GameController extends CoreController{
             $plateau[$i] = $this->getPlayer($i)->getPlateau();
             $defausse[$i] = $this->getPlayer($i)->getDefausse();
             $visable[$i] = $this->getPlayer($i)->getVisable();
+            $heros[$i] = $this->getPlayer($i)->getDeck()->getHeros();
         }
         $jeton = $this->getJeton();
         $eog = $this->getEog();

@@ -143,7 +143,9 @@ class Joueur{
     }
 
     /*
-     *
+     * lance l'attaque sur la cible, diminue les pv de la cible de la puissance de l'attaquant
+     * si la carte cible n'a plus de pv elle est placée dans la défausse du joueur adverse
+     * si la carte attaquante est une carte sort elle est placée dans la défausse du joueur actif
      */
     public function attaquer($type,$att,$cible,$oPlayer,$jeton){
         if(!empty($this->main[$att]) && $this->main[$att]->getType() == 'sort') {
