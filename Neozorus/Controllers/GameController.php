@@ -138,7 +138,7 @@ class GameController extends CoreController{
             $cible = $this->parameters['cible'];
         }
         $this->checkVisable();
-        require_once( VIEWS_PATH . DS . 'Game' . DS . 'TestGame.php' );
+        require_once( VIEWS_PATH . DS . 'Game' . DS . 'gameLayout.php' );
     }
 
     /*
