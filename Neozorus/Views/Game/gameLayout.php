@@ -1,4 +1,5 @@
 <?php
+    //On definit les variables representant d'une part la joueur qui doit jouer (actif), et le joueur qui attend son tour(passif)
     $joueurActif = $jeton;
     $joueurPassif = $joueurActif == 0 ? 1:0;
     if(!isset($att)){
@@ -17,18 +18,23 @@
     <img id="plateau" src="./assets/img/plateau/plateau.png">
     <div id="contenu">
         <?php
+            //On affiche le message d'erreur si il y en a un
             if(!empty($error)){
                 echo '<p class="message">'.$error.'</p>';
             }
+            //On affiche le message si il y en a un
             if(!empty($message)){
                 echo '<p class="message">'.$message.'</p>';
             }
         ?>
+        <!--DIV QUI COMPRENDS LES INFORMATIONS DU HERO PASSIF-->
         <div id="topHero">
             <!--<img src="">-->
             <span class="vitaHero"><?=$pv[$joueurPassif]?></span>
         </div>
+        <!--DIV QUI COMPRENDS LES 2 JAUGES DE MANA ET LES CARTES INVOQUEES-->
         <div id="blocCentral">
+            <!--DIV QUI COMPRENDS LA JAUGE DE MANA DU JOUEUR 1 (PILLULE BLEU)-->
             <div id="manaLeft">
                 <?php
                     for ($i=0; $i < 10-$mana[0]; $i++) { 
@@ -39,10 +45,14 @@
                     }
                 ?>
             </div>
+            <!--DIV QUI COMPRENDS LES CARTES INVOQUEES DES 2 HEROS, EN HAUT CELLES DU JOUEUR PASSIF ET EN BAS CELLES DU JOUEUR ACTIF-->
             <div id="creatureBox">
+                <!--DIV QUI COMPRENDS LES CREATURES DU JOUEUR PASSIF-->
                 <div id="topCreature">
                     <?php
+                        //Pour chaque carte sur le plateau du joueur passif on fait:
                         foreach ($plateau[$joueurPassif] as $key => $value){
+                            //la carte est selectionnable si le joueur actif 
                             if(!empty($att) && $att != $value->getId().$value->getIndice() && $value->getVisable() == 1 && !$eog){
                                 echo '<a class="carte" href="?controller=game&action=play&jeton='.$jeton.'&att='.$att.'&cible='.$value->getId().$value->getIndice().'&abilite='.$abilite.'">';
                                 if($value->getType()=='creature'){
