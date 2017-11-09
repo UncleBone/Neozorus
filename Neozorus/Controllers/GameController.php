@@ -163,7 +163,7 @@ class GameController extends CoreController{
             $cible = $this->parameters['cible'];
         }
         $this->checkVisable();
-        require_once( VIEWS_PATH . DS . 'Game' . DS . 'TestGame.php' );
+        require_once( VIEWS_PATH . DS . 'Game' . DS . 'gameLayout.php' );
     }
 
     /*
@@ -302,7 +302,13 @@ class GameController extends CoreController{
      * augmente le mana du joueur courant en fonction du n° du tour
      */
     public function increaseMana($player){
-        $player->addMana(1);
+        $tour = $this->getTour();
+        if($tour<10){
+            $player->setMana($this->getTour());
+        }else{
+            $player->setMana(10);
+        }
+
     }
 
     /*

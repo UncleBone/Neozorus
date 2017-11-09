@@ -1,0 +1,299 @@
+/*FONTS */
+
+@font-face
+{
+	font-family: 'fira_code';
+	src:url('../font/fira-code/FiraCode-Medium.otf');
+}
+@font-face
+{
+	font-family: 'army_rangers';
+	src:url('../font/army_rangers/armyrangers.ttf');
+}
+@font-face
+{
+	font-family: 'godzilla';
+	src:url('../font/godzilla/Godzilla.ttf');
+}
+
+/*ARRIERE PLAN DU PLATEAU*/
+
+body {
+	position: fixed;
+	top: 0px;
+	width: 100%;
+	height: 100%;
+	box-sizing: border-box;
+	margin: 0;
+	position:fixed;
+	top:0px;
+	width:100%;
+	height:100%;
+}
+
+.message{
+	margin:0px;
+	position: fixed;
+	top:15px;
+	left:30px;
+	font-family: 'fira_code';
+	font-size: 25px;
+	color:white;
+}
+
+#plateau{
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	z-index: -10;
+}
+
+/*HEROS*/
+
+#topHero,#bottomHero{
+	width: 8%;
+	height: 17.9%;
+}
+#topHero{
+	position: fixed;
+	top: 1.5%;
+	left: 45%;
+	
+}
+#topHero img{
+	width: 100%
+}
+
+#bottomHero{
+	position: fixed;
+	left: 45%;
+	bottom: 10%;
+	margin: auto;
+}
+
+#bottomHero img{
+	width: 100%
+}
+
+.vitaHero{
+	z-index: 10;
+	position: absolute;
+	color: white;
+	font-family: 'Godzilla';
+	font-size: 21px;
+	top:48px;
+	left:33px;
+}
+
+/*DIV MANA+CREATURE */
+
+#blocCentral{
+	position: fixed;
+	top: 21.2%;
+	left: 0.6%;
+	width: 98.5%;
+	height: 49%;
+}
+
+/*MANA*/
+
+#manaLeft{
+	position: fixed;
+	top:23%;
+	left:2%;
+}
+
+#pilluleBleu{
+	position: relative;
+	width: 25px;
+	height: 37px;
+	margin-bottom: 25%;
+}
+
+#manaRight{
+	position: fixed;
+	top:23%;
+	right:2%;
+}
+
+#pilluleRouge{
+	position: relative;
+	width: 25px;
+	height: 37px;
+	margin-bottom: 25%;
+}
+
+/*DIV DES CREATURES*/
+
+#creatureBox{
+	position: fixed;
+	top: 21.2%;
+	right: 5%;
+	width: 90%;
+	height: 49%;
+}
+#topCreature,#bottomCreature{
+	width: 100%;
+	height: 49%;
+}
+
+/*DIV DES CREATURES ADVERSES*/
+
+ #topCreature{
+	position: absolute;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+}
+
+/*DIV DES CREATURES DU JOUEUR*/
+
+#bottomCreature{
+	position: absolute;
+	bottom:0;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+} 
+/*POUR GERER LES CARTES*/
+.carte  {
+	position: relative;
+	width: 10%;
+	text-align: center;
+}
+.carte img{
+	height: 100%;
+}
+
+.stat1,.stat2,.stat3,.stat1Speciale,.stat2Speciale,.stat3Speciale{
+	position: absolute;
+	z-index:10;
+	color:white;
+	font-family: 'Godzilla';
+}
+
+.stat1{
+	top:33px;
+	left: 57px;
+}
+.stat2{
+	top:59px;
+	left: 39px;
+}
+.stat3{
+	top:90px;
+	left: 33px;
+}
+
+.stat1Speciale{
+	top:18px;
+	left: 30px;
+}
+.stat2Speciale{
+	top:44px;
+	left: 30px;
+}
+.stat3Speciale{
+	top:72px;
+	left: 30px;
+}
+
+.indice{
+	position: absolute;
+	background-color: white;
+	width:10px;
+  	height:10px;
+	border-radius: 50%;
+	z-index: 10;
+	left: 150px;
+	top: 25px;
+}
+
+.indice span{
+	position: absolute;
+	font-size: 10px;
+	font-family: 'fira_code';
+	left:1px;
+}
+
+/*LA MAIN*/
+#main{
+	position: fixed;
+	bottom:0px;
+	left:9%;
+	height: 9.5%;
+	margin: auto;
+	width: 82%;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+}
+
+.carteMain  {
+	position: relative;
+	width: 7%;
+	overflow: hidden;
+}
+.carteMain img{
+	width: 100%;
+	max-width: 80%;
+	text-align: center; 
+}
+
+.stat1Miniature,.stat2Miniature,.stat3Miniature,.stat1MiniatureSpeciale,.stat2MiniatureSpeciale,.stat3MiniatureSpeciale{
+	position: absolute;
+	z-index:10;
+	color:white;
+	font-family: 'Godzilla';
+	font-size: 9px;
+}
+
+.stat1Miniature{
+	top:17px;
+	left:27px;
+}
+.stat2Miniature{
+	top:31px;
+	left: 18px;
+}
+.stat3Miniature{
+	top:48px;
+	left:13px;
+}
+
+.stat1MiniatureSpeciale{
+	top:10px;
+	left:13px;
+}
+.stat2MiniatureSpeciale{
+	top:24px;
+	left: 13px;
+}
+.stat3MiniatureSpeciale{
+	top:37px;
+	left:13px;
+}
+
+/*BOUTTON PASSER LE TOUR*/
+
+#end{
+	position: fixed;
+	right: 2.2%;
+	bottom: 3.3%;
+}
+/*BOUTTON QUITER*/
+#quitter{
+	position: fixed;
+	bottom: 30px;
+}
+#quitter a{
+	color:white;
+	font-family: 'fira_code';
+	text-decoration: none;
+	position: relative;
+	left:25px;
+}
+
+
+
+
