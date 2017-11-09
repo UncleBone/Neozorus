@@ -172,10 +172,6 @@ class Joueur{
                 $carteCiblePlayer->defausse[$cible] = $carteCiblePlayer->getPlateau()[$cible];
                 unset($carteCiblePlayer->plateau[$cible]);
             }
-            if($aliveAtt == 0){
-                $this->defausse[$att] = $this->getPlateau()[$att];
-                unset($this->plateau[$att]);
-            }
 
         }
         if($carteAtt->getType()=='sort') {

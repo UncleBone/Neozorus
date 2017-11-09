@@ -134,7 +134,7 @@ class GameController extends CoreController{
         echo '<br>';
         echo 'last t='.$this->getLastTimeStamp();
         echo '<br>';
-        echo 'parameter t ='.$this->parameters['t'];
+        echo 'parameter t ='.(!empty($this->parameters['t']) ? $this->parameters['t'] : 0);
         if(isset($this->parameters['t']) && $this->parameters['t']>=$this->getLastTimeStamp()){
             $this->saveGame();
         }
@@ -163,7 +163,8 @@ class GameController extends CoreController{
             $cible = $this->parameters['cible'];
         }
         $this->checkVisable();
-        require_once( VIEWS_PATH . DS . 'Game' . DS . 'gameLayout.php' );
+        //require_once( VIEWS_PATH . DS . 'Game' . DS . 'gameLayout.php' );
+        require_once( VIEWS_PATH . DS . 'Game' . DS . 'testGame.php' );
     }
 
     /*
