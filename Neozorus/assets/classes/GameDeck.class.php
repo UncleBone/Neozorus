@@ -39,7 +39,7 @@ class GameDeck{
         $data = $testGame->getCards($this->getId());
         foreach ($data as $value) {
             for($i=1;$i<=$value['nbExemplaire'];$i++){
-                $this->cartes[] = new GameCard($value['id'],$value['libelle'],$value['type'],$value['puissance'],$value['pvMax'],$value['mana'],$i,$value['abilite']);
+                $this->cartes[] = new GameCard($value['id'],$value['type'],$value['puissance'],$value['pvMax'],$value['mana'],$i,$value['abilite']);
             }
         }
     }

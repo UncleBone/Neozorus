@@ -2,7 +2,6 @@
 class GameCard
 {
     private $id;
-    private $libelle;
     private $type;
     private $puissance;
     private $pvMax;
@@ -26,9 +25,8 @@ class GameCard
     const ABILITE_PIOCHE_1 = 2;
     const ABILITE_PIOCHE_2 = 3;
 
-    function __construct($id,$libelle,$type,$puissance,$pvMax,$mana,$indice,$abilite,$localisation = self::LOC_PIOCHE){
+    function __construct($id,$type,$puissance,$pvMax,$mana,$indice,$abilite,$localisation = self::LOC_PIOCHE){
         $this->id = $id;
-        $this->libelle = $libelle;
         $this->type = $type;
         $this->puissance = $puissance;
         $this->pvMax = $pvMax;
@@ -43,10 +41,6 @@ class GameCard
 
     function getId(){
         return $this->id;
-    }
-
-    function getLibelle(){
-        return $this->libelle;
     }
 
     function getType(){
