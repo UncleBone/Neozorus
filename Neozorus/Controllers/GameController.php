@@ -119,14 +119,28 @@ class GameController extends CoreController{
             $this->init(1, 1, 2, 2);
         }
     }
+
+    public function getLastTimeStamp(){
+        $gameModel = new GameModel();
+        $load = $gameModel->load($_SESSION['neozorus']['GAME'])[0]['g_data'];
+        $clone = unserialize($load);
+        return $clone->getT();
+    }
      /*
       * Sauvegarde + chargement + affichage
       */
     public function saveAndRefreshView($message = null){
         echo 't='.$this->getT();
-        $this->saveGame();
+        echo '<br>';
+        echo 'last t='.$this->getLastTimeStamp();
+        echo '<br>';
+        echo 'parameter t ='.$this->parameters['t'];
+        if(isset($this->parameters['t']) && $this->parameters['t']>=$this->getLastTimeStamp()){
+            $this->saveGame();
+        }
         $this->loadGame();
         $tour = $this->getTour();
+        $t = $this->getT();
         for($i=0;$i<2;$i++){
             $pv[$i] = $this->getPlayer($i)->getPv();
             $mana[$i] = $this->getPlayer($i)->getMana();
@@ -159,6 +173,7 @@ class GameController extends CoreController{
 	public function init($idP1,$idD1,$idP2,$idD2){
 		$this->setTour(1);
 		$this->setT();
+		$this->parameters['t'] = $this->getT();
 		$this->parameters['jeton']=$this->getJeton();
 		$p1 = new Joueur($idP1,$idD1);
         $p2 = new Joueur($idP2,$idD2);
@@ -217,16 +232,15 @@ class GameController extends CoreController{
                 for($i=0;$i<3;$i++){$player->pioche();}
                 $this->increaseMana($player);
                 $this->piocheEtMana = 1;
-                $this->saveAndRefreshView();
             }
         }else{
             if($this->piocheEtMana == 0){
                 $player->pioche();
                 $this->increaseMana($player);
                 $this->piocheEtMana = 1;
-                $this->saveAndRefreshView();
             }
         }
+        $this->saveAndRefreshView();
 
         /*  Si le joueur a cliqué sur une carte de sa main et qu'il a assez de mana pour la jouer,
          *  lance la fonction de la classe Joueur 'jouerCarte'
@@ -236,12 +250,13 @@ class GameController extends CoreController{
             if (!empty($player->getMain()[$this->parameters['jouer']])){
                 $carte = $player->getMain()[$this->parameters['jouer']];
                 if($carte->getMana() <= $player->getMana()) {
-                    $player->jouerCarte($this->parameters['jouer'],$jeton);
+                    $player->jouerCarte($this->parameters['jouer'],$jeton,$this->getT());
                 }else{
                     $error = 'not_enough_mana';
                     $this->error($error);
                 }
             }
+            $this->saveAndRefreshView();
             /*
              * Si le joueur veut attaquer avec une carte mais n'a pas désigné de cible,
              * renvoie un message l'invitant à cliquer sur une cible,
@@ -251,9 +266,9 @@ class GameController extends CoreController{
             if(!empty($this->parameters['cible'])){
                 if(strpos($cible = $this->parameters['cible'],'J')!==false){    // si la cible est un joueur
                     $p = substr($cible,-1);
-                    $player->attaquer('j',$this->parameters['att'],$this->getPlayer($p),$otherPlayer,$jeton);
+                    $player->attaquer('j',$this->parameters['att'],$this->getPlayer($p),$otherPlayer,$jeton,$this->getT());
                 }else {     // sinon, la cible est une carte
-                    $player->attaquer('c', $this->parameters['att'], $this->parameters['cible'],$otherPlayer,$jeton);
+                    $player->attaquer('c', $this->parameters['att'], $this->parameters['cible'],$otherPlayer,$jeton,$this->getT());
                 }
                 // si la carte jouée dispose d'une capacité de pioche -> pioche x cartes
                 if(!empty($this->parameters['abilite']) && $this->parameters['abilite']>=2){
@@ -264,15 +279,15 @@ class GameController extends CoreController{
             }else{
                 $message = "cliquez sur la cible";
             }
+            $this->saveAndRefreshView($message);
         }
-        $this->saveAndRefreshView($message);
     }
 
     /*
      * Renvoie vers un lien qui affiche un message d'erreur
      */
     public function error($e){
-	    header('Location:?controller=game&action=play&jeton='.$this->getJeton().'&error='.$e);
+	    header('Location:?controller=game&action=play&t='.$this->getT().'&jeton='.$this->getJeton().'&error='.$e);
     }
 
     /*
