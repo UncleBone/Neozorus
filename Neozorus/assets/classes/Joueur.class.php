@@ -163,15 +163,16 @@ class Joueur{
             $aliveCible = $carteCible->subPv($carteAtt->getPuissance());
             if($carteAtt->getType() != 'sort'){
                 $aliveAtt = $carteAtt->subPv($carteCible->getPuissance());
+                if($aliveAtt == 0){
+                    $this->defausse[$att] = $this->getPlateau()[$att];
+                    unset($this->plateau[$att]);
+                }
             }
             if($aliveCible == 0){
                 $carteCiblePlayer->defausse[$cible] = $carteCiblePlayer->getPlateau()[$cible];
                 unset($carteCiblePlayer->plateau[$cible]);
             }
-            if($aliveAtt == 0){
-                $this->defausse[$att] = $this->getPlateau()[$att];
-                unset($this->plateau[$att]);
-            }
+
         }
         if($carteAtt->getType()=='sort') {
             $this->defausse[$att] = $this->main[$att];
