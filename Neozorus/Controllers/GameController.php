@@ -308,16 +308,15 @@ class GameController extends CoreController{
             if(!empty($this->getPlayer($i)->getPlateau())){
 
                 foreach($this->getPlayer($i)->getPlateau() as $carte){
-                    if($carte->getAbilite() == GameCard::ABILITE_BOUCLIER){
-
-                        $bouclier = 'on';
-                        break;
+                    if (in_array(GameCard::ABILITE_BOUCLIER,$carte->getAbilite())){
+                            $bouclier = 'on';
+                            break;
                     }
                 }
                 if($bouclier == 'on'){
                     $this->getPlayer($i)->setVisable(0);
                     foreach($this->getPlayer($i)->getPlateau() as $carte){
-                        if($carte->getVisable() == 1 && $carte->getAbilite() != GameCard::ABILITE_BOUCLIER){
+                        if($carte->getVisable() == 1 && !in_array(GameCard::ABILITE_BOUCLIER,$carte->getAbilite())){
 
                             $carte->setVisable(0);
 

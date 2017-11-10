@@ -6,7 +6,7 @@ class GameCard
     private $puissance;
     private $pvMax;
     private $mana;
-    private $abilite = self::ABILITE_AUCUNE;
+    private $abilite = array();
 
     private $pv;                    // pv actuels de la carte
     private $localisation;          // localisation (pioche, main, plateau ou défausse)
@@ -34,7 +34,16 @@ class GameCard
         $this->mana = $mana;
         $this->localisation = $localisation;
         $this->indice = $indice;
-        $this->abilite = (is_null($abilite) ? self::ABILITE_AUCUNE : $abilite);
+        if(is_null($abilite)){
+            $this->abilite[0] = self::ABILITE_AUCUNE;
+        }elseif(!strpos($abilite,',')){
+            $this->abilite[0] = trim($abilite);
+        }else{
+            $tab = explode($abilite,',');
+            for($i=0;$i<count($tab);$i++){
+                $this->abilite[$i] = trim($tab[$i]);
+            }
+        }
         $this->setPath();
         $this->setVisable(1);
     }

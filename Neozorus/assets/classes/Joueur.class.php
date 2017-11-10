@@ -122,15 +122,25 @@ class Joueur{
      */
     public function jouerCarte($identifiant,$jeton){
         if($this->main[$identifiant]->getType() == 'sort'){
-            $this->ciblage($identifiant,$jeton,$this->main[$identifiant]->getAbilite());
+            $tabAbiliteSort = $this->main[$identifiant]->getAbilite();
+            if(in_array(GameCard::ABILITE_PIOCHE_1, $tabAbiliteSort)){
+                $abSort = GameCard::ABILITE_PIOCHE_1;
+            }elseif (in_array(GameCard::ABILITE_PIOCHE_2, $tabAbiliteSort)){
+                $abSort = GameCard::ABILITE_PIOCHE_2;
+            }else{
+                $abSort = GameCard::ABILITE_AUCUNE;
+            }
+            $this->ciblage($identifiant,$jeton,$abSort);
         }else {
             $this->plateau[$identifiant] = $this->main[$identifiant];
             $this->subMana($this->main[$identifiant]->getMana());
             unset($this->main[$identifiant]);
-            if($this->plateau[$identifiant]->getAbilite()>=2){
-                for($i=1;$i<$this->plateau[$identifiant]->getAbilite();$i++){
+            $tabAbiliteCreature = $this->plateau[$identifiant]->getAbilite();
+            if(in_array('2', $tabAbiliteCreature)) {
+                $this->pioche();
+            }elseif(in_array('3', $tabAbiliteCreature))
+                for($i=1;$i<3;$i++){
                     $this->pioche();
-                }
             }
         }
     }
