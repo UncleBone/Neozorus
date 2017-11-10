@@ -90,7 +90,15 @@ function displayHand($tab,$jeton,$joueur,$eog,$t){
             echo '<br>';
             echo 'PV = '.$carte->getPv();
             echo '<br>';
-            echo 'abilité = '.$carte->getAbilite();
+            $ab = $carte->getAbilite();
+            if(count($ab)==1){
+                echo 'abilité = '.$ab[0];
+            }else{
+                for($i=0;$i<count($ab);$i++){
+                    echo 'abilité '.($i+1).' = '.$ab[$i];
+                }
+            }
+
             echo '</div>';
             if($jeton == $joueur && !$eog){
                 echo '<a href="?controller=game&action=play&t='.$t.'&jeton='.$jeton.'&jouer='.$carte->getId().$carte->getIndice().'">
@@ -116,7 +124,14 @@ function displayBoard($tab,$jeton,$att,$joueur,$eog,$abilite,$t){
             echo '<br>';
             echo 'PV = '.$carte->getPv();
             echo '<br>';
-            echo 'abilité = '.$carte->getAbilite();
+            $ab = $carte->getAbilite();
+            if(count($ab)==1){
+                echo 'abilité = '.$ab[0];
+            }else{
+                for($i=0;$i<count($ab);$i++){
+                    echo 'abilité '.($i+1).' = '.$ab[$i];
+                }
+            }
             echo '<br>';
             echo 'active = '.$carte->getActive();
             echo '<br>';

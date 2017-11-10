@@ -122,9 +122,7 @@ class Joueur{
      */
     public function jouerCarte($identifiant,$jeton,$t){
         if($this->main[$identifiant]->getType() == 'sort'){
-<<<<<<< HEAD
-            $this->ciblage($identifiant,$jeton,$this->main[$identifiant]->getAbilite(),$t);
-=======
+
             $tabAbiliteSort = $this->main[$identifiant]->getAbilite();
             if(in_array(GameCard::ABILITE_PIOCHE_1, $tabAbiliteSort)){
                 $abSort = GameCard::ABILITE_PIOCHE_1;
@@ -134,7 +132,7 @@ class Joueur{
                 $abSort = GameCard::ABILITE_AUCUNE;
             }
             $this->ciblage($identifiant,$jeton,$abSort);
->>>>>>> master
+
         }else {
             $this->plateau[$identifiant] = $this->main[$identifiant];
             $this->subMana($this->main[$identifiant]->getMana());
