@@ -39,7 +39,7 @@ class GameCard
         }elseif(!strpos($abilite,',')){
             $this->abilite[0] = trim($abilite);
         }else{
-            $tab = explode($abilite,',');
+            $tab = explode(',', $abilite);
             for($i=0;$i<count($tab);$i++){
                 $this->abilite[$i] = trim($tab[$i]);
             }
