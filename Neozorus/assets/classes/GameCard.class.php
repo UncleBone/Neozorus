@@ -2,12 +2,11 @@
 class GameCard
 {
     private $id;
-    private $libelle;
     private $type;
     private $puissance;
     private $pvMax;
     private $mana;
-    private $abilite = self::ABILITE_AUCUNE;
+    private $abilite = array();
 
     private $pv;                    // pv actuels de la carte
     private $localisation;          // localisation (pioche, main, plateau ou défausse)
@@ -26,9 +25,8 @@ class GameCard
     const ABILITE_PIOCHE_1 = 2;
     const ABILITE_PIOCHE_2 = 3;
 
-    function __construct($id,$libelle,$type,$puissance,$pvMax,$mana,$indice,$abilite,$localisation = self::LOC_PIOCHE){
+    function __construct($id,$type,$puissance,$pvMax,$mana,$indice,$abilite,$localisation = self::LOC_PIOCHE){
         $this->id = $id;
-        $this->libelle = $libelle;
         $this->type = $type;
         $this->puissance = $puissance;
         $this->pvMax = $pvMax;
@@ -36,17 +34,22 @@ class GameCard
         $this->mana = $mana;
         $this->localisation = $localisation;
         $this->indice = $indice;
-        $this->abilite = (is_null($abilite) ? self::ABILITE_AUCUNE : $abilite);
+        if(is_null($abilite)){
+            $this->abilite[0] = self::ABILITE_AUCUNE;
+        }elseif(!strpos($abilite,',')){
+            $this->abilite[0] = trim($abilite);
+        }else{
+            $tab = explode(',', $abilite);
+            for($i=0;$i<count($tab);$i++){
+                $this->abilite[$i] = trim($tab[$i]);
+            }
+        }
         $this->setPath();
         $this->setVisable(1);
     }
 
     function getId(){
         return $this->id;
-    }
-
-    function getLibelle(){
-        return $this->libelle;
     }
 
     function getType(){
