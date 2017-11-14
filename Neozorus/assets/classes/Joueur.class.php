@@ -120,7 +120,7 @@ class Joueur{
      * retire une carte du tableau main pour la mettre dans le tableau plateau
      * si la carte est un sort, lance la méthode 'ciblage'
      */
-    public function jouerCarte($identifiant,$jeton,$t){
+    public function jouerCarte($identifiant,$jeton){
         if($this->main[$identifiant]->getType() == 'sort'){
 
             $tabAbiliteSort = $this->main[$identifiant]->getAbilite();
@@ -150,8 +150,8 @@ class Joueur{
     /*
      * renvoie l'identifiant et l'abilité éventuelle du sort au GameController
      */
-    public function ciblage($att,$jeton,$abilite,$t){
-        header('Location:?controller=game&action=play&t='.$t.'&jeton='.$jeton.'&att='.$att.'&abilite='.$abilite);
+    public function ciblage($att,$jeton,$abilite){
+        header('Location:?controller=game&action=play&jeton='.$jeton.'&att='.$att.'&abilite='.$abilite);
     }
 
     /*
@@ -159,7 +159,7 @@ class Joueur{
      * si la carte cible n'a plus de pv elle est placée dans la défausse du joueur adverse
      * si la carte attaquante est une carte sort elle est placée dans la défausse du joueur actif
      */
-    public function attaquer($type,$att,$cible,$oPlayer,$jeton,$t){
+    public function attaquer($type,$att,$cible,$oPlayer,$jeton){
         if(!empty($this->main[$att]) && $this->main[$att]->getType() == 'sort') {
             $carteAtt = $this->main[$att];
         }else {
@@ -193,6 +193,6 @@ class Joueur{
         }elseif ($carteAtt->getType()=='creature'){
             $carteAtt->setActive(0);
         }
-        header('Location:?controller=game&action=play&t='.$t.'&jeton='.$jeton);
+        header('Location:?controller=game&action=play&jeton='.$jeton);
     }
 }

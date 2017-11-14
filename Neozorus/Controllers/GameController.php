@@ -4,7 +4,6 @@ class GameController extends CoreController{
 	private $id;                    // identifiant de la partie
     private $players = array();     // tableau de deux objets de type Joueur
 	private $tour;                  // compteur de tour
-    private $t;                      // timestamp
 	private $EoG = false;           // End of Game, la partie est terminée si = true
 	private $jeton = 0;             // 0 = tour du joueur 1, 1 = tour du joueur 2
 	private $piocheEtMana = 0;      // détermine si l'étape pioche + augmentation de mana a eu lieu pour le joueur courant d'un tour donné
@@ -42,14 +41,6 @@ class GameController extends CoreController{
 
 	public function getTour(){
 	    return $this->tour;
-    }
-
-    public function getT(){
-	    return $this->t;
-    }
-
-    public function setT(){
-        $this->t = time();
     }
 
     public function setEog($eog = bool){
@@ -101,7 +92,6 @@ class GameController extends CoreController{
             $this->setPlayer($clone->getPlayer(0));
             $this->setPlayer($clone->getPlayer(1));
             $this->setTour($clone->getTour());
-            $this->setT();
             $this->setEog($clone->getEog());
             if(!empty($this->parameters['jeton'])){
                 $this->setJeton($this->parameters['jeton']);
@@ -120,27 +110,13 @@ class GameController extends CoreController{
         }
     }
 
-    public function getLastTimeStamp(){
-        $gameModel = new GameModel();
-        $load = $gameModel->load($_SESSION['neozorus']['GAME'])[0]['g_data'];
-        $clone = unserialize($load);
-        return $clone->getT();
-    }
      /*
       * Sauvegarde + chargement + affichage
       */
     public function saveAndRefreshView($message = null){
-        echo 't='.$this->getT();
-        echo '<br>';
-        echo 'last t='.$this->getLastTimeStamp();
-        echo '<br>';
-        echo 'parameter t ='.(!empty($this->parameters['t']) ? $this->parameters['t'] : 0);
-        if(isset($this->parameters['t']) && $this->parameters['t']>=$this->getLastTimeStamp()){
-            $this->saveGame();
-        }
+        $this->saveGame();
         $this->loadGame();
         $tour = $this->getTour();
-        $t = $this->getT();
         for($i=0;$i<2;$i++){
             $pv[$i] = $this->getPlayer($i)->getPv();
             $mana[$i] = $this->getPlayer($i)->getMana();
@@ -173,8 +149,6 @@ class GameController extends CoreController{
      */
 	public function init($idP1,$idD1,$idP2,$idD2){
 		$this->setTour(1);
-		$this->setT();
-		$this->parameters['t'] = $this->getT();
 		$this->parameters['jeton']=$this->getJeton();
 		$p1 = new Joueur($idP1,$idD1);
         $p2 = new Joueur($idP2,$idD2);
@@ -267,9 +241,9 @@ class GameController extends CoreController{
             if(!empty($this->parameters['cible'])){
                 if(strpos($cible = $this->parameters['cible'],'J')!==false){    // si la cible est un joueur
                     $p = substr($cible,-1);
-                    $player->attaquer('j',$this->parameters['att'],$this->getPlayer($p),$otherPlayer,$jeton,$this->getT());
+                    $player->attaquer('j',$this->parameters['att'],$this->getPlayer($p),$otherPlayer,$jeton);
                 }else {     // sinon, la cible est une carte
-                    $player->attaquer('c', $this->parameters['att'], $this->parameters['cible'],$otherPlayer,$jeton,$this->getT());
+                    $player->attaquer('c', $this->parameters['att'], $this->parameters['cible'],$otherPlayer,$jeton);
                 }
                 // si la carte jouée dispose d'une capacité de pioche -> pioche x cartes
                 if(!empty($this->parameters['abilite']) && $this->parameters['abilite']>=2){
@@ -288,7 +262,7 @@ class GameController extends CoreController{
      * Renvoie vers un lien qui affiche un message d'erreur
      */
     public function error($e){
-	    header('Location:?controller=game&action=play&t='.$this->getT().'&jeton='.$this->getJeton().'&error='.$e);
+	    header('Location:?controller=game&action=play&jeton='.$this->getJeton().'&error='.$e);
     }
 
     /*
