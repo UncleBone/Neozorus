@@ -37,10 +37,10 @@
             <!--DIV QUI COMPRENDS LA JAUGE DE MANA DU JOUEUR 1 (PILLULE BLEU)-->
             <div id="manaLeft">
                 <?php
-                    for ($i=0; $i < 10-$mana[0]; $i++) { 
+                    for ($i=0; $i < 10-$mana[$joueurActif]; $i++) { 
                         echo '<div id="pilluleBleu"><img src="./assets/img/plateau/pilluleBleuVide.png"></div>';
                     }
-                    for ($i=0; $i < $mana[0]; $i++) { 
+                    for ($i=0; $i < $mana[$joueurActif]; $i++) { 
                         echo '<div id="pilluleBleu"><img src="./assets/img/plateau/pilluleBleu.png"></div>';
                     }
                 ?>
@@ -141,10 +141,10 @@
             </div>
             <div id="manaRight">
                 <?php
-                    for ($i=0; $i < 10-$mana[1]; $i++) { 
+                    for ($i=0; $i < 10-$mana[$joueurPassif]; $i++) { 
                         echo '<div id="pilluleBleu"><img src="./assets/img/plateau/pilluleRougeVide.png"></div>';
                     }
-                    for ($i=0; $i < $mana[1]; $i++) { 
+                    for ($i=0; $i < $mana[$joueurPassif]; $i++) { 
                         echo '<div id="pilluleBleu"><img src="./assets/img/plateau/pilluleRouge.png"></div>';
                     }
                 ?>
