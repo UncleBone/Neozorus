@@ -54,9 +54,9 @@ class UserController extends CoreController
 		$Log=false;
 		$MdP=false;	
 
-		$user = new UserModel;
+		$user = new UserModel();
 		$data = $user->getLoginList();
-
+		
 		foreach ($data as $key => $value) {
 			if(!empty($email) && $email==$value['u_mail']){
 				$Log=True;
