@@ -1,5 +1,5 @@
 <?php
-class GameDeckModel extends coreModel{
+class GameDeckModel extends CoreModel{
 
     public function getCards($deckID){
         $req = 'SELECT c_id as id, c_type as type, c_puissance as puissance, c_pvMax as pvMax, c_mana as mana, d_c_nbExemplaire as nbExemplaire, GROUP_CONCAT(c_a_abilite_fk) as abilite 
