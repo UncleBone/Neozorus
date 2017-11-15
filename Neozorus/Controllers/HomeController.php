@@ -8,8 +8,8 @@ class HomeController extends CoreController{
 		$userID = $this->session;
 		$model = new HomeModel();
 		if(!empty($userData = $model->verifyUser($userID))){
-			$user = $userData[0] -> getU_pseudo();
-			include('./Views/Home/HomeView.php');			
+			$user = $userData -> getU_pseudo();
+			include('./Views/Home/HomeView.php');
 		}
 	}
 

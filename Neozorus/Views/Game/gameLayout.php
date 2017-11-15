@@ -28,10 +28,26 @@
             }
         ?>
         <!--DIV QUI COMPRENDS LES INFORMATIONS DU HERO PASSIF-->
+        <!--
         <div id="topHero">
-            <img src="./assets/img/plateau/<?=$heros[$joueurPassif]?>.png">
+            <img src="./assets/img/plateau/portrait/<?=$heros[$joueurPassif]?>.png">
             <span class="vitaHero"><?=$pv[$joueurPassif]?></span>
         </div>
+        -->
+        <?php
+        if(!empty($att) && $visable[$joueurPassif] == 1 && !$eog){
+            echo '<div id="topHero">';
+            echo '<a href="?controller=game&action=play&jeton='.$joueurActif.'&att='.$att.'&cible=J'.$joueurPassif.'&abilite='.$abilite.'"><img src="./assets/img/plateau/portrait/'.$heros[$joueurPassif].'.png"></a>';
+            echo '<span class="vitaHero">'.$pv[$joueurPassif].'</span>';
+            echo '</div>';
+        }
+        else{
+            echo '<div id="topHero">';
+            echo '<img src="./assets/img/plateau/portrait/'.$heros[$joueurPassif].'.png">';
+            echo '<span class="vitaHero">'.$pv[$joueurPassif].'</span>';
+            echo '</div>';
+        }
+        ?>
         <!--DIV QUI COMPRENDS LES 2 JAUGES DE MANA ET LES CARTES INVOQUEES-->
         <div id="blocCentral">
             <!--DIV QUI COMPRENDS LA JAUGE DE MANA DU JOUEUR 1 (PILLULE BLEU)-->
@@ -151,7 +167,7 @@
             </div>
         </div>
         <div id="bottomHero">
-            <img src="./assets/img/plateau/<?=$heros[$joueurActif]?>.png">
+            <img src="./assets/img/plateau/portrait/<?=$heros[$joueurActif]?>.png">
             <span class="vitaHero"><?=$pv[$joueurActif]?></span>
         </div>
         <div id="actionBar">
@@ -186,7 +202,7 @@
             </div>
         </div>
             <!-- Ici c'est le bouton passer le tour donc adapter la minature en fonction du hero-->
-            <div id="end"><?='<a href="?controller=game&action=play&jeton='.($jeton==0 ? 1 : 0).'">'?><img src="./assets/img/plateau/neoTourSuivant.png"></a></div>
+            <div id="end"><?='<a href="?controller=game&action=play&jeton='.($jeton==0 ? 1 : 0).'">'?><img src="./assets/img/plateau/bouttonTourSuivant/<?=$heros[$joueurPassif]?>.png"></a></div>
             <div id="quitter"><a href="?controller=game&action=quitter">Quitter</a></div>
         </div>
     </div>

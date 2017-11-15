@@ -83,7 +83,7 @@ class GameController extends CoreController{
     /*
      * Chargement d'une partie existante ou lancement de l'initialisation d'une nouvelle partie
      */
-    public function loadGame(){
+    public function loadGame(){  	
         $gameModel = new GameModel();
         if(!empty($_SESSION['neozorus']['GAME'])){
             $load = $gameModel->load($_SESSION['neozorus']['GAME'])[0]['g_data'];
@@ -177,8 +177,7 @@ class GameController extends CoreController{
     /*
      * Si la partie est terminée, affiche le vainqueur, sinon lance le tour du joueur courant
      */
-	public function play(){
-
+	public function play(){	
 	    $this->loadGame();
 	    if(!($winner = $this->checkEog())){
             $this->tour($this->jeton);
