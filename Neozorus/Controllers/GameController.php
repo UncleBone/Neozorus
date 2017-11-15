@@ -88,7 +88,7 @@ class GameController extends CoreController{
         if(!empty($_SESSION['neozorus']['GAME'])){
             $load = $gameModel->load($_SESSION['neozorus']['GAME'])[0]['g_data'];
             $clone = unserialize($load);
-            $this->setId($clone->getId());
+            $this->setId($_SESSION['neozorus']['GAME']);
             $this->setPlayer($clone->getPlayer(0));
             $this->setPlayer($clone->getPlayer(1));
             $this->setTour($clone->getTour());
@@ -106,7 +106,9 @@ class GameController extends CoreController{
                 $this->setPiocheEtMana($clone->piocheEtMana);
             }
         }else {
-            $this->init(1, 1, 2, 2);
+            $gameId = $gameModel->getGameId($_SESSION['neozorus']['u_id'])[0]['g_id'];
+            if(!empty($gameId)) $_SESSION['neozorus']['GAME'] = $gameId;
+            $this->loadGame();
         }
     }
      /*
@@ -197,8 +199,6 @@ class GameController extends CoreController{
             }else{
                 $deck->setWaitingLine($id,1);
                 $waitingLine = $deck->checkWaitingLine($id);
-//                $this->initId();
-//                $_SESSION['neozorus']['GAME'] = $this->getId();
                 if(!empty($waitingLine)){
                     $deck1 = $id;
                     shuffle($waitingLine);
@@ -233,14 +233,15 @@ class GameController extends CoreController{
     }
 
     public function startGame($deck1,$deck2){
+        $deckModel = new gameDeckModel();
+        $user1 = $deckModel->getUser($deck1);
         if($user1 == $_SESSION['neozorus']['u_id']){
-            $deckModel = new gameDeckModel();
-            $user1 = $deckModel->getUser($deck1);
+
             $user2 = $deckModel->getUser($deck2);
-            init($user1,$deck1,$user2,$deck2);
+            $this->init($user1,$deck1,$user2,$deck2);
             $this->saveNewGame();
         }
-        header('Location:?controller=game&action=play');
+        $this->play();
     }
 	/*
 	 * Deroulement du tour du joueur défini par le jeton
@@ -320,8 +321,10 @@ class GameController extends CoreController{
      * En théorie pour quitter la partie, en pratique reinitialise la partie
      */
     public function quitter(){
+        $game = new GameModel();
+        $game->setRunning($_SESSION['neozorus']['GAME'],0);
 	    unset($_SESSION['neozorus']['GAME']);
-	    header('Location:?controller=game&action=play');
+	    header('Location:?controller=home&action=affichagePageAccueil');
     }
 
     /*
