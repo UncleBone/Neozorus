@@ -17,4 +17,37 @@ class GameDeckModel extends coreModel{
         $param = [ 'id' => $deckId ];
         return $this->makeSelect($req,$param)[0]['d_personnage_fk'];
     }
+
+    /*
+	 * Vérifie si un id existe dans la BDD
+	 */
+    public function checkId($id){
+        $req = 'SELECT d_id FROM deck WHERE d_id = :id';
+        $param = [ 'id' => $id ];
+        return $this->makeSelect($req,$param);
+    }
+
+    /*
+     * Ajoute ou retire un deck de la file d'attente
+     */
+    public function setWaitingLine($id,$val){
+        $req = 'UPDATE deck SET d_waiting = :val WHERE d_id = :id';
+        $param = [ 'id' => $id, 'val' => $val ];
+        return $this->makeStatement($req,$param);
+    }
+
+    /*
+     * Retourne les decks en attente
+     */
+    public function checkWaitingLine($id){
+        $req = 'SELECT d_id FROM deck WHERE d_waiting = 1 AND d_id != :id';
+        $param = [ 'id' => $id ];
+        return $this->makeSelect($req,$param);
+    }
+
+    public function getUser($deckId){
+        $req = 'SELECT d_user_fk FROM deck WHERE d_id = :id';
+        $param = [ 'id' => $deckId ];
+        return $this->makeSelect($req,$param)[0]['d_user_fk'];
+    }
 }

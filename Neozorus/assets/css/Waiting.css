@@ -1,0 +1,28 @@
+@font-face
+{
+    font-family: 'fira_code';
+    src:url('../font/fira-code/FiraCode-Medium.otf');
+}
+
+body
+{
+    margin: 0;
+    overflow: hidden;
+    background-image: url('../img/plateau/plateau.png');
+    background-size: cover;
+    font-size: 15px;
+    font-family: 'fira_code',Verdana;
+}
+
+.message {
+    margin: 50vh auto 0 auto;
+    width: 30vw;
+    min-width: 500px;
+    max-height: 70vh;
+    overflow: auto;
+    padding: 5vh;
+    transform: translateY(-50%);
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+}

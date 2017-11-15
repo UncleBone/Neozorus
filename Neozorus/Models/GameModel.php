@@ -2,15 +2,17 @@
 class GameModel extends coreModel{
 
     public function saveNewGame($game = GameController){
-        $id = $game->getId();
-        $req = 'INSERT INTO Game (g_id,g_data) VALUES (:id,:data)';
-        $param = [ 'id' => $id, 'data' => serialize($game) ];
+        $player1 = $game->getPlayer(0)->getId();
+        $player2 = $game->getPlayer(1)->getId();
+
+        $req = 'INSERT INTO game (g_data,g_player1,g_player2,g_running) VALUES (:data,:p1,:p2,`1`)';
+        $param = [ 'data' => serialize($game), 'p1' => $player1, 'p2' => $player2 ];
         $this->makeStatement($req,$param);
     }
 
     public function saveGame($game = GameController){
         $id = $game->getId();
-        $req = 'UPDATE Game SET g_data = :data WHERE g_id = :id';
+        $req = 'UPDATE game SET g_data = :data WHERE g_id = :id';
         $param = [ 'id' => $id, 'data' =>serialize($game) ];
         $this->makeStatement($req,$param);
     }

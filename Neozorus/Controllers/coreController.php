@@ -21,4 +21,10 @@ class CoreController{
 	public function setSession(array $session){
 		$this->session = $session;
 	}
+
+	public function redirect404(){
+        http_response_code(404);
+        include(VIEWS_PATH . DS . '404.php');
+        exit;
+    }
 }

@@ -27,9 +27,9 @@ class GameController extends CoreController{
     /*
      * initialise l'ID de la partie (ID joueur 1 . ID joueur 2 . time())
      */
-    function initId(){
-        $this->id = $this->players[0]->getId() . $this->players[1]->getId() . time();
-    }
+//    function initId(){
+//        $this->id = $this->players[0]->getId() . $this->players[1]->getId() . time();
+//    }
 
 	public function setTour($t = int){
 		$this->tour = $t;
@@ -152,13 +152,10 @@ class GameController extends CoreController{
         $p2 = new Joueur($idP2,$idD2);
 		$this->setPlayer($p1);
 		$this->setPlayer($p2);
-		$this->initId();
-		$_SESSION['neozorus']['GAME'] = $this->getId();
 		$this->getPlayer(0)->getDeck()->shuffle();
         $this->getPlayer(1)->getDeck()->shuffle();
         $this->getPlayer(0)->initPioche();
         $this->getPlayer(1)->initPioche();
-        $this->saveNewGame();
 	}
 
 	/*
@@ -189,6 +186,62 @@ class GameController extends CoreController{
         }
 	}
 
+	public function wait(){
+	    if(empty($this->parameters['id'])){
+	        $this->redirect404();
+        }else{
+	        $id = $this->parameters['id'];
+            $deck = new GameDeckModel();
+            if(empty($deck->checkId($id))){
+                $this->redirect404();
+            }else{
+                $deck->setWaitingLine($id,1);
+                $waitingLine = $deck->checkWaitingLine($id);
+//                $this->initId();
+//                $_SESSION['neozorus']['GAME'] = $this->getId();
+                if(!empty($waitingLine)){
+                    $deck1 = $id;
+                    shuffle($waitingLine);
+                    $deck2 = $waitingLine[0]['d_id'];
+                    $this->startGame($deck1,$deck2);
+                }else{
+                    require_once( VIEWS_PATH . DS . 'Game' . DS . 'waiting.php' );
+                }
+            }
+        }
+    }
+
+    public function waitAjax(){
+	    if(!empty($this->parameters['id'])){
+            $id = $this->parameters['id'];
+	        $deck = new GameDeckModel();
+            if(!empty($deck->checkId($id))){
+                $waitingLine = $deck->checkWaitingLine($id);
+                if(!empty($waitingLine)) {
+                    $res='ok';
+                }else{
+                    $res = null;
+                }
+            }else {
+                $res = 'erreur: ce deck n\'existe pas';
+            }
+        }else{
+	        $res = 'erreur: aucun deck spécifié';
+        }
+        header('Content-Type: application/json; charset=utf-8');
+        echo json_encode($res);
+    }
+
+    public function startGame($deck1,$deck2){
+        if($user1 == $_SESSION['neozorus']['u_id']){
+            $deckModel = new gameDeckModel();
+            $user1 = $deckModel->getUser($deck1);
+            $user2 = $deckModel->getUser($deck2);
+            init($user1,$deck1,$user2,$deck2);
+            $this->saveNewGame();
+        }
+        header('Location:?controller=game&action=play');
+    }
 	/*
 	 * Deroulement du tour du joueur défini par le jeton
 	 */
