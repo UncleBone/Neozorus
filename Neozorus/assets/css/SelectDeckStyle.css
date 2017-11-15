@@ -1,0 +1,309 @@
+*{
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+@font-face
+{
+	font-family: 'army_rangers';
+	src:url('../font/army_rangers/armyrangers.ttf');
+}
+
+@font-face
+{
+	font-family: 'fira_code';
+	src:url('../font/fira-code/FiraCode-Medium.otf');
+}
+
+@font-face
+{
+	font-family: 'godzilla';
+	src:url('../font/army_rangers/Godzilla.ttf');
+}
+
+
+
+.dinotheme{
+	background-image: url("../img/background_jungle.jpg");
+}
+
+.matrixtheme{
+	background-image: url("../img/background_matrix.jpg");
+}
+
+header{
+	width: 100%;
+	height: 200px;
+	display: block;
+
+	color: white;
+}
+.affichageCarte{
+	width: 60%;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: flex-start;
+	align-items: flex-start;
+}
+.affichageMenu{
+	width: 35%;
+}
+.mesGabarits{
+	margin: 10px 10px;
+}
+
+.mesGabarits img{
+	width: 150px;
+}
+
+.PuissanceCarteSortCreature{
+	position: relative;
+	z-index: 3;
+	font-family: 'army_rangers';
+	top: -167px;
+	left:-105px;
+}
+
+.PuissanceCarteSpeciale{
+	position: relative;
+	z-index: 3;
+	font-family: 'army_rangers';
+	top: -180px;
+	left:-132px;
+}
+
+.ManaSortOuVitaCreature{
+	position: relative;
+	z-index: 3;
+	font-family: 'army_rangers';
+	top: -142px;
+	left:-129px;
+}
+
+.VitaCarteSpeciale{
+	position: relative;
+	z-index: 3;
+	font-family: 'army_rangers';
+	top: -155px;
+	left:-139px;
+}
+
+.ManaCarteCreature{
+	position: relative;
+	z-index: 3;
+	font-family: 'army_rangers';
+	top: -112px;
+	left:-144px;
+}
+.ManaCarteSpeciale{
+	position: relative;
+	z-index: 3;
+	font-family: 'army_rangers';
+	top: -132px;
+	left:-144px;
+}
+
+
+/* HEADER LISTE DECKS */
+
+#headerDecks, #action {
+
+	display: flex;
+	align-items: center;
+}
+
+#headerDecks {
+
+	width: 900px;
+	height: 450px;
+	margin: 0 auto;
+	flex-direction: column;
+}
+
+#logo {
+	
+	margin-right: 30px;
+}
+
+#action {
+	
+	width: 100%;
+	margin-top: 70px;
+	justify-content: space-around;
+}
+
+#t_rex img {
+	
+	width: 165.6px;
+	height: 240px;
+}
+#t_rex img:hover {
+	transition: all 2s ease;
+	transform:scale(1.5);
+}
+
+#creer, #modifier {
+	
+	font-family: 'army_rangers', Verdana;
+	font-size: 2.5em;
+}
+
+#creer a, #modifier a {
+
+	text-decoration: none; 
+	color: white;
+}
+
+.decksExistants {
+
+	display: inline-block;
+	margin-right: 60px;
+	font-family: 'army_rangers', Verdana;
+	font-size: 3em;
+
+	color: #8cbe22; 
+
+}
+
+
+#creer a:hover, #modifier a:hover { 
+	color:#8cbe22; 
+}
+
+/*CSS DE LA LISTE DES DECKS*/
+
+article{
+	position:relative;
+	width: 50vw;
+    max-height: 340vh;
+	margin: 0 25vw 20vh 25vw;
+	padding: 10px;
+	text-align: center;
+	background-color: rgba(0,0,0,0.7);
+	color: rgb(194,210,1);
+	font-size: 2.5vh;
+	margin-top: 50px;
+	display: inline-block;
+	
+}
+
+.all{
+	display: inline-block;
+}
+
+.horizon1, .horizon2, .horizon3{
+	display: inline-block;
+}
+
+
+#hover {
+  color: rgba(188, 175, 204, 0.9);
+}
+
+.nomdeck p{
+	font-family: 'fira_code';
+	padding-top: 5px;
+	text-transform: uppercase;
+	font-size: 16px;
+}
+
+
+
+/* CSS BASIQUE DE LA LISTE */
+
+.view {
+  margin: 30px;
+  float: left;
+  border: 3px solid black;
+  overflow: hidden;
+  position: relative;
+  text-align: center;
+  box-shadow: 2px 2px 2px black;
+  border-radius: 3px;
+  cursor: default;
+  box-sizing: border-box;
+
+}
+
+.view .mask,.view .content {
+  width: 200px;
+  height: 200px;
+  position: absolute;
+  overflow: hidden;
+  top: 0;
+  left: 0;
+}
+
+.view img {
+  float: left;
+  position: relative;
+
+}
+
+.view a.info {
+  display: inline-block;
+  text-decoration: none;
+  padding: 4px 7px;
+  background-color: rgba(0,0,0,0.7);
+  color: rgb(194,210,1);
+  font-size: 10px;
+  font-family: 'fira_code';
+  font-weight: bold;
+  box-shadow: 0 0 1px #000;
+  text-transform: uppercase;
+}
+
+.view a.info:hover {
+  box-shadow: 0 0 5px #000;
+}
+
+
+
+/* LES TRANSITIONS */
+
+.view-first img {
+
+  transition: all 0.5s linear;
+  width: 200px;
+  height: 200px;
+}
+
+.view-first .mask {
+  opacity: 0;
+  background-color: rgba(16, 24, 42, 0.6);
+  transition: all 0.4s ease-in-out;
+}
+
+
+.view-first a.info {
+  opacity: 0;
+  transition: all 0.5s ease-in-out;
+}
+
+
+/* ANIMATION DES CASES EN HOVER */
+
+.view-first:hover img {
+  transform: scale(1.4);
+}
+
+.view-first:hover .mask {
+  opacity: 1;
+}
+
+.view:hover{
+  border: 3px solid #8cbe22;
+  box-shadow: 0px 1px 2px #8cbe22;
+}
+.view-first:hover a.info {
+  opacity: 1;
+  transform: translateY(140px);
+}
+
+
+
+.view-first:hover a.info {
+  transition-delay: 0.2s;
+}
+
