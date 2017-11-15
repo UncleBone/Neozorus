@@ -29,7 +29,7 @@
         ?>
         <!--DIV QUI COMPRENDS LES INFORMATIONS DU HERO PASSIF-->
         <div id="topHero">
-            <!--<img src="">-->
+            <img src="./assets/img/plateau/<?=$heros[$joueurPassif]?>.png">
             <span class="vitaHero"><?=$pv[$joueurPassif]?></span>
         </div>
         <!--DIV QUI COMPRENDS LES 2 JAUGES DE MANA ET LES CARTES INVOQUEES-->
@@ -151,7 +151,7 @@
             </div>
         </div>
         <div id="bottomHero">
-            <!--<img src="">-->
+            <img src="./assets/img/plateau/<?=$heros[$joueurActif]?>.png">
             <span class="vitaHero"><?=$pv[$joueurActif]?></span>
         </div>
         <div id="actionBar">
