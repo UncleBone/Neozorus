@@ -9,12 +9,9 @@ class HomeModel extends CoreModel{
 			foreach ($results as $value) {
 				$mydata[] = new User($value);
 			}
-			return $mydata;
+			return $mydata[0];
 		}else{
 			return false;
-		}
-		
+		}	
 	}
-
-
 }
