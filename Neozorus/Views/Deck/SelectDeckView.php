@@ -7,16 +7,28 @@
 
 </head>
 <body>
+<header>
+	<div class="bloc_menu">
+		<ul id="menu_jouer">
+			<li><a href="#">Menu</a>
+				<ul id="menu">
+						<li><a href="index.php?controller=home&action=afficherPageRegles">Règles du jeu</a></li>
+						<li><a href="#">Forum</a></li>
+						<li><a href="index.php?controller=home&action=parametres">Paramètres</a></li>
+						<li><a href="index.php?controller=home&action=deconnexion">Se déconnecter</a></li>
+				</ul>
+			</li>
+		</ul>
+	</div>
+
 	<div id="headerDecks">
 
-		<div id="logo">
-			<img src="../../assets/img/logoNeozorus.png">
-		</div>
+
 
 		<div id="action">
 
 			<div id="creer">
-				<a href="index.php?controller=hero&action=">Créer un deck</a>
+				<a href="index.php?controller=hero&action="><p>Créer un deck</p></a>
 			</div>
 
 			<div id="t_rex">
@@ -27,16 +39,18 @@
 			</div>
 
 			<div id="modifier">
-				<a href="index.php?controller=hero&action=affichageListeHero">Changer de Héros</a>
+				<a href="index.php?controller=hero&action=affichageListeHero"><p>Changer de Héros</p></a>
 			</div>
+			<p class="decksExistants">Mes Decks</p>
 
 		</div>
 
 
-			<p class="decksExistants">Mes Decks</p>
+			
 
 
 	</div>
+</header>
 
 	<article>
 	<div class="horizon1">
