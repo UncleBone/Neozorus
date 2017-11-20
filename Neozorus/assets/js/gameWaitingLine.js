@@ -7,7 +7,7 @@
          if(this.readyState == 4 && this.status == 200){
             result = JSON.parse(this.responseText);
             if(result != null && result.length==2){
-                document.location.href=".controller=game&action=wait&id="+id;
+                document.location.href=".?controller=game&action=play";
             }
          }
        };

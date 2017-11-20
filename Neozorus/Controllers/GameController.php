@@ -64,6 +64,26 @@ class GameController extends CoreController{
         return $this->jeton;
     }
 
+    public function getCurrentplayer(){
+        for($i=0;$i<2;$i++){
+            $id = $this->getPlayer($i)->getId();
+            if($id == $_SESSION['neozorus']['u_id']) {
+                return $this->getPlayer($i);
+            }
+        }
+        return null;
+    }
+
+    public function getCurrentPlayerJeton(){
+        for($i=0;$i<2;$i++){
+            $id = $this->getPlayer($i)->getId();
+            if($id == $_SESSION['neozorus']['u_id']) {
+                return $i;
+            }
+        }
+        return null;
+    }
+
     /*
      * Sauvegarde d'un nouvelle partie dans la BDD
      */
@@ -128,6 +148,7 @@ class GameController extends CoreController{
             $heros[$i] = $this->getPlayer($i)->getDeck()->getHeros();
         }
         $jeton = $this->getJeton();
+        $currentPlayer = $this->getCurrentPlayerJeton();
         $eog = $this->getEog();
         if(!empty($this->parameters['error'])){
             $error = $this->parameters['error'];
@@ -174,24 +195,11 @@ class GameController extends CoreController{
         return $retour;
     }
 
-    /*
-     * Si la partie est terminée, affiche le vainqueur, sinon lance le tour du joueur courant
-     */
-	public function play(){	
-	    $this->loadGame();
-	    if(!($winner = $this->checkEog())){
-            $this->tour($this->jeton);
+    public function wait(){
+        if(empty($this->parameters['id'])){
+            $this->redirect404();
         }else{
-            $message = 'Partie terminée<br>Vainqueur: '.$winner->getId();
-            $this->saveAndRefreshView($message);
-        }
-	}
-
-	public function wait(){
-	    if(empty($this->parameters['id'])){
-	        $this->redirect404();
-        }else{
-	        $id = $this->parameters['id'];
+            $id = $this->parameters['id'];
             $deck = new GameDeckModel();
             if(empty($deck->checkId($id))){
                 $this->redirect404();
@@ -211,9 +219,9 @@ class GameController extends CoreController{
     }
 
     public function waitAjax(){
-	    if(!empty($this->parameters['id'])){
+        if(!empty($this->parameters['id'])){
             $id = $this->parameters['id'];
-	        $deck = new GameDeckModel();
+            $deck = new GameDeckModel();
             if(!empty($deck->checkId($id))){
                 $waitingLine = $deck->checkWaitingLine($id);
                 if(!empty($waitingLine)) {
@@ -225,7 +233,7 @@ class GameController extends CoreController{
                 $res = 'erreur: ce deck n\'existe pas';
             }
         }else{
-	        $res = 'erreur: aucun deck spécifié';
+            $res = 'erreur: aucun deck spécifié';
         }
         header('Content-Type: application/json; charset=utf-8');
         echo json_encode($res);
@@ -242,6 +250,20 @@ class GameController extends CoreController{
         }
         $this->play();
     }
+
+    /*
+     * Si la partie est terminée, affiche le vainqueur, sinon lance le tour du joueur courant
+     */
+	public function play(){	
+	    $this->loadGame();
+	    if(!($winner = $this->checkEog())){
+            $this->tour($this->jeton);
+        }else{
+            $message = 'Partie terminée<br>Vainqueur: '.$winner->getId();
+            $this->saveAndRefreshView($message);
+        }
+	}
+
 	/*
 	 * Deroulement du tour du joueur défini par le jeton
 	 */
@@ -320,9 +342,17 @@ class GameController extends CoreController{
      * En théorie pour quitter la partie, en pratique reinitialise la partie
      */
     public function quitter(){
+        $this->loadGame();
+        $deck = new GameDeckModel();
+        $deckId = $this->getCurrentplayer()->getDeck()->getId();
+        $deck->setWaitingLine($deckId,0);
+
         $game = new GameModel();
         $game->setRunning($_SESSION['neozorus']['GAME'],0);
-	    unset($_SESSION['neozorus']['GAME']);
+        unset($_SESSION['neozorus']['GAME']);
+
+
+
 	    header('Location:?controller=home&action=affichagePageAccueil');
     }
 
