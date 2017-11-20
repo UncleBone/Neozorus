@@ -1,5 +1,5 @@
     var message = document.getElementsByClassName('message')[0];
-    id = message.getAttribute('data_id');
+    var id = message.getAttribute('data_id');
     window.setInterval(function(){
        var xhr = new XMLHttpRequest();
 

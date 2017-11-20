@@ -161,25 +161,54 @@ class GameController extends CoreController{
             $cible = $this->parameters['cible'];
         }
         $this->checkVisable();
+        $message = 'jeton='.$jeton.', joueur='.$currentPlayer;
+        ob_start();
+        require(VIEWS_PATH . DS . 'Game' . DS . 'gameView.php');
+        $gameView = ob_get_contents();
+        ob_clean();
         require_once( VIEWS_PATH . DS . 'Game' . DS . 'gameLayout.php' );
     }
 
-    /*
-     * Initialisation d'une partie
-     * Paramètres: ID du joueur 1, ID du deck du joueur 1, ID du joueur 2, ID du deck du joueur 2
-     */
-	public function init($idP1,$idD1,$idP2,$idD2){
-		$this->setTour(1);
-		$this->parameters['jeton']=$this->getJeton();
-		$p1 = new Joueur($idP1,$idD1);
-        $p2 = new Joueur($idP2,$idD2);
-		$this->setPlayer($p1);
-		$this->setPlayer($p2);
-		$this->getPlayer(0)->getDeck()->shuffle();
-        $this->getPlayer(1)->getDeck()->shuffle();
-        $this->getPlayer(0)->initPioche();
-        $this->getPlayer(1)->initPioche();
-	}
+    public function refreshViewAjax(){
+        $this->loadGame();
+        $tour = $this->getTour();
+        for($i=0;$i<2;$i++){
+            $pv[$i] = $this->getPlayer($i)->getPv();
+            $mana[$i] = $this->getPlayer($i)->getMana();
+            $main[$i] = $this->getPlayer($i)->getMain();
+            $plateau[$i] = $this->getPlayer($i)->getPlateau();
+            $defausse[$i] = $this->getPlayer($i)->getDefausse();
+            $visable[$i] = $this->getPlayer($i)->getVisable();
+            $heros[$i] = $this->getPlayer($i)->getDeck()->getHeros();
+        }
+        $jeton = $this->getJeton();
+        $currentPlayer = $this->getCurrentPlayerJeton();
+        $eog = $this->getEog();
+        if(!empty($this->parameters['error'])){
+            $error = $this->parameters['error'];
+        }
+        if(!empty($this->parameters['att'])){
+            $att = $this->parameters['att'];
+        }
+        $abilite = (!empty($this->parameters['abilite']) ? $this->parameters['abilite'] : 0);
+        if(!empty($this->parameters['cible'])){
+            $cible = $this->parameters['cible'];
+        }
+        $this->checkVisable();
+        $message = 'jeton='.$jeton.', joueur='.$currentPlayer;
+        require(VIEWS_PATH . DS . 'Game' . DS . 'gameView.php');
+        $gameView = ob_get_contents();
+        ob_clean();
+        header('Content-Type: application/json; charset=utf-8');
+        echo json_encode($gameView);
+    }
+
+    public function endTurnAjax(){
+        $tour = $this->getTour();
+        $this->setTour(1-$tour);
+        $this->saveGame();
+        $this->refreshViewAjax();
+    }
 
 	/*
 	 * Vérifie si les conditions de victoire d'un des joueurs sont vérifiées et retourne le vainqueur
@@ -195,6 +224,9 @@ class GameController extends CoreController{
         return $retour;
     }
 
+    /*
+     * Attente si aucun autre joueur disponible
+     */
     public function wait(){
         if(empty($this->parameters['id'])){
             $this->redirect404();
@@ -218,6 +250,9 @@ class GameController extends CoreController{
         }
     }
 
+    /*
+     * Vérification de la file d'attente
+     */
     public function waitAjax(){
         if(!empty($this->parameters['id'])){
             $id = $this->parameters['id'];
@@ -239,6 +274,9 @@ class GameController extends CoreController{
         echo json_encode($res);
     }
 
+    /*
+     * Démarrage de la partie et sauvegarde dans la bdd (fonction lancée par le 2ème joueur de la file d'attente)
+     */
     public function startGame($deck1,$deck2){
         $deckModel = new gameDeckModel();
         $user1 = $deckModel->getUser($deck1);
@@ -249,6 +287,23 @@ class GameController extends CoreController{
             $this->saveNewGame();
         }
         $this->play();
+    }
+
+    /*
+    * Initialisation d'une partie
+    * Paramètres: ID du joueur 1, ID du deck du joueur 1, ID du joueur 2, ID du deck du joueur 2
+    */
+    public function init($idP1,$idD1,$idP2,$idD2){
+        $this->setTour(1);
+        $this->parameters['jeton']=$this->getJeton();
+        $p1 = new Joueur($idP1,$idD1);
+        $p2 = new Joueur($idP2,$idD2);
+        $this->setPlayer($p1);
+        $this->setPlayer($p2);
+        $this->getPlayer(0)->getDeck()->shuffle();
+        $this->getPlayer(1)->getDeck()->shuffle();
+        $this->getPlayer(0)->initPioche();
+        $this->getPlayer(1)->initPioche();
     }
 
     /*
