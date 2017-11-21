@@ -5,7 +5,7 @@ class GameController extends CoreController{
     private $players = array();     // tableau de deux objets de type Joueur
 	private $tour;                  // compteur de tour
 	private $EoG = false;           // End of Game, la partie est terminée si = true
-	private $jeton = 0;             // 0 = tour du joueur 1, 1 = tour du joueur 2
+	private $jeton;             // 0 = tour du joueur 1, 1 = tour du joueur 2
 	private $piocheEtMana = 0;      // détermine si l'étape pioche + augmentation de mana a eu lieu pour le joueur courant d'un tour donné
 
 	public function setPlayer($p = Joueur){
@@ -113,9 +113,10 @@ class GameController extends CoreController{
             $this->setPlayer($clone->getPlayer(1));
             $this->setTour($clone->getTour());
             $this->setEog($clone->getEog());
-            if(!empty($this->parameters['jeton'])){
-                $this->setJeton($this->parameters['jeton']);
-            }
+            $this->setJeton($clone->getJeton());
+//            if(!empty($this->parameters['jeton'])){
+//                $this->setJeton($this->parameters['jeton']);
+//            }
             if($this->getJeton()!=$clone->getJeton()) {
                 $this->setPiocheEtMana(0);
                 $this->activateCards($this->getPlayer($this->getJeton()));
@@ -147,19 +148,17 @@ class GameController extends CoreController{
             $visable[$i] = $this->getPlayer($i)->getVisable();
             $heros[$i] = $this->getPlayer($i)->getDeck()->getHeros();
         }
+        $jMain = json_encode($main);
+        $jPlateau = json_encode($plateau);
+        $jDefausse = json_encode($defausse);
         $jeton = $this->getJeton();
         $currentPlayer = $this->getCurrentPlayerJeton();
         $eog = $this->getEog();
-        if(!empty($this->parameters['error'])){
-            $error = $this->parameters['error'];
-        }
-        if(!empty($this->parameters['att'])){
-            $att = $this->parameters['att'];
-        }
+        $cible = !empty($this->parameters['cible']) ? $this->parameters['cible'] : '';
+        $error = !empty($this->parameters['error']) ? $this->parameters['error'] : '';
+        $att = !empty($this->parameters['att']) ? $this->parameters['att'] : '';
         $abilite = (!empty($this->parameters['abilite']) ? $this->parameters['abilite'] : 0);
-        if(!empty($this->parameters['cible'])){
-            $cible = $this->parameters['cible'];
-        }
+
         $this->checkVisable();
         $message = 'jeton='.$jeton.', joueur='.$currentPlayer;
         ob_start();
@@ -204,8 +203,9 @@ class GameController extends CoreController{
     }
 
     public function endTurnAjax(){
-        $tour = $this->getTour();
-        $this->setTour(1-$tour);
+        $jeton = $this->getJeton();
+        $this->setJeton(1-$jeton);
+        $this->tourPlus();
         $this->saveGame();
         $this->refreshViewAjax();
     }
@@ -295,7 +295,7 @@ class GameController extends CoreController{
     */
     public function init($idP1,$idD1,$idP2,$idD2){
         $this->setTour(1);
-        $this->parameters['jeton']=$this->getJeton();
+        $this->setJeton(0);
         $p1 = new Joueur($idP1,$idD1);
         $p2 = new Joueur($idP2,$idD2);
         $this->setPlayer($p1);
