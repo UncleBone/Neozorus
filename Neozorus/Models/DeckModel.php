@@ -67,4 +67,25 @@ class DeckModel extends CoreModel{
 		}
 		return false;
 	}
+
+	public function deleteDeck($id){
+		$sql = 'DELETE FROM deck WHERE d_id='.$id.';';
+
+        if($this->makeStatement($sql)){
+        	return true;
+        }
+        return false;
+	}
+
+	public function updateName($id,$newName){
+		$sql = 'UPDATE deck SET d_libelle=:name WHERE d_id=:id';
+		$params = array(
+            'name' => $newName,
+            'id' => $id
+        );
+        if($this->makeStatement($sql,$params)){
+        	return true;
+        }
+        return false;
+	}
 }

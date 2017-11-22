@@ -41,4 +41,35 @@ class DeckController extends CoreController{
 			}
 		}
 	}
+
+	public function supprimerDeck(){
+		$model = new DeckModel();
+		if($model-> deleteDeck($this->parameters['deck'])){
+			header('Location:index.php?controller=deck&action=affichageDeck&hero='.$this->parameters['hero']);
+		}
+		else{
+			//inclure une page d'erreur qui explique qu'il y a eu un probleme lors de la supression d'un deck
+		}
+	}
+
+	public function changeNameDeck(){
+		if(!empty($this->data['newName'])){
+			$newName = htmlentities($this->data['newName']);
+			if(preg_match("#^[a-zA-Z0-9-_]{3,60}$#", $newName)){
+				$model = new DeckModel;
+				if($model->updateName($this->parameters['deck'],$newName)){
+					echo $newName;
+				}
+				else{
+					echo '';
+				}
+			}
+			else{
+				echo '';
+			}
+		}
+		else{
+			echo '';
+		}
+	}
 }
