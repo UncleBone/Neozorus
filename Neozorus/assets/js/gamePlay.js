@@ -27,13 +27,6 @@ function ajax(nom, data, fct) {
     xhr.send();
 }
 
-
-
-
-
-
-
-
 function gamePlay(){
     var endTurn = document.getElementById('end');
 
@@ -43,9 +36,8 @@ function gamePlay(){
         ajax("play", "&jeton="+(1-jeton), function(result) {
             var contenu = document.getElementById('contenu');
             var jeton = result['jeton'];
-
-            //console.log(jeton);
             contenu.innerHTML = result['view'];
+            gameWaitingTurn();
         })
 
     });
@@ -54,13 +46,17 @@ function gamePlay(){
 
 
 function gameWaitingTurn(){
-    window.setInterval(function(){
+    var interval;
+    interval = window.setInterval(function(){
         ajax("refreshViewAjax", "", function(result) {
             var contenu = document.getElementById('contenu');
             var jeton = result['jeton'];
-
-            //console.log(jeton);
             contenu.innerHTML = result['view'];
+            console.log('jeton='+jeton+'joueur='+currentPlayer);
+            if(jeton==currentPlayer){
+                gamePlay();
+                clearInterval(interval);     
+            }
         })
     },1000);
 }
