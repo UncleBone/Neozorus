@@ -240,6 +240,10 @@ body {
 	max-width: 80%;
 	text-align: center; 
 }
+.carteJouable{
+	border-radius: 17px;
+	box-shadow: -1px 1px 19px 7px rgba(255,30,5,0.9);
+}
 
 .stat1Miniature,.stat2Miniature,.stat3Miniature,.stat1MiniatureSpeciale,.stat2MiniatureSpeciale,.stat3MiniatureSpeciale{
 	position: absolute;
@@ -283,16 +287,26 @@ body {
 	bottom: 3.3%;
 }
 /*BOUTTON QUITER*/
+
 #quitter{
 	position: fixed;
 	bottom: 30px;
 }
 #quitter a{
-	color:white;
-	font-family: 'fira_code';
-	text-decoration: none;
 	position: relative;
 	left:25px;
+	color: #8cbe22;
+  	font-size: 20px;
+	font-family: 'fira_code';
+	text-decoration: none;
+  	background-color: rgba(0, 0, 0, 0.6);
+  	padding: 10px 15px 10px 15px;
+  	border: solid #8cbe22 2px;
+  	border-radius: 6px;
+}
+
+#quitter a:hover{
+	background-color: rgba(0, 0, 0, 0.3);
 }
 
 

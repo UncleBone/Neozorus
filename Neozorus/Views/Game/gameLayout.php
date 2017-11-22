@@ -18,10 +18,12 @@
         var currentPlayer = '<?=$currentPlayer?>';
         var eog = '<?=$eog?>';
         var att = '<?=$att?>';
+        var manaJoueurActif = '<?= $mana[$jeton]?>';
         var cible = '<?=$cible?>';
 //        var abilite = '<?//=$abilite?>//';
         var error = '<?=$error?>';
 //        var message = '<?//=$message?>//';
+//      
     </script>
 </head>
 <body>
