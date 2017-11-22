@@ -12,10 +12,10 @@
 		<ul id="menu_jouer">
 			<li><a href="#">Menu</a>
 				<ul id="menu">
-						<li><a href="index.php?controller=home&action=afficherPageRegles">Règles du jeu</a></li>
+						<li><a href="index.php?controller=deck&action=affichagePageRegles">Règles du jeu</a></li>
 						<li><a href="#">Forum</a></li>
-						<li><a href="index.php?controller=home&action=parametres">Paramètres</a></li>
-						<li><a href="index.php?controller=home&action=deconnexion">Se déconnecter</a></li>
+						<li><a href="index.php?controller=deck&action=parametres">Paramètres</a></li>
+						<li><a href="index.php?controller=deck&action=deconnexion">Se déconnecter</a></li>
 				</ul>
 			</li>
 		</ul>
@@ -67,7 +67,9 @@
 				    <div class="nomdeck">
 				    	<p><?= $value->getD_libelle();?></p>
 				    </div>
-						<a class="info" href="">Jouer</a>
+						<?php
+						echo '<a class="info" href="index.php?controller=game&action=wait&id='.$value->getD_id().'">Jouer</a>';
+						?>
 						<a class="info" href="">Modifier</a>
 						<a class="info" href=<?= '"index.php?controller=carte&action=afficherCarte&deck='.$value->getD_ID().'&hero='.$hero.'"'?>>Détail</a>
 					
