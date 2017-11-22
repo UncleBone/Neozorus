@@ -67,7 +67,9 @@
 				    <div class="nomdeck">
 				    	<p><?= $value->getD_libelle();?></p>
 				    </div>
-						<a class="info" href="">Jouer</a>
+						<?php
+						echo '<a class="info" href="index.php?controller=game&action=wait&id='.$value->getD_id().'">Jouer</a>';
+						?>
 						<a class="info" href="">Modifier</a>
 						<a class="info" href=<?= '"index.php?controller=carte&action=afficherCarte&deck='.$value->getD_ID().'&hero='.$hero.'"'?>>Détail</a>
 					
