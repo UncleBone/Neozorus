@@ -15,4 +15,18 @@ class DeckController extends CoreController{
 		include(VIEWS_PATH . DS . 'Deck' . DS . 'SelectDeckView.php');
 	}
 
+	public function affichagePageRegles(){
+	$user = $this->session;
+	$model = new HomeModel();
+		if(!empty($model->verifyUser($user))){
+			include('./Views/Home/ReglesHomeView.php');
+		}
+	}
+	
+	public function deconnexion(){
+	unset($_SESSION['neozorus']);
+	header('Location:.');
+	exit;
+	}
+
 }
