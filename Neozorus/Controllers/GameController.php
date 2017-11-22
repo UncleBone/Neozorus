@@ -5,7 +5,7 @@ class GameController extends CoreController{
     private $players = array();     // tableau de deux objets de type Joueur
 	private $tour;                  // compteur de tour
 	private $EoG = false;           // End of Game, la partie est terminée si = true
-	private $jeton = 0;             // 0 = tour du joueur 1, 1 = tour du joueur 2
+	private $jeton;             // 0 = tour du joueur 1, 1 = tour du joueur 2
 	private $piocheEtMana = 0;      // détermine si l'étape pioche + augmentation de mana a eu lieu pour le joueur courant d'un tour donné
 
 	public function setPlayer($p = Joueur){
@@ -27,9 +27,9 @@ class GameController extends CoreController{
     /*
      * initialise l'ID de la partie (ID joueur 1 . ID joueur 2 . time())
      */
-    function initId(){
-        $this->id = $this->players[0]->getId() . $this->players[1]->getId() . time();
-    }
+//    function initId(){
+//        $this->id = $this->players[0]->getId() . $this->players[1]->getId() . time();
+//    }
 
 	public function setTour($t = int){
 		$this->tour = $t;
@@ -64,6 +64,26 @@ class GameController extends CoreController{
         return $this->jeton;
     }
 
+    public function getCurrentplayer(){
+        for($i=0;$i<2;$i++){
+            $id = $this->getPlayer($i)->getId();
+            if($id == $_SESSION['neozorus']['u_id']) {
+                return $this->getPlayer($i);
+            }
+        }
+        return null;
+    }
+
+    public function getCurrentPlayerJeton(){
+        for($i=0;$i<2;$i++){
+            $id = $this->getPlayer($i)->getId();
+            if($id == $_SESSION['neozorus']['u_id']) {
+                return $i;
+            }
+        }
+        return null;
+    }
+
     /*
      * Sauvegarde d'un nouvelle partie dans la BDD
      */
@@ -88,14 +108,15 @@ class GameController extends CoreController{
         if(!empty($_SESSION['neozorus']['GAME'])){
             $load = $gameModel->load($_SESSION['neozorus']['GAME'])[0]['g_data'];
             $clone = unserialize($load);
-            $this->setId($clone->getId());
+            $this->setId($_SESSION['neozorus']['GAME']);
             $this->setPlayer($clone->getPlayer(0));
             $this->setPlayer($clone->getPlayer(1));
             $this->setTour($clone->getTour());
             $this->setEog($clone->getEog());
-            if(!empty($this->parameters['jeton'])){
-                $this->setJeton($this->parameters['jeton']);
-            }
+            $this->setJeton($clone->getJeton());
+//            if(!empty($this->parameters['jeton'])){
+//                $this->setJeton($this->parameters['jeton']);
+//            }
             if($this->getJeton()!=$clone->getJeton()) {
                 $this->setPiocheEtMana(0);
                 $this->activateCards($this->getPlayer($this->getJeton()));
@@ -106,7 +127,9 @@ class GameController extends CoreController{
                 $this->setPiocheEtMana($clone->piocheEtMana);
             }
         }else {
-            $this->init(1, 1, 2, 2);
+            $gameId = $gameModel->getGameId($_SESSION['neozorus']['u_id'])[0]['g_id'];
+            if(!empty($gameId)) $_SESSION['neozorus']['GAME'] = $gameId;
+            $this->loadGame();
         }
     }
      /*
@@ -125,7 +148,40 @@ class GameController extends CoreController{
             $visable[$i] = $this->getPlayer($i)->getVisable();
             $heros[$i] = $this->getPlayer($i)->getDeck()->getHeros();
         }
+        $jMain = json_encode($main);
+        $jPlateau = json_encode($plateau);
+        $jDefausse = json_encode($defausse);
         $jeton = $this->getJeton();
+        $currentPlayer = $this->getCurrentPlayerJeton();
+        $eog = $this->getEog();
+        $cible = !empty($this->parameters['cible']) ? $this->parameters['cible'] : '';
+        $error = !empty($this->parameters['error']) ? $this->parameters['error'] : '';
+        $att = !empty($this->parameters['att']) ? $this->parameters['att'] : '';
+        $abilite = (!empty($this->parameters['abilite']) ? $this->parameters['abilite'] : 0);
+
+        $this->checkVisable();
+        $message = 'jeton='.$jeton.', joueur='.$currentPlayer;
+        ob_start();
+        require(VIEWS_PATH . DS . 'Game' . DS . 'gameView.php');
+        $gameView = ob_get_contents();
+        ob_clean();
+        require_once( VIEWS_PATH . DS . 'Game' . DS . 'gameLayout.php' );
+    }
+
+    public function refreshViewAjax(){
+        $this->loadGame();
+        $tour = $this->getTour();
+        for($i=0;$i<2;$i++){
+            $pv[$i] = $this->getPlayer($i)->getPv();
+            $mana[$i] = $this->getPlayer($i)->getMana();
+            $main[$i] = $this->getPlayer($i)->getMain();
+            $plateau[$i] = $this->getPlayer($i)->getPlateau();
+            $defausse[$i] = $this->getPlayer($i)->getDefausse();
+            $visable[$i] = $this->getPlayer($i)->getVisable();
+            $heros[$i] = $this->getPlayer($i)->getDeck()->getHeros();
+        }
+        $jeton = $this->getJeton();
+        $currentPlayer = $this->getCurrentPlayerJeton();
         $eog = $this->getEog();
         if(!empty($this->parameters['error'])){
             $error = $this->parameters['error'];
@@ -138,28 +194,21 @@ class GameController extends CoreController{
             $cible = $this->parameters['cible'];
         }
         $this->checkVisable();
-        require_once( VIEWS_PATH . DS . 'Game' . DS . 'gameLayout.php' );
+        $message = 'jeton='.$jeton.', joueur='.$currentPlayer;
+        require(VIEWS_PATH . DS . 'Game' . DS . 'gameView.php');
+        $gameView = ob_get_contents();
+        ob_clean();
+        header('Content-Type: application/json; charset=utf-8');
+        echo json_encode($gameView);
     }
 
-    /*
-     * Initialisation d'une partie
-     * Paramètres: ID du joueur 1, ID du deck du joueur 1, ID du joueur 2, ID du deck du joueur 2
-     */
-	public function init($idP1,$idD1,$idP2,$idD2){
-		$this->setTour(1);
-		$this->parameters['jeton']=$this->getJeton();
-		$p1 = new Joueur($idP1,$idD1);
-        $p2 = new Joueur($idP2,$idD2);
-		$this->setPlayer($p1);
-		$this->setPlayer($p2);
-		$this->initId();
-		$_SESSION['neozorus']['GAME'] = $this->getId();
-		$this->getPlayer(0)->getDeck()->shuffle();
-        $this->getPlayer(1)->getDeck()->shuffle();
-        $this->getPlayer(0)->initPioche();
-        $this->getPlayer(1)->initPioche();
-        $this->saveNewGame();
-	}
+    public function endTurnAjax(){
+        $jeton = $this->getJeton();
+        $this->setJeton(1-$jeton);
+        $this->tourPlus();
+        $this->saveGame();
+        $this->refreshViewAjax();
+    }
 
 	/*
 	 * Vérifie si les conditions de victoire d'un des joueurs sont vérifiées et retourne le vainqueur
@@ -173,6 +222,88 @@ class GameController extends CoreController{
             }
         }
         return $retour;
+    }
+
+    /*
+     * Attente si aucun autre joueur disponible
+     */
+    public function wait(){
+        if(empty($this->parameters['id'])){
+            $this->redirect404();
+        }else{
+            $id = $this->parameters['id'];
+            $deck = new GameDeckModel();
+            if(empty($deck->checkId($id))){
+                $this->redirect404();
+            }else{
+                $deck->setWaitingLine($id,1);
+                $waitingLine = $deck->checkWaitingLine($id);
+                if(!empty($waitingLine)){
+                    $deck1 = $id;
+                    shuffle($waitingLine);
+                    $deck2 = $waitingLine[0]['d_id'];
+                    $this->startGame($deck1,$deck2);
+                }else{
+                    require_once( VIEWS_PATH . DS . 'Game' . DS . 'waiting.php' );
+                }
+            }
+        }
+    }
+
+    /*
+     * Vérification de la file d'attente
+     */
+    public function waitAjax(){
+        if(!empty($this->parameters['id'])){
+            $id = $this->parameters['id'];
+            $deck = new GameDeckModel();
+            if(!empty($deck->checkId($id))){
+                $waitingLine = $deck->checkWaitingLine($id);
+                if(!empty($waitingLine)) {
+                    $res='ok';
+                }else{
+                    $res = null;
+                }
+            }else {
+                $res = 'erreur: ce deck n\'existe pas';
+            }
+        }else{
+            $res = 'erreur: aucun deck spécifié';
+        }
+        header('Content-Type: application/json; charset=utf-8');
+        echo json_encode($res);
+    }
+
+    /*
+     * Démarrage de la partie et sauvegarde dans la bdd (fonction lancée par le 2ème joueur de la file d'attente)
+     */
+    public function startGame($deck1,$deck2){
+        $deckModel = new gameDeckModel();
+        $user1 = $deckModel->getUser($deck1);
+        if($user1 == $_SESSION['neozorus']['u_id']){
+
+            $user2 = $deckModel->getUser($deck2);
+            $this->init($user1,$deck1,$user2,$deck2);
+            $this->saveNewGame();
+        }
+        $this->play();
+    }
+
+    /*
+    * Initialisation d'une partie
+    * Paramètres: ID du joueur 1, ID du deck du joueur 1, ID du joueur 2, ID du deck du joueur 2
+    */
+    public function init($idP1,$idD1,$idP2,$idD2){
+        $this->setTour(1);
+        $this->setJeton(0);
+        $p1 = new Joueur($idP1,$idD1);
+        $p2 = new Joueur($idP2,$idD2);
+        $this->setPlayer($p1);
+        $this->setPlayer($p2);
+        $this->getPlayer(0)->getDeck()->shuffle();
+        $this->getPlayer(1)->getDeck()->shuffle();
+        $this->getPlayer(0)->initPioche();
+        $this->getPlayer(1)->initPioche();
     }
 
     /*
@@ -266,8 +397,18 @@ class GameController extends CoreController{
      * En théorie pour quitter la partie, en pratique reinitialise la partie
      */
     public function quitter(){
-	    unset($_SESSION['neozorus']['GAME']);
-	    header('Location:?controller=game&action=play');
+        $this->loadGame();
+        $deck = new GameDeckModel();
+        $deckId = $this->getCurrentplayer()->getDeck()->getId();
+        $deck->setWaitingLine($deckId,0);
+
+        $game = new GameModel();
+        $game->setRunning($_SESSION['neozorus']['GAME'],0);
+        unset($_SESSION['neozorus']['GAME']);
+
+
+
+	    header('Location:?controller=home&action=affichagePageAccueil');
     }
 
     /*

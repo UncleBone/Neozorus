@@ -2,11 +2,13 @@
 class Deck{
 	private $d_id;
 	private $d_libelle;
+	private $d_personnage;
 	const MAX_CARTE = NB_MAX_CARTE;
 
 	public function __construct($data){
 		$this->setD_id($data['d_id']);
 		$this->setD_libelle($data['d_libelle']);
+		$this->setD_personnage_fk($data['d_personnage_fk']);
 	}
 
 	private function setD_id($ID){
@@ -17,6 +19,10 @@ class Deck{
 		$this->d_libelle = $Libelle;
 	}
 
+	private function setD_personnage_fk($idPersonnage){
+		$this->d_personnage = $idPersonnage;
+	}
+
 	public function getD_id(){
 		return $this->d_id;
 	}
@@ -24,6 +30,11 @@ class Deck{
 	public function getD_libelle(){
 		return $this->d_libelle;
 	}
+
+	public function getD_personnage(){
+		return $this->d_personnage;
+	}
+
 
 	public function AjouterCarte(Carte $carte){
 		$indice=0;

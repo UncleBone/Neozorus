@@ -1,5 +1,4 @@
 <?php
-
 class CoreModel{
 	private static $pdo = NULL;//Notre objet PDO
 
