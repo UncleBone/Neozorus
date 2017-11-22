@@ -16,7 +16,6 @@
         echo '<p class="message">'.$message.'</p>';
     }
     ?>
-    <div data_currentPlayer=<?= $currentPlayer ?> data_jeton=<?= $jeton ?>>
 
     <!--DIV QUI COMPRENDS LES INFORMATIONS DU HERO PASSIF-->
     <?php
@@ -205,3 +204,29 @@
     ?>
 
     <div id="quitter"><a href="?controller=game&action=quitter">Quitter</a></div>
+
+    <div id="data" data_jeton="<?=$jeton?>"></div>
+
+    <script type="application/javascript">
+        var tour = '<?=$tour?>';
+        var pv = ['<?=$pv[0]?>', '<?=$pv[1]?>'];
+        var mana = ['<?=$mana[0]?>', '<?=$mana[1]?>'];
+        var main = JSON.parse('<?=$jMain?>');
+        var plateau = JSON.parse('<?=$jPlateau?>');
+        var defausse = JSON.parse('<?=$jDefausse?>');
+        var visable = ['<?=$visable[0]?>', '<?=$visable[1]?>'];
+        var heros = ['<?=$heros[0]?>', '<?=$heros[1]?>'];
+        var jeton = '<?=$jeton?>';
+        var currentPlayer = '<?=$currentPlayer?>';
+        var eog = '<?=$eog?>';
+        var att = '<?=$att?>';
+        var cible = '<?=$cible?>';
+        var abilite = '<?=$abilite?>';
+        var error = '<?=$error?>';
+        var message = '<?=$message?>';
+
+
+    </script>
+
+    <script src="<?= JS_PATH . DS . 'gamePlay.js' ?>"></script>
+   

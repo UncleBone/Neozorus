@@ -113,10 +113,12 @@ class GameController extends CoreController{
             $this->setPlayer($clone->getPlayer(1));
             $this->setTour($clone->getTour());
             $this->setEog($clone->getEog());
-            $this->setJeton($clone->getJeton());
-//            if(!empty($this->parameters['jeton'])){
-//                $this->setJeton($this->parameters['jeton']);
-//            }
+//            $this->setJeton($clone->getJeton());
+            if(!empty($this->parameters['jeton'])){
+                $this->setJeton($this->parameters['jeton']);
+            }else{
+                $this->setJeton($clone->getJeton());
+            }
             if($this->getJeton()!=$clone->getJeton()) {
                 $this->setPiocheEtMana(0);
                 $this->activateCards($this->getPlayer($this->getJeton()));
@@ -161,11 +163,27 @@ class GameController extends CoreController{
 
         $this->checkVisable();
         $message = 'jeton='.$jeton.', joueur='.$currentPlayer;
-        ob_start();
-        require(VIEWS_PATH . DS . 'Game' . DS . 'gameView.php');
-        $gameView = ob_get_contents();
-        ob_clean();
-        require_once( VIEWS_PATH . DS . 'Game' . DS . 'gameLayout.php' );
+        $ajax = (!empty($this->parameters['ajax']) ? $this->parameters['ajax'] : null );
+        if($ajax == null){
+            $message .= 'pas ajax';
+            ob_start();
+            require(VIEWS_PATH . DS . 'Game' . DS . 'gameView.php');
+            $gameView = ob_get_contents();
+            ob_clean();
+            require_once( VIEWS_PATH . DS . 'Game' . DS . 'gameLayout.php' );
+        }elseif($ajax=='1'){
+            $message .= 'ajax';
+            ob_start();
+            require_once(VIEWS_PATH . DS . 'Game' . DS . 'gameView.php');
+            $gameView = ob_get_contents();
+            ob_clean();
+            header('Content-Type: application/json; charset=utf-8');
+            $data = [ 'view' => $gameView, 'jeton' => $jeton ];
+            echo json_encode($data);
+            exit();
+//            echo $gameView;
+        }
+
     }
 
     public function refreshViewAjax(){
@@ -180,35 +198,35 @@ class GameController extends CoreController{
             $visable[$i] = $this->getPlayer($i)->getVisable();
             $heros[$i] = $this->getPlayer($i)->getDeck()->getHeros();
         }
+        $jMain = json_encode($main);
+        $jPlateau = json_encode($plateau);
+        $jDefausse = json_encode($defausse);
         $jeton = $this->getJeton();
         $currentPlayer = $this->getCurrentPlayerJeton();
         $eog = $this->getEog();
-        if(!empty($this->parameters['error'])){
-            $error = $this->parameters['error'];
-        }
-        if(!empty($this->parameters['att'])){
-            $att = $this->parameters['att'];
-        }
+        $cible = !empty($this->parameters['cible']) ? $this->parameters['cible'] : '';
+        $error = !empty($this->parameters['error']) ? $this->parameters['error'] : '';
+        $att = !empty($this->parameters['att']) ? $this->parameters['att'] : '';
         $abilite = (!empty($this->parameters['abilite']) ? $this->parameters['abilite'] : 0);
-        if(!empty($this->parameters['cible'])){
-            $cible = $this->parameters['cible'];
-        }
         $this->checkVisable();
         $message = 'jeton='.$jeton.', joueur='.$currentPlayer;
+        $message.='ajax Waiting';
+        ob_start();
         require(VIEWS_PATH . DS . 'Game' . DS . 'gameView.php');
         $gameView = ob_get_contents();
         ob_clean();
         header('Content-Type: application/json; charset=utf-8');
-        echo json_encode($gameView);
+        $data = [ 'view' => $gameView, 'jeton' => $jeton ];
+        echo json_encode($data);
     }
 
-    public function endTurnAjax(){
-        $jeton = $this->getJeton();
-        $this->setJeton(1-$jeton);
-        $this->tourPlus();
-        $this->saveGame();
-        $this->refreshViewAjax();
-    }
+//    public function endTurnAjax(){
+//        $jeton = $this->getJeton();
+//        $this->setJeton(1-$jeton);
+//        $this->tourPlus();
+//        $this->saveGame();
+//        $this->refreshViewAjax();
+//    }
 
 	/*
 	 * Vérifie si les conditions de victoire d'un des joueurs sont vérifiées et retourne le vainqueur
