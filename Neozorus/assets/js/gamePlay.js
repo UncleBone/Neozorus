@@ -1,4 +1,4 @@
-console.log('ligne1');
+console.log(currentPlayer);
 if(currentPlayer != jeton){
     gameWaitingTurn();
 }else {
@@ -12,13 +12,7 @@ function ajax(nom, data, fct) {
         if(this.readyState == 4 && this.status == 200){
             result = JSON.parse(this.responseText);
             if(result != null){
-                // var contenu = document.getElementById('contenu');
-                // var jeton = result['jeton'];
-
                 fct(result);
-
-                //console.log(jeton);
-                // contenu.innerHTML = result['view'];
             }
         }
     };
@@ -27,13 +21,18 @@ function ajax(nom, data, fct) {
     xhr.send();
 }
 
+/************Fonction active pendant le tour du joueur actif**************/
+/*  Déclenche le changement de jeton au click sur le bouton fin de tour
+ */
+
 function gamePlay(jet){
     jeton = jet;
     console.log('play');
     var endTurn = document.getElementById('end');
+    endTurn.style.cursor = "pointer";
+    endTurn.setAttribute('title','Fin de Tour');
 
     endTurn.addEventListener('click',function(){
-
         ajax("play", "&jeton="+(1-jeton), function(result) {
             var contenu = document.getElementById('contenu');
             console.log('play, new jeton demandé: &jeton='+(1-jeton));
@@ -42,11 +41,13 @@ function gamePlay(jet){
             contenu.innerHTML = result['view'];
             gameWaitingTurn();
         })
-
     });
 }
 
-
+/************Fonction active pendant le tour du joueur passif**************/
+/*  Recharge la vue toutes les secondes
+    Si le jeton change, lance la fonction 'Gameplay'
+ */
 
 function gameWaitingTurn(){
     var interval;

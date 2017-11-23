@@ -2,7 +2,7 @@
 
 @font-face
 {
-	font-family: 'fira_code';
+	font-family: 'fira-code';
 	src:url('../font/fira-code/FiraCode-Medium.otf');
 }
 @font-face
@@ -36,9 +36,21 @@ body {
 	position: fixed;
 	top:15px;
 	left:30px;
-	font-family: 'fira_code';
+	font-family: 'fira-code';
 	font-size: 25px;
 	color:white;
+	background-color: rgba(0, 0, 0, 0.7);
+}
+
+.error{
+	position: absolute;
+	right: 0;
+	top: 0;
+	padding: 10px;
+	font-family: 'godzilla';
+	font-size: 25px;
+	color:white;
+	background-color: rgba(0, 0, 0, 0.7);
 }
 
 #plateau{
@@ -213,7 +225,7 @@ body {
 .indice span{
 	position: absolute;
 	font-size: 10px;
-	font-family: 'fira_code';
+	font-family: 'fira-code';
 	left:1px;
 }
 
@@ -234,6 +246,10 @@ body {
 	position: relative;
 	width: 7%;
 	overflow: hidden;
+}
+.carteMain:hover{
+	position: relative;
+	top: -10px;
 }
 .carteMain img{
 	width: 100%;
@@ -289,7 +305,7 @@ body {
 }
 #quitter a{
 	color:white;
-	font-family: 'fira_code';
+	font-family: 'fira-code';
 	text-decoration: none;
 	position: relative;
 	left:25px;

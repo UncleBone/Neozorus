@@ -8,8 +8,8 @@
     }
 
     //On affiche le message d'erreur si il y en a un
-    if(!empty($error)){
-        echo '<p class="message">'.$error.'</p>';
+    if(!empty($errorMssg)){
+        echo '<p class="error">'.$errorMssg.'</p>';
     }
     //On affiche le message si il y en a un
     if(!empty($message)){

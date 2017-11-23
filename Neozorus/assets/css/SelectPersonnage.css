@@ -1,19 +1,19 @@
 		@font-face
 		{
 			font-family: 'army_rangers';
-			src:url('../fonts/army_rangers/armyrangers.ttf');
+			src:url('../font/army_rangers/armyrangers.ttf');
 		}
 
 		@font-face
 		{
 			font-family: 'fira_code';
-			src:url('../fonts/fira-code/FiraCode-Medium.otf');
+			src:url('../font/fira-code/FiraCode-Medium.otf');
 		}
 
 		@font-face
 		{
 			font-family: 'godzilla';
-			src:url('../fonts/army_rangers/Godzilla.ttf');
+			src:url('../font/godzilla/Godzilla.ttf');
 		}
 
 		body
