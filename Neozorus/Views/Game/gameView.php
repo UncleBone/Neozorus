@@ -229,4 +229,3 @@
     </script>
 
     <script src="<?= JS_PATH . DS . 'gamePlay.js' ?>"></script>
-   
