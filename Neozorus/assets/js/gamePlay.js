@@ -1,8 +1,8 @@
-
+console.log('ligne1');
 if(currentPlayer != jeton){
     gameWaitingTurn();
 }else {
-    gamePlay();
+    gamePlay(jeton);
 }
 
 function ajax(nom, data, fct) {
@@ -27,15 +27,18 @@ function ajax(nom, data, fct) {
     xhr.send();
 }
 
-function gamePlay(){
+function gamePlay(jet){
+    jeton = jet;
+    console.log('play');
     var endTurn = document.getElementById('end');
 
     endTurn.addEventListener('click',function(){
 
-
         ajax("play", "&jeton="+(1-jeton), function(result) {
             var contenu = document.getElementById('contenu');
-            var jeton = result['jeton'];
+            console.log('play, new jeton demandé: &jeton='+(1-jeton));
+            jeton_2 = result['jeton'];
+            console.log('play, new jeton:'+jeton_2);
             contenu.innerHTML = result['view'];
             gameWaitingTurn();
         })
@@ -50,35 +53,13 @@ function gameWaitingTurn(){
     interval = window.setInterval(function(){
         ajax("refreshViewAjax", "", function(result) {
             var contenu = document.getElementById('contenu');
-            var jeton = result['jeton'];
+            var j = result['jeton'];
+            console.log('waiting, joueur='+currentPlayer+', jeton='+j);
             contenu.innerHTML = result['view'];
-            console.log('jeton='+jeton+'joueur='+currentPlayer);
-            if(jeton==currentPlayer){
-                gamePlay();
+            if(j==currentPlayer){
+                gamePlay(j);
                 clearInterval(interval);     
             }
         })
     },1000);
 }
-
-
-// function gameWaitingTurn(){
-//     window.setInterval(function(){
-//         var xhr = new XMLHttpRequest();
-//         xhr.onreadystatechange = function(){
-//             if(this.readyState == 4 && this.status == 200){
-//                 // console.log(this.responseText);
-//                 result = JSON.parse(this.responseText);
-//                 if(result != null){
-//                     var contenu = document.getElementById('contenu');
-//                     var jeton = result['jeton'];
-//                     console.log(jeton);
-//                     contenu.innerHTML = result['view'];
-//                 }
-//             }
-//         };
-//
-//         xhr.open("GET",".?controller=game&action=refreshViewAjax&ajax=1",true);
-//         xhr.send();
-//     },1000);
-// }

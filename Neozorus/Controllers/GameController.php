@@ -114,7 +114,7 @@ class GameController extends CoreController{
             $this->setTour($clone->getTour());
             $this->setEog($clone->getEog());
 //            $this->setJeton($clone->getJeton());
-            if(!empty($this->parameters['jeton'])){
+            if(isset($this->parameters['jeton'])){
                 $this->setJeton($this->parameters['jeton']);
             }else{
                 $this->setJeton($clone->getJeton());
@@ -162,17 +162,17 @@ class GameController extends CoreController{
         $abilite = (!empty($this->parameters['abilite']) ? $this->parameters['abilite'] : 0);
 
         $this->checkVisable();
-        $message = 'jeton='.$jeton.', joueur='.$currentPlayer;
+        $message = 'jeton='.$jeton.', joueur='.$currentPlayer.', tour='.$tour;
         $ajax = (!empty($this->parameters['ajax']) ? $this->parameters['ajax'] : null );
         if($ajax == null){
-            $message .= 'pas ajax';
+//            $message .= 'pas ajax';
             ob_start();
             require(VIEWS_PATH . DS . 'Game' . DS . 'gameView.php');
             $gameView = ob_get_contents();
             ob_clean();
             require_once( VIEWS_PATH . DS . 'Game' . DS . 'gameLayout.php' );
         }elseif($ajax=='1'){
-            $message .= 'ajax';
+//            $message .= 'ajax';
             ob_start();
             require_once(VIEWS_PATH . DS . 'Game' . DS . 'gameView.php');
             $gameView = ob_get_contents();
@@ -181,7 +181,6 @@ class GameController extends CoreController{
             $data = [ 'view' => $gameView, 'jeton' => $jeton ];
             echo json_encode($data);
             exit();
-//            echo $gameView;
         }
 
     }
@@ -209,8 +208,8 @@ class GameController extends CoreController{
         $att = !empty($this->parameters['att']) ? $this->parameters['att'] : '';
         $abilite = (!empty($this->parameters['abilite']) ? $this->parameters['abilite'] : 0);
         $this->checkVisable();
-        $message = 'jeton='.$jeton.', joueur='.$currentPlayer;
-        $message.='ajax Waiting';
+        $message = 'jeton='.$jeton.', joueur='.$currentPlayer.', tour='.$tour;
+//        $message.='ajax Waiting';
         ob_start();
         require(VIEWS_PATH . DS . 'Game' . DS . 'gameView.php');
         $gameView = ob_get_contents();

@@ -159,49 +159,49 @@
             <?php
             foreach($main[$joueurActif] AS $cle=>$value){
                 if($value->getType()=='creature'){
-//                    if ($currentPlayer == $jeton)
+                    if ($currentPlayer == $jeton){
                         echo '<a class="carteMain" href="?controller=game&action=play&jeton='.$jeton.'&jouer='.$value->getId().$value->getIndice().'">';
+                    }else{
+                        echo '<a class="carteMain">';
+                    }
                     echo '<img src="'.$value->getPath().'">';
                     echo '<span class="stat1Miniature">'.$value->getPuissance().'</span>';
                     echo '<span class="stat2Miniature">'.$value->getPv().'</span>';
                     echo '<span class="stat3Miniature">'.$value->getMana().'</span>';
-                    if ($currentPlayer == $jeton) echo'</a>';
+                    echo'</a>';
                 }
                 else if($value->getType()=='sort'){
-//                    if ($currentPlayer == $jeton)
+                    if ($currentPlayer == $jeton){
                         echo '<a class="carteMain" href="?controller=game&action=play&jeton='.$jeton.'&jouer='.$value->getId().$value->getIndice().'">';
+                    }else{
+                        echo '<a class="carteMain">';
+                    }
+
                     echo '<img src="'.$value->getPath().'">';
                     echo '<span class="stat1Miniature">'.$value->getPuissance().'</span>';
                     echo '<span class="stat2Miniature">'.$value->getMana().'</span>';
-                    if ($currentPlayer == $jeton) echo'</a>';
+                    echo'</a>';
                 }
                 else{
-//                    if ($currentPlayer == $jeton)
+                    if ($currentPlayer == $jeton){
                         echo '<a class="carteMain" href="?controller=game&action=play&jeton='.$jeton.'&jouer='.$value->getId().$value->getIndice().'">';
+                    }else{
+                        echo '<a class="carteMain">';
+                    }
+
                     echo '<img src="'.$value->getPath().'">';
                     echo '<span class="stat1MiniatureSpeciale">'.$value->getPuissance().'</span>';
                     echo '<span class="stat2MiniatureSpeciale">'.$value->getPv().'</span>';
                     echo '<span class="stat3MiniatureSpeciale">'.$value->getMana().'</span>';
-                    if ($currentPlayer == $jeton) echo'</a>';
+                    echo'</a>';
                 }
             }
             ?>
         </div>
     </div>
     <!-- Ici c'est le bouton passer le tour donc adapter la minature en fonction du hero-->
-    <?php
-//    if($currentPlayer == $jeton) {
-        ?>
-<!--        <div id="end">--><?//= '<a href="?controller=game&action=play&jeton=' . ($jeton == 0 ? 1 : 0) . '">' ?><!--<img-->
-<!--                src="./assets/img/plateau/bouttonTourSuivant/--><?//= $heros[$joueurPassif] ?><!--.png"></a></div>-->
-        <?php
-//    }else {
-        ?>
         <div id="end"><img
                 src="./assets/img/plateau/bouttonTourSuivant/<?= $heros[$joueurPassif] ?>.png"></div>
-        <?php
-//    }?>
-    ?>
 
     <div id="quitter"><a href="?controller=game&action=quitter">Quitter</a></div>
 
