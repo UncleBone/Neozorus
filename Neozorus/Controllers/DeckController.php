@@ -58,18 +58,18 @@ class DeckController extends CoreController{
 			if(preg_match("#^[a-zA-Z0-9-_]{3,60}$#", $newName)){
 				$model = new DeckModel;
 				if($model->updateName($this->parameters['deck'],$newName)){
-					echo $newName;
+					echo json_encode($newName);
 				}
 				else{
-					echo '';
+					echo json_encode('');
 				}
 			}
 			else{
-				echo '';
+				echo json_encode('');
 			}
 		}
 		else{
-			echo '';
+			echo json_encode('');
 		}
 	}
 }
