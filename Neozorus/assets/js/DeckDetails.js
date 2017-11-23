@@ -1,8 +1,8 @@
 $(function(){
 	function changedNameCallback(result){
-		if(result != ''){
-			$('h1').text(result);
-			console.log('coucou');
+		let newName = JSON.parse(result);
+		if(newName != ''){
+			$('h1').text(newName);
 		}
 	}
 
