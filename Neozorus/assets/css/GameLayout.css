@@ -246,7 +246,7 @@ body {
 
 .carteMain  {
 	position: relative;
-	width: 7%;
+	width: 130px;
 	overflow: hidden;
 }
 .carteMain:hover{
@@ -268,16 +268,16 @@ body {
 }
 
 .stat1Miniature{
-	top:17px;
-	left:28px;
+	top:20px;
+	left:33px;
 }
 .stat2Miniature{
-	top:31px;
-	left: 18px;
+	top:37px;
+	left: 22px;
 }
 .stat3Miniature{
-	top:49px;
-	left:14px;
+	top:58px;
+	left:16px;
 }
 
 .stat1MiniatureSpeciale{
