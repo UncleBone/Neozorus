@@ -65,13 +65,16 @@ body {
 /*HEROS*/
 
 #topHero,#bottomHero{
-	width: 8%;
-	height: 17.9%;
+	/*width: 8%;*/
+	/*height: 17.9%;*/
+	width:155px;
+	height: 180px;
 }
 #topHero{
 	position: fixed;
 	top: 1.5%;
-	left: 45.5%;
+	left: 50%;
+	transform: translateX(-50%);
 	
 }
 #topHero img{
@@ -80,9 +83,9 @@ body {
 
 #bottomHero{
 	position: fixed;
-	left: 45.5%;
+	left: 50%;
+	transform: translateX(-50%);
 	bottom: 10%;
-	margin: auto;
 }
 
 #bottomHero img{
