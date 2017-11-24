@@ -32,6 +32,16 @@ function gamePlay(jet){
     endTurn.style.cursor = "pointer";
     endTurn.setAttribute('title','Fin de Tour');
 
+    var carteMain = document.getElementsByClassName('carteMain');
+    for(var carte of carteMain){
+        carte.addEventListener('mouseover',function(){
+            this.style.top = "-10px";
+        });
+        carte.addEventListener('mouseout',function(){
+            this.style.top = "0px";
+        });
+    }
+
     endTurn.addEventListener('click',function(){
         ajax("play", "&jeton="+(1-jeton), function(result) {
             var contenu = document.getElementById('contenu');
