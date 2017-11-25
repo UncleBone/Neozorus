@@ -137,6 +137,7 @@ class GameController extends CoreController{
       * Sauvegarde + chargement + affichage
       */
     public function saveAndRefreshView($message = null, $error = null){
+    	$this->checkVisable();
         $this->saveGame();
         $this->loadGame();
         $tour = $this->getTour();
@@ -160,7 +161,7 @@ class GameController extends CoreController{
         $att = !empty($this->parameters['att']) ? $this->parameters['att'] : '';
         $abilite = (!empty($this->parameters['abilite']) ? $this->parameters['abilite'] : 0);
 
-        $this->checkVisable();
+        
 //        $message = $this->message($message);
         $errorMssg = $this->message($error);
 //        $message = 'jeton='.$jeton.', joueur='.$currentPlayer.', tour='.$tour;
