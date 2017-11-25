@@ -233,6 +233,7 @@ body {
 	border-radius: 50%;
 	z-index: 10;
 	left: 153px;
+	/*right: 5px;*/
 	top: 28px;
 }
 
@@ -330,6 +331,74 @@ body {
 	width: 75px;
 	height: 75px;
 	z-index: 100;
+}
+
+/* Responsive */
+
+
+@media (max-width: 1400px)
+{
+	#topHero,#bottomHero{
+		width:120px;
+		height: 150px;
+	}
+	.vitaHero{
+		z-index: 10;
+		position: absolute;
+		color: white;
+		font-family: 'Godzilla';
+		font-size: 21px;
+		top:33px;
+		left:22px;
+	}
+	.carte img{
+		width: 120px;
+		}
+	.stat1,.stat2,.stat3,.stat1Speciale,.stat2Speciale,.stat3Speciale{
+		font-size: 16px;
+	}
+	.stat1{
+		top:22px;
+		left: 38px;
+	}
+	.stat2{
+		top:42px;
+		left:24px;
+	}
+	.stat3{
+		top:65px;
+		left: 18px;
+	}
+
+	.stat1Speciale{
+		top:11px;
+		left: 17px;
+	}
+	.stat2Speciale{
+		top:31px;
+		left: 17px;
+	}
+	.stat3Speciale{
+		top:50px;
+		left: 17px;
+	}
+	.indice{
+		top: 22px;
+		left: 108px;
+	}
+	.indice span{
+		position: absolute;
+		font-size: 8px;
+		font-family: 'fira-code';
+		top: 1px;
+		left:2px;
+	}
+}
+
+@media (max-height: 700px){
+	.pilluleBleu img, .pilluleRouge img{
+		height: 25px;
+		}
 }
 
 
