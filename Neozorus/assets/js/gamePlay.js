@@ -34,10 +34,40 @@ function gamePlay(jet){
 
     var carteMain = document.getElementsByClassName('carteMain');
     for(var carte of carteMain){
-        carte.addEventListener('mouseover',function(){
+        carte.addEventListener('mouseover',function(e){
+            var img = this.firstChild;
+            var libelle = img.getAttribute('data_libelle');
+            var abilite1 = img.getAttribute('data_abilite');
+            var abilite2 = img.getAttribute('data_abilite_2');
+            var infoBox = document.createElement('div');
+            var oldInfoBox = document.getElementById('infoBox');
+            if(oldInfoBox != null)  document.body.removeChild(oldInfoBox);
+            
+            infoBox.id = 'infoBox';
+            infoBox.style.backgroundColor = 'rgba(0,0,0,0.7)';
+            infoBox.style.color = 'white';
+            infoBox.style.position = 'absolute';
+            infoBox.style.top = e.clientY+'px';
+            infoBox.style.left = e.clientX+'px';
+            infoBox.style.transform = 'translate(-100%,-100%)';
+            infoBox.style.fontFamily = 'fira-code';
+            infoBox.style.padding = '0 10px';
+            infoBox.style.borderRadius = '5px';
+            infoBox.innerHTML = '<p>'+libelle;
+            if(abilite1 != '0'){
+                infoBox.innerHTML += '<br>'+abiliteTexte(abilite1);
+                if(abilite2 != '0'){
+                    infoBox.innerHTML += '<br>'+abiliteTexte(abilite2);
+                }
+            }
+            infoBox.innerHTML += '</p>';
+
+            document.body.append(infoBox);
             this.style.top = "-10px";
         });
         carte.addEventListener('mouseout',function(){
+            var oldInfoBox = document.getElementById('infoBox');
+            if(oldInfoBox != null)  document.body.removeChild(oldInfoBox);
             this.style.top = "0px";
         });
     }
@@ -52,6 +82,19 @@ function gamePlay(jet){
             gameWaitingTurn();
         })
     });
+}
+
+function abiliteTexte(ab){
+    switch(ab){
+        case '1':
+            return 'Bouclier';
+        case '2':
+            return 'Pioche 1 carte';
+        case '3':
+            return 'Pioche 2 cartes';
+        default:
+        return '';
+    }
 }
 
 /************Fonction active pendant le tour du joueur passif**************/
