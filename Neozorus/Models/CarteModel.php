@@ -32,7 +32,7 @@ class CarteModel extends CoreModel{
 		return $mesCartes;
 	}
 
-	public function GetCartesByFilter($idHero = null, $type = null, $mana = null, $pouvoir = null){
+	public function GetCartesByFilter($idHero = null, $type = null, $mana = null, $pouvoir = null, $tri = 'c_mana'){
 		$mesCartes = array();
 
 		$filterHero = $idHero == null ? 'WHERE 1' : 'WHERE c_personnage_fk='.$idHero;
@@ -40,7 +40,7 @@ class CarteModel extends CoreModel{
 		$filterMana = $mana == null ? '' : 'AND c_mana='.$mana;
 		$filterPouvoir = $pouvoir == null ? '' : 'AND a_id='.$pouvoir;
 
-		$data=$this->MakeSelect('SELECT DISTINCT carte.* FROM carte LEFT JOIN  c_a_inclure ON c_id = c_a_carte_fk LEFT JOIN abilite ON c_a_abilite_fk=a_id '.$filterHero.' '.$filterType.' '.$filterMana.' '.$filterPouvoir);
+		$data=$this->MakeSelect('SELECT DISTINCT carte.* FROM carte LEFT JOIN  c_a_inclure ON c_id = c_a_carte_fk LEFT JOIN abilite ON c_a_abilite_fk=a_id '.$filterHero.' '.$filterType.' '.$filterMana.' '.$filterPouvoir.' ORDER BY '. $tri);
 
 		foreach ($data as $key => $value){
 			$mesCartes[]=new Carte($value);				

@@ -12,6 +12,7 @@ $(function(){
 		let type = $('#type').val();
 		let coutMana = $('#mana').val();
 		let idPouvoir = $('#pouvoir').val();
-		$('.affichageCarte').load('index.php?controller=carte&action=afficherCollectionCarte&ajax=1&idHero='+idHero+'&type='+type+'&mana='+coutMana+'&idPouvoir='+idPouvoir);
+		let tri = $('#tri').val();
+		$('.affichageCarte').load('index.php?controller=carte&action=afficherCollectionCarte&ajax=1&idHero='+idHero+'&type='+type+'&mana='+coutMana+'&idPouvoir='+idPouvoir+'&tri='+tri);
 	})
 });

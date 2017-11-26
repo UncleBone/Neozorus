@@ -30,8 +30,15 @@ class CarteController extends CoreController{
 			$type = htmlentities($this->parameters['type']) == 'null' ? null : htmlentities($this->parameters['type']);
 			$mana = htmlentities($this->parameters['mana']) == 'null' ? null : htmlentities($this->parameters['mana']);
 			$idPouvoir = htmlentities($this->parameters['idPouvoir']) == 'null' ? null : htmlentities($this->parameters['idPouvoir']);
+			$tri = 'c_mana';
+			if(htmlentities($this->parameters['tri']) == 'valPuissance'){
+				$tri = 'c_puissance';
+			}
+			else if(htmlentities($this->parameters['tri']) == 'valVitalite'){
+				$tri = 'c_pvMax';
+			}
 			$model = new CarteModel();
-			$mesCartes = $model->GetCartesByFilter($idHero, $type, $mana, $idPouvoir);
+			$mesCartes = $model->GetCartesByFilter($idHero, $type, $mana, $idPouvoir, $tri);
 			include(VIEWS_PATH . DS . 'Carte' . DS . 'FilterView.php');
 		}
 	}

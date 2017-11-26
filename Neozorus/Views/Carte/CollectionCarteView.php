@@ -85,6 +85,12 @@
 					echo '<option value="'.$mesPouvoirs[$i]['a_id'].'">'.$mesPouvoirs[$i]['a_libelle'].'</option>';
 				}
 				?>
+			</select><hr />
+			<label>Trier par:</label>
+			<select id="tri">
+				<option value="valMana" selected >Mana</option>
+				<option value="valPuissance">Puissance</option>
+				<option value="valVitalite">Vitalité</option>
 			</select><br />
 			<p><a href="index.php?controller=home&action=affichagePageAccueil">Retour</a></p>
 		</div>
