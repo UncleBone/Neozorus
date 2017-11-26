@@ -112,7 +112,6 @@ class GameController extends CoreController{
             $this->setPlayer($clone->getPlayer(1));
             $this->setTour($clone->getTour());
             $this->setEog($clone->getEog());
-//            $this->setJeton($clone->getJeton());
             if(isset($this->parameters['jeton'])){
                 $this->setJeton($this->parameters['jeton']);
             }else{
@@ -161,8 +160,6 @@ class GameController extends CoreController{
         $att = !empty($this->parameters['att']) ? $this->parameters['att'] : '';
         $abilite = (!empty($this->parameters['abilite']) ? $this->parameters['abilite'] : 0);
 
-        
-//        $message = $this->message($message);
         $errorMssg = $this->message($error);
 //        $message = 'jeton='.$jeton.', joueur='.$currentPlayer.', tour='.$tour;
         $ajax = (!empty($this->parameters['ajax']) ? $this->parameters['ajax'] : null );

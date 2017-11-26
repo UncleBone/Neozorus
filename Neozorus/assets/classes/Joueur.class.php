@@ -21,7 +21,7 @@ class Joueur{
         $this->setMana(0);
         $this->setVisable(1);
         $user = new UserModel();
-        $this->pseudo = $user->getPseudo($id);
+        $this->pseudo = $user->getPseudo($id)['u_pseudo'];
 	}
 
 	public function setId($id){
