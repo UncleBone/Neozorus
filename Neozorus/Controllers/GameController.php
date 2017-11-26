@@ -326,7 +326,7 @@ class GameController extends CoreController{
 	    if(!($winner = $this->checkEog())){
             $this->tour($this->jeton);
         }else{
-            $message = 'Partie terminée<br>Vainqueur: '.$winner->getId();
+            $message = 'Partie terminée<br>Vainqueur: '.$winner->getPseudo();
             $this->saveAndRefreshView($message);
         }
 	}
