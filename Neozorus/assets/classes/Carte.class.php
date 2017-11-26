@@ -1,5 +1,5 @@
 <?php
-Class Carte{
+Class Carte implements JsonSerializable{
 	private $c_id;
 	private $c_libelle;
 	private $c_type;
@@ -23,6 +23,21 @@ Class Carte{
 		$this->setC_mana($data['c_mana']);
 		$this->setC_gabarit($data['c_type'],$data['c_id']);
 		$this->setC_indice($indice);
+	}
+
+	public function jsonSerialize(){
+		$array = array();
+		$array['c_id']=$this->c_id;
+		$array['c_libelle']=$this->c_libelle;
+		$array['c_type']=$this->c_type;
+		$array['c_puissance']=$this->c_puissance;
+		$array['c_pvMax']=$this->c_pvMax;
+		$array['c_mana']=$this->c_mana;
+		$array['c_gabarit']=$this->c_gabarit;
+		$array['c_indice']=$this->c_indice;
+		$array['c_localisation']=$this->c_localisation;
+
+		return $array;
 	}
 
 	private function setC_id($ID){

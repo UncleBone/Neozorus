@@ -31,4 +31,48 @@ class CarteModel extends CoreModel{
 		}
 		return $mesCartes;
 	}
+
+	public function GetCartesByFilter($idHero = null, $type = null, $mana = null, $pouvoir = null){
+		$mesCartes = array();
+
+		$filterHero = $idHero == null ? 'WHERE 1' : 'WHERE c_personnage_fk='.$idHero;
+		$filterType = $type == null ? '' : 'AND c_type="'.$type.'"';
+		$filterMana = $mana == null ? '' : 'AND c_mana='.$mana;
+		$filterPouvoir = $pouvoir == null ? '' : 'AND a_id='.$pouvoir;
+
+		$data=$this->MakeSelect('SELECT DISTINCT carte.* FROM carte LEFT JOIN  c_a_inclure ON c_id = c_a_carte_fk LEFT JOIN abilite ON c_a_abilite_fk=a_id '.$filterHero.' '.$filterType.' '.$filterMana.' '.$filterPouvoir);
+
+		foreach ($data as $key => $value){
+			$mesCartes[]=new Carte($value);				
+		}
+		
+		return $mesCartes;
+	}
+
+	public function getType(){
+		$mesTypes = array();
+		$data=$this->MakeSelect('SELECT DISTINCT c_type FROM carte');
+		foreach ($data as $key => $value){
+			$mesTypes[]=$value['c_type'];				
+		}
+		return $mesTypes;
+	}
+
+	public function getCoutMana(){
+		$mesCoutMana = array();
+		$data=$this->MakeSelect('SELECT DISTINCT c_mana FROM carte ORDER BY c_mana');
+		foreach ($data as $key => $value){
+			$mesCoutMana[]=$value['c_mana'];				
+		}
+		return $mesCoutMana;
+	}
+
+	public function getPouvoirs(){
+		$mesPouvoirs = array();
+		$data=$this->MakeSelect('SELECT DISTINCT a_libelle, a_id FROM abilite ORDER BY a_id');
+		foreach ($data as $key => $value){
+			$mesPouvoirs[]=$value;				
+		}
+		return $mesPouvoirs;
+	}
 }

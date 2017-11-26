@@ -11,4 +11,28 @@ class CarteController extends CoreController{
 			include(VIEWS_PATH . DS . 'Carte' . DS . 'SelectCarteView.php');
 		}
 	}
+
+	public function afficherCollectionCarte(){
+		if(!isset($this->parameters['ajax'])){
+			$carteModel = new CarteModel();
+			$mesCartes = $carteModel -> GetCartesByFilter();
+			$mesTypes = $carteModel -> GetType();
+			$mesCoutsMana = $carteModel -> GetCoutMana();
+			$mesPouvoirs = $carteModel -> GetPouvoirs();
+
+			$heroModel = new HeroModel();
+			$mesHeros = $heroModel -> GetListHeros();
+
+			include(VIEWS_PATH . DS . 'Carte' . DS . 'CollectionCarteView.php');
+		}
+		else{
+			$idHero = htmlentities($this->parameters['idHero']) == 'null' ? null : htmlentities($this->parameters['idHero']);
+			$type = htmlentities($this->parameters['type']) == 'null' ? null : htmlentities($this->parameters['type']);
+			$mana = htmlentities($this->parameters['mana']) == 'null' ? null : htmlentities($this->parameters['mana']);
+			$idPouvoir = htmlentities($this->parameters['idPouvoir']) == 'null' ? null : htmlentities($this->parameters['idPouvoir']);
+			$model = new CarteModel();
+			$mesCartes = $model->GetCartesByFilter($idHero, $type, $mana, $idPouvoir);
+			include(VIEWS_PATH . DS . 'Carte' . DS . 'FilterView.php');
+		}
+	}
 }
