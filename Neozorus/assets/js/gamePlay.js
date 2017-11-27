@@ -10,6 +10,7 @@ function ajax(nom, data, fct) {
 
     xhr.onreadystatechange = function(){
         if(this.readyState == 4 && this.status == 200){
+            console.log(this.responseText);
             result = JSON.parse(this.responseText);
             if(result != null){
                 fct(result);
@@ -53,12 +54,13 @@ function gamePlay(jet){
                 infoBox.style.fontFamily = 'fira-code';
                 infoBox.style.padding = '0 10px';
                 infoBox.style.borderRadius = '5px';
-                infoBox.innerHTML = '<p>'+libelle;
+                infoBox.innerHTML = '<p class="libelle">'+libelle+'</p>';
                 if(abilite1 != '0'){
-                    infoBox.innerHTML += '<br>'+abiliteTexte(abilite1);
+                    infoBox.innerHTML += '<p class="abilite">'+abiliteTexte(abilite1)+'</p>';
                     if(abilite2 != '0'){
-                        infoBox.innerHTML += '<br>'+abiliteTexte(abilite2);
+                        infoBox.innerHTML += '<p class="abilite">'+abiliteTexte(abilite2)+'</p>';
                     }
+                    // infoBox.innerHTML += '</p>';
                 }
                 infoBox.innerHTML += '</p>';
 

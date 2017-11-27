@@ -11,7 +11,7 @@ class GameCard
 
     private $pv;                    // pv actuels de la carte
     private $localisation;          // localisation (pioche, main, plateau ou défausse)
-    private $indice;
+    private $indice;                // indice pour les cartes en plusieurs exemplaires
     private $path;                  // chemin du gabarit
     private $active = 0;            // 1: peut attaquer, 0: ne peut pas attaquer
     private $visable;               // 1: peut être attaqué, 0: ne peut pas être attaqué
