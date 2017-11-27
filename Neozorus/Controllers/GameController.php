@@ -176,7 +176,7 @@ class GameController extends CoreController{
             $gameView = ob_get_contents();
             ob_clean();
             header('Content-Type: application/json; charset=utf-8');
-            $data = [ 'view' => $gameView, 'jeton' => $jeton ];
+            $data = [ 'view' => $gameView, 'jeton' => $jeton, 'eog' => $eog ];
             echo json_encode($data);
             exit();
         }
@@ -216,7 +216,7 @@ class GameController extends CoreController{
         $gameView = ob_get_contents();
         ob_clean();
         header('Content-Type: application/json; charset=utf-8');
-        $data = [ 'view' => $gameView, 'jeton' => $jeton ];
+        $data = [ 'view' => $gameView, 'jeton' => $jeton, 'eog' => $eog ];
         echo json_encode($data);
     }
 
