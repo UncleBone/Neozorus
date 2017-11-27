@@ -1,20 +1,74 @@
 <?php
 Class Carte implements JsonSerializable{
+	/**
+	 * Identifiant de la carte
+	 * @var [int]
+	 */
 	private $c_id;
+
+	/**
+	 * Libelle de la carte
+	 * @var [string]
+	 */
 	private $c_libelle;
+
+	/**
+	 * Type de la carte (ex:creature,sort,speciale...)
+	 * @var [string]
+	 */
 	private $c_type;
+
+	/**
+	 * Puissance de la carte
+	 * @var [int]
+	 */
 	private $c_puissance;
+
+	/**
+	 * Point de Vie maximum de la carte
+	 * @var [int]
+	 */
 	private $c_pvMax;
+
+	/**
+	 * Coût en mana de la carte
+	 * @var [int]
+	 */
 	private $c_mana;
+
+	/**
+	 * Chemin vers l'illustration de la carte
+	 * @var [string]
+	 */
 	private $c_gabarit;
+
+	/**
+	 * Indice de la carte (pour differencier des cartes en double dans un deck)
+	 * @var [null|int]
+	 */
 	private $c_indice = NULL;
-	private $c_localisation = 'pioche';
-	const EXEMPLAIRE_CREATURE = Nb_EXEMPLAIRE_CREATURE;
-	const  EXEMPLAIRE_SPECIALE = Nb_EXEMPLAIRE_SPECIALE;
-	const EXEMPLAIRE_SORT = Nb_EXEMPLAIRE_SORT;
 
+	/**
+	 * nombre de creature doublon autorise
+	 */
+	const EXEMPLAIRE_CREATURE = Nb_EXEMPLAIRE_CREATURE;//Nb_EXEMPLAIRE_CREATURE defini dans ini.php
 
-	public function __construct($data,$indice = 1){
+	/**
+	 * nombre de carte speciale doublon autorise
+	 */
+	const  EXEMPLAIRE_SPECIALE = Nb_EXEMPLAIRE_SPECIALE;//Nb_EXEMPLAIRE_SPECIALE defini dans ini.php
+
+	/**
+	 * nombre de carte sort doublon autorise
+	 */
+	const EXEMPLAIRE_SORT = Nb_EXEMPLAIRE_SORT;//Nb_EXEMPLAIRE_SORT defini dans ini.php
+
+	/**
+	 * Instancie une carte à partir d'un tableau $data, et d'un parametre facultatif $indice
+	 * @param [array]  $data   tableau comportant toutes les informations nécessaires à l'instanciation d'une carte
+	 * @param [int] $indice spécifie l'indice d'une carte, par défaut c'est égal à 1
+	 */
+	public function __construct(array $data,$indice = 1){
 		$this->setC_id($data['c_id']);
 		$this->setC_libelle($data['c_libelle']);
 		$this->setC_type($data['c_type']);
@@ -25,6 +79,10 @@ Class Carte implements JsonSerializable{
 		$this->setC_indice($indice);
 	}
 
+	/**
+	 * retourne un tableau avec les attributs de la carte lors d'un JSON_encode
+	 * @return [array] 
+	 */
 	public function jsonSerialize(){
 		$array = array();
 		$array['c_id']=$this->c_id;
@@ -40,6 +98,10 @@ Class Carte implements JsonSerializable{
 		return $array;
 	}
 
+	/**
+	 * Setteur Identifiant
+	 * @param [int] $ID Identifiant de la carte
+	 */
 	private function setC_id($ID){
 		$this->c_id = $ID;
 	}
@@ -82,6 +144,24 @@ Class Carte implements JsonSerializable{
 		switch ($this->c_type) {
 			case 'creature':
 				if ($indice >0 && $indice <= self::EXEMPLAIRE_CREATURE) {
+					$this->c_indice = $indice;				
+				}
+				else{
+					return false;
+				}
+				break;
+
+			case 'sort':
+				if ($indice >0 && $indice <= self::EXEMPLAIRE_SORT) {
+					$this->c_indice = $indice;				
+				}
+				else{
+					return false;
+				}
+
+				break;
+			case 'speciale':
+				if ($indice >0 && $indice <= self::EXEMPLAIRE_SORT) {
 					$this->c_indice = $indice;				
 				}
 				else{
