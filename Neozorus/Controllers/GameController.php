@@ -161,10 +161,9 @@ class GameController extends CoreController{
         $abilite = (!empty($this->parameters['abilite']) ? $this->parameters['abilite'] : 0);
 
         $errorMssg = $this->message($error);
-//        $message = 'jeton='.$jeton.', joueur='.$currentPlayer.', tour='.$tour;
+
         $ajax = (!empty($this->parameters['ajax']) ? $this->parameters['ajax'] : null );
         if($ajax == null){
-//            $message .= 'pas ajax';
             ob_start();
             require(VIEWS_PATH . DS . 'Game' . DS . 'gameView.php');
             $gameView = ob_get_contents();
@@ -172,7 +171,6 @@ class GameController extends CoreController{
             require_once( VIEWS_PATH . DS . 'Game' . DS . 'gameLayout.php' );
             exit();
         }elseif($ajax=='1'){
-//            $message .= 'ajax';
             ob_start();
             require_once(VIEWS_PATH . DS . 'Game' . DS . 'gameView.php');
             $gameView = ob_get_contents();
@@ -206,10 +204,13 @@ class GameController extends CoreController{
         $currentPlayer = $this->getCurrentPlayerJeton();
         $eog = $this->getEog();
         $cible = !empty($this->parameters['cible']) ? $this->parameters['cible'] : '';
-//        $error = !empty($this->parameters['error']) ? $this->parameters['error'] : '';
         $att = !empty($this->parameters['att']) ? $this->parameters['att'] : '';
         $abilite = (!empty($this->parameters['abilite']) ? $this->parameters['abilite'] : 0);
         $this->checkVisable();
+        if($winner = $this->checkEog()){
+            $this->setEog(true);
+            $message = 'Partie terminée<br>Vainqueur: '.$winner->getPseudo();
+        }
         ob_start();
         require(VIEWS_PATH . DS . 'Game' . DS . 'gameView.php');
         $gameView = ob_get_contents();
