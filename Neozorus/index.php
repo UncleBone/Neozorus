@@ -30,9 +30,12 @@ try
 	$controllerName = ucfirst($params['controller']).'Controller';
 	//On définit l'action en fonction des paramètres
 	$action = $params['action'];
+	//On teste l'existance du cichier controller, et si il existe on instancie notre controller
 	if(file_exists(CONTROLLERS_PATH . DS . $controllerName . '.php')){	
 		$controller = new $controllerName;
-	}else{
+	}
+	//Sinon on redirige l'utilisateur sur une page d'erreur
+	else{
 		http_response_code(404);
 	    include(VIEWS_PATH . DS . '404.php');
 	    exit;
@@ -44,7 +47,9 @@ try
 	//On appelle la méthode correspondant à l'action
 	if(method_exists($controller, $action)){	
 		$controller->$action();
-	}else{
+	}
+	//Si la méthode n'existe pas, on redirige l'utilisateur sur une page d'erreur
+	else{
 		http_response_code(404);
 	    include(VIEWS_PATH . DS . '404.php');
 	    exit;
