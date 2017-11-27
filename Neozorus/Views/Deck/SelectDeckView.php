@@ -32,11 +32,6 @@
 			<p class="decksExistants">Mes Decks</p>
 
 		</div>
-
-
-			
-
-
 	</div>
 </header>
 
