@@ -26,9 +26,6 @@ foreach ($mesCartes AS  $value){
 		else if ($value->getC_type() ==  'speciale') {
 			echo '<span class="ManaCarteSpeciale">'.$value->GetC_mana().'</span>';
 		}
-		if ($value->getC_type() ==  'creature') {
-			echo '<span class="IndiceCarteCreature"><p>'.$value->GetC_indice().'</p></span>';
-		}
 		?>
 	</div>
 <?php

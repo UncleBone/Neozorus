@@ -7,7 +7,7 @@
 <body>
 <header>
 		<div class="retouraccueil">
-			<a href="index.php?controller=home&action=affichagePageAccueil">Retour</a>
+			<a href="index.php?controller=home&action=affichagePageAccueil">Acceuil</a>
 		</div>
 		<div class="bloc_logo">
 			<img class="logo" src="./assets/img/logoNeozorus.png" id="logoNeozorus">

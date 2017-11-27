@@ -108,23 +108,3 @@ h1{
 	left:-144px;
 }
 
-.IndiceCarteCreature {
-	font-size: 12px;
-	position: relative;
-	font-family: 'army_rangers';
-	top: -189px;
-	left:135px;
-}
-
-.IndiceCarteCreature p {
-	margin:0;
-	padding:0.5px;
-	padding-left: 2px;
-	padding-bottom: 3px;
-	z-index: 3;
-	width: 10px;
-	height: 10px;
-	color:black;
-	background-color: white;
-	border-radius: 50%;
-}
