@@ -1,4 +1,4 @@
-console.log(currentPlayer);
+
 if(currentPlayer != jeton){
     gameWaitingTurn();
 }else {
@@ -10,7 +10,6 @@ function ajax(nom, data, fct) {
 
     xhr.onreadystatechange = function(){
         if(this.readyState == 4 && this.status == 200){
-            console.log(this.responseText);
             result = JSON.parse(this.responseText);
             if(result != null){
                 fct(result);
@@ -34,6 +33,8 @@ function gamePlay(jet){
         endTurn.setAttribute('title','Fin de Tour');
 
         var carteMain = document.getElementsByClassName('carteMain');
+        var cartePlateau = document.querySelectorAll('#bottomCreature a.carte img');
+
         for(var carte of carteMain){
             carte.addEventListener('mouseover',function(e){
                 var img = this.firstChild;
@@ -60,7 +61,6 @@ function gamePlay(jet){
                     if(abilite2 != '0'){
                         infoBox.innerHTML += '<p class="abilite">'+abiliteTexte(abilite2)+'</p>';
                     }
-                    // infoBox.innerHTML += '</p>';
                 }
                 infoBox.innerHTML += '</p>';
 
@@ -71,6 +71,15 @@ function gamePlay(jet){
                 var oldInfoBox = document.getElementById('infoBox');
                 if(oldInfoBox != null)  document.body.removeChild(oldInfoBox);
                 this.style.top = "0px";
+            });
+        }
+
+        for(var carte of cartePlateau){
+            carte.addEventListener('mouseover',function(){
+                this.style.width = parseInt(this.clientWidth)+2+'px';
+            });
+            carte.addEventListener('mouseout',function(){
+                this.style.width = parseInt(this.clientWidth)-2+'px';
             });
         }
 
