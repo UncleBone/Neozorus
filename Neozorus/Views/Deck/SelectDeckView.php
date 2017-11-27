@@ -8,19 +8,7 @@
 </head>
 <body>
 <header>
-	<div class="bloc_menu">
-		<ul id="menu_jouer">
-			<li><a href="#">Menu</a>
-				<ul id="menu">
-						<li><a href="index.php?controller=deck&action=affichagePageRegles">Règles du jeu</a></li>
-						<li><a href="#">Forum</a></li>
-						<li><a href="index.php?controller=deck&action=parametres">Paramètres</a></li>
-						<li><a href="index.php?controller=deck&action=deconnexion">Se déconnecter</a></li>
-				</ul>
-			</li>
-		</ul>
-	</div>
-
+	<?php include(MENU) ?>
 	<div id="headerDecks">
 
 

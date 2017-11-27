@@ -39,9 +39,6 @@
 					else if ($value->getC_type() ==  'speciale') {
 						echo '<span class="ManaCarteSpeciale">'.$value->GetC_mana().'</span>';
 					}
-					if ($value->getC_type() ==  'creature') {
-						echo '<span class="IndiceCarteCreature"><p>'.$value->GetC_indice().'</p></span>';
-					}
 					?>
 				</div>
 			<?php
@@ -92,7 +89,7 @@
 				<option value="valPuissance">Puissance</option>
 				<option value="valVitalite">Vitalité</option>
 			</select><br />
-			<p><a href="index.php?controller=home&action=affichagePageAccueil">Retour</a></p>
+			<p><a href="index.php?controller=home&action=affichagePageAccueil">Acceuil</a></p>
 		</div>
 	</div>	
 </body>

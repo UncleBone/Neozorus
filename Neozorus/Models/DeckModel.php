@@ -1,20 +1,47 @@
 <?php
 class DeckModel extends CoreModel{
+
+	/**
+	 * Récupère dans la BDD tous les deck d'un utilisateur en fonction du héro
+	 * @param [int] $UserID       ID de l'utilisateur
+	 * @param [int] $personnageID ID du héro
+	 * @return [array] Tableau qui contient des instances de Deck
+	 */
 	public function GetAllDecks($UserID,$personnageID){
 		$Decks = array();
-		$datas=$this->MakeSelect('SELECT d_id, d_libelle,d_nbMaxCarte,d_personnage_fk FROM deck WHERE d_user_fk ='.$UserID.' AND d_personnage_fk = '.$personnageID);
+
+		$sql='SELECT d_id, d_libelle,d_nbMaxCarte,d_personnage_fk FROM deck WHERE d_user_fk =:user AND d_personnage_fk = :hero';
+		$params=array('user'=>$UserID, 'hero'=>$personnageID);
+		$datas=$this->MakeSelect($sql,$params);
+
 		foreach ($datas as $key => $data) {
 			$Decks[]=new Deck ($data);
 		}
+		
 		return $Decks;
 	}
 
+	/**
+	 * Vérifie l'éxistence d'un deck dans la BDD et qu'il soit bien associé au bon utilisateur et au bon héro
+	 * @param [int] $d_ID ID du deck
+	 * @param [int] $u_ID ID de l'utilisateur
+	 * @param [int] $h_ID ID du héro
+	 * @return [bool] true si tout est Ok
+	 */
 	public function IssetDeck($d_ID,$u_ID,$h_ID){
-		$datas=$this->MakeSelect('SELECT d_id, d_libelle,d_nbMaxCarte,d_personnage_fk FROM deck WHERE d_id = '.$d_ID.' AND d_user_fk = '.$u_ID.' AND d_personnage_fk ='.$p_ID );
+		$sql='SELECT d_id, d_libelle,d_nbMaxCarte FROM deck WHERE d_id = :deckID AND d_user_fk = :userID AND d_personnage_fk =:heroID';
+		$params = array('deckID'=>$d_ID,'userID'=>$u_ID, 'heroID'=>$h_ID);
+		$datas=$this->MakeSelect($sql, $params);
 		$issetDeck = $datas != NULL ? true : false ;
 		return $issetDeck;
 	}
 
+	/**
+	 * Ajoute un deck dans la BDD associé à un héro et un utilisateur
+	 * @param [int] $user ID de l'utilisateur
+	 * @param [int] $hero ID du héro
+	 * @return [false|int] retourne false si l'ajout du deck a échoué, et l'id du deck si l'ajout a réussi
+	 */
 	public function addDeckDb($user,$hero){
 		$sql = 'INSERT INTO deck (d_libelle,d_nbMaxCarte, d_personnage_fk, d_user_fk, d_waiting) VALUES ("Default", 20, :personnage, :user,0)';
 
@@ -30,8 +57,14 @@ class DeckModel extends CoreModel{
         return false;
 	}
 
+	/**
+	 * Rempli le deck passé en paramètre de cartes afin de constituer un deck par default
+	 * @param  Deck   $deck Instance de Deck
+	 * @return [bool]       retourne true si le deck a été rempli, sinon false
+	 */
 	public function fillDeckDefault(Deck $deck){
 		$id = $deck->getD_id();
+		//En fonction du héro associé au deck , on établit une liste de carte différents
 		if($deck->getD_personnage() == 1){
 			$sql=
 			"INSERT INTO d_c_inclure (d_c_nbExemplaire, d_c_deck_fk, d_c_carte_fk) VALUES ( 1 , ". $id .", 1 );
@@ -68,15 +101,27 @@ class DeckModel extends CoreModel{
 		return false;
 	}
 
+	/**
+	 * Supprime un deck de la BDD en fonction de son Identifiant
+	 * @param  [type] $id [description]
+	 * @return [type]     [description]
+	 */
 	public function deleteDeck($id){
-		$sql = 'DELETE FROM deck WHERE d_id='.$id.';';
+		$sql = 'DELETE FROM deck WHERE d_id=:id';
+		$param = array('id'=>$id);
 
-        if($this->makeStatement($sql)){
+        if($this->makeStatement($sql,$param)){
         	return true;
         }
         return false;
 	}
 
+	/**
+	 * Modifie le nom d'un deck dans la BDD
+	 * @param  [int] $id      Identifiant du deck à renommer
+	 * @param  [string] $newName Nouveau nom du deck
+	 * @return [bool]          renvoi true si le nom a bien été modifié, sinon false
+	 */
 	public function updateName($id,$newName){
 		$sql = 'UPDATE deck SET d_libelle=:name WHERE d_id=:id';
 		$params = array(
