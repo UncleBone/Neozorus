@@ -318,10 +318,10 @@ class UserController extends CoreController
 		}
 	}
 
-		public function deconnexion(){
-			unset($_SESSION['neozorus']);
-			header('Location:.');
-			exit;
-		}
+	public function deconnexion(){
+		unset($_SESSION['neozorus']);
+		header('Location:.');
+		exit;
+	}
 	
 }

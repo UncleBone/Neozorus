@@ -36,4 +36,4 @@ define('Nb_EXEMPLAIRE_SORT', 1);
 define('Nb_EXEMPLAIRE_SPECIALE', 1);
 
 //Constante acces Menu Deroulant
-define('MENU', '.' . DS . 'Views' . DS . 'Layout' . DS .'menu.php');
+define('MENU', '.' . DS . 'Views' . DS . 'Module' . DS .'menu.php');

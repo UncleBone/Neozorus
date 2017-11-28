@@ -1,9 +1,10 @@
+/******************************DECLARATION DES POLICES******************************/
 @font-face
 {
     font-family: 'fira_code';
     src:url('../font/fira-code/FiraCode-Medium.otf');
 }
-
+/******************************GENERAL******************************/
 body
 {
     margin: 0;

@@ -7,7 +7,7 @@ class CoreController{
 	/**
 	 * initalise les tableaux parameters,data et session
 	 */
-	public function __contruct(){
+	public function __construct(){
 		$this->parameters = array();
 		$this->data = array();
 		$this->session = array();

@@ -5,6 +5,7 @@ class CarteController extends CoreController{
 	 * Récupere les cartes en fonction du héro, du deck, et de l'utilisateur
 	 */
 	public function afficherCarte(){
+		HomeController::isSession();
 		$model = new CarteModel();
 		$hero = $this->parameters['hero'];
 		//On définit le theme de la page en fonction du héro
