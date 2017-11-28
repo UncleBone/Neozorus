@@ -1,4 +1,4 @@
-console.log(currentPlayer);
+
 if(currentPlayer != jeton){
     gameWaitingTurn();
 }else {
@@ -33,6 +33,8 @@ function gamePlay(jet){
         endTurn.setAttribute('title','Fin de Tour');
 
         var carteMain = document.getElementsByClassName('carteMain');
+        var cartePlateau = document.querySelectorAll('#bottomCreature a.carte img');
+
         for(var carte of carteMain){
             carte.addEventListener('mouseover',function(e){
                 var img = this.firstChild;
@@ -53,11 +55,11 @@ function gamePlay(jet){
                 infoBox.style.fontFamily = 'fira-code';
                 infoBox.style.padding = '0 10px';
                 infoBox.style.borderRadius = '5px';
-                infoBox.innerHTML = '<p>'+libelle;
+                infoBox.innerHTML = '<p class="libelle">'+libelle+'</p>';
                 if(abilite1 != '0'){
-                    infoBox.innerHTML += '<br>'+abiliteTexte(abilite1);
+                    infoBox.innerHTML += '<p class="abilite">'+abiliteTexte(abilite1)+'</p>';
                     if(abilite2 != '0'){
-                        infoBox.innerHTML += '<br>'+abiliteTexte(abilite2);
+                        infoBox.innerHTML += '<p class="abilite">'+abiliteTexte(abilite2)+'</p>';
                     }
                 }
                 infoBox.innerHTML += '</p>';
@@ -69,6 +71,15 @@ function gamePlay(jet){
                 var oldInfoBox = document.getElementById('infoBox');
                 if(oldInfoBox != null)  document.body.removeChild(oldInfoBox);
                 this.style.top = "0px";
+            });
+        }
+
+        for(var carte of cartePlateau){
+            carte.addEventListener('mouseover',function(){
+                this.style.width = parseInt(this.clientWidth)+2+'px';
+            });
+            carte.addEventListener('mouseout',function(){
+                this.style.width = parseInt(this.clientWidth)-2+'px';
             });
         }
 

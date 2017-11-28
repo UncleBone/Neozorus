@@ -232,9 +232,9 @@ body {
   	height:10px;
 	border-radius: 50%;
 	z-index: 10;
-	left: 153px;
+	left: 156px;
 	/*right: 5px;*/
-	top: 28px;
+	top: 30px;
 }
 
 .indice span{
@@ -302,7 +302,17 @@ body {
 	top:45px;
 	left:15px;
 }
-
+#infoBox{
+	text-align: center;
+}
+.libelle{
+	font-weight: bold;
+}
+.abilite{
+	font-size: 80%;
+	font-style: italic;
+	color: lightgreen;
+}
 /*BOUTTON PASSER LE TOUR*/
 
 #end{
@@ -336,7 +346,7 @@ body {
 /* Responsive */
 
 
-@media (max-width: 1400px)
+@media (max-width: 1400px), (max-height: 900px)
 {
 	#topHero,#bottomHero{
 		width:120px;
@@ -400,6 +410,7 @@ body {
 		height: 25px;
 		}
 }
+
 
 
 

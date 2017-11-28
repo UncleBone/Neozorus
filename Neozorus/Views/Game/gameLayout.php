@@ -22,7 +22,6 @@
             var abilite = '<?=$abilite?>';
             var error = '<?=$error?>';
             var message = '<?=$message?>';
-            console.log('affichage layout');
      </script>
 
 </head>
