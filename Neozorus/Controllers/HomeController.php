@@ -6,6 +6,7 @@ class HomeController extends CoreController{
 	 * Génère une page d'acceuil personnalisé si l'authentification d'un utilisateur a réussi
 	 */
 	public function affichagePageAccueil(){
+		$this->isSession();
 		$userID = $this->session;
 		$model = new HomeModel();
 		if(!empty($userData = $model->verifyUser($userID))){
@@ -33,4 +34,12 @@ class HomeController extends CoreController{
 		header('Location:.');
 		exit;
 	}
+
+	public static function isSession(){
+		if(!isset($_SESSION['neozorus'])){
+			header('Location:.');
+			exit;
+		}
+	}
+
 }

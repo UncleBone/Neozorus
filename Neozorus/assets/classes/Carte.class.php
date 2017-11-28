@@ -99,33 +99,58 @@ Class Carte implements JsonSerializable{
 	}
 
 	/**
-	 * Setteur Identifiant
+	 * Setter Identifiant
 	 * @param [int] $ID Identifiant de la carte
 	 */
 	private function setC_id($ID){
 		$this->c_id = $ID;
 	}
 
+	/**
+	 * Setter Libelle
+	 * @param [string] $Libelle 
+	 */
 	private function setC_libelle($Libelle){
 		$this->c_libelle = $Libelle;
 	}
 
+	/**
+	 * Setter Type
+	 * @param [string] $Type 
+	 */
 	private function setC_type($Type){
 		$this->c_type = $Type;
 	}
 
+	/**
+	 * Setter Puissance
+	 * @param [int] $Puissance 
+	 */
 	private function setC_puissance($Puissance){
 		$this->c_puissance = $Puissance;
 	}
 
+	/**
+	 * Setter pvMax
+	 * @param [type] $pvMax 
+	 */
 	private function setC_pvMax($pvMax){
 		$this->c_pvMax = $pvMax;
 	}
 
+	/**
+	 * Setter Cout en mana
+	 * @param [int] $Mana 
+	 */
 	private function setC_mana($Mana){
 		$this->c_mana = $Mana;
 	}
 
+	/**
+	 * Setter url Gabarit
+	 * @param [string] $type 
+	 * @param [int] $id   
+	 */
 	private function setC_gabarit($type,$id){
 		switch ($type) {
 			case 'creature':
@@ -140,6 +165,10 @@ Class Carte implements JsonSerializable{
 		}
 	}
 
+	/**
+	 * setter Indice
+	 * @param [int] $indice 
+	 */
 	private function setC_indice($indice){
 		switch ($this->c_type) {
 			case 'creature':
@@ -171,34 +200,65 @@ Class Carte implements JsonSerializable{
 		}
 	}
 
+	/**
+	 * getter Identifiant
+	 * @return [int] 
+	 */
 	public function getC_id(){
 		return $this->c_id;
 	}
 
+	/**
+	 * getter Libelle
+	 * @return [string]
+	 */
 	public function getC_libelle(){
 		return $this->c_libelle;
 	}
 
+	/**
+	 * getter Type
+	 * @return [string]
+	 */
 	public function getC_type(){
 		return $this->c_type;
 	}
 
+	/**
+	 * getter Puissance
+	 * @return [int]
+	 */
 	public function getC_puissance(){
 		return $this->c_puissance;
 	}
 
+	/**
+	 * getter pvMax
+	 * @return [int]
+	 */
 	public function getC_pvMax(){
 		return $this->c_pvMax;
 	}
 
+	/**
+	 * getter cout mana
+	 * @return [int] 
+	 */
 	public function getC_mana(){
 		return $this->c_mana;
 	}
 
+	/**
+	 * getter url Illustration
+	 */
 	public function getC_gabarit(){
 		return $this->c_gabarit;
 	}
 
+	/**
+	 * getter Indice
+	 * @return [int]
+	 */
 	public function getC_indice(){
 		return $this->c_indice;
 	}

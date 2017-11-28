@@ -1,3 +1,4 @@
+/******************************DECLARATION DES POLICES******************************/
 @font-face
 		{
 			font-family: 'army_rangers';
@@ -15,7 +16,7 @@
 	font-family: 'godzilla';
 	src:url('../font/army_rangers/Godzilla.ttf');
 }
-
+/******************************ILLUSTRATION DE LA PAGE******************************/
 .dinotheme{
 	background-image: url("../img/background_jungle.jpg");
 }
@@ -23,30 +24,68 @@
 .matrixtheme{
 	background-image: url("../img/background_matrix.jpg");
 }
+/******************************GENERAL******************************/
 body, a, a:visited{
 	color:white;
+}
+
+a, a:visited{
+	text-decoration: none;
+}
+
+a:hover{
+	color:#D04F4F;
 }
 
 h1{
 	text-align: center;
 	font-family: 'godzilla';
+	font-size: 75px;
+	margin:20px 0px;
+	text-shadow: 3px 3px 3px #E41F2D ;
 }
 
-
+/******************************BLOC MENU******************************/
 #conteneur{
 	display: flex;
 	flex-direction: row;
 	width: 100%;
 }
 #menu{
+	padding-top: 15px;
 	text-align: center;
 	width: 30%;
 	height: 100%;
 	font-family: 'godzilla';
 	font-size: 30px;
 	background-color: rgba(0, 0, 0, 0.80);
+	margin-right: 20px;
 }
 
+#menu input{
+	position: relative;
+	top: -7px;
+	height: 35px;
+	background-color: black;
+	color:#16E62A;
+	font-family: 'fira_code';
+	font-size: 20px;
+	text-align: center;
+	outline: none;
+	border-radius: 10%;
+	background-color: black;
+}
+
+#nameButton{
+	position: relative;
+	left: 10px;
+	height: 35px;
+	width: 35px;
+	border-radius: 50%;
+	outline: none;
+	background-color: #16E62A;
+}
+/******************************BLOC CARTE******************************/
 .affichageCarte{
 	display: flex;
 	flex-direction: row;
@@ -63,7 +102,7 @@ h1{
 .mesGabarits img{
 	width: 150px;
 }
-
+/******************************MISE EN PAGE DES STATISTIQUES DES CARTES******************************/
 .PuissanceCarteSortCreature{
 	position: relative;
 	z-index: 3;
