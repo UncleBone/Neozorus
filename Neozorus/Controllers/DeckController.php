@@ -4,7 +4,7 @@ class DeckController extends CoreController{
 
 	public function __construct(){
 		parent::__construct();
-		HomeController::isSession();
+		$this->isSessionNeozorus();
 	}
 	/**
 	 * Cette fonction va chercher les deck en fonction de l'utilisateur et du héro

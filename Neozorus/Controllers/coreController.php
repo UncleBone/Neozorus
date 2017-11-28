@@ -45,4 +45,11 @@ class CoreController{
         include(VIEWS_PATH . DS . '404.php');
         exit;
     }
+
+    protected function isSessionNeozorus(){	
+		if(!isset($_SESSION['neozorus'])){
+			header('Location:.');
+			exit;
+		}  		
+	}
 }
