@@ -404,7 +404,7 @@ class GameController extends CoreController{
     }
 
     /*
-     * En théorie pour quitter la partie, en pratique reinitialise la partie
+     * Pour quitter la partie, efface la variable de session, met à jour la bdd et redirige vers l'accueil
      */
     public function quitter(){
         $this->loadGame();

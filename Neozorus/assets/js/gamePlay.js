@@ -35,6 +35,7 @@ function gamePlay(jet){
         var carteMain = document.getElementsByClassName('carteMain');
         var cartePlateau = document.querySelectorAll('#bottomCreature a.carte img');
 
+        /******************animation et infobox sur les cartes de la main*******************/
         for(var carte of carteMain){
             carte.addEventListener('mouseover',function(e){
                 var img = this.firstChild;
@@ -74,6 +75,7 @@ function gamePlay(jet){
             });
         }
 
+        /*******************Animation des cartes en jeu*********************/
         for(var carte of cartePlateau){
             carte.addEventListener('mouseover',function(){
                 this.style.width = parseInt(this.clientWidth)+2+'px';
