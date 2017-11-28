@@ -19,11 +19,8 @@ class HomeController extends CoreController{
 	 * Affiche la page des régles du jeu
 	 */
 	public function affichagePageRegles(){
-		$user = $this->session;
-		$model = new HomeModel();
-		if(!empty($model->verifyUser($user))){
 			include('./Views/Home/ReglesHomeView.php');
-		}
+		
 	}
 	
 	/**
