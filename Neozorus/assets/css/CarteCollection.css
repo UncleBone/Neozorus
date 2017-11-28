@@ -95,9 +95,70 @@ h1{
 
 .hoverCard{
 	box-shadow:2px 2px 5px red;
-}
-.hoverCard:hover{
 	cursor: pointer;
+	box-shadow: 2px 1px 26px 8px rgba(255,30,5,0.8);
+	background-color: black;
+
+}
+
+#zoomCard{
+	position: absolute;
+	top:0px;
+	left:0px;
+	z-index: 10;
+	width: 400px;
+	left:450px;
+	top:200px;
+}
+
+#zoomCard img{
+	width: 100%;
+}
+
+.stat1Zoom {
+	position: absolute;
+	top:70px;
+	left:126px;
+	font-family: 'army_rangers';
+	font-size: 50px;
+}
+.stat2Zoom {
+	position: absolute;
+	top:135px;
+	left:85px;
+	font-family: 'army_rangers';
+	font-size: 50px;
+}
+.stat3Zoom {
+	position: absolute;
+	top:215px;
+	left:65px;
+	font-family: 'army_rangers';
+	font-size: 50px;
+}
+
+.stat1SpecialeZoom{
+	position: absolute;
+	top:35px;
+	left:60px;
+	font-family: 'army_rangers';
+	font-size: 50px;
+}
+
+.stat2SpecialeZoom{
+	position: absolute;
+	top:99px;
+	left:60px;
+	font-family: 'army_rangers';
+	font-size: 50px;
+}
+
+.stat3SpecialeZoom{
+	position: absolute;
+	top:162px;
+	left:60px;
+	font-family: 'army_rangers';
+	font-size: 50px;
 }
 /*************************MISE EN PAGE DES STATISTIQUES DES CARTES*****************************************************/
 .PuissanceCarteSortCreature{
