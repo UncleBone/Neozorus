@@ -153,6 +153,7 @@ class GameController extends CoreController{
             for ($i = 0; $i < 2; $i++) {
                 $pv[$i] = $this->getPlayer($i)->getPv();
                 $mana[$i] = $this->getPlayer($i)->getMana();
+                $pioche[$i]= $this->getPlayer($i)->getPioche();
                 $main[$i] = $this->getPlayer($i)->getMain();
                 $plateau[$i] = $this->getPlayer($i)->getPlateau();
                 $defausse[$i] = $this->getPlayer($i)->getDefausse();
@@ -207,6 +208,7 @@ class GameController extends CoreController{
         for($i=0;$i<2;$i++){
             $pv[$i] = $this->getPlayer($i)->getPv();
             $mana[$i] = $this->getPlayer($i)->getMana();
+            $pioche[$i]= $this->getPlayer($i)->getPioche();
             $main[$i] = $this->getPlayer($i)->getMain();
             $plateau[$i] = $this->getPlayer($i)->getPlateau();
             $defausse[$i] = $this->getPlayer($i)->getDefausse();

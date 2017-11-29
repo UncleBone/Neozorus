@@ -258,6 +258,29 @@ body {
 	left:1px;
 }
 
+/* LA PIOCHE */
+#piocheBottom{
+	position: absolute;
+	left: 5vw;
+	bottom: 10%;
+	background-color: #01222C;
+	border-radius: 5px;
+	padding: 1px;
+}
+#piocheBottom img{
+	height: 19vh;
+}
+#piocheBottom p{
+	margin: 0;
+	position: absolute;
+	top:50%;
+	left:50%;
+	transform: translate(-50%,-50%);
+	font-family: 'army_rangers', Verdana;
+	font-size: 5vh;
+	color: #01222C;
+}
+
 /*LA MAIN*/
 #main{
 	position: fixed;

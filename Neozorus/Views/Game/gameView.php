@@ -155,6 +155,10 @@
         <span class="vitaHero"><?=$pv[$joueurActif]?></span>
         <p>Tour <?= $tour ?></p>
     </div>
+    <div id="piocheBottom">
+        <img src="./assets/img/gabarit/verso.png">
+        <p><?= count($pioche[$currentPlayer]) ?></p>
+    </div>
     <div id="actionBar">
         <div id="main">
             <?php
