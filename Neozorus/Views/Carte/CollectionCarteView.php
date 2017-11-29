@@ -79,7 +79,6 @@
 					</td>
 				</tr>
 			</table>
-			<p><?php include(ACCEUIL) ?></p>
 		</div>
 	</div>	
 </body>

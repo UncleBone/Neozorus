@@ -25,7 +25,7 @@ define('COMMON_PATH','.' . DS .'assets' . DS . 'img' . DS . 'gabarit');
 define('CREATURE_PATH', COMMON_PATH . DS . 'creature');
 define('HERO_PATH', COMMON_PATH . DS . 'personnage');
 define('SORT_PATH', COMMON_PATH . DS . 'sort');
-define('SPECIAL_PATH', COMMON_PATH . DS . 'special');
+define('SPECIAL_PATH', COMMON_PATH . DS . 'speciale');
 
 //Constante de Deck
 define('NB_MAX_CARTE', 20);
