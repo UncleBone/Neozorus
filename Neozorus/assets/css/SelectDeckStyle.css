@@ -219,6 +219,7 @@ header{
 .bloc_menu{
 	float:left;
 	width: 11%;
+  position: fixed;
 	margin: 10px 0 0 10px;
 
 }

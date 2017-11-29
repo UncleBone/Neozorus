@@ -46,10 +46,10 @@ class CoreController{
         exit;
     }
 
-    protected function isSessionNeozorus(){	
+    protected function isSessionNeozorus(){
 		if(!isset($_SESSION['neozorus'])){
-			header('Location:.');
-			exit;
+			$controller= new ErrorController();
+			$controller->noSession();
 		}  		
 	}
 }

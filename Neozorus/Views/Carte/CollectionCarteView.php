@@ -8,42 +8,11 @@
 	<script type="text/javascript" src="./assets/js/CarteCollection.js"></script>
 </head>
 <body>
+	<?php include(MENU) ?>
 	<h1>Collection de cartes</h1>
 	<div id="conteneur">
 		<div class="affichageCarte">
-			<?php
-			foreach ($mesCartes AS  $value){
-			 ?>
-				<div class="mesGabarits">
-					<img src=<?='"'.$value->GetC_gabarit().'"'?>>
-					<?php
-					if($value->getC_type() != 'speciale'){
-					echo '<span class="PuissanceCarteSortCreature" data-speciale="non">'.$value->GetC_puissance().'</span>';
-					}
-					else{
-					echo '<span class="PuissanceCarteSpeciale" data-speciale="oui">'.$value->GetC_puissance().'</span>';	
-					}						
-					if($value->getC_type() ==  'sort'){
-					echo '<span class="ManaSortOuVitaCreature" data-speciale="non">'.$value->GetC_mana().'</span>';
-					}
-					else if($value->getC_type() ==  'creature'){
-						echo '<span class="ManaSortOuVitaCreature" data-speciale="non">'.$value->getC_PvMax().'</span>';
-					}
-					else{
-						echo '<span class="VitaCarteSpeciale" data-speciale="oui">'.$value->getC_PvMax().'</span>';
-					}
-
-					if ($value->getC_type() ==  'creature') {
-						echo '<span class="ManaCarteCreature" data-speciale="non">'.$value->GetC_mana().'</span>';
-					}
-					else if ($value->getC_type() ==  'speciale') {
-						echo '<span class="ManaCarteSpeciale" data-speciale="oui">'.$value->GetC_mana().'</span>';
-					}
-					?>
-				</div>
-			<?php
-			}						
-			?>
+			<!--Contenu genere par une requete AJAX -->
 		</div>
 		<div id="menu">
 			<h2>Filtrer par:</h2>
@@ -110,7 +79,6 @@
 					</td>
 				</tr>
 			</table>
-			<p><a href="index.php?controller=home&action=affichagePageAccueil">Acceuil</a></p>
 		</div>
 	</div>	
 </body>

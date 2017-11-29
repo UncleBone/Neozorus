@@ -108,7 +108,7 @@
 		.connexion-inscription, form, .confirmation
 		{
 			margin: 50vh auto 0 auto;
-			width: 30vw;
+			width: 50vw;
 			min-width: 500px;
 			max-height: 70vh;
 			overflow: auto;
@@ -119,10 +119,25 @@
 			color: white;
 		}
 
-		input
+		#connection input
 		{
+			 width: 60%;
+		}
+
+		input
+		{	
 			display: block;
 			margin: 10px auto;
+			padding:5px 2px;
+			position: relative;
+			background-color: black;
+			color:#16E62A;
+			font-family: 'fira_code';
+			font-size: 15px;
+			outline: none;
+			border-radius: 10%;
+			background-color: black;
+			text-align: center;
 		}
 
 		#inscription input[name$="nom"], #inscription input[name$="mail"], #inscription input[name$="mdp"]

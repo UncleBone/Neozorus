@@ -25,7 +25,7 @@ define('COMMON_PATH','.' . DS .'assets' . DS . 'img' . DS . 'gabarit');
 define('CREATURE_PATH', COMMON_PATH . DS . 'creature');
 define('HERO_PATH', COMMON_PATH . DS . 'personnage');
 define('SORT_PATH', COMMON_PATH . DS . 'sort');
-define('SPECIAL_PATH', COMMON_PATH . DS . 'special');
+define('SPECIAL_PATH', COMMON_PATH . DS . 'speciale');
 
 //Constante de Deck
 define('NB_MAX_CARTE', 20);
@@ -35,5 +35,11 @@ define('Nb_EXEMPLAIRE_CREATURE', 2);
 define('Nb_EXEMPLAIRE_SORT', 1);
 define('Nb_EXEMPLAIRE_SPECIALE', 1);
 
-//Constante acces Menu Deroulant
+//Constante acces Moduel Menu Deroulant
 define('MENU', '.' . DS . 'Views' . DS . 'Module' . DS .'menu.php');
+
+//Constante acces Module Lien Acceuil
+define('ACCEUIL', '.' . DS . 'Views' . DS . 'Module' . DS .'lienAcceuil.php');
+
+//Constante vue des erreurs
+define('VIEW_ERROR', VIEWS_PATH . DS . 'Error' . DS . 'Error.php');
