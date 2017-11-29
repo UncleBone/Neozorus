@@ -8,6 +8,7 @@
 	<script type="text/javascript" src="./assets/js/CarteCollection.js"></script>
 </head>
 <body>
+	<?php include(MENU) ?>
 	<h1>Collection de cartes</h1>
 	<div id="conteneur">
 		<div class="affichageCarte">
@@ -78,7 +79,7 @@
 					</td>
 				</tr>
 			</table>
-			<p><a href="index.php?controller=home&action=affichagePageAccueil">Acceuil</a></p>
+			<p><?php include(ACCEUIL) ?></p>
 		</div>
 	</div>	
 </body>

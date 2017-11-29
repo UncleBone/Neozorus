@@ -12,6 +12,7 @@
 </head>
 <body>
 	<h1><?= $monDeck -> getD_libelle()?></h1>
+	<?php include(MENU) ?>
 	<div id="conteneur">
 		<div class="affichageCarte">
 			<?php
