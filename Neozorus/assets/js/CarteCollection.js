@@ -54,6 +54,6 @@ $(function(){
 		let tri = $('#tri').val();
 		$('.affichageCarte').load('index.php?controller=carte&action=afficherCollectionCarte&ajax=1&idHero='+idHero+'&type='+type+'&mana='+coutMana+'&idPouvoir='+idPouvoir+'&tri='+tri,callback);
 	})
-	//On appelle la fonction qui gere les effets dynaliques sur les cartes
-	callback();
+	//Requete Ajax au chargement de la page , affiche toutes les cartes sans filtre par defaut
+	$('.affichageCarte').load('index.php?controller=carte&action=afficherCollectionCarte&ajax=1&idHero=null&type=null&mana=null&idPouvoir=null&tri=valMana',callback);
 });
