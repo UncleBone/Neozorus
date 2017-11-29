@@ -8,6 +8,11 @@ class GameController extends CoreController{
 	private $jeton;                 // 0 = tour du joueur 1, 1 = tour du joueur 2
 	private $piocheEtMana = 0;      // détermine si l'étape pioche + augmentation de mana a eu lieu pour le joueur courant d'un tour donné
 
+    public function __construct(){
+        parent::__construct();
+        $this->isSessionNeozorus();
+    }
+    
 	public function setPlayer($p = Joueur){
 		$this->players[] = $p;
 	}
