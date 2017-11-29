@@ -38,7 +38,7 @@ class CoreController{
 	}
 
 	/**
-	 * génère une erreur 404 et redirige sur une page d'érreur
+	 * génère une erreur 404 et redirige sur une page d'erreur
 	 */
 	public function redirect404(){
         http_response_code(404);

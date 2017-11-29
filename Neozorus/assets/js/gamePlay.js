@@ -85,6 +85,7 @@ function gamePlay(jet){
             });
         }
 
+        /*****************Changement de jeton au click sur le bouton 'fin de tour'******************/
         endTurn.addEventListener('click',function(){
             ajax("play", "&jeton="+(1-jeton), function(result) {
                 var contenu = document.getElementById('contenu');
