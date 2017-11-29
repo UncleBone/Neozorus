@@ -155,10 +155,17 @@
         <span class="vitaHero"><?=$pv[$joueurActif]?></span>
         <p>Tour <?= $tour ?></p>
     </div>
+    <?php if(count($pioche) > 0){ ?>
     <div id="piocheBottom">
         <img src="./assets/img/gabarit/verso.png">
         <p><?= count($pioche[$currentPlayer]) ?></p>
     </div>
+    <?php  }
+    if(count($defausse) > 0){ ?>
+        <div id="defausseBottom">
+            <img src="<?= end($defausse[$currentPlayer]) ? end($defausse[$currentPlayer])->getPath() : ''?>">
+        </div>
+    <?php  } ?>
     <div id="actionBar">
         <div id="main">
             <?php

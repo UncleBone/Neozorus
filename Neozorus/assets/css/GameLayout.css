@@ -281,6 +281,16 @@ body {
 	color: #01222C;
 }
 
+/* LA DEFAUSSE */
+#defausseBottom{
+	position: absolute;
+	right: 5vw;
+	bottom: 10%;
+}
+#defausseBottom img{
+	height: 19vh;
+}
+
 /*LA MAIN*/
 #main{
 	position: fixed;
