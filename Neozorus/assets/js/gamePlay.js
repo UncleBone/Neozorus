@@ -32,6 +32,9 @@ function gamePlay(jet){
         endTurn.style.cursor = "pointer";
         endTurn.setAttribute('title','Fin de Tour');
 
+        var error = document.querySelector('.error');
+        if(error != null) fade(error);
+
         var carteMain = document.getElementsByClassName('carteMain');
         var cartePlateau = document.querySelectorAll('#bottomCreature a.carte img');
 
@@ -93,6 +96,7 @@ function gamePlay(jet){
                 jeton_2 = result['jeton'];
                 console.log('play, new jeton:'+jeton_2);
                 contenu.innerHTML = result['view'];
+                chgTurnMssg(1);
                 gameWaitingTurn();
             })
         });
@@ -127,9 +131,53 @@ function gameWaitingTurn(){
             console.log('waiting, joueur='+currentPlayer+', jeton='+j);
             contenu.innerHTML = result['view'];
             if(j==currentPlayer){
+                chgTurnMssg(0);
                 gamePlay(j);
                 clearInterval(interval);     
             }
         })
     },1000);
+}
+
+/*****************Fonction de fade out**********************/
+function fade(element) {
+    var op = 1;  // opacité initiale
+    var t = 0;  // nb d'itérations
+    var interval = setInterval(function () {
+        if (op <= 0.1){
+            clearInterval(interval);
+            element.style.display = 'none';
+        }else{
+            element.style.opacity = op;
+            element.style.filter = 'alpha(opacity=' + op * 100 + ")";
+            op -= op * 0.1*t/15;
+            t = t >= 15 ? 15 : t+0.1;
+        }
+
+    }, 50);
+}
+
+/**********************Affichage d'un message de changement de tour***********************/
+function chgTurnMssg(t){
+    var message;
+    if(t==0){
+        message = 'A vous de jouer';
+    }else{
+        message = 'Tour du joueur adverse';
+    }
+    var messageBox = document.createElement('div');
+    messageBox.innerHTML = '<p>'+message+'</p>';
+    messageBox.style.padding = '20px';
+    messageBox.style.fontFamily = 'godzilla';
+    messageBox.style.fontSize = '4vh';
+    messageBox.style.color = 'white';
+    messageBox.style.backgroundColor = 'rgba(0,0,0,0.7)';
+    messageBox.style.position = 'absolute';
+    messageBox.style.top = '50vh';
+    messageBox.style.left = '50vw';
+    messageBox.style.transform = 'translate(-50%,-60%)';
+    messageBox.style.borderRadius = '5px';
+
+    document.body.append(messageBox);
+    fade(messageBox);
 }

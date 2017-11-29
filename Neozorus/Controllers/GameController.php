@@ -12,7 +12,7 @@ class GameController extends CoreController{
         parent::__construct();
         $this->isSessionNeozorus();
     }
-    
+
 	public function setPlayer($p = Joueur){
 		$this->players[] = $p;
 	}
