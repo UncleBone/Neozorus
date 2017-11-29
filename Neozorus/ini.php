@@ -34,3 +34,6 @@ define('NB_MAX_CARTE', 20);
 define('Nb_EXEMPLAIRE_CREATURE', 2);
 define('Nb_EXEMPLAIRE_SORT', 1);
 define('Nb_EXEMPLAIRE_SPECIALE', 1);
+
+//Constante acces Menu Deroulant
+define('MENU', '.' . DS . 'Views' . DS . 'Module' . DS .'menu.php');

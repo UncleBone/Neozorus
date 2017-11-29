@@ -1,4 +1,4 @@
-/******************************DECLARATION DES POLICES******************************/
+/*******************************DECLARATION DES POLICES****************************************/
 @font-face
 		{
 			font-family: 'army_rangers';
@@ -16,15 +16,12 @@
 	font-family: 'godzilla';
 	src:url('../font/army_rangers/Godzilla.ttf');
 }
-/******************************ILLUSTRATION DE LA PAGE******************************/
-.dinotheme{
-	background-image: url("../img/background_jungle.jpg");
+/*************************ILLUSTRATION DE LA PAGE*****************************************************/
+.theme{
+	background-image: url("../img/fond_mixte.png");
 }
 
-.matrixtheme{
-	background-image: url("../img/background_matrix.jpg");
-}
-/******************************GENERAL******************************/
+/*************************GENERAL*****************************************************/
 body, a, a:visited{
 	color:white;
 }
@@ -45,24 +42,22 @@ h1{
 	text-shadow: 3px 3px 3px #E41F2D ;
 }
 
-/******************************BLOC MENU******************************/
+/*************************BLOC MENU*****************************************************/
 #conteneur{
 	display: flex;
 	flex-direction: row;
 	width: 100%;
 }
 #menu{
-	padding-top: 15px;
 	text-align: center;
 	width: 30%;
 	height: 100%;
 	font-family: 'godzilla';
 	font-size: 30px;
 	background-color: rgba(0, 0, 0, 0.80);
-	margin-right: 20px;
 }
 
-#menu input{
+#menu select{
 	position: relative;
 	top: -7px;
 	height: 35px;
@@ -70,22 +65,17 @@ h1{
 	color:#16E62A;
 	font-family: 'fira_code';
 	font-size: 20px;
-	text-align: center;
 	outline: none;
 	border-radius: 10%;
 	background-color: black;
+	width: 80%;
+	text-align: center;
 }
 
-#nameButton{
-	position: relative;
-	left: 10px;
-	height: 35px;
-	width: 35px;
-	border-radius: 50%;
-	outline: none;
-	background-color: #16E62A;
+#menu th{
+	text-align: right;
 }
-/******************************BLOC CARTE******************************/
+/*************************BLOC AFFICHAGE CARTE*****************************************************/
 .affichageCarte{
 	display: flex;
 	flex-direction: row;
@@ -102,7 +92,75 @@ h1{
 .mesGabarits img{
 	width: 150px;
 }
-/******************************MISE EN PAGE DES STATISTIQUES DES CARTES******************************/
+
+.hoverCard{
+	box-shadow:2px 2px 5px red;
+	cursor: pointer;
+	box-shadow: 2px 1px 26px 8px rgba(255,30,5,0.8);
+	background-color: black;
+
+}
+
+#zoomCard{
+	position: absolute;
+	top:0px;
+	left:0px;
+	z-index: 10;
+	width: 400px;
+	left:450px;
+	top:200px;
+}
+
+#zoomCard img{
+	width: 100%;
+}
+
+.stat1Zoom {
+	position: absolute;
+	top:70px;
+	left:126px;
+	font-family: 'army_rangers';
+	font-size: 50px;
+}
+.stat2Zoom {
+	position: absolute;
+	top:135px;
+	left:85px;
+	font-family: 'army_rangers';
+	font-size: 50px;
+}
+.stat3Zoom {
+	position: absolute;
+	top:215px;
+	left:65px;
+	font-family: 'army_rangers';
+	font-size: 50px;
+}
+
+.stat1SpecialeZoom{
+	position: absolute;
+	top:35px;
+	left:60px;
+	font-family: 'army_rangers';
+	font-size: 50px;
+}
+
+.stat2SpecialeZoom{
+	position: absolute;
+	top:99px;
+	left:60px;
+	font-family: 'army_rangers';
+	font-size: 50px;
+}
+
+.stat3SpecialeZoom{
+	position: absolute;
+	top:162px;
+	left:60px;
+	font-family: 'army_rangers';
+	font-size: 50px;
+}
+/*************************MISE EN PAGE DES STATISTIQUES DES CARTES*****************************************************/
 .PuissanceCarteSortCreature{
 	position: relative;
 	z-index: 3;
@@ -150,23 +208,3 @@ h1{
 	left:-144px;
 }
 
-.IndiceCarteCreature {
-	font-size: 12px;
-	position: relative;
-	font-family: 'army_rangers';
-	top: -189px;
-	left:135px;
-}
-
-.IndiceCarteCreature p {
-	margin:0;
-	padding:0.5px;
-	padding-left: 2px;
-	padding-bottom: 3px;
-	z-index: 3;
-	width: 10px;
-	height: 10px;
-	color:black;
-	background-color: white;
-	border-radius: 50%;
-}

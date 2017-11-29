@@ -24,13 +24,6 @@ class GameController extends CoreController{
         $this->id = $id;
     }
 
-    /*
-     * initialise l'ID de la partie (ID joueur 1 . ID joueur 2 . time())
-     */
-//    function initId(){
-//        $this->id = $this->players[0]->getId() . $this->players[1]->getId() . time();
-//    }
-
 	public function setTour($t = int){
 		$this->tour = $t;
 	}
@@ -64,7 +57,10 @@ class GameController extends CoreController{
         return $this->jeton;
     }
 
-    public function getCurrentplayer(){
+    /*
+     * Renvoie l'objet 'joueur' du joueur associé à cette session
+     */
+    public function getCurrentPlayer(){
         for($i=0;$i<2;$i++){
             $id = $this->getPlayer($i)->getId();
             if($id == $_SESSION['neozorus']['u_id']) {
@@ -74,6 +70,9 @@ class GameController extends CoreController{
         return null;
     }
 
+    /*
+     * Renvoie l'identifiant (0 ou 1) du joueur associé à cette session
+     */
     public function getCurrentPlayerJeton(){
         for($i=0;$i<2;$i++){
             $id = $this->getPlayer($i)->getId();
@@ -113,10 +112,11 @@ class GameController extends CoreController{
             $this->setPlayer($clone->getPlayer(1));
             $this->setTour($clone->getTour());
             $this->setEog($clone->getEog());
-            $this->setJeton($clone->getJeton());
-//            if(!empty($this->parameters['jeton'])){
-//                $this->setJeton($this->parameters['jeton']);
-//            }
+            if(isset($this->parameters['jeton'])){
+                $this->setJeton($this->parameters['jeton']);
+            }else{
+                $this->setJeton($clone->getJeton());
+            }
             if($this->getJeton()!=$clone->getJeton()) {
                 $this->setPiocheEtMana(0);
                 $this->activateCards($this->getPlayer($this->getJeton()));
@@ -126,7 +126,7 @@ class GameController extends CoreController{
             }else{
                 $this->setPiocheEtMana($clone->piocheEtMana);
             }
-        }else {
+        }else{
             $gameId = $gameModel->getGameId($_SESSION['neozorus']['u_id'])[0]['g_id'];
             if(!empty($gameId)) $_SESSION['neozorus']['GAME'] = $gameId;
             $this->loadGame();
@@ -135,7 +135,8 @@ class GameController extends CoreController{
      /*
       * Sauvegarde + chargement + affichage
       */
-    public function saveAndRefreshView($message = null){
+    public function saveAndRefreshView($message = null, $error = null){
+    	$this->checkVisable();
         $this->saveGame();
         $this->loadGame();
         $tour = $this->getTour();
@@ -155,19 +156,35 @@ class GameController extends CoreController{
         $currentPlayer = $this->getCurrentPlayerJeton();
         $eog = $this->getEog();
         $cible = !empty($this->parameters['cible']) ? $this->parameters['cible'] : '';
-        $error = !empty($this->parameters['error']) ? $this->parameters['error'] : '';
+
         $att = !empty($this->parameters['att']) ? $this->parameters['att'] : '';
         $abilite = (!empty($this->parameters['abilite']) ? $this->parameters['abilite'] : 0);
 
-        $this->checkVisable();
-        $message = 'jeton='.$jeton.', joueur='.$currentPlayer;
-        ob_start();
-        require(VIEWS_PATH . DS . 'Game' . DS . 'gameView.php');
-        $gameView = ob_get_contents();
-        ob_clean();
-        require_once( VIEWS_PATH . DS . 'Game' . DS . 'gameLayout.php' );
+        $errorMssg = $this->message($error);
+
+        $ajax = (!empty($this->parameters['ajax']) ? $this->parameters['ajax'] : null );
+        if($ajax == null){
+            ob_start();
+            require(VIEWS_PATH . DS . 'Game' . DS . 'gameView.php');
+            $gameView = ob_get_contents();
+            ob_clean();
+            require_once( VIEWS_PATH . DS . 'Game' . DS . 'gameLayout.php' );
+            exit();
+        }elseif($ajax=='1'){
+            ob_start();
+            require_once(VIEWS_PATH . DS . 'Game' . DS . 'gameView.php');
+            $gameView = ob_get_contents();
+            ob_clean();
+            header('Content-Type: application/json; charset=utf-8');
+            $data = [ 'view' => $gameView, 'jeton' => $jeton, 'eog' => $eog ];
+            echo json_encode($data);
+            exit();
+        }
     }
 
+    /*
+     * Rechargement de la vue en ajax pendant le mode 'attente'
+     */
     public function refreshViewAjax(){
         $this->loadGame();
         $tour = $this->getTour();
@@ -180,34 +197,27 @@ class GameController extends CoreController{
             $visable[$i] = $this->getPlayer($i)->getVisable();
             $heros[$i] = $this->getPlayer($i)->getDeck()->getHeros();
         }
+        $jMain = json_encode($main);
+        $jPlateau = json_encode($plateau);
+        $jDefausse = json_encode($defausse);
         $jeton = $this->getJeton();
         $currentPlayer = $this->getCurrentPlayerJeton();
         $eog = $this->getEog();
-        if(!empty($this->parameters['error'])){
-            $error = $this->parameters['error'];
-        }
-        if(!empty($this->parameters['att'])){
-            $att = $this->parameters['att'];
-        }
+        $cible = !empty($this->parameters['cible']) ? $this->parameters['cible'] : '';
+        $att = !empty($this->parameters['att']) ? $this->parameters['att'] : '';
         $abilite = (!empty($this->parameters['abilite']) ? $this->parameters['abilite'] : 0);
-        if(!empty($this->parameters['cible'])){
-            $cible = $this->parameters['cible'];
-        }
         $this->checkVisable();
-        $message = 'jeton='.$jeton.', joueur='.$currentPlayer;
+        if($winner = $this->checkEog()){
+            $this->setEog(true);
+            $message = 'Partie terminée<br>Vainqueur: '.$winner->getPseudo();
+        }
+        ob_start();
         require(VIEWS_PATH . DS . 'Game' . DS . 'gameView.php');
         $gameView = ob_get_contents();
         ob_clean();
         header('Content-Type: application/json; charset=utf-8');
-        echo json_encode($gameView);
-    }
-
-    public function endTurnAjax(){
-        $jeton = $this->getJeton();
-        $this->setJeton(1-$jeton);
-        $this->tourPlus();
-        $this->saveGame();
-        $this->refreshViewAjax();
+        $data = [ 'view' => $gameView, 'jeton' => $jeton, 'eog' => $eog ];
+        echo json_encode($data);
     }
 
 	/*
@@ -314,7 +324,7 @@ class GameController extends CoreController{
 	    if(!($winner = $this->checkEog())){
             $this->tour($this->jeton);
         }else{
-            $message = 'Partie terminée<br>Vainqueur: '.$winner->getId();
+            $message = 'Partie terminée<br>Vainqueur: '.$winner->getPseudo();
             $this->saveAndRefreshView($message);
         }
 	}
@@ -390,7 +400,7 @@ class GameController extends CoreController{
      * Renvoie vers un lien qui affiche un message d'erreur
      */
     public function error($e){
-	    header('Location:?controller=game&action=play&jeton='.$this->getJeton().'&error='.$e);
+	    $this->saveAndRefreshView(null,$e);
     }
 
     /*
@@ -399,7 +409,7 @@ class GameController extends CoreController{
     public function quitter(){
         $this->loadGame();
         $deck = new GameDeckModel();
-        $deckId = $this->getCurrentplayer()->getDeck()->getId();
+        $deckId = $this->getCurrentPlayer()->getDeck()->getId();
         $deck->setWaitingLine($deckId,0);
 
         $game = new GameModel();
@@ -474,5 +484,17 @@ class GameController extends CoreController{
                 $this->getPlayer($i)->setVisable(1);
             }
         }
+    }
+
+    public function message($m){
+        $retour = '';
+        switch($m){
+            case 'not_enough_mana':
+                $retour = "Vous n'avez pas assez de mana!";
+                break;
+            default:
+                $retour = $m;
+        }
+        return $retour;
     }
 }

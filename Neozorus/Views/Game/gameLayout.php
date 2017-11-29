@@ -6,42 +6,32 @@
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="./assets/css/GameLayout.css">
     <script type="application/javascript">
-        var tour = '<?=$tour?>';
-        var pv = ['<?=$pv[0]?>', '<?=$pv[1]?>'];
-        var mana = ['<?=$mana[0]?>', '<?=$mana[1]?>'];
-        var main = JSON.parse('<?=$jMain?>');
-        var plateau = JSON.parse('<?=$jPlateau?>');
-        var defausse = JSON.parse('<?=$jDefausse?>');
-        var visable = ['<?=$visable[0]?>', '<?=$visable[1]?>'];
-        var heros = ['<?=$heros[0]?>', '<?=$heros[1]?>'];
-        var jeton = '<?=$jeton?>';
-        var currentPlayer = '<?=$currentPlayer?>';
-        var eog = '<?=$eog?>';
-        var att = '<?=$att?>';
+            var tour = '<?=$tour?>';
+            var pv = ['<?=$pv[0]?>', '<?=$pv[1]?>'];
+            var mana = ['<?=$mana[0]?>', '<?=$mana[1]?>'];
+            var main = JSON.parse('<?=$jMain?>');
+            var plateau = JSON.parse('<?=$jPlateau?>');
+            var defausse = JSON.parse('<?=$jDefausse?>');
+            var visable = ['<?=$visable[0]?>', '<?=$visable[1]?>'];
+            var heros = ['<?=$heros[0]?>', '<?=$heros[1]?>'];
+            var jeton = '<?=$jeton?>';
+            var currentPlayer = '<?=$currentPlayer?>';
+            var eog = '<?=$eog?>';
+            var att = '<?=$att?>';
         var manaJoueurActif = '<?= $mana[$jeton]?>';
-        var cible = '<?=$cible?>';
-//        var abilite = '<?//=$abilite?>//';
-        var error = '<?=$error?>';
-//        var message = '<?//=$message?>//';
+            var cible = '<?=$cible?>';
+            var abilite = '<?=$abilite?>';
+            var error = '<?=$error?>';
+            var message = '<?=$message?>';
 //      
-    </script>
+     </script>
+
 </head>
 <body>
     <img id="plateau" src="./assets/img/plateau/plateau.png">
     <div id="contenu">
         <?= $gameView ?>
     </div>
-
-    <?php
-    if($currentPlayer != $jeton) {
-        ?>
-        <script src="<?= JS_PATH . DS . 'gameWaitingNextTurn.js' ?>"></script>
-        <?php
-    }else{
-        ?>
-        <script src="<?= JS_PATH . DS . 'gamePlay.js' ?>"></script>
-        <?php
-    }?>
-    ?>
+     <script src="<?= JS_PATH . DS . 'gamePlay.js' ?>"></script>
 </body>
 </html>

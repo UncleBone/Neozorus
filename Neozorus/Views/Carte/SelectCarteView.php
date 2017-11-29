@@ -52,8 +52,12 @@
 			?>
 		</div>
 		<div id="menu">
-			<p><a href=<?='"index.php?controller=deck&action=supprimerDeck&deck='.$monDeck->getD_id().'&hero='.$hero.'"'?>>Supprimer le deck</a></p>
-			<p><span>Modifier le nom: </span><input id="nameDeck" type="text" value=<?='"'.$monDeck->getD_libelle().'"'?>><button id="nameButton">Ok</button></p>
+			<?php
+			echo '<a class="info" href="index.php?controller=game&action=wait&id='.$monDeck->getD_id().'">Jouer</a>';
+			?>
+			<p><a href="#">Modifier</a></p>
+			<p><a href=<?='"index.php?controller=deck&action=supprimerDeck&deck='.$monDeck->getD_id().'&hero='.$hero.'"'?>>Supprimer</a></p>
+			<p><input id="nameDeck" type="text" value=<?='"'.$monDeck->getD_libelle().'"'?>><button id="nameButton"></button></p>
 			<p><a href=<?='"index.php?controller=deck&action=affichageDeck&hero='.$hero.'"'?>>Retour</a></p>
 		</div>
 	</div>	
