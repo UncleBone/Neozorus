@@ -153,7 +153,6 @@
     <div id="bottomHero">
         <img src="./assets/img/plateau/portrait/<?=$heros[$joueurActif]?>.png">
         <span class="vitaHero"><?=$pv[$joueurActif]?></span>
-        <p>Tour <?= $tour ?></p>
     </div>
     <div id="actionBar">
         <div id="main">
