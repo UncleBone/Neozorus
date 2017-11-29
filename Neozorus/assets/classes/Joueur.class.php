@@ -103,7 +103,9 @@ class Joueur{
     public function getDefausse(){
         return $this->defausse;
     }
-
+    /*
+     * Initialise la pioche avec les cartes du deck
+     */
     public function initPioche(){
         $this->pioche = $this->getDeck()->getCartes();
     }

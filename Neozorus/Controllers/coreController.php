@@ -38,7 +38,7 @@ class CoreController{
 	}
 
 	/**
-	 * génère une erreur 404 et redirige sur une page d'érreur
+	 * génère une erreur 404 et redirige sur une page d'erreur
 	 */
 	public function redirect404(){
         http_response_code(404);
@@ -46,10 +46,10 @@ class CoreController{
         exit;
     }
 
-    protected function isSessionNeozorus(){	
+    protected function isSessionNeozorus(){
 		if(!isset($_SESSION['neozorus'])){
-			header('Location:.');
-			exit;
+			$controller= new ErrorController();
+			$controller->noSession();
 		}  		
 	}
 }

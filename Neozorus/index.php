@@ -30,15 +30,14 @@ try
 	$controllerName = ucfirst($params['controller']).'Controller';
 	//On définit l'action en fonction des paramètres
 	$action = $params['action'];
-	//On teste l'existance du cichier controller, et si il existe on instancie notre controller
+	//On teste l'existance du fichier controller, et si il existe on instancie notre controller
 	if(file_exists(CONTROLLERS_PATH . DS . $controllerName . '.php')){	
 		$controller = new $controllerName;
 	}
 	//Sinon on redirige l'utilisateur sur une page d'erreur
 	else{
-		http_response_code(404);
-	    include(VIEWS_PATH . DS . '404.php');
-	    exit;
+		$controller = new ErrorController();
+		$controller -> error404();
 	}
 	//On entre nos parametres(GET) et nos données(POST) dans notre controleur.
 	$controller->setParameters($_GET);
@@ -50,9 +49,8 @@ try
 	}
 	//Si la méthode n'existe pas, on redirige l'utilisateur sur une page d'erreur
 	else{
-		http_response_code(404);
-	    include(VIEWS_PATH . DS . '404.php');
-	    exit;
+		$controller = new ErrorController();
+		$controller -> error404();
 	}
 
 }

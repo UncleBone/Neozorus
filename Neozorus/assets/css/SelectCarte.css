@@ -102,6 +102,74 @@ h1{
 .mesGabarits img{
 	width: 150px;
 }
+
+.hoverCard{
+	box-shadow:2px 2px 5px red;
+	cursor: pointer;
+	box-shadow: 2px 1px 26px 8px rgba(255,30,5,0.8);
+	background-color: black;
+
+}
+
+#zoomCard{
+	position: absolute;
+	top:0px;
+	left:0px;
+	z-index: 10;
+	width: 400px;
+	left:450px;
+	top:200px;
+}
+
+#zoomCard img{
+	width: 100%;
+}
+
+.stat1Zoom {
+	position: absolute;
+	top:70px;
+	left:126px;
+	font-family: 'army_rangers';
+	font-size: 50px;
+}
+.stat2Zoom {
+	position: absolute;
+	top:135px;
+	left:85px;
+	font-family: 'army_rangers';
+	font-size: 50px;
+}
+.stat3Zoom {
+	position: absolute;
+	top:215px;
+	left:65px;
+	font-family: 'army_rangers';
+	font-size: 50px;
+}
+
+.stat1SpecialeZoom{
+	position: absolute;
+	top:35px;
+	left:60px;
+	font-family: 'army_rangers';
+	font-size: 50px;
+}
+
+.stat2SpecialeZoom{
+	position: absolute;
+	top:99px;
+	left:60px;
+	font-family: 'army_rangers';
+	font-size: 50px;
+}
+
+.stat3SpecialeZoom{
+	position: absolute;
+	top:162px;
+	left:60px;
+	font-family: 'army_rangers';
+	font-size: 50px;
+}
 /******************************MISE EN PAGE DES STATISTIQUES DES CARTES******************************/
 .PuissanceCarteSortCreature{
 	position: relative;
@@ -169,4 +237,126 @@ h1{
 	color:black;
 	background-color: white;
 	border-radius: 50%;
+}
+
+/*********************************************MENU DEROULANT************************************************/
+#menu_jouer {
+	padding:0;
+	margin:0;
+	list-style:none;
+	text-align: center;
+	width: 180px;
+}
+
+#menu_jouer ul {
+	padding:0;
+	margin:0;
+	list-style:none;
+	text-align: center;
+	width: 100%;
+}
+
+#menu_jouer li {
+	font-size: 16px;
+   background-color:black; 
+   border-radius: 6px;
+   margin-bottom:2px;
+   border:solid 1px #bdd002;
+}
+#menu_jouer li li {
+	max-height:0;
+	overflow: hidden;
+	transition: all .5s;
+	border-radius:0;
+	background: #444;
+	box-shadow: none;
+	border:none;
+	margin:0;
+}
+#menu_jouer a {
+  display:block;
+  text-decoration: none;
+  color: #fff;
+  padding: 8px 0;
+  font-family: "fira_code", Verdana;
+  font-size:1.2em
+}
+#menu_jouer ul li a, #menu_jouer li:hover li a {
+  font-size:1em
+}
+#menu_jouer li:hover {
+   background: black;
+}
+#menu_jouer li li:hover {
+   background: #999;
+}
+#menu_jouer ul li:last-child {
+   border-radius: 0 0 6px 6px;
+   border:none;
+}
+#menu_jouer li:hover li {
+  max-height: 15em;
+}
+#menu_jouer {
+  padding:0;
+  margin:0;
+  list-style:none;
+  text-align: center;
+  width: 180px;
+}
+#menu_jouer ul {
+  padding:0;
+  margin:0;
+  list-style:none;
+  text-align: center;
+}
+
+/*vISUEL DE 'menu' */
+#menu_jouer li {
+   background-color:black; 
+   border-radius: 6px;
+   margin-bottom:2px;
+   border:solid 1px #8cbe22;
+}
+#menu_jouer li li {
+   max-height:0;
+   overflow: hidden;
+   transition: all .5s;
+   border-radius:0;
+   background: #333;
+   box-shadow: none;
+   border:none;
+   margin:0
+}
+#menu_jouer a {
+  display:block;
+  text-decoration: none;
+  color: #8cbe22;
+  padding: 8px 0;
+  font-family: "fira_code", Verdana;
+  font-size:1.2em
+}
+#menu_jouer ul li a, #menu_jouer li:hover li a {
+  font-size:1em
+}
+#menu_jouer li:hover {
+   background: rgba(0,0,0,0.7);
+}
+#menu_jouer li li:hover {
+   background: rgba(0,0,0,0.7);
+}
+#menu_jouer ul li:last-child {
+   border-radius: 0 0 6px 6px;
+   border:none;
+}
+#menu_jouer li:hover li {
+  max-height: 15em;
+}
+.bloc_menu{ 
+	z-index:10;
+	position: fixed;
+	top: 30px;
+	left: 30px;
+ 	width: 11%;
+ 	margin: 10px 0 0 10px;
 }

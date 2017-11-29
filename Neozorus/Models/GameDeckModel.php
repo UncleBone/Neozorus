@@ -45,6 +45,9 @@ class GameDeckModel extends CoreModel{
         return $this->makeSelect($req,$param);
     }
 
+    /*
+     * Retourne l'id du propriétaire d'un deck
+     */
     public function getUser($deckId){
         $req = 'SELECT d_user_fk FROM deck WHERE d_id = :id';
         $param = [ 'id' => $deckId ];
