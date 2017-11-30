@@ -260,65 +260,18 @@
 /****************************** Responsive ******************************/
 
 
-		@media (max-width: 600px)
-		{
-			form
-			{
-				width: 50%;
-				min-width: 200px;
+		@media (max-height: 800px) {
+			.PV{
+				font-size: 24px;
+				left: 27px;
+				top: 43px;
 			}
-			input
-			{
-				display: block;
-				margin: 5vh auto;
-			}
-			input:nth-child(1)
-			{
-				margin-right: auto;
-				width: 80%;
-				min-width: 200px;
-			}
-			input:nth-child(2)
-			{
-				width: 70%;
-				min-width: 180px;
-			}
-			article
-			{
-				margin: 0 0 10vh 0;
-				width: 100%;
-			}
-			#logoNeozorus
-			{
-				width: 70%;
-				min-width: 250px;
-			}
-		}
 
-		@media (max-height: 500px)
-		{
-			article, input
+			.btn
 			{
-				font-size: 14px;
+				width: 150px;
 			}
-			article
-			{
-				margin: 0 0 10vh 0;
-				width: 100%;
-			}
-			input
-			{
-				height: 25px;
-			}
-			.links li img
-			{
-				width: 30px;
-			}	
-			#logoNeozorus
-			{
-				width: 250px;
-				min-width: 250px; 
-			}
+
 		}
 /*********************************************************************************************/
 #menu_jouer {
