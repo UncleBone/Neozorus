@@ -159,6 +159,7 @@ class Joueur{
      */
     public function ciblage($att,$jeton,$abilite){
         header('Location:?controller=game&action=play&jeton='.$jeton.'&att='.$att.'&abilite='.$abilite);
+//        header('Location:?controller=game&action=play&jeton='.$jeton.'&att='.$att.'&abilite='.$abilite.'&ajax=1');
     }
 
     /*

@@ -35,7 +35,7 @@ function gamePlay(jet){
         var error = document.querySelector('.error');
         if(error != null) fade(error);
 
-        reqAjaxCarteMain();
+        // reqAjaxCarteMain();
 
         var carteMain = document.getElementsByClassName('carteMain');
         var cartePlateau = document.querySelectorAll('#bottomCreature a.carte img');
@@ -118,7 +118,7 @@ function reqAjaxCarteMain(){
                 var contenu = document.getElementById('contenu');
                 contenu.innerHTML = result['view'];
                 var infoBox = document.querySelector('#infoBox');
-                infoBox.remove();
+                if (infoBox != null) infoBox.remove();
                 gamePlay(result['jeton']);
             });
         });
