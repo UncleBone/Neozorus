@@ -189,7 +189,7 @@ class GameController extends CoreController{
                 header('Content-Type: application/json; charset=utf-8');
                 $data = ['view' => $gameView, 'jeton' => $jeton, 'eog' => $eog];
 
-                echo json_encode($data);
+                echo json_encode($data, JSON_UNESCAPED_UNICODE );
 //                echo json_last_error_msg();
                 exit();
             }
@@ -236,7 +236,7 @@ class GameController extends CoreController{
         header('Content-Type: application/json; charset=utf-8');
         $data = [ 'view' => $gameView, 'jeton' => $jeton, 'eog' => $eog ];
 
-        echo json_encode($data);
+        echo json_encode($data, JSON_UNESCAPED_UNICODE );
 //        echo json_last_error_msg();
         exit();
     }
