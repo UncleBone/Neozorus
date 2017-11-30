@@ -95,12 +95,12 @@
 		}
 
 		.PV{
-			position: relative;
+			position: absolute;
 			font-family:'godzilla';
 			font-size: 24px;
 			z-index: 100;
-			left: -49px;
-			top: -250px;
+			left: 43px;
+			top: 66px;
 		}
 
 		#logo *
@@ -109,9 +109,11 @@
 		}
 		.btn
 		{
+			position: relative;
 			color: white;
-			width: 11vw;
-			min-width: 130px;
+			/*width: 11vw;*/
+			width: 212px;
+			/*min-width: 130px;*/
 			cursor: pointer;
 		}
 
@@ -434,7 +436,7 @@
 .bloc_menu{ 
 	z-index:10;
 	position: fixed;
-	top: -100px;
+	top: 10px;
 	left: 30px;
  	width: 11%;
  	margin: 10px 0 0 10px;

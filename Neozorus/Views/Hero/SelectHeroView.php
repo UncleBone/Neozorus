@@ -7,6 +7,7 @@
 	<meta name="viewport" content="width=device-width">
 </head>
 <body>
+<?php include(MENU) ?>
 	<div>
 		<div id="haut" class="haut_bas">
 			<img src="assets/img/background_jungle.jpg" id="imageHaut">
@@ -15,7 +16,6 @@
 			<img src="assets/img/background_matrix.jpg" id="imageBas">
 		</div>
 		<nav id="logo">
-			<?php include(MENU) ?>
 			<div id="btnDinos" class="btn">
 				<img class="avatar" src=<?='"'.$heros[0] -> getH_gabarit().'"'?>>
 				<span class='PV'><?=$heros[0]->getH_PvMax() ?></span>
