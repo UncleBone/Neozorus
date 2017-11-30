@@ -1,28 +1,57 @@
 $(function(){
 
 	function changedCallback(result){
-		console.log(result);
 		let data = JSON.parse(result);
 		if(data.newPseudo != undefined){
-			$('#pseudo').val(data.newPseudo);
-			pseudo = data.newPseudo;
+			switch (data.error) {
+			  case 1:
+			    	alert('Pseudo non valide, ne modifiez pas le code Javascript!');
+			    	$('#pseudo').val(pseudo);
+			    break;
+			   case undefined:
+			    	$('#pseudo').val(data.newPseudo);
+					pseudo = data.newPseudo;
+			   	break;
+			}			
 		}
 		else if(data.newNom != undefined){
-			$('#nom').val(data.newNom);
-			nom = data.newNom;
+			switch (data.error) {
+			  case 1:
+			    	alert('Pseudo non valide, ne modifiez pas le code Javascript!');
+			    	$('#nom').val(nom);
+			    break;
+			   case undefined:
+			    	$('#nom').val(data.newNom);
+					nom = data.newNom;
+			   	break;
+			}
 		}
 		else if(data.newPrenom != undefined){
-			$('#prenom').val(data.newPrenom);
-			prenom = data.newPrenom;
+			switch (data.error){
+			  case 1:
+			    	alert('Pseudo non valide, ne modifiez pas le code Javascript!');
+			    	$('#prenom').val(prenom);
+			    break;
+			   case undefined:
+			    	$('#prenom').val(data.newPrenom);
+					prenom = data.newPrenom;
+			   	break;
+			}
 		}
 		else if(data.newMail != undefined){
-			if(data.error == undefined){
-				$('#mail').val(data.newMail);
-				mail = data.newMail;
-			}
-			else{
-				alert('Impossible, ce mail est associé à un autre utilisateur');
-				$('#mail').val(mail);
+			switch (data.error){
+			  case 1:
+			    	alert('Pseudo non valide, ne modifiez pas le code Javascript!');
+			    	$('#mail').val(mail);
+			    break;
+			   case 2:
+			    	alert('Cette adresse mail est associé à un autre utilisateur!');
+			    	$('#mail').val(mail);
+			    break;
+			   case undefined:
+			    	$('#mail').val(data.newMail);
+					mail = data.newMail;
+			   	break;
 			}
 		}
 
@@ -107,23 +136,25 @@ $(function(){
 	}
 
 	$('#pseudoButton').on('click',function(){
-		if(isInputValid($('#pseudo').val(),pseudo,isInputAlphaNumeric,3,60,'newPseudo')){
+		if(isInputValid($('#pseudo').val(),pseudo,isInputAlphaNumeric,PSEUDO_MIN,PSEUDO_MAX,'newPseudo')){
 			$.post('index.php?controller=ParametersUser&action=changeDataUser',{newPseudo:$('#pseudo').val(),u_id:u_id},changedCallback);
 		}
 		else{
 			$('#pseudo').val(pseudo);
 		}
 	});
+
 	$('#nomButton').on('click',function(){
-		if(isInputValid($('#nom').val(),nom,isInputAlpha,2,60,'newNom')){
+		if(isInputValid($('#nom').val(),nom,isInputAlpha,NOM_MIN,NOM_MAX,'newNom')){
 			$.post('index.php?controller=ParametersUser&action=changeDataUser',{newNom:$('#nom').val(),u_id:u_id},changedCallback);
 		}
 		else{
 			$('#nom').val(nom);
 		}
 	});
+	
 	$('#prenomButton').on('click',function(){
-		if(isInputValid($('#prenom').val(),prenom,isInputAlpha,2,60,'newPrenom')){
+		if(isInputValid($('#prenom').val(),prenom,isInputAlpha,PRENOM_MIN,PRENOM_MAX,'newPrenom')){
 			$.post('index.php?controller=ParametersUser&action=changeDataUser',{newPrenom:$('#prenom').val(),u_id:u_id},changedCallback);
 		}
 		else{
@@ -132,7 +163,7 @@ $(function(){
 	});
 
 	$('#mailButton').on('click',function(){
-		if(isInputValid($('#mail').val(),mail,isInputMail,5,60,'newMail')){
+		if(isInputValid($('#mail').val(),mail,isInputMail,MAIL_MIN,MAIL_MAX,'newMail')){
 			$.post('index.php?controller=ParametersUser&action=changeDataUser',{newMail:$('#mail').val(),u_id:u_id},changedCallback);
 		}
 		else{

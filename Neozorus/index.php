@@ -13,6 +13,10 @@ spl_autoload_register(function($className){
 	else if (strpos($className, 'Model') !== false) {
 		$folder = MODELS_PATH;
 		$extension = MODELS_EXTENSION;
+	}
+	else if (strpos($className, 'Handler') !== false) {
+		$folder = HANDLERS_PATH;
+		$extension = HANDLERS_EXTENSION;
 	}	
 	$filename = $folder . DS . $className . $extension;
 	if(file_exists($filename)){

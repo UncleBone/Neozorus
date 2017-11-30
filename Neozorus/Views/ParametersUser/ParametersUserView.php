@@ -6,6 +6,18 @@
 	<script type="text/javascript" src="./assets/js/jquery-3.2.1.min.js"></script>
 	<script type="text/javascript">
 		let u_id = <?= $this->user->getU_id()?>;
+
+		const PSEUDO_MIN = <?=PSEUDO_MIN?>;
+		const PSEUDO_MAX = <?=PSEUDO_MAX?>;
+
+		const NOM_MIN = <?=NOM_MIN?>;
+		const NOM_MAX = <?=NOM_MAX?>;
+
+		const PRENOM_MIN = <?=PRENOM_MIN?>;
+		const PRENOM_MAX = <?=PRENOM_MAX?>;
+
+		const MAIL_MIN = <?=MAIL_MIN?>;
+		const MAIL_MAX = <?=MAIL_MAX?>;
 	</script>
 	<script type="text/javascript" src="./assets/js/ParametersUser.js"></script>
 	<link rel="stylesheet" type="text/css" href="./assets/css/ParametersUser.css">

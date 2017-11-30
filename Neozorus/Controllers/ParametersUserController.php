@@ -25,36 +25,52 @@ class ParametersUserController extends CoreController{
 
 	public function changeDataUser(){	
 		$model = new ParametersUserModel();
+		$handler = new StringHandler();
 		$changeOn = null;
 		$myChange = null;
 		$user= $this->data['u_id'];
 		if(!empty($this->data['newPseudo'])){
-			$changeOn = 'u_pseudo';
-			$myChange = $this->data['newPseudo'];
-			if($model->makeChange($user,$changeOn, $myChange)){
-				echo json_encode(array('newPseudo'=>$this->data['newPseudo']));
+			if($handler->isAlphaNumeric($this->data['newPseudo'],PSEUDO_MIN,PSEUDO_MAX)){
+				if($model->makeChange($user,'u_pseudo', $this->data['newPseudo'])){
+					echo json_encode(array('newPseudo'=>$this->data['newPseudo']));
+				}
 			}
+			else{
+				echo json_encode(array('newPseudo'=>$this->data['newPseudo'],'error'=>1));
+			}
+			
 		}
+
 		else if(!empty($this->data['newNom'])){
-			$changeOn = 'u_nom';
-			$myChange = $this->data['newNom'];
-			if($model->makeChange($user,$changeOn, $myChange)){
-				echo json_encode(array('newNom'=>$this->data['newNom']));
+			if($handler->isAlpha($this->data['newNom'],NOM_MIN,NOM_MAX)){
+				if($model->makeChange($user,'u_nom', $this->data['newNom'])){
+					echo json_encode(array('newNom'=>$this->data['newNom']));
+				}
 			}
+			else{
+				echo json_encode(array('newNom'=>$this->data['newNom'],'error'=>1));
+			}
+			
 		}
 		else if(!empty($this->data['newPrenom'])){
-			$changeOn = 'u_prenom';
-			$myChange = $this->data['newPrenom'];
-			if($model->makeChange($user,$changeOn, $myChange)){
-				echo json_encode(array('newPrenom'=>$this->data['newPrenom']));
+			if($handler->isAlpha($this->data['newPrenom'],PRENOM_MIN,PRENOM_MAX)){
+				if($model->makeChange($user,'u_prenom', $this->data['newPrenom'])){
+					echo json_encode(array('newPrenom'=>$this->data['newPrenom']));
+				}
+			}
+			else{
+				echo json_encode(array('newPrenom'=>$this->data['newPrenom'],'error'=>1));
 			}
 		}
 		else if(!empty($this->data['newMail'])){
-			if(!$model->issetMailDB($this->data['newMail'])){
-				$changeOn = 'u_mail';
-				$myChange = $this->data['newMail'];
-				if($model->makeChange($user,$changeOn, $myChange)){
-					echo json_encode(array('newMail'=>$this->data['newMail']));
+			if($handler->isValidEmail($this->data['newMail'],MAIL_MIN,MAIL_MAX)){
+				if(!$model->issetMailDB($this->data['newMail'])){
+					if($model->makeChange($user,'u_mail', $this->data['newMail'])){
+						echo json_encode(array('newMail'=>$this->data['newMail']));
+					}
+				}
+				else{
+					echo json_encode(array('newMail'=>$this->data['newMail'],'error'=>2));
 				}
 			}
 			else{

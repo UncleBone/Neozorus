@@ -26,7 +26,7 @@ class ErrorController extends CoreController{
 	 * Affiche un message d'erreur quand un utilisateur sans session tente d'acceder à une page
 	 */
 	public function noSession(){
-		$this->loadErrorView('Vous tentez d\'acceder à une page qui necessite une connexion, veuillez vous connecter','Aucune Session');
+		header('Location:index.php?controller=user&action=connexion');
 	}
 
 	/**
