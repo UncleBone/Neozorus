@@ -36,6 +36,7 @@ function gamePlay(jet){
         if(error != null) fade(error);
 
         // reqAjaxCarteMain();
+        // reqAjaxCartePlateau()
 
         var carteMain = document.getElementsByClassName('carteMain');
         var cartePlateau = document.querySelectorAll('#bottomCreature a.carte img');
@@ -135,6 +136,27 @@ function reqAjaxCarteMain(){
         }(href));*/
     }
 }
+
+function reqAjaxCartePlateau(){
+    var cartePlateau = document.getElementsByClassName('carte');
+    for(carte of cartePlateau){
+        let href = carte.getAttribute('href');
+        carte.removeAttribute('href');
+        carte.style.cursor = "pointer";
+        carte.addEventListener('click', function(){
+            let regex = new RegExp('controller=game&action=(.*)$', 'i');
+            let data = href.match(regex)[1];
+            ajax("play", data, function(result) {
+                var contenu = document.getElementById('contenu');
+                contenu.innerHTML = result['view'];
+                var infoBox = document.querySelector('#infoBox');
+                if (infoBox != null) infoBox.remove();
+                gamePlay(result['jeton']);
+            });
+        });
+    }
+}
+
 
 function abiliteTexte(ab){
     switch(ab){
