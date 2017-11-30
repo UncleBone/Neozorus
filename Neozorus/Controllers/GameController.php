@@ -187,7 +187,7 @@ class GameController extends CoreController{
                 $gameView = utf8_encode(ob_get_contents());
                 ob_clean();
                 header('Content-Type: application/json; charset=utf-8');
-                $data = ['view' => $gameView, 'jeton' => $jeton, 'eog' => $eog];
+                $data = ['view' => $gameView, 'jeton' => $jeton, 'eog' => $eog, 'error' => json_last_error_msg()];
 
                 echo json_encode($data, JSON_UNESCAPED_UNICODE );
 //                echo json_last_error_msg();
@@ -317,7 +317,8 @@ class GameController extends CoreController{
             $this->init($user1,$deck1,$user2,$deck2);
             $this->saveNewGame();
         }
-        $this->play();
+//        $this->play();
+        header('Location:?controller=game&action=play');
     }
 
     /*

@@ -26,7 +26,7 @@ function ajax(nom, data, fct) {
  */
 
 function gamePlay(jet){
-    jeton = jet;
+    var jeton = jet;
     if(eog != '1'){
         var endTurn = document.getElementById('end');
         endTurn.style.cursor = "pointer";
@@ -34,6 +34,8 @@ function gamePlay(jet){
 
         var error = document.querySelector('.error');
         if(error != null) fade(error);
+
+        reqAjaxCarteMain();
 
         var carteMain = document.getElementsByClassName('carteMain');
         var cartePlateau = document.querySelectorAll('#bottomCreature a.carte img');
@@ -101,7 +103,37 @@ function gamePlay(jet){
             })
         });
     }
+}
 
+function reqAjaxCarteMain(){
+    var carteMain = document.getElementsByClassName('carteMain');
+    for(carte of carteMain){
+        let href = carte.getAttribute('href');
+        carte.removeAttribute('href');
+        carte.style.cursor = "pointer";
+        carte.addEventListener('click', function(){
+            let regex = new RegExp('.*jouer=(\\d{2,3})$', 'i');
+            let id = href.match(regex)[1];
+            ajax("play", "&jouer="+id, function(result) {
+                var contenu = document.getElementById('contenu');
+                contenu.innerHTML = result['view'];
+                var infoBox = document.querySelector('#infoBox');
+                infoBox.remove();
+                gamePlay(result['jeton']);
+            });
+        });
+
+        //Méthode 2:
+        // const create = data => function(){ console.log(data); };
+        // carte.addEventListener('click', create(href));
+
+        //Méthode 3:
+        /*carte.addEventListener('click', function(data) {
+            return function(){
+                console.log(data);
+            }
+        }(href));*/
+    }
 }
 
 function abiliteTexte(ab){
