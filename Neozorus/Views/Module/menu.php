@@ -8,7 +8,7 @@
 				<li><a href="#">Forum</a></li>
 				<?php
 				if(isset($_SESSION['neozorus'])){			
-					echo '<li><a href="#">Paramètres</a></li>';
+					echo '<li><a href="index.php?controller=parametersUser&action=affichageParametresUtilisateur">Paramètres</a></li>';
 					echo '<li><a href="index.php?controller=home&action=deconnexion">Se déconnecter</a></li>';
 				}
 				?>

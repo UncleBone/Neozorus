@@ -10,16 +10,13 @@
 <header>
 	<?php include(MENU) ?>
 	<div id="headerDecks">
-
-
-
 		<div id="action">
 
 			<div id="creer">
 				<a href="index.php?controller=hero&action="><p>Créer un deck</p></a>
 			</div>
 
-			<div id="t_rex">
+			<div id="imageHeros" class="anime rebond">
 				<?php
 				$source = $theme == '"matrixtheme"' ? "'assets/img/headshot_neo.png'" : "'assets/img/headshot_rex.png'";
 				?>
@@ -43,7 +40,7 @@
 		<div class="all deck1">
 			<div class="view view-first">
 				<?php
-				$imagedeck = $theme == '"matrixtheme"' ? "'assets/img/matrix.jpg'" : "'assets/img/dinofond.jpg'"
+				$imagedeck = $theme == '"matrixtheme"' ? "'assets/img/neo_deck.png'" : "'assets/img/rex_deck.png'"
 				?>
 			    <img src=<?=$imagedeck?>>
 			    <div class="mask">
