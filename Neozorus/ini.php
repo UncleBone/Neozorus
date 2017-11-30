@@ -35,7 +35,7 @@ define('Nb_EXEMPLAIRE_CREATURE', 2);
 define('Nb_EXEMPLAIRE_SORT', 1);
 define('Nb_EXEMPLAIRE_SPECIALE', 1);
 
-//Constante acces Moduel Menu Deroulant
+//Constante acces Module Menu Deroulant
 define('MENU', '.' . DS . 'Views' . DS . 'Module' . DS .'menu.php');
 
 //Constante acces Module Lien Acceuil

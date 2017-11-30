@@ -37,15 +37,12 @@ class CoreController{
 		$this->session = $session;
 	}
 
-	/**
-	 * génère une erreur 404 et redirige sur une page d'érreur
-	 */
-	public function redirect404(){
-        http_response_code(404);
-        include(VIEWS_PATH . DS . '404.php');
-        exit;
-    }
 
+
+	/**
+	 * test si il existe une session, sinon, on invoque le controller Error sur sa methode noSession 
+	 * @return boolean [description]
+	 */
     protected function isSessionNeozorus(){
 		if(!isset($_SESSION['neozorus'])){
 			$controller= new ErrorController();
