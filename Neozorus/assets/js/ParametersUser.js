@@ -1,5 +1,13 @@
 $(function(){
 
+	function blocAppears(message){
+		let bloc = $('<div class="popMessage" hidden >'+message+'</div>').appendTo('body');
+		bloc.fadeIn(500).fadeOut(1000,function(){
+			bloc.remove();
+		});
+
+	}
+
 	function changedCallback(result){
 		let data = JSON.parse(result);
 		if(data.newPseudo != undefined){
@@ -9,6 +17,7 @@ $(function(){
 			    	$('#pseudo').val(pseudo);
 			    break;
 			   case undefined:
+			   		blocAppears('changement effectué');
 			    	$('#pseudo').val(data.newPseudo);
 					pseudo = data.newPseudo;
 			   	break;
@@ -21,6 +30,7 @@ $(function(){
 			    	$('#nom').val(nom);
 			    break;
 			   case undefined:
+			   		blocAppears('changement effectué');
 			    	$('#nom').val(data.newNom);
 					nom = data.newNom;
 			   	break;
@@ -33,6 +43,7 @@ $(function(){
 			    	$('#prenom').val(prenom);
 			    break;
 			   case undefined:
+			   		blocAppears('changement effectué');
 			    	$('#prenom').val(data.newPrenom);
 					prenom = data.newPrenom;
 			   	break;
@@ -49,6 +60,7 @@ $(function(){
 			    	$('#mail').val(mail);
 			    break;
 			   case undefined:
+			   		blocAppears('changement effectué');
 			    	$('#mail').val(data.newMail);
 					mail = data.newMail;
 			   	break;
@@ -170,5 +182,19 @@ $(function(){
 			$('#mail').val(mail);
 		}
 	});
+
+	$('#blocQuestion').hide();
+
+	$('#passwordButton').on('click',function(){
+		$('#blocPassword').show();
+		$('#blocQuestion').hide();
+	});
+
+	$('#questionButton').on('click',function(){
+		$('#blocPassword').hide();
+		$('#blocQuestion').show();
+	});
+
+
 
 });
