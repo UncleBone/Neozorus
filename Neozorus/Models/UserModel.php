@@ -27,4 +27,10 @@ class UserModel extends CoreModel{
 		}catch(PDOexception $e){}
 		return $e;
 	}
+
+	public function getPseudo($id){
+		$req = 'SELECT u_pseudo FROM user WHERE u_id = :id';
+		$param = [ 'id' => $id ];
+		return $this->makeSelect($req, $param)[0];
+	}
 }

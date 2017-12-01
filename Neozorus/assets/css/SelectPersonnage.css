@@ -1,19 +1,19 @@
 		@font-face
 		{
 			font-family: 'army_rangers';
-			src:url('../fonts/army_rangers/armyrangers.ttf');
+			src:url('../font/army_rangers/armyrangers.ttf');
 		}
 
 		@font-face
 		{
 			font-family: 'fira_code';
-			src:url('../fonts/fira-code/FiraCode-Medium.otf');
+			src:url('../font/fira-code/FiraCode-Medium.otf');
 		}
 
 		@font-face
 		{
 			font-family: 'godzilla';
-			src:url('../fonts/army_rangers/Godzilla.ttf');
+			src:url('../font/godzilla/Godzilla.ttf');
 		}
 
 		body
@@ -95,12 +95,12 @@
 		}
 
 		.PV{
-			position: relative;
+			position: absolute;
 			font-family:'godzilla';
 			font-size: 24px;
 			z-index: 100;
-			left: -49px;
-			top: -250px;
+			left: 43px;
+			top: 66px;
 		}
 
 		#logo *
@@ -109,9 +109,11 @@
 		}
 		.btn
 		{
+			position: relative;
 			color: white;
-			width: 11vw;
-			min-width: 130px;
+			/*width: 11vw;*/
+			width: 212px;
+			/*min-width: 130px;*/
 			cursor: pointer;
 		}
 
@@ -258,63 +260,137 @@
 /****************************** Responsive ******************************/
 
 
-		@media (max-width: 600px)
-		{
-			form
-			{
-				width: 50%;
-				min-width: 200px;
+		@media (max-height: 800px) {
+			.PV{
+				font-size: 24px;
+				left: 27px;
+				top: 43px;
 			}
-			input
-			{
-				display: block;
-				margin: 5vh auto;
-			}
-			input:nth-child(1)
-			{
-				margin-right: auto;
-				width: 80%;
-				min-width: 200px;
-			}
-			input:nth-child(2)
-			{
-				width: 70%;
-				min-width: 180px;
-			}
-			article
-			{
-				margin: 0 0 10vh 0;
-				width: 100%;
-			}
-			#logoNeozorus
-			{
-				width: 70%;
-				min-width: 250px;
-			}
-		}
 
-		@media (max-height: 500px)
-		{
-			article, input
+			.btn
 			{
-				font-size: 14px;
+				width: 150px;
 			}
-			article
-			{
-				margin: 0 0 10vh 0;
-				width: 100%;
-			}
-			input
-			{
-				height: 25px;
-			}
-			.links li img
-			{
-				width: 30px;
-			}	
-			#logoNeozorus
-			{
-				width: 250px;
-				min-width: 250px; 
-			}
+
 		}
+/*********************************************************************************************/
+#menu_jouer {
+	padding:0;
+	margin:0;
+	list-style:none;
+	text-align: center;
+	width: 180px;
+}
+
+#menu_jouer ul {
+	padding:0;
+	margin:0;
+	list-style:none;
+	text-align: center;
+	width: 100%;
+}
+
+#menu_jouer li {
+	font-size: 16px;
+   background-color:black; 
+   border-radius: 6px;
+   margin-bottom:2px;
+   border:solid 1px #bdd002;
+}
+#menu_jouer li li {
+	max-height:0;
+	overflow: hidden;
+	transition: all .5s;
+	border-radius:0;
+	background: #444;
+	box-shadow: none;
+	border:none;
+	margin:0;
+}
+#menu_jouer a {
+  display:block;
+  text-decoration: none;
+  color: #fff;
+  padding: 8px 0;
+  font-family: "fira_code", Verdana;
+  font-size:1.2em
+}
+#menu_jouer ul li a, #menu_jouer li:hover li a {
+  font-size:1em
+}
+#menu_jouer li:hover {
+   background: black;
+}
+#menu_jouer li li:hover {
+   background: #999;
+}
+#menu_jouer ul li:last-child {
+   border-radius: 0 0 6px 6px;
+   border:none;
+}
+#menu_jouer li:hover li {
+  max-height: 15em;
+}
+#menu_jouer {
+  padding:0;
+  margin:0;
+  list-style:none;
+  text-align: center;
+  width: 180px;
+}
+#menu_jouer ul {
+  padding:0;
+  margin:0;
+  list-style:none;
+  text-align: center;
+}
+
+/*vISUEL DE 'menu' */
+#menu_jouer li {
+   background-color:black; 
+   border-radius: 6px;
+   margin-bottom:2px;
+   border:solid 1px #8cbe22;
+}
+#menu_jouer li li {
+   max-height:0;
+   overflow: hidden;
+   transition: all .5s;
+   border-radius:0;
+   background: #333;
+   box-shadow: none;
+   border:none;
+   margin:0
+}
+#menu_jouer a {
+  display:block;
+  text-decoration: none;
+  color: #8cbe22;
+  padding: 8px 0;
+  font-family: "fira_code", Verdana;
+  font-size:1.2em
+}
+#menu_jouer ul li a, #menu_jouer li:hover li a {
+  font-size:1em
+}
+#menu_jouer li:hover {
+   background: rgba(0,0,0,0.7);
+}
+#menu_jouer li li:hover {
+   background: rgba(0,0,0,0.7);
+}
+#menu_jouer ul li:last-child {
+   border-radius: 0 0 6px 6px;
+   border:none;
+}
+#menu_jouer li:hover li {
+  max-height: 15em;
+}
+.bloc_menu{ 
+	z-index:10;
+	position: fixed;
+	top: 10px;
+	left: 30px;
+ 	width: 11%;
+ 	margin: 10px 0 0 10px;
+}

@@ -1,0 +1,148 @@
+/* CSS PAGE HOME DU JEU DE CARTE NEOZORUS */
+
+/* LES COMMUNS */
+@font-face{
+    font-family: 'army_rangers';
+    src:url('../font/army_rangers/armyrangers.ttf');
+  }
+
+  @font-face{
+    font-family: 'fira_code';
+    src:url('../font/fira-code/FiraCode-Medium.otf');
+  }
+  body{
+    margin: 0;
+    font-size: 15px;
+    font-family: 'fira_code',Verdana;
+    background-image:url('../img/fond_mixte.png');
+
+  }
+
+  body *{
+    box-sizing: border-box;
+  }
+  
+  a{
+    text-decoration: none;
+  }
+
+#menu_jouer {
+  padding:0;
+  margin:0;
+  list-style:none;
+  text-align: center;
+  width: 180px;
+}
+#menu_jouer ul {
+  padding:0;
+  margin:0;
+  list-style:none;
+  text-align: center;
+}
+#menu_jouer li {
+   background-color:black; 
+   border-radius: 6px;
+   margin-bottom:2px;
+   border:solid 1px #bdd002
+}
+#menu_jouer li li {
+   max-height:0;
+   overflow: hidden;
+   transition: all .5s;
+   border-radius:0;
+   background: #444;
+   box-shadow: none;
+   border:none;
+   margin:0
+}
+#menu_jouer a {
+  display:block;
+  text-decoration: none;
+  color: #fff;
+  padding: 8px 0;
+  font-family: "fira_code", Verdana;
+  font-size:1.2em
+}
+#menu_jouer ul li a, #menu_jouer li:hover li a {
+  font-size:1em
+}
+#menu_jouer li:hover {
+   background: black;
+}
+#menu_jouer li li:hover {
+   background: #999;
+}
+#menu_jouer ul li:last-child {
+   border-radius: 0 0 6px 6px;
+   border:none;
+}
+#menu_jouer li:hover li {
+  max-height: 15em;
+}
+#menu_jouer {
+  padding:0;
+  margin:0;
+  list-style:none;
+  text-align: center;
+  width: 180px;
+}
+#menu_jouer ul {
+  padding:0;
+  margin:0;
+  list-style:none;
+  text-align: center;
+}
+
+/*vISUEL DE 'menu' */
+#menu_jouer li {
+   background-color:black; 
+   border-radius: 6px;
+   margin-bottom:2px;
+   border:solid 1px #8cbe22;
+}
+#menu_jouer li li {
+   max-height:0;
+   overflow: hidden;
+   transition: all .5s;
+   border-radius:0;
+   background: #333;
+   box-shadow: none;
+   border:none;
+   margin:0
+}
+#menu_jouer a {
+  display:block;
+  text-decoration: none;
+  color: #8cbe22;
+  padding: 8px 0;
+  font-family: "fira_code", Verdana;
+  font-size:1.2em
+}
+#menu_jouer ul li a, #menu_jouer li:hover li a {
+  font-size:1em
+}
+#menu_jouer li:hover {
+   background: rgba(0,0,0,0.7);
+}
+#menu_jouer li li:hover {
+   background: rgba(0,0,0,0.7);
+}
+#menu_jouer ul li:last-child {
+   border-radius: 0 0 6px 6px;
+   border:none;
+}
+#menu_jouer li:hover li {
+  max-height: 15em;
+}
+.bloc_menu{
+  float:left;
+  width: 11%;
+  margin: 10px 0 0 10px;
+
+}
+
+.messageError{
+    font-size: 40px;
+    color: white;
+    font-family: 'army_rangers';
+}

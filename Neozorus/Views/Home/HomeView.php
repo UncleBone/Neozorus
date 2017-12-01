@@ -1,7 +1,3 @@
-<?php
-
-
-?>
 
 <!DOCTYPE html>
 <html>
@@ -12,18 +8,7 @@
 
 <body>
 <header>
-	<div class="bloc_menu">
-		<ul id="menu_jouer">
-			<li><a href="#">Menu</a>
-				<ul id="menu">
-						<li><a href="index.php?controller=home&action=afficherPageRegles">Règles du jeu</a></li>
-						<li><a href="#">Forum</a></li>
-						<li><a href="index.php?controller=home&action=deconnexion">Paramètres</a></li>
-						<li><a href="index.php?controller=home&action=deconnexion">Se déconnecter</a></li>
-				</ul>
-			</li>
-		</ul>
-	</div>
+	<?php include(MENU) ?>
 
 	<div class="bonjour">
 		<p>

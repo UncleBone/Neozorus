@@ -2,6 +2,7 @@
 
 class Joueur{
 	private $id;                    // ID du joueur
+    private $pseudo;
 	private $deck;                  // deck du joueur pour la partie (objet de type GameDeck)
 	private $main = array();        // Tableau d'objet de type GameCard représentant la main du joueur
 	private $pioche = array();      // Tableau d'objet de type GameCard représentant la pioche du joueur
@@ -19,6 +20,8 @@ class Joueur{
 		$this->setPv(20);
         $this->setMana(0);
         $this->setVisable(1);
+        $user = new UserModel();
+        $this->pseudo = $user->getPseudo($id)['u_pseudo'];
 	}
 
 	public function setId($id){
@@ -26,6 +29,10 @@ class Joueur{
 	}
     public function getId(){
         return $this->id;
+    }
+
+    public function getPseudo(){
+        return $this->pseudo;
     }
 
 	public function setPv($val = int){
@@ -96,7 +103,9 @@ class Joueur{
     public function getDefausse(){
         return $this->defausse;
     }
-
+    /*
+     * Initialise la pioche avec les cartes du deck
+     */
     public function initPioche(){
         $this->pioche = $this->getDeck()->getCartes();
     }
@@ -152,6 +161,7 @@ class Joueur{
      */
     public function ciblage($att,$jeton,$abilite){
         header('Location:?controller=game&action=play&jeton='.$jeton.'&att='.$att.'&abilite='.$abilite);
+//        header('Location:?controller=game&action=play&jeton='.$jeton.'&att='.$att.'&abilite='.$abilite.'&ajax=1');
     }
 
     /*

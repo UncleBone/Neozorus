@@ -1,6 +1,5 @@
 <?php
-
-class coreModel{
+class CoreModel{
 	private static $pdo = NULL;//Notre objet PDO
 
     //La fonction __construct nous retourne notre objet PDO si il existe deja , sinon , il nous le crée

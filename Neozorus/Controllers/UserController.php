@@ -54,9 +54,9 @@ class UserController extends CoreController
 		$Log=false;
 		$MdP=false;	
 
-		$user = new UserModel;
+		$user = new UserModel();
 		$data = $user->getLoginList();
-
+		
 		foreach ($data as $key => $value) {
 			if(!empty($email) && $email==$value['u_mail']){
 				$Log=True;
@@ -318,10 +318,10 @@ class UserController extends CoreController
 		}
 	}
 
-		public function deconnexion(){
-			unset($_SESSION['neozorus']);
-			header('Location:.');
-			exit;
-		}
+	public function deconnexion(){
+		unset($_SESSION['neozorus']);
+		header('Location:.');
+		exit;
+	}
 	
 }

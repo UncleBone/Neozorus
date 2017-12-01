@@ -2,7 +2,7 @@
 
 @font-face
 {
-	font-family: 'fira_code';
+	font-family: 'fira-code';
 	src:url('../font/fira-code/FiraCode-Medium.otf');
 }
 @font-face
@@ -36,10 +36,24 @@ body {
 	position: fixed;
 	top:15px;
 	left:30px;
-	font-family: 'fira_code';
+	font-family: 'fira-code';
 	font-size: 25px;
 	color:white;
+	background-color: rgba(0, 0, 0, 0.7);
 }
+
+.error {
+	position: absolute;
+	right: 0;
+	top: 0;
+	padding: 10px;
+	font-family: 'godzilla';
+	font-size: 25px;
+	color: white;
+	background-color: rgba(0, 0, 0, 0.7);
+}
+
+
 
 #plateau{
 	position: fixed;
@@ -51,13 +65,16 @@ body {
 /*HEROS*/
 
 #topHero,#bottomHero{
-	width: 8%;
-	height: 17.9%;
+	/*width: 8%;*/
+	/*height: 17.9%;*/
+	width:155px;
+	height: 180px;
 }
 #topHero{
 	position: fixed;
 	top: 1.5%;
-	left: 45%;
+	left: 50%;
+	transform: translateX(-50%);
 	
 }
 #topHero img{
@@ -66,13 +83,27 @@ body {
 
 #bottomHero{
 	position: fixed;
-	left: 45%;
+	left: 50%;
+	transform: translateX(-50%);
 	bottom: 10%;
-	margin: auto;
 }
 
 #bottomHero img{
 	width: 100%
+}
+
+#bottomHero p{
+	position: absolute;
+	bottom: -5px;
+	left:50%;
+	transform: translateX(-50%);
+	width: 130px;
+	text-align: center;
+	font-family: "fira-code", Verdana;
+	color: #8cbe22;
+	background-color: rgb(0,10,0);
+	padding: 5px;
+	border-radius: 5px;
 }
 
 .vitaHero{
@@ -81,8 +112,8 @@ body {
 	color: white;
 	font-family: 'Godzilla';
 	font-size: 21px;
-	top:48px;
-	left:33px;
+	top:45px;
+	left:29px;
 }
 
 /*DIV MANA+CREATURE */
@@ -99,28 +130,36 @@ body {
 
 #manaLeft{
 	position: fixed;
-	top:23%;
+	top:22%;
 	left:2%;
+	height: 47%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
 }
 
-#pilluleBleu{
+.pilluleBleu{
 	position: relative;
 	width: 25px;
 	height: 37px;
-	margin-bottom: 25%;
+	/*margin-top: 25%;*/
 }
 
 #manaRight{
 	position: fixed;
-	top:23%;
+	top:22%;
 	right:2%;
+	height: 47%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
 }
 
-#pilluleRouge{
+.pilluleRouge{
 	position: relative;
 	width: 25px;
 	height: 37px;
-	margin-bottom: 25%;
+	/*margin-bottom: 25%;*/
 }
 
 /*DIV DES CREATURES*/
@@ -162,7 +201,8 @@ body {
 	text-align: center;
 }
 .carte img{
-	height: 100%;
+	/*height: 100%;*/
+	width: 170px;
 }
 
 .stat1,.stat2,.stat3,.stat1Speciale,.stat2Speciale,.stat3Speciale{
@@ -170,32 +210,33 @@ body {
 	z-index:10;
 	color:white;
 	font-family: 'Godzilla';
+	font-size: 20px;
 }
 
 .stat1{
-	top:33px;
+	top:34px;
 	left: 57px;
 }
 .stat2{
-	top:59px;
-	left: 39px;
+	top:61px;
+	left:37px;
 }
 .stat3{
-	top:90px;
-	left: 33px;
+	top:95px;
+	left: 30px;
 }
 
 .stat1Speciale{
 	top:18px;
-	left: 30px;
+	left: 27px;
 }
 .stat2Speciale{
-	top:44px;
-	left: 30px;
+	top:45px;
+	left: 27px;
 }
 .stat3Speciale{
-	top:72px;
-	left: 30px;
+	top:73px;
+	left: 27px;
 }
 
 .indice{
@@ -205,15 +246,49 @@ body {
   	height:10px;
 	border-radius: 50%;
 	z-index: 10;
-	left: 150px;
-	top: 25px;
+	left: 156px;
+	/*right: 5px;*/
+	top: 30px;
 }
 
 .indice span{
 	position: absolute;
 	font-size: 10px;
-	font-family: 'fira_code';
+	font-family: 'fira-code';
 	left:1px;
+}
+
+/* LA PIOCHE */
+#piocheBottom{
+	position: absolute;
+	left: 5vw;
+	bottom: 10%;
+	background-color: #01222C;
+	border-radius: 5px;
+	padding: 1px;
+}
+#piocheBottom img{
+	height: 19vh;
+}
+#piocheBottom p{
+	margin: 0;
+	position: absolute;
+	top:50%;
+	left:50%;
+	transform: translate(-50%,-50%);
+	font-family: 'army_rangers', Verdana;
+	font-size: 5vh;
+	color: #01222C;
+}
+
+/* LA DEFAUSSE */
+#defausseBottom{
+	position: absolute;
+	right: 5vw;
+	bottom: 10%;
+}
+#defausseBottom img{
+	height: 19vh;
 }
 
 /*LA MAIN*/
@@ -231,13 +306,18 @@ body {
 
 .carteMain  {
 	position: relative;
-	width: 7%;
+	width: 130px;
 	overflow: hidden;
 }
+
 .carteMain img{
 	width: 100%;
 	max-width: 80%;
 	text-align: center; 
+}
+.carteJouable{
+	border-radius: 17px;
+	box-shadow: -1px 1px 19px 7px rgba(255,30,5,0.9);
 }
 
 .stat1Miniature,.stat2Miniature,.stat3Miniature,.stat1MiniatureSpeciale,.stat2MiniatureSpeciale,.stat3MiniatureSpeciale{
@@ -245,35 +325,45 @@ body {
 	z-index:10;
 	color:white;
 	font-family: 'Godzilla';
-	font-size: 9px;
+	font-size: 11px;
 }
 
 .stat1Miniature{
-	top:17px;
-	left:27px;
+	top:20px;
+	left:33px;
 }
 .stat2Miniature{
-	top:31px;
-	left: 18px;
+	top:37px;
+	left: 22px;
 }
 .stat3Miniature{
-	top:48px;
-	left:13px;
+	top:58px;
+	left:16px;
 }
 
 .stat1MiniatureSpeciale{
-	top:10px;
-	left:13px;
+	top:11px;
+	left:15px;
 }
 .stat2MiniatureSpeciale{
-	top:24px;
-	left: 13px;
+	top:28px;
+	left: 15px;
 }
 .stat3MiniatureSpeciale{
-	top:37px;
-	left:13px;
+	top:45px;
+	left:15px;
 }
-
+#infoBox{
+	text-align: center;
+}
+.libelle{
+	font-weight: bold;
+}
+.abilite{
+	font-size: 80%;
+	font-style: italic;
+	color: lightgreen;
+}
 /*BOUTTON PASSER LE TOUR*/
 
 #end{
@@ -282,17 +372,111 @@ body {
 	bottom: 3.3%;
 }
 /*BOUTTON QUITER*/
+
 #quitter{
 	position: fixed;
 	bottom: 30px;
 }
 #quitter a{
-	color:white;
-	font-family: 'fira_code';
-	text-decoration: none;
 	position: relative;
 	left:25px;
+	color: #8cbe22;
+  	font-size: 20px;
+	font-family: 'fira_code';
+	text-decoration: none;
+  	background-color: rgba(0, 0, 0, 0.6);
+  	padding: 10px 15px 10px 15px;
+  	border: solid #8cbe22 2px;
+  	border-radius: 6px;
 }
+
+#quitter a:hover{
+	background-color: rgba(0, 0, 0, 0.3);
+}
+
+#mask{
+	position: relative;
+	background-color: #01222C;
+	top:15px;
+	left:15px;
+	width: 75px;
+	height: 75px;
+	z-index: 100;
+}
+
+/* Responsive */
+
+
+@media (max-width: 1400px), (max-height: 900px)
+{
+	#topHero,#bottomHero{
+		width:120px;
+		height: 150px;
+		overflow: hidden;
+	}
+	#bottomHero p{
+		font-size: 13px;
+		width: 110px;
+	}
+	.vitaHero{
+		z-index: 10;
+		position: absolute;
+		color: white;
+		font-family: 'Godzilla';
+		font-size: 21px;
+		top:33px;
+		left:22px;
+	}
+	.carte img{
+		width: 120px;
+		}
+	.stat1,.stat2,.stat3,.stat1Speciale,.stat2Speciale,.stat3Speciale{
+		font-size: 16px;
+	}
+	.stat1{
+		top:22px;
+		left: 38px;
+	}
+	.stat2{
+		top:42px;
+		left:24px;
+	}
+	.stat3{
+		top:65px;
+		left: 18px;
+	}
+
+	.stat1Speciale{
+		top:11px;
+		left: 17px;
+	}
+	.stat2Speciale{
+		top:31px;
+		left: 17px;
+	}
+	.stat3Speciale{
+		top:50px;
+		left: 17px;
+	}
+	.indice{
+		top: 22px;
+		left: 108px;
+	}
+	.indice span{
+		position: absolute;
+		font-size: 8px;
+		font-family: 'fira-code';
+		top: 1px;
+		left:2px;
+	}
+}
+
+@media (max-height: 700px){
+	.pilluleBleu img, .pilluleRouge img{
+		height: 25px;
+		}
+}
+
 
 
 
