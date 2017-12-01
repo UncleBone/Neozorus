@@ -276,8 +276,9 @@ input{
   padding: 20px 20px;
   z-index: 100;
   position: fixed;
-  top:400px;
-  left:40%;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
   background-color: black;
   font-size: 45px;
   color:#16E62A;
