@@ -1,8 +1,17 @@
 $(function(){
+
+	function blocAppears(message){
+		let bloc = $('<div class="popMessage" hidden >'+message+'</div>').appendTo('body');
+		bloc.fadeIn(500).fadeOut(1000,function(){
+			bloc.remove();
+		});
+
+	}
 	//Si le nom du deck a ete changé en BDD, on modifie le nom du deck sur la page
 	function changedNameCallback(result){
 		let newName = JSON.parse(result);
 		if(newName != ''){
+			blocAppears('changement effectué');
 			$('h1').text(newName);
 			baseName = newName;
 		}

@@ -360,3 +360,16 @@ h1{
  	width: 11%;
  	margin: 10px 0 0 10px;
 }
+/*******************************************************************************/
+.popMessage{
+  padding: 20px 20px;
+  z-index: 100;
+  position: fixed;
+  top:400px;
+  left:40%;
+  background-color: black;
+  font-size: 45px;
+  color:#16E62A;
+  text-align: center;
+  font-family: 'fira_code';
+}
