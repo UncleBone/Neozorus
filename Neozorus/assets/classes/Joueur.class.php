@@ -131,6 +131,7 @@ class Joueur{
      */
     public function jouerCarte($identifiant,$jeton){
         if($this->main[$identifiant]->getType() == 'sort'){
+
             $tabAbiliteSort = $this->main[$identifiant]->getAbilite();
             if(in_array(GameCard::ABILITE_PIOCHE_1, $tabAbiliteSort)){
                 $abSort = GameCard::ABILITE_PIOCHE_1;
@@ -140,6 +141,7 @@ class Joueur{
                 $abSort = GameCard::ABILITE_AUCUNE;
             }
             $this->ciblage($identifiant,$jeton,$abSort);
+
         }else {
             $this->plateau[$identifiant] = $this->main[$identifiant];
             $this->subMana($this->main[$identifiant]->getMana());
@@ -158,8 +160,8 @@ class Joueur{
      * renvoie l'identifiant et l'abilité éventuelle du sort au GameController
      */
     public function ciblage($att,$jeton,$abilite){
-        header('Location:?controller=game&action=play&jeton='.$jeton.'&att='.$att.'&abilite='.$abilite);
-//        header('Location:?controller=game&action=play&jeton='.$jeton.'&att='.$att.'&abilite='.$abilite.'&ajax=1');
+//        header('Location:?controller=game&action=play&jeton='.$jeton.'&att='.$att.'&abilite='.$abilite);
+        header('Location:?controller=game&action=play&jeton='.$jeton.'&att='.$att.'&abilite='.$abilite.'&ajax=1');
     }
 
     /*
@@ -201,6 +203,6 @@ class Joueur{
         }elseif ($carteAtt->getType()=='creature'){
             $carteAtt->setActive(0);
         }
-        header('Location:?controller=game&action=play&jeton='.$jeton);
+        header('Location:?controller=game&action=play&jeton='.$jeton.'&ajax=1');
     }
 }
