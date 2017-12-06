@@ -1,16 +1,29 @@
 <?php
 class ParametersUserController extends CoreController{
+	/**
+	 * Instance User
+	 * @var Object
+	 */
 	private $user;
 
+	/**
+	 * Instancie un ParametersUserController
+	 */
 	public function __construct(){
-		$this->isSessionNeozorus();
+		$this->isSessionNeozorus();//On verifie qu'une session est en cours
 		$this->getDataUser();
 	}
 
+	/**
+	 * affiche la view de des paramètres
+	 */
 	public function affichageParametresUtilisateur(){
 		include(VIEWS_PATH . DS . 'ParametersUser' . DS . 'ParametersUserView.php');
 	}
 
+	/**
+	 * Recupere une instance User correspondant à l'utilisateur actuel
+	 */
 	private function getDataUser(){
 		try{
 			$model = new ParametersUserModel();
@@ -89,7 +102,9 @@ class ParametersUserController extends CoreController{
 			}
 		}
 		else if(!empty($this->data['newMail'])){
+			//On verifie que le mail soit valide
 			if(StringHandler::isValidEmail($this->data['newMail'],MAIL_MIN,MAIL_MAX)){
+				//On verifie si le mail est deja en BDD
 				if(!$model->issetMailDB($this->data['newMail'])){
 					try{
 						//On met à jour la BDD
@@ -114,16 +129,15 @@ class ParametersUserController extends CoreController{
 		}
 		
 	}
+
 	/**
 	 * requete ajax, a partir de données reçu par l'utilisateur, on verifie avec un Handler si tout est ok et on modifie le mot de passe en BDD
 	 * @return json encode tableau
 	 */
 	public function changePassword(){
 		$model = new ParametersUserModel();
-		//on recupere l'instance User a partir de l'id
-		$user = $model -> getDataUserDB($this->data['u_id']);
-		//on recupere le mot de passe haché de la BDD
-		$hash = $user->getU_mdp();
+		//on recupere le mot de passe haché
+		$hash = $this->user->getU_mdp();
 		//On vérifie que le mot de passe fourni par l'utilisateur ne soit pas vide
 		if(!StringHandler::isEmpty($this->data['password'])){
 			//On vérifie que le mot de passe donné par l'utilisateur correspond à celui de la BDD
@@ -157,16 +171,25 @@ class ParametersUserController extends CoreController{
 		}	
 	}
 
+	/**
+	 * methode ajax, reçoi des données utilisateurs pour changer la question et reponse secrete. On verifie l'integrité des données et si tout est ok on met à jour la BDD et on renvoi un message qui définit le statut de la requete
+	 * @return JSON
+	 */
 	public function changeQuestionAnswer(){
 		$model = new ParametersUserModel();
-		$user = $model -> getDataUserDB($this->data['u_id']);
-		$hash = $user->getU_mdp();
+		//on recupere le mot de passe haché
+		$hash = $this->user->getU_mdp();
+		//On verifie que le mot de passe saisi par l'utilisateur corresponde au mot de passe de la BDD
 		if(password_verify($this->data['password'], $hash)){
+			//On vérifie que la reponse saisie à la question secrete soit la même que dans la BDD
 			if($this->data['answer'] == $user->getU_reponse()){
+				//On instancie un FormHandler qui va verifier l'intergrité des nouvelles questions et reponses secretes
 				$handler = new FormHandler($this->data);
 				$tabError = $handler->checkInfoForChangingQuestionAnswer();
+				//Si tout est ok $tabError est un tableau vide
 				if(count($tabError)==0){
 					try{
+						//On enregistre en BDD les nouvelles questions/reponses secretes
 						if($model->updateQuestionAnswerDB($this->data['newQuestion'],htmlentities($this->data['newAnswer']),$this->data['u_id'])){
 							echo json_encode(array('statement'=>'ok'));
 						}
@@ -188,5 +211,4 @@ class ParametersUserController extends CoreController{
 			echo json_encode(array('invalidPassword' => 'Mot de passe incorrect'));
 		}
 	}
-
 }

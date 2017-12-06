@@ -18,6 +18,7 @@
 	<div id="conteneur">
 		<div class="affichageCarte">
 			<?php
+			//Cette boucle permet d'afficher les cartes contenu dans le deck selectionne
 			foreach ($mesCartes AS  $value){
 			 ?>
 				<div class="mesGabarits">

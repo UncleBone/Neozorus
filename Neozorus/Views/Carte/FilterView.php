@@ -1,3 +1,4 @@
+<!--Cette view n'ai jamais utilisé directement, est est appelé uniquement en ajax pour completer le contenu d'une <div> de la page Collection de carte-->
 <?php
 if(count($mesCartes) > 0){
 	foreach ($mesCartes AS  $value){

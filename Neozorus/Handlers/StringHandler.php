@@ -1,4 +1,8 @@
 <?php
+/**
+ * Classe qui comporte uniquement des methodes utilitaires pour tester des variables de type string
+ * Toutes les methodes sont statiques, et renvoie un booleen
+ */
 class StringHandler{
 	/**
 	 * Verifie si un string est un mail
@@ -86,9 +90,9 @@ class StringHandler{
 
 	/**
 	 * Verifie si un string est compris entre une borne min et une borne max
-	 * @param  [string]  $string [description]
-	 * @param  [int]  $min    taille minimale autorise du string
-	 * @param  [int]  $max    taille maximale autorise du string
+	 * @param  [string]  $string string a tester
+	 * @param  [int]  $min    taille minimale autorise du string, 1 par defaut
+	 * @param  [int]  $max    taille maximale autorise du string, pas de borne MAX par defaut
 	 * @return boolean         
 	 */
 	static public function isStringIntervalValid($string, $min= 1,$max = 'infinite'){
@@ -98,7 +102,12 @@ class StringHandler{
 		return false;
 	}
 
-
+	/**
+	 * Verifie si le string est supérieur ou égal à un nombre donné
+	 * @param  string  $string string a tester
+	 * @param  int  $min    borne MIN
+	 * @return boolean         
+	 */
 	static public function isSuperiorOrEqualTo($string, $min){
 		if(strlen($string)<$min){
 			return false;
@@ -106,7 +115,12 @@ class StringHandler{
 		return true;
 	}
 
-
+	/**
+	 * Verifie si le string est inférieur ou égal à un nombre donné
+	 * @param  [type]  $string string a tester
+	 * @param  [type]  $max    borne MAX
+	 * @return boolean        
+	 */
 	static public function isInferiorOrEqualTo($string, $max){
 		if($max == 'infinite'){
 			return true;
@@ -117,6 +131,11 @@ class StringHandler{
 		return true;
 	}
 
+	/**
+	 * Verifie si une variable est vide ou non
+	 * @param  string  $string string a tester
+	 * @return boolean         
+	 */
 	static public function isEmpty($string){
 		if(empty($string)){
 			return true;
@@ -124,11 +143,15 @@ class StringHandler{
 		return false;
 	}
 
+	/**
+	 * Verifie si un string est une question secrete ou non
+	 * @param  [type]  $string string a tester
+	 * @return boolean         
+	 */
 	static public function isQuestionValid($string){
 		if(preg_match('#^[a-zA-Z0-9 "\'-]+\??$#', $string)){
 			return true;
 		}
 		return false;
 	}
-
 }

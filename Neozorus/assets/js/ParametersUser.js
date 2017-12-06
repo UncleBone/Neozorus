@@ -1,5 +1,5 @@
 $(function(){
-
+	//Un bloc apparait puis brievement au centre de l'ecran puis disparait et comporte le message en parametre
 	function blocAppears(message){
 		let bloc = $('<div class="popMessage" hidden >'+message+'</div>').appendTo('body');
 		bloc.fadeIn(500).fadeOut(1000,function(){
@@ -7,7 +7,7 @@ $(function(){
 		});
 
 	}
-
+	//Un bloc apparait avec le message en parametre au centre de l'ecran, il faut appuyer sur Ok pour le faire disparaitre
 	function blocError(message){
 		let bloc = $('<div id="blocError" class="popMessage" hidden >'+message+'</div>').appendTo('body');
 		$('<p><button id="buttonError">Ok</button></p>').appendTo('#blocError');
@@ -16,7 +16,7 @@ $(function(){
 			$('#blocError').remove();
 		})
 	}
-
+	//Callback des requetes ajax pour modifier les inputs
 	function changedCallback(result){
 		let data = JSON.parse(result);
 		if(data.newPseudo != undefined){
@@ -48,7 +48,7 @@ $(function(){
 			blocError(data.error);
 		}
 	}
-
+	//Callback de l'ajax pour modifier les formulaires mot de passe et question/reponse secrete
 	function changedFormCallback(ajax){
 		let data = JSON.parse(ajax);
 		if(data.statement != undefined){
@@ -193,7 +193,7 @@ $(function(){
 			return false;
 		}
 	}
-
+	//Verifie si un string est conforme aux attente (valeur, valeur au chargement de la page, fonction a appeler, borne min, borne max)
 	function isInputValid(value,oldName,regex,min,max){
 		if(isInputChanged(value, oldName)){
 			if(!isInputEmpty(value)){
@@ -221,7 +221,7 @@ $(function(){
 			return false;
 		}
 	}
-
+	//au clic sur le boutton correspondant, on effectue une requete ajax pour modifier le pseudo si les verifications cote client ont reussi
 	$('#pseudoButton').on('click',function(){
 		if(isInputValid($('#pseudo').val(),pseudo,isInputAlphaNumeric,PSEUDO_MIN,PSEUDO_MAX)){
 			$.post('index.php?controller=ParametersUser&action=changeDataUser',{newPseudo:$('#pseudo').val(),u_id:u_id},changedCallback);
@@ -231,6 +231,7 @@ $(function(){
 		}
 	});
 
+	//au clic sur le boutton correspondant, on effectue une requete ajax pour modifier le nom si les verifications cote client ont reussi
 	$('#nomButton').on('click',function(){
 		if(isInputValid($('#nom').val(),nom,isInputAlpha,NOM_MIN,NOM_MAX)){
 			$.post('index.php?controller=ParametersUser&action=changeDataUser',{newNom:$('#nom').val(),u_id:u_id},changedCallback);
@@ -240,6 +241,7 @@ $(function(){
 		}
 	});
 	
+	//au clic sur le boutton correspondant, on effectue une requete ajax pour modifier le prenom si les verifications cote client ont reussi
 	$('#prenomButton').on('click',function(){
 		if(isInputValid($('#prenom').val(),prenom,isInputAlpha,PRENOM_MIN,PRENOM_MAX)){
 			$.post('index.php?controller=ParametersUser&action=changeDataUser',{newPrenom:$('#prenom').val(),u_id:u_id},changedCallback);
@@ -249,6 +251,7 @@ $(function(){
 		}
 	});
 
+	//au clic sur le boutton correspondant, on effectue une requete ajax pour modifier le mail si les verifications cote client ont reussi
 	$('#mailButton').on('click',function(){
 		if(isInputValid($('#mail').val(),mail,isInputMail,MAIL_MIN,MAIL_MAX)){
 			$.post('index.php?controller=ParametersUser&action=changeDataUser',{newMail:$('#mail').val(),u_id:u_id},changedCallback);
@@ -260,16 +263,19 @@ $(function(){
 
 	$('#blocQuestion').hide();
 
+	//au clic sur le boutton correspondant, on affiche la div qui permet de modifier le mot de passe
 	$('#passwordButton').on('click',function(){
 		$('#blocPassword').show();
 		$('#blocQuestion').hide();
 	});
 
+	//au clic sur le boutton correspondant, on affiche la div qui permet de modifier les question/reponse secretes
 	$('#questionButton').on('click',function(){
 		$('#blocPassword').hide();
 		$('#blocQuestion').show();
 	});
 
+	//Au clic sur le boutton correspondant, on effectue une requete ajax pour modifier le mot de passe si les verifications cote client ont reussi
 	$('#passwordValidForm').on('click',function(){
 		let actualPassword = $('#actualPassword').val();
 		let newPassword = $('#newPassword').val();
@@ -285,7 +291,7 @@ $(function(){
 			changedFormCallback);
 		}
 	});
-
+	//Au clic sur le boutton correspondant, on effectue une requete ajax pour modifier la question et reponse secrete si les verifications cote client ont reussi
 	$('#questionValidForm').on('click',function(){
 		let actualPassword = $('#passwordQuestion').val();
 		let actualAnswer = $('#actualAnswer').val();
