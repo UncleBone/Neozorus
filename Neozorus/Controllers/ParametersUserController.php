@@ -182,7 +182,7 @@ class ParametersUserController extends CoreController{
 		//On verifie que le mot de passe saisi par l'utilisateur corresponde au mot de passe de la BDD
 		if(password_verify($this->data['password'], $hash)){
 			//On vérifie que la reponse saisie à la question secrete soit la même que dans la BDD
-			if($this->data['answer'] == $user->getU_reponse()){
+			if($this->data['answer'] == $this->user->getU_reponse()){
 				//On instancie un FormHandler qui va verifier l'intergrité des nouvelles questions et reponses secretes
 				$handler = new FormHandler($this->data);
 				$tabError = $handler->checkInfoForChangingQuestionAnswer();
