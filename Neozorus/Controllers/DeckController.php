@@ -88,7 +88,7 @@ class DeckController extends CoreController{
 		if(!empty($this->data['newName'])){
 			$newName = htmlentities($this->data['newName']);
 			//On vérifie que le nouveau nom soit compris entre 3 et 60 caractères, qu'il soit alphanumérique avec tirets et underscore
-			if(preg_match("#^[a-zA-Z0-9-_]{3,60}$#", $newName)){
+			if(StringHandler::isAlphaNumeric($this->data['newName'],DECK_NAME_MIN,DECK_NAME_MAX)){
 				$model = new DeckModel;
 				//Si tout est OK, on modifie le nom du deck dans la BDD et on renvoie le nouveau nom
 				if($model->updateName($this->parameters['deck'],$newName)){

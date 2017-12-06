@@ -49,4 +49,13 @@ class ParametersUserModel extends CoreModel{
 		}
 		return false;
 	}
+
+	public function updateQuestionAnswerDB($question,$answer,$idUser){
+		$sql = 'UPDATE user SET u_question = :question, u_reponse = :answer WHERE u_id=:id';
+		$params = array('question' => $question, 'answer' => $answer, 'id' => $idUser);
+		if($this->makeStatement($sql,$params)){
+			return true;
+		}
+		return false;
+	}
 }

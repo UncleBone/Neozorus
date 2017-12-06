@@ -79,7 +79,7 @@ $(function(){
 
 	}
 
-	function changedPasswordCallback(ajax){
+	function changedFormCallback(ajax){
 		let data = JSON.parse(ajax);
 		if(data.statement != undefined){
 			blocAppears('Changement effectué!');
@@ -92,6 +92,18 @@ $(function(){
 		}
 		else if(data.confirmedNewPassword != undefined){
 			blocError(data.confirmedNewPassword);
+		}
+		else if(data.wrongAnswer != undefined){
+			blocError(data.wrongAnswer);
+		}
+		else if(data.newQuestion != undefined){
+			blocError(data.newQuestion);
+		}
+		else if(data.newAnswer != undefined){
+			blocError(data.newAnswer);
+		}
+		else if(data.errorDB != undefined){
+			blocError(data.errorDB);
 		}
 
 	}
@@ -233,7 +245,24 @@ $(function(){
 			confirmedNewPassword:conformNewPassword,
 			u_id:u_id
 		},
-		changedPasswordCallback);		
+		changedFormCallback);		
+	});
+
+	$('#questionValidForm').on('click',function(){
+		let actualPassword = $('#passwordQuestion').val();
+		let actualAnswer = $('#actualAnswer').val();
+		let newQuestion = $('#newQuestion').val();
+		let newAnswer = $('#newAnswer').val();
+
+		$.post('index.php?controller=ParametersUser&action=changeQuestionAnswer',
+		{
+			password:actualPassword,
+			answer:actualAnswer,
+			newQuestion:newQuestion,
+			newAnswer:newAnswer,
+			u_id:u_id
+		},
+		changedFormCallback);
 	});
 
 

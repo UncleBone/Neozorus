@@ -80,20 +80,20 @@
 						<table id="tableDynamique2">
 							<tr>
 								<th>Mot de passe:</th>
-								<td><input  id="passwordQuestion"></td>
+								<td><input  type="password" id="passwordQuestion"></td>
 								<td id="bigButton" rowspan="4"><button class="circle" id="questionValidForm"></button></td>
 							</tr>
 							<tr>
 								<th><?=$this->user->getU_question()?>:</th>
-								<td><input  id="actualAnswer"></td>
+								<td><input  type="text" id="actualAnswer"></td>
 							</tr>
 							<tr>
 								<th>Nouvelle question:</th>
-								<td><input id="newQuestion"></td>
+								<td><input type="text" id="newQuestion"></td>
 							</tr>
 							<tr>
 								<th>Nouvelle reponse:</th>
-								<td><input id="newAnswer"></td>
+								<td><input type="text" id="newAnswer"></td>
 							</tr>
 						</table>
 					</div>

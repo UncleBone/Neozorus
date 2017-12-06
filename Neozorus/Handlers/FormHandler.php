@@ -1,52 +1,28 @@
 <?php
 class FormHandler implements JsonSerializable{
-	private $password = null;
-	private $confirmedPassword = null;
 	private $newPassword = null;
 	private $confirmedNewPassword = null;
-	private $question = null;
 	private $newQuestion = null;
-	private $answer = null;
 	private $newAnswer = null;
 	private $error;
 
 	public function __construct(array $data){
-		$this->setPassword($data);
-		$this->setConfirmedPassword($data);
 		$this->setNewPassword($data);
 		$this->setConfirmedNewPassword($data);
-		$this->setQuestion($data);
 		$this->setNewQuestion($data);
-		$this->setAnswer($data);
 		$this->setNewAnswer($data);
 		$this->error = array();
 	}
 
 	public function jsonSerialize(){
 		$array = array();
-		$array['password']=$this->password;
-		$array['confirmedPassword']=$this->confirmedPassword;
 		$array['newPassword']=$this->newPassword;
-		$array['confirmedPassword']=$this->confirmedPassword;
 		$array['confirmedNewPassword']=$this->confirmedNewPassword;
-		$array['question']=$this->question;
 		$array['newQuestion']=$this->newQuestion;
-		$array['answer']=$this->answer;
 		$array['newAnswer']=$this->newAnswer;
 		return $array;
 	}
 
-	public function setPassword(array $data){
-		if(isset($data['password'])){
-			$this->password = $data['password'];
-		}
-	}
-
-	public function setConfirmedPassword(array $data){
-		if(isset($data['confirmedPassword'])){
-			$this->confirmedPassword = $data['confirmedPassword'];
-		}
-	}
 
 	public function setNewPassword(array $data){
 		if(isset($data['newPassword'])){
@@ -60,11 +36,6 @@ class FormHandler implements JsonSerializable{
 		}
 	}
 
-	public function setQuestion(array $data){
-		if(isset($data['question'])){
-			$this->question = $data['question'];
-		}
-	}
 
 	public function setNewQuestion(array $data){
 		if(isset($data['newQuestion'])){
@@ -72,11 +43,6 @@ class FormHandler implements JsonSerializable{
 		}
 	}
 
-	public function setAnswer(array $data){
-		if(isset($data['answer'])){
-			$this->answer = $data['answer'];
-		}
-	}
 
 	public function setNewAnswer(array $data){
 		if(isset($data['newAnswer'])){
@@ -110,6 +76,46 @@ class FormHandler implements JsonSerializable{
 		}
 		else{
 			$this->error['confirmedNewPassword']= 'la confirmation du mot de passe n\'est pas identique';
+		}
+	}
+
+	public function checkInfoForChangingQuestionAnswer(){
+		$this->checkNewQuestion();
+		$this->checkNewAnswer();
+		return $this->error;
+	}
+
+	private function checkNewQuestion(){
+		if(!StringHandler::isEmpty($this->newQuestion)){
+			if(StringHandler::isStringIntervalValid($this->newQuestion, QUESTION_MIN, QUESTION_MAX)){
+				if(StringHandler::isQuestionValid($this->newQuestion)){
+
+				}
+				else{
+					$this->error['newQuestion'] = 'La question n\'a pas une syntaxe valide, comprends uniquement des caractères alphanumériques, des espaces et un point d\'interrogation sans accentuation';
+				}
+			}
+			else{
+				$this->error['newQuestion']= 'La question doit être comprise entre '.QUESTION_MIN.' et '.QUESTION_MAX. ' caractères';
+			}
+		}
+		else{
+			$this->error['newQuestion']= 'La question ne doit pas être vide';
+		}
+
+	}
+
+	private function checkNewAnswer(){
+		if(!StringHandler::isEmpty($this->newAnswer)){
+			if(StringHandler::isStringIntervalValid($this->newAnswer, ANSWER_MIN, ANSWER_MAX)){
+
+			}
+			else{
+				$this->error['newAnswer']= 'La reponse doit être comprise entre '.ANSWER_MIN.' et '.ANSWER_MAX. ' caractères';
+			}
+		}
+		else{
+			$this->error['newAnswer']= 'La reponse ne doit pas être vide';
 		}
 	}
 

@@ -35,7 +35,7 @@ class StringHandler{
 	 * @param  [int]  $max    taille maximale autorise du string
 	 * @return boolean        
 	 */
-	static public function isAlpha($string,$min,$max){
+	static public function isAlpha($string,$min = 1,$max = 'infinite'){
 		//On verifie si le string est vide
 		if(!empty($string)){
 			//On verifie si il n'y a que des lettres et/ou tirets
@@ -63,11 +63,11 @@ class StringHandler{
 	 * @param  [int]  $max    taille maximale autorise du string
 	 * @return boolean         
 	 */
-	static public function isAlphaNumeric($string,$min,$max){
+	static public function isAlphaNumeric($string,$min= 1,$max = 'infinite'){
 		//On verifie si le string est vide
 		if(!empty($string)){
 			//On verifie si il n'y a que des lettres, chiffres et/ou tirets
-			if(preg_match('#^[0-9A-Za-z-]+$#', $string)){
+			if(preg_match('#^[0-9A-Za-z_-]+$#', $string)){
 				//On verifie la taille
 				if(self::isStringIntervalValid($string,$min,$max)){
 					//Si tout est ok on retourne true
@@ -91,7 +91,7 @@ class StringHandler{
 	 * @param  [int]  $max    taille maximale autorise du string
 	 * @return boolean         
 	 */
-	static public function isStringIntervalValid($string, $min, $max){
+	static public function isStringIntervalValid($string, $min= 1,$max = 'infinite'){
 		if(self::isSuperiorOrEqualTo($string, $min) && self::isInferiorOrEqualTo($string, $max)){
 			return true;
 		}
@@ -108,6 +108,9 @@ class StringHandler{
 
 
 	static public function isInferiorOrEqualTo($string, $max){
+		if($max == 'infinite'){
+			return true;
+		}
 		if(strlen($string)>$max){
 			return false;
 		}
@@ -116,6 +119,13 @@ class StringHandler{
 
 	static public function isEmpty($string){
 		if(empty($string)){
+			return true;
+		}
+		return false;
+	}
+
+	static public function isQuestionValid($string){
+		if(preg_match('#^[a-zA-Z0-9 "\'-]+\??$#', $string)){
 			return true;
 		}
 		return false;
