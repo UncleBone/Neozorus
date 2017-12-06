@@ -18,71 +18,48 @@ $(function(){
 	}
 
 	function changedCallback(result){
-		console.log(result);
 		let data = JSON.parse(result);
 		if(data.newPseudo != undefined){
-			switch (data.error) {
-			  case 1:
-			    	alert('Pseudo non valide, ne modifiez pas le code Javascript!');
-			    	$('#pseudo').val(pseudo);
-			    break;
-			   case undefined:
-			   		blocAppears('changement effectué');
-			    	$('#pseudo').val(data.newPseudo);
-					pseudo = data.newPseudo;
-			   	break;
-			}			
-		}
-		else if(data.newNom != undefined){
-			switch (data.error) {
-			  case 1:
-			    	alert('Pseudo non valide, ne modifiez pas le code Javascript!');
-			    	$('#nom').val(nom);
-			    break;
-			   case undefined:
-			   		blocAppears('changement effectué');
-			    	$('#nom').val(data.newNom);
-					nom = data.newNom;
-			   	break;
-			}
-		}
-		else if(data.newPrenom != undefined){
-			switch (data.error){
-			  case 1:
-			    	alert('Pseudo non valide, ne modifiez pas le code Javascript!');
-			    	$('#prenom').val(prenom);
-			    break;
-			   case undefined:
-			   		blocAppears('changement effectué');
-			    	$('#prenom').val(data.newPrenom);
-					prenom = data.newPrenom;
-			   	break;
-			}
-		}
-		else if(data.newMail != undefined){
-			switch (data.error){
-			  case 1:
-			    	alert('Pseudo non valide, ne modifiez pas le code Javascript!');
-			    	$('#mail').val(mail);
-			    break;
-			   case 2:
-			    	alert('Cette adresse mail est associé à un autre utilisateur!');
-			    	$('#mail').val(mail);
-			    break;
-			   case undefined:
-			   		blocAppears('changement effectué');
-			    	$('#mail').val(data.newMail);
-					mail = data.newMail;
-			   	break;
-			}
+	   		blocAppears('changement effectué');
+	    	$('#pseudo').val(data.newPseudo);
+			pseudo = data.newPseudo;   		
 		}
 
+		else if(data.newNom != undefined){
+	   		blocAppears('changement effectué');
+	    	$('#nom').val(data.newNom);
+			nom = data.newNom;
+			   	
+			
+		}
+		else if(data.newPrenom != undefined){
+			blocAppears('changement effectué');
+			$('#prenom').val(data.newPrenom);
+			prenom = data.newPrenom;
+
+		}
+		else if(data.newMail != undefined){
+	   		blocAppears('changement effectué');
+	    	$('#mail').val(data.newMail);
+			mail = data.newMail;
+			
+		}
+		else if(data.error != undefined){
+			blocError(data.error);
+		}
 	}
 
 	function changedFormCallback(ajax){
 		let data = JSON.parse(ajax);
 		if(data.statement != undefined){
 			blocAppears('Changement effectué!');
+			$('#actualPassword').val('');
+			$('#newPassword').val('');
+			$('#conformNewPassword').val('');
+			$('#passwordQuestion').val('');
+			$('#actualAnswer').val('');
+			$('#newQuestion').val('');
+			$('#newAnswer').val('');
 		}
 		else if(data.invalidPassword != undefined){
 			blocError(data.invalidPassword);
@@ -166,22 +143,22 @@ $(function(){
 						return true;
 					}
 					else{
-						alert('Le champs n\'a pas une forme valide');
+						blocError('Le champs n\'a pas une forme valide');
 						return false;
 					}
 				}
 				else{
-					alert('Le champs doit être compris entre '+ min + ' et ' + max + ' caractères');
+					blocError('Le champs doit être compris entre '+ min + ' et ' + max + ' caractères');
 					return false;
 				}
 			}
 			else{
-				alert('Le champs ne doit pas être vide');
+				blocError('Le champs ne doit pas être vide');
 				return false;
 			}
 		}
 		else{
-			alert('Vous n\'avez pas changé le champs!');
+			blocError('Vous n\'avez pas changé le champs!');
 			return false;
 		}
 	}

@@ -35,12 +35,19 @@ class ParametersUserController extends CoreController{
 			//On verifie que le pseudo soit alphanumerique compris entre borne MIN et MAX
 			if(StringHandler::isAlphaNumeric($this->data['newPseudo'],PSEUDO_MIN,PSEUDO_MAX)){
 				//On met à jour la BDD
-				if($model->makeChange($user,'u_pseudo', $this->data['newPseudo'])){
-					echo json_encode(array('newPseudo'=>$this->data['newPseudo']));
+				try{
+					if($model->makeChange($user,'u_pseudo', $this->data['newPseudo'])){
+						echo json_encode(array('newPseudo'=>$this->data['newPseudo']));
+					}
 				}
+				catch(Exception $e){
+					echo json_encode(array('error'=>'Problème lors de la connexion à la base de donnée'));
+				}
+				
+
 			}
 			else{
-				echo json_encode(array('newPseudo'=>$this->data['newPseudo'],'error'=>1));
+				echo json_encode(array('error'=>'Le pseudo doit être alphanumérique, compris entre '.PSEUDO_MIN.' et '.PSEUDO_MAX.' caractères.'));
 			}
 			
 		}
@@ -48,13 +55,18 @@ class ParametersUserController extends CoreController{
 		else if(!empty($this->data['newNom'])){
 			//On verifie que le nom soit alpha compris entre borne MIN et MAX
 			if(StringHandler::isAlpha($this->data['newNom'],NOM_MIN,NOM_MAX)){
-				//On met à jour la BDD
-				if($model->makeChange($user,'u_nom', $this->data['newNom'])){
-					echo json_encode(array('newNom'=>$this->data['newNom']));
+				try{
+					//On met à jour la BDD
+					if($model->makeChange($user,'u_nom', $this->data['newNom'])){
+						echo json_encode(array('newNom'=>$this->data['newNom']));
+					}
+				}
+				catch(Exception $e){
+					echo json_encode(array('error'=>'Problème lors de la connexion à la base de donnée'));
 				}
 			}
 			else{
-				echo json_encode(array('newNom'=>$this->data['newNom'],'error'=>1));
+				echo json_encode(array('error'=>'Le nom doit être composé de lettres et tirets, compris entre '.NOM_MIN.' et '.NOM_MAX.' caractères.'));
 			}
 			
 		}
@@ -62,31 +74,45 @@ class ParametersUserController extends CoreController{
 		else if(!empty($this->data['newPrenom'])){
 			//On verifie que le prenom soit alpha compris entre borne MIN et MAX
 			if(StringHandler::isAlpha($this->data['newPrenom'],PRENOM_MIN,PRENOM_MAX)){
-				//On met à jour la BDD
-				if($model->makeChange($user,'u_prenom', $this->data['newPrenom'])){
-					echo json_encode(array('newPrenom'=>$this->data['newPrenom']));
+				try{
+					//On met à jour la BDD
+					if($model->makeChange($user,'u_prenom', $this->data['newPrenom'])){
+						echo json_encode(array('newPrenom'=>$this->data['newPrenom']));
+					}
+				}
+				catch(Exception $e){
+					echo json_encode(array('error'=>'Problème lors de la connexion à la base de donnée'));
 				}
 			}
 			else{
-				echo json_encode(array('newPrenom'=>$this->data['newPrenom'],'error'=>1));
+				echo json_encode(array('error'=>'Le nom doit être composé de lettres et tirets, compris entre '.PRENOM_MIN.' et '.PRENOM_MAX.' caractères.'));
 			}
 		}
 		else if(!empty($this->data['newMail'])){
 			if(StringHandler::isValidEmail($this->data['newMail'],MAIL_MIN,MAIL_MAX)){
 				if(!$model->issetMailDB($this->data['newMail'])){
-					//On met à jour la BDD
-					if($model->makeChange($user,'u_mail', $this->data['newMail'])){
-						echo json_encode(array('newMail'=>$this->data['newMail']));
+					try{
+						//On met à jour la BDD
+						if($model->makeChange($user,'u_mail', $this->data['newMail'])){
+							echo json_encode(array('newMail'=>$this->data['newMail']));
+						}
 					}
+					catch(Exception $e){
+						echo json_encode(array('error'=>'Problème lors de la connexion à la base de donnée'));
+					}	
 				}
 				else{
-					echo json_encode(array('newMail'=>$this->data['newMail'],'error'=>2));
+					echo json_encode(array('error'=>'Ce mail est associé à un autre utilisateur'));
 				}
 			}
 			else{
-				echo json_encode(array('newMail'=>$this->data['newMail'],'error'=>1));
+				echo json_encode(array('error'=>'Le mail est invalide.'));
 			}
 		}
+		else{
+			echo json_encode(array('error'=>'Champs vide'));
+		}
+		
 	}
 	/**
 	 * requete ajax, a partir de données reçu par l'utilisateur, on verifie avec un Handler si tout est ok et on modifie le mot de passe en BDD
