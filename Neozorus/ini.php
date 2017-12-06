@@ -58,3 +58,15 @@ define('PRENOM_MAX',60);
 
 define('MAIL_MIN',5);
 define('MAIL_MAX',60);
+
+define('PASSWORD_MIN',5);
+define('PASSWORD_MAX',60);
+
+define('DECK_NAME_MIN',3);
+define('DECK_NAME_MAX',60);
+
+define('QUESTION_MIN',1);
+define('QUESTION_MAX',255);
+
+define('ANSWER_MIN',1);
+define('ANSWER_MAX',255);

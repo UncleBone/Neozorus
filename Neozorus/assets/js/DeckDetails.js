@@ -71,12 +71,12 @@ $(function(){
 			//On verifie que le nouveau nom ne soit pas vide
 			if($('#nameDeck').val()!=''){
 				//On verifie que le nouveau nom soit alphanumerique avec tirets et/ ou underscore, compris entre 3 et 60 caracteres
-				if($('#nameDeck').val().match("^[a-zA-Z0-9-_]{3,60}$")){
+				if($('#nameDeck').val().match("^[a-zA-Z0-9-_]{"+DECK_NAME_MIN+","+DECK_NAME_MAX+"}$")){
 					//On fait une requete AJAX pour changer le nom en BDD
 					$.post('index.php?controller=deck&action=changeNameDeck&deck='+id,{newName:$('#nameDeck').val()},changedNameCallback);
 				}
 				else{
-					alert('Le nom d\'un deck contient uniquement des caractères alphanumériques ou des tirets, et doit être compris entre 3 et 60 caractères');
+					alert('Le nom d\'un deck contient uniquement des caractères alphanumériques ou des tirets, et doit être compris entre '+DECK_NAME_MIN+' et '+DECK_NAME_MAX+' caractères');
 				}
 			}
 			else{
