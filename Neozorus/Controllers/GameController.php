@@ -187,7 +187,13 @@ class GameController extends CoreController{
                 $gameView = utf8_encode(ob_get_contents());
                 ob_clean();
                 header('Content-Type: application/json; charset=utf-8');
-                $data = ['view' => $gameView, 'jeton' => $jeton, 'eog' => $eog, 'error' => json_last_error_msg()];
+                $data = ['view' => $gameView,
+                        'jeton' => $jeton,
+                        'eog' => $eog,
+                        'cible' => $cible,
+                        'att' => $att,
+                        'abilite' => $abilite,
+                        'error' => json_last_error_msg()];
 
                 echo json_encode($data, JSON_UNESCAPED_UNICODE );
 //                echo json_last_error_msg();

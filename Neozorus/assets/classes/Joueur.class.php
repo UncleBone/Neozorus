@@ -160,8 +160,8 @@ class Joueur{
      * renvoie l'identifiant et l'abilité éventuelle du sort au GameController
      */
     public function ciblage($att,$jeton,$abilite){
-        header('Location:?controller=game&action=play&jeton='.$jeton.'&att='.$att.'&abilite='.$abilite);
-//        header('Location:?controller=game&action=play&jeton='.$jeton.'&att='.$att.'&abilite='.$abilite.'&ajax=1');
+//        header('Location:?controller=game&action=play&jeton='.$jeton.'&att='.$att.'&abilite='.$abilite);
+        header('Location:?controller=game&action=play&jeton='.$jeton.'&att='.$att.'&abilite='.$abilite.'&ajax=1');
     }
 
     /*

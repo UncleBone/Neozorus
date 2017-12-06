@@ -35,7 +35,7 @@ function gamePlay(jet){
         var error = document.querySelector('.error');
         if(error != null) fade(error);
 
-        // reqAjaxCarteMain();
+        reqAjaxCarteMain();
         // reqAjaxCartePlateau()
 
         var carteMain = document.getElementsByClassName('carteMain');
@@ -105,7 +105,9 @@ function gamePlay(jet){
         });
     }
 }
-
+/*
+ * Gestion des cartes de la main en ajax
+ */
 function reqAjaxCarteMain(){
     var carteMain = document.getElementsByClassName('carteMain');
     for(carte of carteMain){
