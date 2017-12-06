@@ -21,6 +21,12 @@
 
 		const PASSWORD_MIN = <?=PASSWORD_MIN?>;
 		const PASSWORD_MAX = <?=PASSWORD_MAX?>;
+
+		const QUESTION_MIN = <?=QUESTION_MIN?>;
+		const QUESTION_MAX = <?=QUESTION_MAX?>;
+
+		const ANSWER_MIN = <?=ANSWER_MIN?>;
+		const ANSWER_MAX = <?=ANSWER_MAX?>;
 	</script>
 	<script type="text/javascript" src="./assets/js/ParametersUser.js"></script>
 	<link rel="stylesheet" type="text/css" href="./assets/css/ParametersUser.css">

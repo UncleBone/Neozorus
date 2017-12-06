@@ -89,8 +89,6 @@ $(function(){
 	let mail =$('#mail').val();
 	let nom =$('#nom').val();
 	let prenom =$('#prenom').val();
-	let dateNaissance =$('#dateNaissance').val();
-	let question =$('#question').val();
 
 	function isInputChanged(value, oldValue){
 		if(value != oldValue){
@@ -134,8 +132,69 @@ $(function(){
 		return false;
 	}
 
+	function formChangeQuestionAnswerValid(actualPassword,actualAnswer,newQuestion,newAnswer){
+		if(!isInputEmpty(actualPassword)){
+			if(!isInputEmpty(actualAnswer)){
+				if(!isInputEmpty(newQuestion)){
+					if(isInputLengthBetween(newQuestion,QUESTION_MIN,QUESTION_MAX)){
+						if(!isInputEmpty(newAnswer)){
+							if(isInputLengthBetween(newQuestion,ANSWER_MIN,ANSWER_MAX)){
+								return true;
+							}
+							else{
+								blocError('La nouvelle reponse doit être compris entre '+ANSWER_MIN+' et '+ANSWER_MAX+' caractères');
+								return false;
+							}
+						}
+						else{
+							blocError('La réponse ne doit pas être vide');
+							return false;
+						}		
+					}
+					else{
+						blocError('La nouvelle question doit être compris entre '+QUESTION_MIN+' et '+QUESTION_MAX+' caractères');
+						return false;
+					}
+				}
+				else{
+					blocError('Le champs "nouvelle question" secrete n\'est pas rempli');
+					return false;
+				}
+			}
+			else{
+				blocError('Le champs reponse secrete n\'est pas rempli');
+				return false;
+			}
+		}
+		else{
+			blocError('Le champs "mot de passe actuel" n\'est pas rempli');
+			return false;
+		}
+	}
 
-	function isInputValid(value,oldName,regex,min,max,key){
+	function formChangePasswordValid(actualPassword,newPassword,conformNewPassword){
+		if(!isInputEmpty(actualPassword)){
+			if(isInputLengthBetween(newPassword,PASSWORD_MIN,PASSWORD_MAX)){
+				if(newPassword == conformNewPassword){
+					return true;
+				}
+				else{
+					blocError('les champs ne sont pas identiques');
+					return false;
+				}
+			}
+			else{
+				blocError('Le nouveau mot de passe doit être compris entre '+PASSWORD_MIN+' et '+PASSWORD_MAX+' caractères');
+				return false;
+			}
+		}
+		else{
+			blocError('Le champs "mot de passe actuel" n\'est pas rempli');
+			return false;
+		}
+	}
+
+	function isInputValid(value,oldName,regex,min,max){
 		if(isInputChanged(value, oldName)){
 			if(!isInputEmpty(value)){
 				if(isInputLengthBetween(value,min,max)){
@@ -164,7 +223,7 @@ $(function(){
 	}
 
 	$('#pseudoButton').on('click',function(){
-		if(isInputValid($('#pseudo').val(),pseudo,isInputAlphaNumeric,PSEUDO_MIN,PSEUDO_MAX,'newPseudo')){
+		if(isInputValid($('#pseudo').val(),pseudo,isInputAlphaNumeric,PSEUDO_MIN,PSEUDO_MAX)){
 			$.post('index.php?controller=ParametersUser&action=changeDataUser',{newPseudo:$('#pseudo').val(),u_id:u_id},changedCallback);
 		}
 		else{
@@ -173,7 +232,7 @@ $(function(){
 	});
 
 	$('#nomButton').on('click',function(){
-		if(isInputValid($('#nom').val(),nom,isInputAlpha,NOM_MIN,NOM_MAX,'newNom')){
+		if(isInputValid($('#nom').val(),nom,isInputAlpha,NOM_MIN,NOM_MAX)){
 			$.post('index.php?controller=ParametersUser&action=changeDataUser',{newNom:$('#nom').val(),u_id:u_id},changedCallback);
 		}
 		else{
@@ -182,7 +241,7 @@ $(function(){
 	});
 	
 	$('#prenomButton').on('click',function(){
-		if(isInputValid($('#prenom').val(),prenom,isInputAlpha,PRENOM_MIN,PRENOM_MAX,'newPrenom')){
+		if(isInputValid($('#prenom').val(),prenom,isInputAlpha,PRENOM_MIN,PRENOM_MAX)){
 			$.post('index.php?controller=ParametersUser&action=changeDataUser',{newPrenom:$('#prenom').val(),u_id:u_id},changedCallback);
 		}
 		else{
@@ -191,7 +250,7 @@ $(function(){
 	});
 
 	$('#mailButton').on('click',function(){
-		if(isInputValid($('#mail').val(),mail,isInputMail,MAIL_MIN,MAIL_MAX,'newMail')){
+		if(isInputValid($('#mail').val(),mail,isInputMail,MAIL_MIN,MAIL_MAX)){
 			$.post('index.php?controller=ParametersUser&action=changeDataUser',{newMail:$('#mail').val(),u_id:u_id},changedCallback);
 		}
 		else{
@@ -215,14 +274,16 @@ $(function(){
 		let actualPassword = $('#actualPassword').val();
 		let newPassword = $('#newPassword').val();
 		let conformNewPassword = $('#conformNewPassword').val();
-		$.post('index.php?controller=ParametersUser&action=changePassword',
-		{
-			password:actualPassword,
-			newPassword:newPassword,
-			confirmedNewPassword:conformNewPassword,
-			u_id:u_id
-		},
-		changedFormCallback);		
+		if(formChangePasswordValid(actualPassword,newPassword,conformNewPassword)){
+			$.post('index.php?controller=ParametersUser&action=changePassword',
+			{
+				password:actualPassword,
+				newPassword:newPassword,
+				confirmedNewPassword:conformNewPassword,
+				u_id:u_id
+			},
+			changedFormCallback);
+		}
 	});
 
 	$('#questionValidForm').on('click',function(){
@@ -230,18 +291,16 @@ $(function(){
 		let actualAnswer = $('#actualAnswer').val();
 		let newQuestion = $('#newQuestion').val();
 		let newAnswer = $('#newAnswer').val();
-
-		$.post('index.php?controller=ParametersUser&action=changeQuestionAnswer',
-		{
-			password:actualPassword,
-			answer:actualAnswer,
-			newQuestion:newQuestion,
-			newAnswer:newAnswer,
-			u_id:u_id
-		},
-		changedFormCallback);
+		if(formChangeQuestionAnswerValid(actualPassword,actualAnswer,newQuestion,newAnswer)){
+			$.post('index.php?controller=ParametersUser&action=changeQuestionAnswer',
+			{
+				password:actualPassword,
+				answer:actualAnswer,
+				newQuestion:newQuestion,
+				newAnswer:newAnswer,
+				u_id:u_id
+			},
+			changedFormCallback);
+		}
 	});
-
-
-
 });
