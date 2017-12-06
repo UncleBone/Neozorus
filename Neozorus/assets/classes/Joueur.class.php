@@ -203,6 +203,6 @@ class Joueur{
         }elseif ($carteAtt->getType()=='creature'){
             $carteAtt->setActive(0);
         }
-        header('Location:?controller=game&action=play&jeton='.$jeton);
+        header('Location:?controller=game&action=play&jeton='.$jeton.'&ajax=1');
     }
 }

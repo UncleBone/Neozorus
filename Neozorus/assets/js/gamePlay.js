@@ -2,7 +2,7 @@
 if(currentPlayer != jeton){
     gameWaitingTurn();
 }else {
-    gamePlay(jeton);
+    gamePlay(jeton, att, cible, abilite, eog);
 }
 
 function ajax(nom, data, fct) {
@@ -25,8 +25,13 @@ function ajax(nom, data, fct) {
 /*  Déclenche le changement de jeton au click sur le bouton fin de tour
  */
 
-function gamePlay(jet){
+function gamePlay(jet, att, cible, abilite, eog){
     var jeton = jet;
+    var eog = eog;
+    var att = att;
+    var cible = cible;
+    var abilite = abilite;
+
     if(eog != '1'){
         var endTurn = document.getElementById('end');
         endTurn.style.cursor = "pointer";
@@ -35,8 +40,8 @@ function gamePlay(jet){
         var error = document.querySelector('.error');
         if(error != null) fade(error);
 
-        reqAjaxCarteMain();
-        // reqAjaxCartePlateau()
+        reqAjaxCarteMain(att);
+        reqAjaxCartePlateau(jeton, att);
 
         var carteMain = document.getElementsByClassName('carteMain');
         var cartePlateau = document.querySelectorAll('#bottomCreature a.carte img');
@@ -95,9 +100,9 @@ function gamePlay(jet){
         endTurn.addEventListener('click',function(){
             ajax("play", "&jeton="+(1-jeton), function(result) {
                 var contenu = document.getElementById('contenu');
-                console.log('play, new jeton demandé: &jeton='+(1-jeton));
+                // console.log('play, new jeton demandé: &jeton='+(1-jeton));
                 jeton_2 = result['jeton'];
-                console.log('play, new jeton:'+jeton_2);
+                // console.log('play, new jeton:'+jeton_2);
                 contenu.innerHTML = result['view'];
                 chgTurnMssg(1);
                 gameWaitingTurn();
@@ -108,7 +113,8 @@ function gamePlay(jet){
 /*
  * Gestion des cartes de la main en ajax
  */
-function reqAjaxCarteMain(){
+function reqAjaxCarteMain(att){
+    var att = att;
     var carteMain = document.getElementsByClassName('carteMain');
     for(carte of carteMain){
         let href = carte.getAttribute('href');
@@ -122,7 +128,7 @@ function reqAjaxCarteMain(){
                 contenu.innerHTML = result['view'];
                 var infoBox = document.querySelector('#infoBox');
                 if (infoBox != null) infoBox.remove();
-                gamePlay(result['jeton']);
+                gamePlay(result['jeton'],result['att'],result['cible'],result['abilite'],result['eog']);
             });
         });
 
@@ -139,23 +145,52 @@ function reqAjaxCarteMain(){
     }
 }
 
-function reqAjaxCartePlateau(){
-    var cartePlateau = document.getElementsByClassName('carte');
+/*
+ * Gestion des cartes du plateau en ajax
+ */
+function reqAjaxCartePlateau(jet,att){
+    var jeton = jet;
+    var att = att;
+    var cartePlateau = document.querySelectorAll('a.carte');
     for(carte of cartePlateau){
         let href = carte.getAttribute('href');
         carte.removeAttribute('href');
-        carte.style.cursor = "pointer";
-        carte.addEventListener('click', function(){
-            let regex = new RegExp('controller=game&action=(.*)$', 'i');
-            let data = href.match(regex)[1];
-            ajax("play", data, function(result) {
-                var contenu = document.getElementById('contenu');
-                contenu.innerHTML = result['view'];
-                var infoBox = document.querySelector('#infoBox');
-                if (infoBox != null) infoBox.remove();
-                gamePlay(result['jeton']);
+
+        let regex = new RegExp('&att=(\\d{2,3})(?:&cible=(\\d{2,3}))*&abilite=(\\d)$', 'i');
+
+        let attCarte = href.match(regex)[1];
+        let cibleCarte = href.match(regex)[2];
+        let abiliteCarte = href.match(regex)[3];
+
+        // console.log(attCarte+' '+cibleCarte+' '+abiliteCarte);
+        // console.log(att+' '+cible+' '+abilite);
+        let parentId = carte.parentElement.id;
+        // console.log(parentId+' currentPlayer='+currentPlayer+' jeton='+jeton+' att='+att);
+        if(parentId == 'bottomCreature' && currentPlayer == jeton){
+            carte.style.cursor = "pointer";
+            carte.addEventListener('click', function(){
+
+                ajax("play", "&att="+attCarte+"&abilite="+abiliteCarte, function(result) {
+                    let contenu = document.getElementById('contenu');
+                    contenu.innerHTML = result['view'];
+                    gamePlay(result['jeton'],result['att'],result['cible'],result['abilite'],result['eog']);
+                });
             });
-        });
+        }else if(parentId == 'topCreature' && currentPlayer == jeton && att != '' ){
+            // console.log('cible');
+            carte.style.cursor = "pointer";
+            carte.addEventListener('click', function(){
+                // console.log('click');
+                ajax("play", "&att="+att+"&cible="+cibleCarte+"&abilite="+abiliteCarte, function(result) {
+                    let contenu = document.getElementById('contenu');
+                    contenu.innerHTML = result['view'];
+                    gamePlay(result['jeton'],result['att'],result['cible'],result['abilite'],result['eog']);
+                });
+            });
+        }
+
+
+
     }
 }
 
@@ -188,7 +223,7 @@ function gameWaitingTurn(){
             contenu.innerHTML = result['view'];
             if(j==currentPlayer){
                 chgTurnMssg(0);
-                gamePlay(j);
+                gamePlay(j,result['att'],result['cible'],result['abilite'],result['eog']);
                 clearInterval(interval);     
             }
         })
