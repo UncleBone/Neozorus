@@ -42,6 +42,7 @@ function gamePlay(jet, att, cible, abilite, eog){
 
         reqAjaxCarteMain(att);
         reqAjaxCartePlateau(jeton, att);
+        reqAjaxJoueur(jeton);
 
         var carteMain = document.getElementsByClassName('carteMain');
         var cartePlateau = document.querySelectorAll('#bottomCreature a.carte img');
@@ -188,9 +189,31 @@ function reqAjaxCartePlateau(jet,att){
                 });
             });
         }
+    }
+}
 
+function reqAjaxJoueur(jet){
+    let jeton = jet;
+    let joueurAdverse = document.querySelector('#topHero a');
+    if(joueurAdverse != null){
+        let href = joueurAdverse.getAttribute('href');
+        joueurAdverse.removeAttribute('href');
 
+        let regex = new RegExp('&att=(\\d{2,3})&cible=(J[01])&abilite=(\\d)$', 'i');
 
+        let att = href.match(regex)[1];
+        let cible = href.match(regex)[2];
+        let abilite = href.match(regex)[3];
+        if(currentPlayer == jeton && att != '' ){
+            joueurAdverse.style.cursor = "pointer";
+            joueurAdverse.addEventListener('click', function(){
+                ajax("play", "&att="+att+"&cible="+cible+"&abilite="+abilite, function(result) {
+                    let contenu = document.getElementById('contenu');
+                    contenu.innerHTML = result['view'];
+                    gamePlay(result['jeton'],result['att'],result['cible'],result['abilite'],result['eog']);
+                });
+            });
+        }
     }
 }
 
