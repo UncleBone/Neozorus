@@ -28,7 +28,6 @@ $(function(){
 		$('.mesGabarits').on('click',function(){
 			//On recupere dans un tableau les enfants de la div (soit 1 image et 3 spans pour les creature et speciale, ou 2 span pour les sorts)
 			let mesSpan = $(this).children();
-			console.log(mesSpan);
 			//on supprime la div zoomCard si elle existe deja
 			$('#zoomCard').remove();
 			//On affiche un effet de flou en arriere plan
