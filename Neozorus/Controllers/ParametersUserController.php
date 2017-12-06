@@ -25,12 +25,11 @@ class ParametersUserController extends CoreController{
 
 	public function changeDataUser(){	
 		$model = new ParametersUserModel();
-		$handler = new StringHandler();
 		$changeOn = null;
 		$myChange = null;
 		$user= $this->data['u_id'];
 		if(!empty($this->data['newPseudo'])){
-			if($handler->isAlphaNumeric($this->data['newPseudo'],PSEUDO_MIN,PSEUDO_MAX)){
+			if(StringHandler::isAlphaNumeric($this->data['newPseudo'],PSEUDO_MIN,PSEUDO_MAX)){
 				if($model->makeChange($user,'u_pseudo', $this->data['newPseudo'])){
 					echo json_encode(array('newPseudo'=>$this->data['newPseudo']));
 				}
@@ -42,7 +41,7 @@ class ParametersUserController extends CoreController{
 		}
 
 		else if(!empty($this->data['newNom'])){
-			if($handler->isAlpha($this->data['newNom'],NOM_MIN,NOM_MAX)){
+			if(StringHandler::isAlpha($this->data['newNom'],NOM_MIN,NOM_MAX)){
 				if($model->makeChange($user,'u_nom', $this->data['newNom'])){
 					echo json_encode(array('newNom'=>$this->data['newNom']));
 				}
@@ -53,7 +52,7 @@ class ParametersUserController extends CoreController{
 			
 		}
 		else if(!empty($this->data['newPrenom'])){
-			if($handler->isAlpha($this->data['newPrenom'],PRENOM_MIN,PRENOM_MAX)){
+			if(StringHandler::isAlpha($this->data['newPrenom'],PRENOM_MIN,PRENOM_MAX)){
 				if($model->makeChange($user,'u_prenom', $this->data['newPrenom'])){
 					echo json_encode(array('newPrenom'=>$this->data['newPrenom']));
 				}
@@ -63,7 +62,7 @@ class ParametersUserController extends CoreController{
 			}
 		}
 		else if(!empty($this->data['newMail'])){
-			if($handler->isValidEmail($this->data['newMail'],MAIL_MIN,MAIL_MAX)){
+			if(StringHandler::isValidEmail($this->data['newMail'],MAIL_MIN,MAIL_MAX)){
 				if(!$model->issetMailDB($this->data['newMail'])){
 					if($model->makeChange($user,'u_mail', $this->data['newMail'])){
 						echo json_encode(array('newMail'=>$this->data['newMail']));
@@ -78,4 +77,36 @@ class ParametersUserController extends CoreController{
 			}
 		}
 	}
+	public function changePassword(){
+		$model = new ParametersUserModel();
+		$user = $model -> getDataUserDB($this->data['u_id']);
+		$hash = $user->getU_mdp();
+		if(!StringHandler::isEmpty($this->data['password'])){	
+			if(password_verify($this->data['password'], $hash)){
+				$handler = new FormHandler($this->data);
+				$tabError = $handler->checkInfoForChangingPassword();
+				if(count($tabError) == 0 ){
+					try{
+						$hashedPassword = password_hash($this->data['newPassword'],PASSWORD_DEFAULT);
+						if($model -> updatePasswordDB($hashedPassword, $this->data['u_id'])){
+							echo json_encode(array('statement'=>'ok'));
+						}
+					}
+					catch(Exception $e){
+						echo json_encode(array('statement'=>'Probleme lors de l\'enregistrement du nouveau mot de passe'));
+					}
+				}
+				else{
+					echo json_encode($tabError);
+				}
+			}
+			else{
+				echo json_encode(array('invalidPassword' => 'Mot de passe incorrect'));
+			}
+		}
+		else{
+			echo json_encode(array('invalidPassword' => 'Champs vide'));
+		}	
+	}
+
 }

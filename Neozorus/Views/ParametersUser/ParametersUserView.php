@@ -18,6 +18,9 @@
 
 		const MAIL_MIN = <?=MAIL_MIN?>;
 		const MAIL_MAX = <?=MAIL_MAX?>;
+
+		const PASSWORD_MIN = <?=PASSWORD_MIN?>;
+		const PASSWORD_MAX = <?=PASSWORD_MAX?>;
 	</script>
 	<script type="text/javascript" src="./assets/js/ParametersUser.js"></script>
 	<link rel="stylesheet" type="text/css" href="./assets/css/ParametersUser.css">
@@ -59,16 +62,16 @@
 						<table id="tableDynamique">
 							<tr>
 								<th>Mot de passe actuel:</th>
-								<td><input class="password input" id="actualPassword"></td>
-								<td id="bigButton" rowspan="3"><button class="circle" id="passwordButton"></button></td>
+								<td><input type="password" class="password input" id="actualPassword"></td>
+								<td id="bigButton" rowspan="3"><button class="circle" id="passwordValidForm"></button></td>
 							</tr>
 							<tr>
 								<th>Nouveau mot de passe:</th>
-								<td><input class="password input" id="newPassword"></td>
+								<td><input type="text" class="password input" id="newPassword"></td>
 							</tr>
 							<tr>
-								<th>Nouveau mot de passe:</th>
-								<td><input class="password input" id="conformNewPassword"></td>
+								<th>Confirmer le nouveau mot de passe:</th>
+								<td><input type="text" class="password input" id="conformNewPassword"></td>
 							</tr>
 						</table>
 					</div>
@@ -78,7 +81,7 @@
 							<tr>
 								<th>Mot de passe:</th>
 								<td><input  id="passwordQuestion"></td>
-								<td id="bigButton" rowspan="4"><button class="circle" id="passwordButton"></button></td>
+								<td id="bigButton" rowspan="4"><button class="circle" id="questionValidForm"></button></td>
 							</tr>
 							<tr>
 								<th><?=$this->user->getU_question()?>:</th>

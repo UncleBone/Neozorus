@@ -58,3 +58,6 @@ define('PRENOM_MAX',60);
 
 define('MAIL_MIN',5);
 define('MAIL_MAX',60);
+
+define('PASSWORD_MIN',5);
+define('PASSWORD_MAX',60);

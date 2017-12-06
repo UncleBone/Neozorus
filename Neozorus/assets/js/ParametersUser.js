@@ -8,7 +8,17 @@ $(function(){
 
 	}
 
+	function blocError(message){
+		let bloc = $('<div id="blocError" class="popMessage" hidden >'+message+'</div>').appendTo('body');
+		$('<p><button id="buttonError">Ok</button></p>').appendTo('#blocError');
+		bloc.fadeIn(100);
+		$('#buttonError').on('click',function(){
+			$('#blocError').remove();
+		})
+	}
+
 	function changedCallback(result){
+		console.log(result);
 		let data = JSON.parse(result);
 		if(data.newPseudo != undefined){
 			switch (data.error) {
@@ -65,6 +75,23 @@ $(function(){
 					mail = data.newMail;
 			   	break;
 			}
+		}
+
+	}
+
+	function changedPasswordCallback(ajax){
+		let data = JSON.parse(ajax);
+		if(data.statement != undefined){
+			blocAppears('Changement effectué!');
+		}
+		else if(data.invalidPassword != undefined){
+			blocError(data.invalidPassword);
+		}
+		else if(data.newPassword != undefined){
+			blocError(data.newPassword);
+		}
+		else if(data.confirmedNewPassword != undefined){
+			blocError(data.confirmedNewPassword);
 		}
 
 	}
@@ -193,6 +220,20 @@ $(function(){
 	$('#questionButton').on('click',function(){
 		$('#blocPassword').hide();
 		$('#blocQuestion').show();
+	});
+
+	$('#passwordValidForm').on('click',function(){
+		let actualPassword = $('#actualPassword').val();
+		let newPassword = $('#newPassword').val();
+		let conformNewPassword = $('#conformNewPassword').val();
+		$.post('index.php?controller=ParametersUser&action=changePassword',
+		{
+			password:actualPassword,
+			newPassword:newPassword,
+			confirmedNewPassword:conformNewPassword,
+			u_id:u_id
+		},
+		changedPasswordCallback);		
 	});
 
 

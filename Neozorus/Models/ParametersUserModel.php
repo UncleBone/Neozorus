@@ -40,4 +40,13 @@ class ParametersUserModel extends CoreModel{
 		}
 		return true;
 	}
+
+	public function updatePasswordDB($password, $idUser){
+		$sql = 'UPDATE user SET u_mdp=:password WHERE u_id=:id';
+		$params = array('password' => $password, 'id' => $idUser);
+		if($this->makeStatement($sql,$params)){
+			return true;
+		}
+		return false;
+	}
 }
