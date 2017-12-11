@@ -40,8 +40,9 @@ class UserModel extends CoreModel{
 			'question' => $tab['question'],
 			'reponse' => $tab['reponse'],
 			'offre' => (empty($tab['offre']) ? '0' : '1'),
+			'langue' => 1,
 			'pseudo' => $tab['pseudo']];
-		$req = 'INSERT INTO `user` (u_nom, u_prenom, u_dateNaissance, u_mail, u_mdp, u_question, u_reponse, u_offre,u_pseudo) VALUES (:nom,:prenom,:date_naissance,:mail,:mdp,:question,:reponse,:offre,:pseudo);';
+		$req = 'INSERT INTO `user` (u_nom, u_prenom, u_dateNaissance, u_mail, u_mdp, u_question, u_reponse, u_offre,u_pseudo, u_langue_fk) VALUES (:nom,:prenom,:date_naissance,:mail,:mdp,:question,:reponse,:offre,:pseudo,:langue);';
 		try{
 			$res = $this->makeStatement($req,$param);
 		}catch(PDOexception $e){}

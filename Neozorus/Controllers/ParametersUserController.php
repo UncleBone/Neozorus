@@ -6,15 +6,12 @@ class ParametersUserController extends CoreController{
 	 */
 	private $user;
 
-	private $languages;
-
 	/**
 	 * Instancie un ParametersUserController
 	 */
 	public function __construct(){
 		$this->isSessionNeozorus();//On verifie qu'une session est en cours
 		$this->getDataUser();
-		$this->getLanguages();
 	}
 
 	/**
@@ -43,11 +40,21 @@ class ParametersUserController extends CoreController{
 		try{
 			$model = new ParametersUserModel();
 			$languages = $model -> getLanguages();
-			$this->languages = $languages;
+			return $languages;
 		}
 		catch(Exception $e){
-			$controller = new ErrorController();
-			$controller->error($e->getMessage());
+		}
+	}
+
+	public function afficherLangueMenu(){
+		//On verifie si il y a une requete ajax ou non
+		if(!isset($this->parameters['ajax'])){
+			
+		}
+		else{
+			$languages = $this->getLanguages();
+			//on génère la view à injecter dans la page
+			include(VIEWS_PATH . DS . 'ParametersUser' . DS . 'menuLangue.php');
 		}
 	}
 
