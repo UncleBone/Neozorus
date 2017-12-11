@@ -5,7 +5,7 @@ class ParametersUserModel extends CoreModel{
 	 * @param  int $id Identifiant de l'utilisateur en BDD
 	 * @return Object     User
 	 */
-	function getDataUserDB($id){
+	public function getDataUserDB($id){
 		$sql = 'SELECT * FROM user WHERE u_id = :id';
 		$params = array ('id'=>$id);
 		$data = $this->makeSelect($sql,$params);
@@ -21,6 +21,18 @@ class ParametersUserModel extends CoreModel{
 		}
 
 		return $User[0];
+	}
+
+	public function getLanguages(){
+		$sql = 'SELECT * FROM langue';
+		$data = $this->makeSelect($sql);
+
+		$languages = array();
+
+		foreach ($data as $key => $value) {
+			$languages[]=$value;
+		}
+		return $languages;
 	}
 
 	/**

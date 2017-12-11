@@ -61,6 +61,8 @@ class User{
 	 */
 	private $u_reponse;
 
+	private $u_langue;
+
 	/**
 	 * Instancie un utilisateur
 	 * @param array $data tableau comportant toutes les informations nécessaires à l'instanciation d'un utilisateur
@@ -76,6 +78,7 @@ class User{
 		$this->u_offre = $data['u_offre'];
 		$this->u_question = $data['u_question'];
 		$this->u_reponse = $data['u_reponse'];
+		$this->u_langue = $data['u_langue_fk'];
 	}
 
 	/**
@@ -164,5 +167,9 @@ class User{
 	 */
 	public function getU_reponse(){
 		return $this->u_reponse;
+	}
+
+	public function getU_langue(){
+		return $this->u_langue;
 	}
 }

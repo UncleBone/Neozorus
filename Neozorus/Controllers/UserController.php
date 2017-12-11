@@ -39,11 +39,13 @@ class UserController extends CoreController
 		$email = (!empty($this->data['email']) ? $this->data['email'] : '');
 		$mdp = (!empty($this->data['mdp']) ? $this->data['mdp'] : '');
 		$check = $this->checkLogin($email,$mdp);
+		$language = $this->checkLanguage($check);
 		if(!is_numeric($check)){
 			header("Location:.?controller=user&action=connexion&error=".$check);
 			exit();
 		}else{
 			$_SESSION['neozorus']['u_id'] = $check;
+			$_SESSION['neozorus']['u_language'] = $language;
 			unset($_SESSION['neozorus']['connexion']);
 			header("Location:.?controller=home&action=affichagePageAccueil");
 			exit();
@@ -74,6 +76,17 @@ class UserController extends CoreController
 		}else{
 			return $id;
 		}
+	}
+
+	private function checkLanguage($idUser){
+		try{
+			$user = new UserModel();
+			 return $data = $user->getLanguageFor($idUser);
+		}
+		catch(Exception $e){
+			return 1;
+		}
+		
 	}
 
 	/*Affichage du formulaire d'inscription

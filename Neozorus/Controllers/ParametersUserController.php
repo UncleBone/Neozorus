@@ -6,12 +6,15 @@ class ParametersUserController extends CoreController{
 	 */
 	private $user;
 
+	private $languages;
+
 	/**
 	 * Instancie un ParametersUserController
 	 */
 	public function __construct(){
 		$this->isSessionNeozorus();//On verifie qu'une session est en cours
 		$this->getDataUser();
+		$this->getLanguages();
 	}
 
 	/**
@@ -35,6 +38,20 @@ class ParametersUserController extends CoreController{
 			$controller->error($e->getMessage());
 		}
 	}
+
+	private function getlanguages(){
+		try{
+			$model = new ParametersUserModel();
+			$languages = $model -> getLanguages();
+			$this->languages = $languages;
+		}
+		catch(Exception $e){
+			$controller = new ErrorController();
+			$controller->error($e->getMessage());
+		}
+	}
+
+
 
 	/**
 	 * A partir d'une donné recuperer en ajax, on traite cette donné et si tout est ok on met à jour la BDD
