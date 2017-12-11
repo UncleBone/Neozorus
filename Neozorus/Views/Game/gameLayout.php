@@ -5,6 +5,7 @@
     <title>Game</title>
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="./assets/css/GameLayout.css">
+    <script src="<?= JS_PATH . DS . 'jquery-3.2.1.min.js' ?>"></script>
     <script type="application/javascript">
             var tour = '<?=$tour?>';
             var pv = ['<?=$pv[0]?>', '<?=$pv[1]?>'];
@@ -18,7 +19,7 @@
             var currentPlayer = '<?=$currentPlayer?>';
             var eog = '<?=$eog?>';
             var att = '<?=$att?>';
-        var manaJoueurActif = '<?= $mana[$jeton]?>';
+            var manaJoueurActif = '<?= $mana[$jeton]?>';
             var cible = '<?=$cible?>';
             var abilite = '<?=$abilite?>';
             var error = '<?=$error?>';

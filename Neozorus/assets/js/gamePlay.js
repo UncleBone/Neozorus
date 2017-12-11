@@ -5,20 +5,12 @@ if(currentPlayer != jeton){
     gamePlay(jeton, att, cible, abilite, eog);
 }
 
-function ajax(nom, data, fct) {
-    var xhr = new XMLHttpRequest();
-
-    xhr.onreadystatechange = function(){
-        if(this.readyState == 4 && this.status == 200){
-            result = JSON.parse(this.responseText);
-            if(result != null){
-                fct(result);
-            }
+function ajax(nom,data,fct){
+    $.getJSON('.?controller=game&action='+nom+data+"&ajax=1", function(result){
+        if(result != null){
+            fct(result);
         }
-    };
-
-    xhr.open("GET",".?controller=game&action="+nom+data+"&ajax=1",true);
-    xhr.send();
+    });
 }
 
 /************Fonction active pendant le tour du joueur actif**************/
@@ -33,81 +25,73 @@ function gamePlay(jet, att, cible, abilite, eog){
     var abilite = abilite;
 
     if(eog != '1'){
-        var endTurn = document.getElementById('end');
-        endTurn.style.cursor = "pointer";
-        endTurn.setAttribute('title','Fin de Tour');
+        $('#end').css('cursor','pointer').attr('title','Fin de tour');
 
-        var error = document.querySelector('.error');
-        if(error != null) fade(error);
+        if($('.error').length != 0) fade($('.error'));
 
         reqAjaxCarteMain(att);
         reqAjaxCartePlateau(jeton, att);
         reqAjaxJoueur(jeton);
 
-        var carteMain = document.getElementsByClassName('carteMain');
-        var cartePlateau = document.querySelectorAll('#bottomCreature a.carte img');
+        var carteMain = $('.carteMain');
+        var cartePlateau = $('#bottomCreature a.carte img');
 
         /******************animation et infobox sur les cartes de la main*******************/
-        for(var carte of carteMain){
-            carte.addEventListener('mouseover',function(e){
-                var img = this.firstChild;
-                var libelle = img.getAttribute('data_libelle');
-                var abilite1 = img.getAttribute('data_abilite');
-                var abilite2 = img.getAttribute('data_abilite_2');
-                var infoBox = document.createElement('div');
-                var oldInfoBox = document.getElementById('infoBox');
-                if(oldInfoBox != null)  document.body.removeChild(oldInfoBox);
+        carteMain.each(function(){
+            $(this).mouseover(function(e){
+                var img = $(this).find('img');
+                var libelle = img.attr('data_libelle');
+                var abilite1 = img.attr('data_abilite');
+                var abilite2 = img.attr('data_abilite_2');
+                var infoBox = $('<div></div>');
+                var oldInfoBox = $('#infoBox');
+                if(oldInfoBox.length != 0)  oldInfoBox.remove();
 
-                infoBox.id = 'infoBox';
-                infoBox.style.backgroundColor = 'rgba(0,0,0,0.7)';
-                infoBox.style.color = 'white';
-                infoBox.style.position = 'absolute';
-                infoBox.style.top = e.clientY+'px';
-                infoBox.style.left = e.clientX+'px';
-                infoBox.style.transform = 'translate(-100%,-100%)';
-                infoBox.style.fontFamily = 'fira-code';
-                infoBox.style.padding = '0 10px';
-                infoBox.style.borderRadius = '5px';
-                infoBox.innerHTML = '<p class="libelle">'+libelle+'</p>';
+                infoBox.attr('id','infoBox');
+                infoBox.css('background-color','rgba(0,0,0,0.7)');
+                infoBox.css('color','white');
+                infoBox.css('position','absolute');
+                infoBox.css('top',e.clientY+'px');
+                infoBox.css('left',e.clientX+'px');
+                infoBox.css('transform','translate(-100%,-100%)');
+                infoBox.css('font-family','fira-code');
+                infoBox.css('padding','0 10px');
+                infoBox.css('border-radius','5px');
+                infoBox.html('<p class="libelle">'+libelle+'</p>');
                 if(abilite1 != '0'){
-                    infoBox.innerHTML += '<p class="abilite">'+abiliteTexte(abilite1)+'</p>';
+                    infoBox.html(infoBox.html()+'<p class="abilite">'+abiliteTexte(abilite1)+'</p>');
                     if(abilite2 != '0'){
-                        infoBox.innerHTML += '<p class="abilite">'+abiliteTexte(abilite2)+'</p>';
+                        infoBox.html(infoBox.html()+'<p class="abilite">'+abiliteTexte(abilite2)+'</p>');
                     }
                 }
-                infoBox.innerHTML += '</p>';
-
-                document.body.append(infoBox);
-                this.style.top = "-10px";
+                $('body').append(infoBox);
+                $(this).css('top','-10px');
             });
-            carte.addEventListener('mouseout',function(){
-                var oldInfoBox = document.getElementById('infoBox');
-                if(oldInfoBox != null)  document.body.removeChild(oldInfoBox);
-                this.style.top = "0px";
+            $(this).mouseout(function(){
+                var oldInfoBox = $('#infoBox');
+                if(oldInfoBox.length != 0)  oldInfoBox.remove();
+                $(this).css('top',"0px");
             });
-        }
+        });
 
         /*******************Animation des cartes en jeu*********************/
-        for(var carte of cartePlateau){
-            carte.addEventListener('mouseover',function(){
-                this.style.width = parseInt(this.clientWidth)+2+'px';
+        cartePlateau.each(function(){
+            $(this).mouseover(function(){
+                $(this).css('width',parseInt(this.clientWidth)+2+'px');
             });
-            carte.addEventListener('mouseout',function(){
-                this.style.width = parseInt(this.clientWidth)-2+'px';
+            $(this).mouseout(function(){
+                $(this).css('width',parseInt(this.clientWidth)-2+'px');
             });
-        }
+        });
 
         /*****************Changement de jeton au click sur le bouton 'fin de tour'******************/
-        endTurn.addEventListener('click',function(){
+        $('#end').click(function(){
             ajax("play", "&jeton="+(1-jeton), function(result) {
-                var contenu = document.getElementById('contenu');
-                // console.log('play, new jeton demandé: &jeton='+(1-jeton));
-                jeton_2 = result['jeton'];
-                // console.log('play, new jeton:'+jeton_2);
-                contenu.innerHTML = result['view'];
+                var contenu = $('#contenu');
+                contenu.html(result['view']);
                 chgTurnMssg(1);
                 gameWaitingTurn();
-            })
+            });
         });
     }
 }
@@ -116,19 +100,19 @@ function gamePlay(jet, att, cible, abilite, eog){
  */
 function reqAjaxCarteMain(att){
     var att = att;
-    var carteMain = document.getElementsByClassName('carteMain');
-    for(carte of carteMain){
-        let href = carte.getAttribute('href');
-        carte.removeAttribute('href');
-        carte.style.cursor = "pointer";
-        carte.addEventListener('click', function(){
+    var carteMain = $('.carteMain');
+    carteMain.each(function(){
+        let href = $(this).attr('href');
+        $(this).removeAttr('href');
+        $(this).css('cursor',"pointer");
+        $(this).click(function(){
             let regex = new RegExp('.*jouer=(\\d{2,3})$', 'i');
             let id = href.match(regex)[1];
             ajax("play", "&jouer="+id, function(result) {
-                var contenu = document.getElementById('contenu');
-                contenu.innerHTML = result['view'];
-                var infoBox = document.querySelector('#infoBox');
-                if (infoBox != null) infoBox.remove();
+                var contenu = $('#contenu');
+                contenu.html(result['view']);
+                var infoBox = $('#infoBox');
+                if (infoBox.length != 0) infoBox.remove();
                 gamePlay(result['jeton'],result['att'],result['cible'],result['abilite'],result['eog']);
             });
         });
@@ -143,7 +127,7 @@ function reqAjaxCarteMain(att){
                 console.log(data);
             }
         }(href));*/
-    }
+    });
 }
 
 /*
@@ -152,10 +136,10 @@ function reqAjaxCarteMain(att){
 function reqAjaxCartePlateau(jet,att){
     var jeton = jet;
     var att = att;
-    var cartePlateau = document.querySelectorAll('a.carte');
-    for(carte of cartePlateau){
-        let href = carte.getAttribute('href');
-        carte.removeAttribute('href');
+    var cartePlateau = $('a.carte');
+    cartePlateau.each(function(){
+        let href = $(this).attr('href');
+        $(this).removeAttr('href');
 
         let regex = new RegExp('&att=(\\d{2,3})(?:&cible=(\\d{2,3}))*&abilite=(\\d)$', 'i');
 
@@ -163,41 +147,37 @@ function reqAjaxCartePlateau(jet,att){
         let cibleCarte = href.match(regex)[2];
         let abiliteCarte = href.match(regex)[3];
 
-        // console.log(attCarte+' '+cibleCarte+' '+abiliteCarte);
-        // console.log(att+' '+cible+' '+abilite);
-        let parentId = carte.parentElement.id;
-        // console.log(parentId+' currentPlayer='+currentPlayer+' jeton='+jeton+' att='+att);
+        let parentId = $(this).parent().attr('id');
+
         if(parentId == 'bottomCreature' && currentPlayer == jeton){
-            carte.style.cursor = "pointer";
-            carte.addEventListener('click', function(){
+            $(this).css('cursor',"pointer");
+            $(this).click(function(){
 
                 ajax("play", "&att="+attCarte+"&abilite="+abiliteCarte, function(result) {
-                    let contenu = document.getElementById('contenu');
-                    contenu.innerHTML = result['view'];
+                    let contenu = $('#contenu');
+                    contenu.html(result['view']);
                     gamePlay(result['jeton'],result['att'],result['cible'],result['abilite'],result['eog']);
                 });
             });
         }else if(parentId == 'topCreature' && currentPlayer == jeton && att != '' ){
-            // console.log('cible');
-            carte.style.cursor = "pointer";
-            carte.addEventListener('click', function(){
-                // console.log('click');
+            $(this).css('cursor',"pointer");
+            $(this).click(function(){
                 ajax("play", "&att="+att+"&cible="+cibleCarte+"&abilite="+abiliteCarte, function(result) {
-                    let contenu = document.getElementById('contenu');
-                    contenu.innerHTML = result['view'];
+                    let contenu = $('#contenu');
+                    contenu.html(result['view']);
                     gamePlay(result['jeton'],result['att'],result['cible'],result['abilite'],result['eog']);
                 });
             });
         }
-    }
+    });
 }
 
 function reqAjaxJoueur(jet){
     let jeton = jet;
-    let joueurAdverse = document.querySelector('#topHero a');
-    if(joueurAdverse != null){
-        let href = joueurAdverse.getAttribute('href');
-        joueurAdverse.removeAttribute('href');
+    let joueurAdverse = $('#topHero a');
+    if(joueurAdverse.length != 0){
+        let href = joueurAdverse.attr('href');
+        joueurAdverse.removeAttr('href');
 
         let regex = new RegExp('&att=(\\d{2,3})&cible=(J[01])&abilite=(\\d)$', 'i');
 
@@ -205,11 +185,11 @@ function reqAjaxJoueur(jet){
         let cible = href.match(regex)[2];
         let abilite = href.match(regex)[3];
         if(currentPlayer == jeton && att != '' ){
-            joueurAdverse.style.cursor = "pointer";
-            joueurAdverse.addEventListener('click', function(){
+            joueurAdverse.css('cursor',"pointer");
+            joueurAdverse.click(function(){
                 ajax("play", "&att="+att+"&cible="+cible+"&abilite="+abilite, function(result) {
-                    let contenu = document.getElementById('contenu');
-                    contenu.innerHTML = result['view'];
+                    let contenu = $('#contenu');
+                    contenu.html(result['view']);
                     gamePlay(result['jeton'],result['att'],result['cible'],result['abilite'],result['eog']);
                 });
             });
@@ -240,10 +220,9 @@ function gameWaitingTurn(){
     var interval;
     interval = window.setInterval(function(){
         ajax("refreshViewAjax", "", function(result) {
-            var contenu = document.getElementById('contenu');
+            var contenu = $('#contenu');
             var j = result['jeton'];
-            console.log('waiting, joueur='+currentPlayer+', jeton='+j);
-            contenu.innerHTML = result['view'];
+            contenu.html(result['view']);
             if(j==currentPlayer){
                 chgTurnMssg(0);
                 gamePlay(j,result['att'],result['cible'],result['abilite'],result['eog']);
@@ -260,10 +239,10 @@ function fade(element) {
     var interval = setInterval(function () {
         if (op <= 0.1){
             clearInterval(interval);
-            element.style.display = 'none';
+            $(element).css('display', 'none');
         }else{
-            element.style.opacity = op;
-            element.style.filter = 'alpha(opacity=' + op * 100 + ")";
+            $(element).css('opacity',op);
+            $(element).css('filter','alpha(opacity=' + op * 100 + ")");
             op -= op * 0.1*t/15;
             t = t >= 15 ? 15 : t+0.1;
         }
@@ -279,19 +258,19 @@ function chgTurnMssg(t){
     }else{
         message = 'Tour du joueur adverse';
     }
-    var messageBox = document.createElement('div');
-    messageBox.innerHTML = '<p>'+message+'</p>';
-    messageBox.style.padding = '20px';
-    messageBox.style.fontFamily = 'godzilla';
-    messageBox.style.fontSize = '4vh';
-    messageBox.style.color = 'white';
-    messageBox.style.backgroundColor = 'rgba(0,0,0,0.7)';
-    messageBox.style.position = 'absolute';
-    messageBox.style.top = '50vh';
-    messageBox.style.left = '50vw';
-    messageBox.style.transform = 'translate(-50%,-60%)';
-    messageBox.style.borderRadius = '5px';
+    var messageBox = $('<div></div>');
+    messageBox.html('<p>'+message+'</p>');
+    messageBox.css('padding','20px');
+    messageBox.css('font-family','godzilla');
+    messageBox.css('font-size','4vh');
+    messageBox.css('color','white');
+    messageBox.css('background-color','rgba(0,0,0,0.7)');
+    messageBox.css('position','absolute');
+    messageBox.css('top','50vh');
+    messageBox.css('left','50vw');
+    messageBox.css('transform','translate(-50%,-60%)');
+    messageBox.css('border-radius','5px');
 
-    document.body.append(messageBox);
+    $('body').append(messageBox);
     fade(messageBox);
 }
