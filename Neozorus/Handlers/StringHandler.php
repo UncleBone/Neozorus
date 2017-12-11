@@ -9,8 +9,13 @@ class StringHandler{
 	 * @param  [string]  $mail string a tester
 	 * @return boolean      
 	 */
-	static public function isValidEmail($mail){
-		//On verifie si le string est vide
+	static public function isValidEmail($mail){// /!\ POUR TESTER LES EMAIL VOIR LA DOC DE filter_var() /!\
+		if (!filter_var($mail, FILTER_VALIDATE_EMAIL) === false) {
+			return true;
+		} 
+		return false;
+		
+		/*//On verifie si le string est vide
 		if (!empty($mail)){
 			//On verifie si l'email est standard
 			if(preg_match('#^[a-z0-9\._-]+@[a-z0-9\._]{2,}\.[a-z]{2,4}$#', $mail)){
@@ -29,7 +34,7 @@ class StringHandler{
 		}
 		else{
 			return false;
-		}
+		}*/
 	}
 
 	/**

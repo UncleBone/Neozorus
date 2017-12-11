@@ -10,7 +10,7 @@ $(function(){
 	//Un bloc apparait avec le message en parametre au centre de l'ecran, il faut appuyer sur Ok pour le faire disparaitre
 	function blocError(message){
 		let bloc = $('<div id="blocError" class="popMessage" hidden >'+message+'</div>').appendTo('body');
-		$('<p><button id="buttonError">Ok</button></p>').appendTo('#blocError');
+		$('<br /><button id="buttonError">OK</button>').appendTo('#blocError');
 		bloc.fadeIn(100);
 		$('#buttonError').on('click',function(){
 			$('#blocError').remove();

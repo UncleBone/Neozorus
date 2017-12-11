@@ -284,4 +284,13 @@ input{
   font-size: 45px;
   color:#16E62A;
   text-align: center;
+  border:solid 1px #16E62A;
+}
+
+.popMessage button{
+  font-size: 25px;
+  color:#16E62A;
+  background-color: black;
+  outline: none;
+  border:solid 1px #16E62A;
 }
