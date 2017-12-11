@@ -3,6 +3,7 @@
 <html>
 <head>
 	<title>HomeView</title>
+	<meta name="viewport" content="width=device-width" />
 	<link rel="stylesheet" media="screen" type="text/css" title="Exemple" href="./assets/css/HomeViewStyle.css"/>
 </head>
 

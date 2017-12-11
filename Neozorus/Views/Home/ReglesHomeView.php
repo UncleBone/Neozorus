@@ -2,6 +2,7 @@
 <html>
 <head>
 	<title>Règles du jeu</title>
+	<meta name="viewport" content="width=device-width" />
 	<link rel="stylesheet" media="screen" type="text/css" title="Exemple" href="./assets/css/ReglesHomeViewStyle.css"/>
 </head>
 <body>
@@ -12,7 +13,7 @@
 		<div class="bloc_logo">
 			<img class="logo" src="./assets/img/logoNeozorus.png" id="logoNeozorus">
 		</div>
-	</header>
+</header>
 	
 	<div id="container">
 

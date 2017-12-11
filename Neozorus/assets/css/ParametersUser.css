@@ -94,6 +94,7 @@
 }
 
 /*vISUEL DE 'menu' */
+
 #menu_jouer li {
    background-color:black; 
    border-radius: 6px;
@@ -135,10 +136,126 @@
   max-height: 15em;
 }
 .bloc_menu{
-  float:left;
+  position: fixed;
   width: 11%;
   margin: 10px 0 0 10px;
+}
 
+/*VISUEL DE 'langue' */
+
+#langue {
+  padding:0;
+  margin:0;
+  list-style:none;
+  text-align: center;
+  width: 180px;
+}
+#langue ul {
+  padding:0;
+  margin:0;
+  list-style:none;
+  text-align: center;
+}
+#langue li {
+   background-color:black; 
+   border-radius: 6px;
+   margin-bottom:2px;
+   border:solid 1px #bdd002
+}
+#langue li li {
+   max-height:0;
+   overflow: hidden;
+   transition: all .5s;
+   border-radius:0;
+   background: #444;
+   box-shadow: none;
+   border:none;
+   margin:0
+}
+#langue a {
+  display:block;
+  text-decoration: none;
+  color: #fff;
+  padding: 8px 0;
+  font-family: "fira_code", Verdana;
+  font-size:1.2em
+}
+#langue ul li a, #langue li:hover li a {
+  font-size:1em
+}
+#langue li:hover {
+   background: black;
+}
+#langue li li:hover {
+   background: #999;
+}
+#langue ul li:last-child {
+   border-radius: 0 0 6px 6px;
+   border:none;
+}
+#langue li:hover li {
+  max-height: 15em;
+}
+#langue {
+  padding:0;
+  margin:0;
+  list-style:none;
+  text-align: center;
+  width: 180px;
+}
+#langue ul {
+  padding:0;
+  margin:0;
+  list-style:none;
+  text-align: center;
+}
+
+
+#langue li {
+   background-color:black; 
+   border-radius: 6px;
+   margin-bottom:2px;
+   border:solid 1px #8cbe22;
+}
+#langue li li {
+   max-height:0;
+   overflow: hidden;
+   transition: all .5s;
+   border-radius:0;
+   background: #333;
+   box-shadow: none;
+   border:none;
+   margin:0
+}
+#langue a {
+  display:block;
+  text-decoration: none;
+  color: #8cbe22;
+  padding: 8px 0;
+  font-family: "fira_code", Verdana;
+  font-size:1.2em
+}
+#langue ul li a, #langue li:hover li a {
+  font-size:1em
+}
+#langue li:hover {
+   background: rgba(0,0,0,0.7);
+}
+#langue li li:hover {
+   background: rgba(0,0,0,0.7);
+}
+#langue ul li:last-child {
+   border-radius: 0 0 6px 6px;
+   border:none;
+}
+#langue li:hover li {
+  max-height: 15em;
+}
+.bloc_menu2{
+  position: fixed;
+  right: 10px;
+  width: 11%;
+  margin: 10px 0 0 10px;
 }
 /***************************************************************************************/
 h1{
@@ -151,11 +268,9 @@ h1{
 }
 
 #conteneur{
-  position: relative;
-  top:150px;
+  margin:150px auto 20px auto;
   padding: 40px 0px;
   width: 60%;
-  margin: auto;
   background-color: rgba(0, 0, 0, 0.80);
 }
 
@@ -188,7 +303,7 @@ h1{
   padding-right: 50px;
 }
 
-button{
+.circle{
   position: relative;
   left: 10px;
   height: 35px;
@@ -210,4 +325,89 @@ input{
   background-color: black;
   width: 100%;
   height: 35px;
+}
+/******************************************************************************************************/
+#bottomMenu{
+  margin:10px auto;
+  padding: 20px 0px;
+  width: 60%;
+  background-color: rgba(0, 0, 0, 0.80);
+  height: 300px;
+}
+
+#tab2{
+  width: 100%;
+  height: 100%;
+}
+
+#tab2 th, #tab2 td{
+  padding: 20px 10px;
+}
+
+#tab2 th{
+  width: 15%;
+  height: 50%;
+}
+
+#tab2 td{
+  width: 85%
+}
+
+#tableDynamique th{
+  width:20%;
+}
+#tableDynamique td{
+  width:50%;
+}
+#bigButton{
+  text-align: center;
+}
+#bigButton button{
+  width: 150px;
+  height: 150px;
+  background-color: #16E62A;
+}
+#tableDynamique2 th,#tableDynamique2 td{
+  padding:10px;
+}
+#tableDynamique2 th{
+  width:20%;
+}
+#tableDynamique2 td{
+  width:50%;
+}
+
+#tableDynamique th, #tableDynamique2 th{
+  color: #16E62A;
+  font-family: "fira_code";
+  font-size: 20px;
+  padding: 10px 0px;
+}
+
+#passwordButton, #questionButton{
+  background-color: black;
+  color:#16E62A;
+  outline: none;
+}
+
+.popMessage{
+  padding: 20px 20px;
+  z-index: 100;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background-color: black;
+  font-size: 45px;
+  color:#16E62A;
+  text-align: center;
+  border:solid 1px #16E62A;
+}
+
+.popMessage button{
+  font-size: 25px;
+  color:#16E62A;
+  background-color: black;
+  outline: none;
+  border:solid 1px #16E62A;
 }
