@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Lun 11 Décembre 2017 à 10:17
+-- Généré le :  Lun 11 Décembre 2017 à 11:06
 -- Version du serveur :  10.1.19-MariaDB
 -- Version de PHP :  7.0.13
 
@@ -278,6 +278,25 @@ CREATE TABLE `historique` (
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `langue`
+--
+
+CREATE TABLE `langue` (
+  `l_id` int(11) NOT NULL,
+  `l_libelle` varchar(250) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Contenu de la table `langue`
+--
+
+INSERT INTO `langue` (`l_id`, `l_libelle`) VALUES
+(1, 'français'),
+(2, 'english');
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `partie`
 --
 
@@ -355,6 +374,7 @@ CREATE TABLE `user` (
   `u_nom` varchar(60) DEFAULT NULL,
   `u_prenom` varchar(60) DEFAULT NULL,
   `u_dateNaissance` date NOT NULL,
+  `u_langue_fk` int(11) NOT NULL,
   `u_offre` tinyint(1) NOT NULL,
   `u_question` varchar(255) NOT NULL,
   `u_reponse` varchar(60) NOT NULL
@@ -364,15 +384,15 @@ CREATE TABLE `user` (
 -- Contenu de la table `user`
 --
 
-INSERT INTO `user` (`u_id`, `u_mail`, `u_pseudo`, `u_mdp`, `u_nom`, `u_prenom`, `u_dateNaissance`, `u_offre`, `u_question`, `u_reponse`) VALUES
-(3, 'ruffault.arnaud@gmail.com', '', '$2y$10$m9awnISVY8THZk9ZnAY9z..NiBhUQ9a58VDIPcWW.s9qz0aVskgXq', 'RUFFAULT', 'Arnaud', '1990-09-07', 0, 'ma prenom?', 'Arnaud'),
-(4, 'jane.doe@gmail.com', '', '$2y$10$YbS4z/BOLXDHJPwF88NnDOg8p8QIA8nBV7ZMkSH5oYQzJc5RKlxiu', 'DOE', 'Jane', '1990-09-07', 0, 'mon prenom?', 'Jane'),
-(5, 'user@mail.mail', 'user', '$2y$10$0WlGRtieSdwaC5asS8POR.fjKLbyTAmPHxzT/mahYJNbdQghfPRJK', 'user', 'user', '2011-11-11', 0, 'Pourquoi?', 'Parce que'),
-(6, 'test@mail.mail', 'test', '$2y$10$TfBLqnjGzY68i29PI89iIOe0zSRfKAY.a5asKL5Eka0b2J/qCbyzy', 'test', 'test', '2010-10-10', 0, 'p', 'p'),
-(7, 'user1@mail.mail', 'User1', '$2y$10$NGkAn05xK4MHUHRuAyX1se/Qiqr4LliZ2D.MKKJBvZGU0./XikW0y', 'Un', 'User', '2000-12-20', 0, 'Why?', 'Because'),
-(8, 'user2@mail.mail', 'User2', '$2y$10$sSEwEdb7HJLqrS.75zNAPeyVdACoX2HMiJ5m8VW3AWvIxbdBJzFw.', 'Deux', 'User', '1998-05-10', 0, 'Why?', 'Because'),
-(9, 'arnaud.ruffault@hotmail.fr', 'Criko', '$2y$10$x8TIvUKLD6bHW0Vw9YGYfOjKKqeb8MsrTxtMBheHsQOAE8NloOMHS', 'RUFFAULT', 'Arnaud', '0000-00-00', 0, 'dit coucou', 'coucou'),
-(10, 'user3@mail.mail', 'User3', '$2y$10$XfAcsZlXpc6gdUkVp6uAh.hAtd5ckBXnQAI1xOeALVtkJqnLZeDYy', 'rtrthrty', 'rteryery', '2014-03-28', 0, 'dit oui', 'oui');
+INSERT INTO `user` (`u_id`, `u_mail`, `u_pseudo`, `u_mdp`, `u_nom`, `u_prenom`, `u_dateNaissance`, `u_langue_fk`, `u_offre`, `u_question`, `u_reponse`) VALUES
+(3, 'ruffault.arnaud@gmail.com', '', '$2y$10$m9awnISVY8THZk9ZnAY9z..NiBhUQ9a58VDIPcWW.s9qz0aVskgXq', 'RUFFAULT', 'Arnaud', '1990-09-07', 1, 0, 'ma prenom?', 'Arnaud'),
+(4, 'jane.doe@gmail.com', '', '$2y$10$YbS4z/BOLXDHJPwF88NnDOg8p8QIA8nBV7ZMkSH5oYQzJc5RKlxiu', 'DOE', 'Jane', '1990-09-07', 1, 0, 'mon prenom?', 'Jane'),
+(5, 'user@mail.mail', 'user', '$2y$10$0WlGRtieSdwaC5asS8POR.fjKLbyTAmPHxzT/mahYJNbdQghfPRJK', 'user', 'user', '2011-11-11', 1, 0, 'Pourquoi?', 'Parce que'),
+(6, 'test@mail.mail', 'test', '$2y$10$TfBLqnjGzY68i29PI89iIOe0zSRfKAY.a5asKL5Eka0b2J/qCbyzy', 'test', 'test', '2010-10-10', 1, 0, 'p', 'p'),
+(7, 'user1@mail.mail', 'User1', '$2y$10$NGkAn05xK4MHUHRuAyX1se/Qiqr4LliZ2D.MKKJBvZGU0./XikW0y', 'Un', 'User', '2000-12-20', 1, 0, 'Why?', 'Because'),
+(8, 'user2@mail.mail', 'User2', '$2y$10$sSEwEdb7HJLqrS.75zNAPeyVdACoX2HMiJ5m8VW3AWvIxbdBJzFw.', 'Deux', 'User', '1998-05-10', 1, 0, 'Why?', 'Because'),
+(9, 'arnaud.ruffault@hotmail.fr', 'Criko', '$2y$10$x8TIvUKLD6bHW0Vw9YGYfOjKKqeb8MsrTxtMBheHsQOAE8NloOMHS', 'RUFFAULT', 'Arnaud', '0000-00-00', 1, 0, 'dit coucou', 'coucou'),
+(10, 'user3@mail.mail', 'User3', '$2y$10$XfAcsZlXpc6gdUkVp6uAh.hAtd5ckBXnQAI1xOeALVtkJqnLZeDYy', 'rtrthrty', 'rteryery', '2014-03-28', 1, 0, 'dit oui', 'oui');
 
 -- --------------------------------------------------------
 
@@ -443,6 +463,12 @@ ALTER TABLE `historique`
   ADD KEY `FK_historique_p_id` (`h_partie_fk`);
 
 --
+-- Index pour la table `langue`
+--
+ALTER TABLE `langue`
+  ADD PRIMARY KEY (`l_id`);
+
+--
 -- Index pour la table `partie`
 --
 ALTER TABLE `partie`
@@ -473,7 +499,8 @@ ALTER TABLE `s_c_composer`
 -- Index pour la table `user`
 --
 ALTER TABLE `user`
-  ADD PRIMARY KEY (`u_id`);
+  ADD PRIMARY KEY (`u_id`),
+  ADD KEY `u_langue_fk` (`u_langue_fk`);
 
 --
 -- Index pour la table `u_p_jouer`
@@ -511,6 +538,11 @@ ALTER TABLE `game`
 --
 ALTER TABLE `historique`
   MODIFY `h_id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT pour la table `langue`
+--
+ALTER TABLE `langue`
+  MODIFY `l_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT pour la table `partie`
 --
@@ -589,6 +621,12 @@ ALTER TABLE `s_c_composer`
   ADD CONSTRAINT `FK_s_c_composer_c_id` FOREIGN KEY (`s_c_carte_fk`) REFERENCES `carte` (`c_id`),
   ADD CONSTRAINT `FK_s_c_composer_s_id` FOREIGN KEY (`s_c_salonCarte_fk`) REFERENCES `saloncarte` (`s_id`),
   ADD CONSTRAINT `s_c_composer_ibfk_1` FOREIGN KEY (`s_c_salonCarte_fk`) REFERENCES `saloncarte` (`s_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `user`
+--
+ALTER TABLE `user`
+  ADD CONSTRAINT `user_ibfk_1` FOREIGN KEY (`u_langue_fk`) REFERENCES `langue` (`l_id`);
 
 --
 -- Contraintes pour la table `u_p_jouer`
