@@ -233,6 +233,23 @@ h1{
   }
 
   /* VISUEL DE 'menu' */
+ #menu_jouer {
+  padding:0;
+  margin:0;
+  list-style:none;
+  text-align: center;
+  width: 180px;
+  }
+  #menu_jouer ul {
+    padding:0;
+    margin:0;
+    list-style:none;
+    text-align: center;
+    width: 100%;
+  }
+
+
+  /* VISUEL DE 'menu' */
   #menu_jouer li {
      background-color:black; 
      border-radius: 6px;
@@ -247,7 +264,7 @@ h1{
      background: #333;
      box-shadow: none;
      border:none;
-     margin:0
+     margin:0;
   }
   #menu_jouer a {
     display:block;
@@ -258,7 +275,7 @@ h1{
     font-size:1.2em
   }
   #menu_jouer ul li a, #menu_jouer li:hover li a {
-    font-size:1em
+    font-size:0.5em;
   }
   #menu_jouer li:hover {
      background: rgba(0,0,0,0.7);

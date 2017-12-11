@@ -222,7 +222,6 @@ $(function(){
 		}
 	}
 
-	$('.bloc_menu2').load('index.php?controller=parametersUser&action=afficherLangueMenu&ajax=1');
 	//au clic sur le boutton correspondant, on effectue une requete ajax pour modifier le pseudo si les verifications cote client ont reussi
 	$('#pseudoButton').on('click',function(){
 		if(isInputValid($('#pseudo').val(),pseudo,isInputAlphaNumeric,PSEUDO_MIN,PSEUDO_MAX)){

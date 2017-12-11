@@ -172,4 +172,8 @@ class User{
 	public function getU_langue(){
 		return $this->u_langue;
 	}
+
+	public function setU_langue($idLangue){
+		$this->u_langue = $idLangue;
+	}
 }

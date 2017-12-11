@@ -32,86 +32,192 @@
 	<link rel="stylesheet" type="text/css" href="./assets/css/ParametersUser.css">
 </head>
 <body>
-	<?php include(MENU) ?>
+	<?php include(MENU);?>
 	<div class="bloc_menu2">
-		<!-- CE MENU EST CHARGE EN AJAX  -->
+		<ul id="langue">
+			<li><a href="#">
+					<?php
+					foreach ($this->languages as $key => $value) {
+						if($this->user->getU_langue() == $value['l_id']){
+							echo ucfirst($value['l_libelle']);
+						}
+					}
+					?>
+				</a>
+				<ul id="menu2">
+					<?php
+					foreach ($this->languages as $key => $value) {
+						if($this->user->getU_langue() != $value['l_id']){
+							echo '<li><a class="language" href="index.php?controller=parametersUser&action=switchLanguage&language='.$value['l_id'].'" id="'.$value['l_id'].'">'.ucfirst($value['l_libelle']).'</a></li>';
+						}
+					}
+					?>
+				</ul>
+			</li>
+		</ul>		
 	</div>
+<!-- ******************************************************PAGE EN ANGLAIS ************************************************************ -->
+	<?php 
+	 if(isset($_SESSION['neozorus']['u_language']) && $_SESSION['neozorus']['u_language'] == 2){?>
+
+		<h1>User Parameters</h1>
+		<div id="conteneur">
+			<table id="tab">
+				<tr>
+					<th>Nickname:</th>
+					<td class="tdValue"><input id="pseudo" value="<?=$this->user->getU_pseudo()?>"></td>
+					<td class = "tdButton"><button class="circle" id="pseudoButton"></button></td>
+				</tr>
+				<tr>
+					<th>eMail:</th>
+					<td class="tdValue"><input id="mail" value="<?=$this->user->getU_mail()?>"></td>
+					<td class = "tdButton"><button class="circle" id="mailButton"></button></td>
+				</tr>
+				<tr>
+					<th>Last name:</th>
+					<td class="tdValue"><input id="nom" value="<?=$this->user->getU_nom()?>"></td>
+					<td class = "tdButton"><button class="circle" id="nomButton"></button></td>
+				</tr>
+				<tr>
+					<th>First name:</th>
+					<td class="tdValue"><input id="prenom" value="<?=$this->user->getU_prenom()?>"></td>
+					<td class = "tdButton"><button class="circle" id="prenomButton"></button></td>
+				</tr>
+			</table>
+		</div>
+		<div id="bottomMenu">
+			<table id="tab2">
+				<tr>
+					<th><button id="passwordButton">Change the password</button></th>
+					<td rowspan="2" class="tdValue" id= "contenuDynamique">
+						<!--ON AFFICHE SOIT CE BLOC-->
+						<div id="blocPassword">
+							<table id="tableDynamique">
+								<tr>
+									<th>Actual password:</th>
+									<td><input type="password" class="password input" id="actualPassword"></td>
+									<td id="bigButton" rowspan="3"><button class="circle" id="passwordValidForm"></button></td>
+								</tr>
+								<tr>
+									<th>New password:</th>
+									<td><input type="text" class="password input" id="newPassword"></td>
+								</tr>
+								<tr>
+									<th>Confirm new password:</th>
+									<td><input type="text" class="password input" id="conformNewPassword"></td>
+								</tr>
+							</table>
+						</div>
+						<!--OU CE BLOC-->
+						<div id="blocQuestion">
+							<table id="tableDynamique2">
+								<tr>
+									<th>password:</th>
+									<td><input  type="password" id="passwordQuestion"></td>
+									<td id="bigButton" rowspan="4"><button class="circle" id="questionValidForm"></button></td>
+								</tr>
+								<tr>
+									<th><?=$this->user->getU_question()?>:</th>
+									<td><input  type="text" id="actualAnswer"></td>
+								</tr>
+								<tr>
+									<th>New question:</th>
+									<td><input type="text" id="newQuestion"></td>
+								</tr>
+								<tr>
+									<th>New answer:</th>
+									<td><input type="text" id="newAnswer"></td>
+								</tr>
+							</table>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<th><button id="questionButton">Change secret question</button></th>
+				</tr>
+			</table>
+		</div>
+<!-- ******************************************************PAGE EN FRANCAIS ************************************************************ -->
+	<?php 
+	 } else{?>
 	<h1>Parametres Utilisateur</h1>
-	<div id="conteneur">
-		<table id="tab">
-			<tr>
-				<th>Pseudo:</th>
-				<td class="tdValue"><input id="pseudo" value="<?=$this->user->getU_pseudo()?>"></td>
-				<td class = "tdButton"><button class="circle" id="pseudoButton"></button></td>
-			</tr>
-			<tr>
-				<th>Mail:</th>
-				<td class="tdValue"><input id="mail" value="<?=$this->user->getU_mail()?>"></td>
-				<td class = "tdButton"><button class="circle" id="mailButton"></button></td>
-			</tr>
-			<tr>
-				<th>Nom:</th>
-				<td class="tdValue"><input id="nom" value="<?=$this->user->getU_nom()?>"></td>
-				<td class = "tdButton"><button class="circle" id="nomButton"></button></td>
-			</tr>
-			<tr>
-				<th>Prenom:</th>
-				<td class="tdValue"><input id="prenom" value="<?=$this->user->getU_prenom()?>"></td>
-				<td class = "tdButton"><button class="circle" id="prenomButton"></button></td>
-			</tr>
-		</table>
-	</div>
-	<div id="bottomMenu">
-		<table id="tab2">
-			<tr>
-				<th><button id="passwordButton">Modifier le mot de passe</button></th>
-				<td rowspan="2" class="tdValue" id= "contenuDynamique">
-					<!--ON AFFICHE SOIT CE BLOC-->
-					<div id="blocPassword">
-						<table id="tableDynamique">
-							<tr>
-								<th>Mot de passe actuel:</th>
-								<td><input type="password" class="password input" id="actualPassword"></td>
-								<td id="bigButton" rowspan="3"><button class="circle" id="passwordValidForm"></button></td>
-							</tr>
-							<tr>
-								<th>Nouveau mot de passe:</th>
-								<td><input type="text" class="password input" id="newPassword"></td>
-							</tr>
-							<tr>
-								<th>Confirmer le nouveau mot de passe:</th>
-								<td><input type="text" class="password input" id="conformNewPassword"></td>
-							</tr>
-						</table>
-					</div>
-					<!--OU CE BLOC-->
-					<div id="blocQuestion">
-						<table id="tableDynamique2">
-							<tr>
-								<th>Mot de passe:</th>
-								<td><input  type="password" id="passwordQuestion"></td>
-								<td id="bigButton" rowspan="4"><button class="circle" id="questionValidForm"></button></td>
-							</tr>
-							<tr>
-								<th><?=$this->user->getU_question()?>:</th>
-								<td><input  type="text" id="actualAnswer"></td>
-							</tr>
-							<tr>
-								<th>Nouvelle question:</th>
-								<td><input type="text" id="newQuestion"></td>
-							</tr>
-							<tr>
-								<th>Nouvelle reponse:</th>
-								<td><input type="text" id="newAnswer"></td>
-							</tr>
-						</table>
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<th><button id="questionButton">Modifier la question secrete</button></th>
-			</tr>
-		</table>
-	</div>
+		<div id="conteneur">
+			<table id="tab">
+				<tr>
+					<th>Pseudo:</th>
+					<td class="tdValue"><input id="pseudo" value="<?=$this->user->getU_pseudo()?>"></td>
+					<td class = "tdButton"><button class="circle" id="pseudoButton"></button></td>
+				</tr>
+				<tr>
+					<th>Mail:</th>
+					<td class="tdValue"><input id="mail" value="<?=$this->user->getU_mail()?>"></td>
+					<td class = "tdButton"><button class="circle" id="mailButton"></button></td>
+				</tr>
+				<tr>
+					<th>Nom:</th>
+					<td class="tdValue"><input id="nom" value="<?=$this->user->getU_nom()?>"></td>
+					<td class = "tdButton"><button class="circle" id="nomButton"></button></td>
+				</tr>
+				<tr>
+					<th>Prenom:</th>
+					<td class="tdValue"><input id="prenom" value="<?=$this->user->getU_prenom()?>"></td>
+					<td class = "tdButton"><button class="circle" id="prenomButton"></button></td>
+				</tr>
+			</table>
+		</div>
+		<div id="bottomMenu">
+			<table id="tab2">
+				<tr>
+					<th><button id="passwordButton">Modifier le mot de passe</button></th>
+					<td rowspan="2" class="tdValue" id= "contenuDynamique">
+						<!--ON AFFICHE SOIT CE BLOC-->
+						<div id="blocPassword">
+							<table id="tableDynamique">
+								<tr>
+									<th>Mot de passe actuel:</th>
+									<td><input type="password" class="password input" id="actualPassword"></td>
+									<td id="bigButton" rowspan="3"><button class="circle" id="passwordValidForm"></button></td>
+								</tr>
+								<tr>
+									<th>Nouveau mot de passe:</th>
+									<td><input type="text" class="password input" id="newPassword"></td>
+								</tr>
+								<tr>
+									<th>Confirmer le nouveau mot de passe:</th>
+									<td><input type="text" class="password input" id="conformNewPassword"></td>
+								</tr>
+							</table>
+						</div>
+						<!--OU CE BLOC-->
+						<div id="blocQuestion">
+							<table id="tableDynamique2">
+								<tr>
+									<th>Mot de passe:</th>
+									<td><input  type="password" id="passwordQuestion"></td>
+									<td id="bigButton" rowspan="4"><button class="circle" id="questionValidForm"></button></td>
+								</tr>
+								<tr>
+									<th><?=$this->user->getU_question()?>:</th>
+									<td><input  type="text" id="actualAnswer"></td>
+								</tr>
+								<tr>
+									<th>Nouvelle question:</th>
+									<td><input type="text" id="newQuestion"></td>
+								</tr>
+								<tr>
+									<th>Nouvelle reponse:</th>
+									<td><input type="text" id="newAnswer"></td>
+								</tr>
+							</table>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<th><button id="questionButton">Modifier la question secrete</button></th>
+				</tr>
+			</table>
+		</div>
+
+	<?php } ?>
 </body>
 </html>

@@ -273,7 +273,7 @@
 			}
 
 		}
-/*********************************************************************************************/
+/*********************************************MENU DEROULANT************************************************/
   #menu_jouer {
   padding:0;
   margin:0;
@@ -286,6 +286,7 @@
     margin:0;
     list-style:none;
     text-align: center;
+    width: 100%;
   }
 
 
@@ -315,7 +316,7 @@
     font-size:1.2em
   }
   #menu_jouer ul li a, #menu_jouer li:hover li a {
-    font-size:1em
+    font-size:0.5em
   }
   #menu_jouer li:hover {
      background: rgba(0,0,0,0.7);
