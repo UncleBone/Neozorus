@@ -72,6 +72,23 @@
     font-family: 'fira_code';
 }
 
+#trex{
+  height: 250px;
+  position: fixed;
+  top: 75%;
+  left: 50%;
+  color: white;
+}
+
+#neo{
+  position: fixed;
+  left: 50%;
+  top: 17%;
+  transform: translate(-50%);
+  height: 250px;
+  color: white;
+}
+
 #menu_jouer a {
   display:block;
   text-decoration: none;
@@ -157,3 +174,6 @@
   margin: 10px 0 0 10px;
 
 }
+
+
+
