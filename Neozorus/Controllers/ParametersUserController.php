@@ -225,24 +225,39 @@ class ParametersUserController extends CoreController{
 		}
 	}
 
+	/**
+	 * Change la langue du site et met en BDD la langue par defaut d'un utilisateur
+	 * @return void
+	 */
 	public function switchLanguage(){
-
+		//On recupere l'identifiant de l'utilisateur connecte
 		$idUser = $this->user->getU_id();
-		$idLanguage = $this->parameters['language'];
-		try{
-			$model = new ParametersUserModel();
-			if($model->switchLanguage($idLanguage,$idUser)){
-				$_SESSION['neozorus']['u_language'] = $idLanguage;
-				$this->user->setU_langue($idLanguage);
-				$this->affichageParametresUtilisateur();
+		//On recupere l'identifiant de la langue selectionné par l'utilisateur
+		if(isset($this->parameters['language'])){
+			$idLanguage = $this->parameters['language'];
+			try{
+				$model = new ParametersUserModel();
+				//On met à jour la BDD en modifiant la langue associé à l'utilisateur
+				if($model->switchLanguage($idLanguage,$idUser)){
+					//On modifie la langue associé en session
+					$_SESSION['neozorus']['u_language'] = $idLanguage;
+					//On modifie la langue associé à notre instance utilisateur
+					$this->user->setU_langue($idLanguage);
+					//On affiche notre page
+					$this->affichageParametresUtilisateur();
+				}
+				else{
+					$errorController = new ErrorController();
+					$errorController->error('Problème lors du changement de langue, veuillez réessayer plus tard');
+				}
+				
 			}
-			else{
+			catch(Exception $e){
 				$errorController = new ErrorController();
 				$errorController->error('Problème lors du changement de langue, veuillez réessayer plus tard');
 			}
-			
 		}
-		catch(Exception $e){
+		else{
 			$errorController = new ErrorController();
 			$errorController->error('Problème lors du changement de langue, veuillez réessayer plus tard');
 		}	

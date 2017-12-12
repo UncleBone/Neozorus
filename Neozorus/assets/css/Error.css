@@ -55,6 +55,23 @@
    border:none;
    margin:0
 }
+
+#cadre{
+  position: fixed;
+  width: 80%;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.80);
+}
+
+.messageError{
+  text-align: center;
+    font-size: 40px;
+    color:#16E62A;
+    font-family: 'fira_code';
+}
+
 #menu_jouer a {
   display:block;
   text-decoration: none;
@@ -139,10 +156,4 @@
   width: 11%;
   margin: 10px 0 0 10px;
 
-}
-
-.messageError{
-    font-size: 40px;
-    color: white;
-    font-family: 'army_rangers';
 }
