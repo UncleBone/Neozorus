@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Lun 11 Décembre 2017 à 11:06
+-- Généré le :  Mar 12 Décembre 2017 à 09:36
 -- Version du serveur :  10.1.19-MariaDB
 -- Version de PHP :  7.0.13
 
@@ -140,7 +140,7 @@ INSERT INTO `deck` (`d_id`, `d_libelle`, `d_nbMaxCarte`, `d_personnage_fk`, `d_u
 (30, 'NeoLeBoss', 20, 1, 8, 0),
 (42, 'Neo', 20, 1, 9, 0),
 (43, 'Default', 20, 1, NULL, 0),
-(44, 'Dino', 20, 2, 9, 0),
+(44, 'Dino2', 20, 2, 9, 0),
 (45, 'Default', 20, 2, 10, 0);
 
 -- --------------------------------------------------------
@@ -392,7 +392,8 @@ INSERT INTO `user` (`u_id`, `u_mail`, `u_pseudo`, `u_mdp`, `u_nom`, `u_prenom`, 
 (7, 'user1@mail.mail', 'User1', '$2y$10$NGkAn05xK4MHUHRuAyX1se/Qiqr4LliZ2D.MKKJBvZGU0./XikW0y', 'Un', 'User', '2000-12-20', 1, 0, 'Why?', 'Because'),
 (8, 'user2@mail.mail', 'User2', '$2y$10$sSEwEdb7HJLqrS.75zNAPeyVdACoX2HMiJ5m8VW3AWvIxbdBJzFw.', 'Deux', 'User', '1998-05-10', 1, 0, 'Why?', 'Because'),
 (9, 'arnaud.ruffault@hotmail.fr', 'Criko', '$2y$10$x8TIvUKLD6bHW0Vw9YGYfOjKKqeb8MsrTxtMBheHsQOAE8NloOMHS', 'RUFFAULT', 'Arnaud', '0000-00-00', 1, 0, 'dit coucou', 'coucou'),
-(10, 'user3@mail.mail', 'User3', '$2y$10$XfAcsZlXpc6gdUkVp6uAh.hAtd5ckBXnQAI1xOeALVtkJqnLZeDYy', 'rtrthrty', 'rteryery', '2014-03-28', 1, 0, 'dit oui', 'oui');
+(10, 'user3@mail.mail', 'User3', '$2y$10$XfAcsZlXpc6gdUkVp6uAh.hAtd5ckBXnQAI1xOeALVtkJqnLZeDYy', 'rtrthrty', 'rteryery', '2014-03-28', 1, 0, 'dit oui', 'oui'),
+(11, 'ronan.ruffault@hotmail.fr', 'ronan', '$2y$10$z5kQN.DNfuGqPQtlHSwHmeRcRb.WBlRYG/R2A7gjy3TJT9fs2OmfO', 'ruffault', 'ronan', '1990-09-07', 1, 0, 'ecrit ronan', 'ronan');
 
 -- --------------------------------------------------------
 
@@ -404,6 +405,7 @@ CREATE TABLE `u_p_jouer` (
   `u_p_pvPersonnage` int(11) DEFAULT NULL,
   `u_p_manaPersonnage` int(11) DEFAULT NULL,
   `u_p_personnage_fk` int(11) NOT NULL,
+  `u_p_visable` tinyint(1) NOT NULL,
   `u_p_user_fk` int(11) NOT NULL,
   `u_p_partie_fk` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -532,7 +534,7 @@ ALTER TABLE `deck`
 -- AUTO_INCREMENT pour la table `game`
 --
 ALTER TABLE `game`
-  MODIFY `g_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+  MODIFY `g_id` int(20) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT pour la table `historique`
 --
@@ -562,7 +564,7 @@ ALTER TABLE `saloncarte`
 -- AUTO_INCREMENT pour la table `user`
 --
 ALTER TABLE `user`
-  MODIFY `u_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `u_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
 -- Contraintes pour les tables exportées
 --
