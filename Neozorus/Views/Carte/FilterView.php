@@ -1,3 +1,10 @@
+<?php
+	$lang = 1 ;
+	if(isset($_SESSION['neozorus']['u_language'])){
+		$lang = $_SESSION['neozorus']['u_language'];
+	}
+	$messageTrad = $lang == 1 ? 'Aucune carte ne correspond à votre recherche' : 'No card match with your research';
+?>
 <!--Cette view n'ai jamais utilisé directement, est est appelé uniquement en ajax pour completer le contenu d'une <div> de la page Collection de carte-->
 <?php
 if(count($mesCartes) > 0){
@@ -35,7 +42,7 @@ if(count($mesCartes) > 0){
 }
 else{
 	echo'<div>';
-	echo '<p class="messageNoResult">Il n\'éxiste aucun résultat pour votre recherche!</p>';
+	echo '<p class="messageNoResult">'.$messageTrad.'</p>';
 	echo '</div>';
 }						
 ?>

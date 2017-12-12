@@ -99,4 +99,13 @@ class ParametersUserModel extends CoreModel{
 		}
 		return false;
 	}
+
+	public function switchLanguage($idLanguage,$idUser){
+		$sql = 'UPDATE user SET u_langue_fk = :langue WHERE u_id=:id';
+		$params = array('langue'=>$idLanguage, 'id'=>$idUser);
+		if($this->makeStatement($sql,$params)){
+			return true;
+		}
+		return false;
+	}
 }

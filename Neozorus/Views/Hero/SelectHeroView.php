@@ -1,3 +1,10 @@
+<?php
+	$lang = 1 ;
+	if(isset($_SESSION['neozorus']['u_language'])){
+		$lang = $_SESSION['neozorus']['u_language'];
+	}
+	$chooseHeroTrad = $lang == 1 ? 'Choisis ton héro' : 'Choose your hero';
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,7 +27,7 @@
 				<img class="avatar" src=<?='"'.$heros[0] -> getH_gabarit().'"'?>>
 				<span class='PV'><?=$heros[0]->getH_PvMax() ?></span>
 			</div>
-			<div id='choisirHero'>Choisis ton Héros!</div>
+			<div id='choisirHero'><?=$chooseHeroTrad?></div>
 			<div id="btnMatrix" class="btn">
 				<img class="avatar" src=<?='"'.$heros[1] -> getH_gabarit().'"'?>>
 				<span class='PV'><?=$heros[1]->getH_PvMax() ?></span>

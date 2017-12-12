@@ -1,3 +1,13 @@
+<?php
+	$lang = 1 ;
+	if(isset($_SESSION['neozorus']['u_language'])){
+		$lang = $_SESSION['neozorus']['u_language'];
+	}
+	$playButtonTrad = $lang == 1 ? 'Jouer' : 'Play';
+	$modifyButtonTrad = $lang == 1 ? 'Modifier' : 'Modify';
+	$deleteButtonTrad = $lang == 1 ? 'Supprimer' : 'Delete';
+	$backButtonTrad = $lang == 1 ? 'Retour' : 'Back';
+?>
 <!DOCTYPE html>
 <html class=<?= $theme ?>>
 <head>
@@ -57,12 +67,12 @@
 		</div>
 		<div id="menu">
 			<?php
-			echo '<a class="info" href="index.php?controller=game&action=wait&id='.$monDeck->getD_id().'">Jouer</a>';
+			echo '<a class="info" href="index.php?controller=game&action=wait&id='.$monDeck->getD_id().'">'.$playButtonTrad.'</a>';
 			?>
-			<p><a href="#">Modifier</a></p>
-			<p><a href=<?='"index.php?controller=deck&action=supprimerDeck&deck='.$monDeck->getD_id().'&hero='.$hero.'"'?>>Supprimer</a></p>
+			<p><a href="#"><?=$modifyButtonTrad?></a></p>
+			<p><a href=<?='"index.php?controller=deck&action=supprimerDeck&deck='.$monDeck->getD_id().'&hero='.$hero.'"'?>><?=$deleteButtonTrad?></a></p>
 			<p><input id="nameDeck" type="text" value=<?='"'.$monDeck->getD_libelle().'"'?>><button id="nameButton"></button></p>
-			<p><a href=<?='"index.php?controller=deck&action=affichageDeck&hero='.$hero.'"'?>>Retour</a></p>
+			<p><a href=<?='"index.php?controller=deck&action=affichageDeck&hero='.$hero.'"'?>><?=$backButtonTrad?></a></p>
 		</div>
 	</div>	
 </body>

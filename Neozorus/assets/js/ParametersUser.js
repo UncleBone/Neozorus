@@ -1,7 +1,16 @@
 $(function(){
 	//Un bloc apparait puis brievement au centre de l'ecran puis disparait et comporte le message en parametre
-	function blocAppears(message){
-		let bloc = $('<div class="popMessage" hidden >'+message+'</div>').appendTo('body');
+	function blocAppears(message = null){
+		let bloc = '';
+		if( message != null){
+			let bloc = $('<div class="popMessage" hidden >'+message+'</div>').appendTo('body');
+		}
+		else{	
+			bloc = $('<div class="popMessage" hidden >Changement effectue</div>').appendTo('body');
+			if (LANG == '2') {
+				 bloc = $('<div class="popMessage" hidden >Modification made</div>').appendTo('body');
+			}
+		}
 		bloc.fadeIn(500).fadeOut(1000,function(){
 			bloc.remove();
 		});
@@ -20,26 +29,26 @@ $(function(){
 	function changedCallback(result){
 		let data = JSON.parse(result);
 		if(data.newPseudo != undefined){
-	   		blocAppears('changement effectué');
+	   		blocAppears();
 	    	$('#pseudo').val(data.newPseudo);
 			pseudo = data.newPseudo;   		
 		}
 
 		else if(data.newNom != undefined){
-	   		blocAppears('changement effectué');
+	   		blocAppears();
 	    	$('#nom').val(data.newNom);
 			nom = data.newNom;
 			   	
 			
 		}
 		else if(data.newPrenom != undefined){
-			blocAppears('changement effectué');
+			blocAppears();
 			$('#prenom').val(data.newPrenom);
 			prenom = data.newPrenom;
 
 		}
 		else if(data.newMail != undefined){
-	   		blocAppears('changement effectué');
+	   		blocAppears();
 	    	$('#mail').val(data.newMail);
 			mail = data.newMail;
 			
@@ -52,7 +61,7 @@ $(function(){
 	function changedFormCallback(ajax){
 		let data = JSON.parse(ajax);
 		if(data.statement != undefined){
-			blocAppears('Changement effectué!');
+			blocAppears();
 			$('#actualPassword').val('');
 			$('#newPassword').val('');
 			$('#conformNewPassword').val('');
@@ -142,7 +151,12 @@ $(function(){
 								return true;
 							}
 							else{
-								blocError('La nouvelle reponse doit être compris entre '+ANSWER_MIN+' et '+ANSWER_MAX+' caractères');
+								if(LANG == 2){
+									blocError('The new answer must be between '+ANSWER_MIN+' and '+ANSWER_MAX+' characters');
+								}
+								else{
+									blocError('La nouvelle reponse doit être compris entre '+ANSWER_MIN+' et '+ANSWER_MAX+' caractères');
+								}
 								return false;
 							}
 						}
@@ -222,7 +236,6 @@ $(function(){
 		}
 	}
 
-	$('.bloc_menu2').load('index.php?controller=parametersUser&action=afficherLangueMenu&ajax=1');
 	//au clic sur le boutton correspondant, on effectue une requete ajax pour modifier le pseudo si les verifications cote client ont reussi
 	$('#pseudoButton').on('click',function(){
 		if(isInputValid($('#pseudo').val(),pseudo,isInputAlphaNumeric,PSEUDO_MIN,PSEUDO_MAX)){

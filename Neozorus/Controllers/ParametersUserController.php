@@ -6,12 +6,15 @@ class ParametersUserController extends CoreController{
 	 */
 	private $user;
 
+	private $languages;
+
 	/**
 	 * Instancie un ParametersUserController
 	 */
 	public function __construct(){
 		$this->isSessionNeozorus();//On verifie qu'une session est en cours
 		$this->getDataUser();
+		$this->getLanguages();
 	}
 
 	/**
@@ -39,27 +42,13 @@ class ParametersUserController extends CoreController{
 	private function getlanguages(){
 		try{
 			$model = new ParametersUserModel();
-			$languages = $model -> getLanguages();
-			return $languages;
+			$this->languages = $model -> getLanguages();
 		}
 		catch(Exception $e){
+			$controller = new ErrorController();
+			$controller->error($e->getMessage());
 		}
 	}
-
-	public function afficherLangueMenu(){
-		//On verifie si il y a une requete ajax ou non
-		if(!isset($this->parameters['ajax'])){
-			
-		}
-		else{
-			$languages = $this->getLanguages();
-			//on génère la view à injecter dans la page
-			include(VIEWS_PATH . DS . 'ParametersUser' . DS . 'menuLangue.php');
-		}
-	}
-
-
-
 	/**
 	 * A partir d'une donné recuperer en ajax, on traite cette donné et si tout est ok on met à jour la BDD
 	 * @return json tableau
@@ -234,5 +223,28 @@ class ParametersUserController extends CoreController{
 		else{
 			echo json_encode(array('invalidPassword' => 'Mot de passe incorrect'));
 		}
+	}
+
+	public function switchLanguage(){
+
+		$idUser = $this->user->getU_id();
+		$idLanguage = $this->parameters['language'];
+		try{
+			$model = new ParametersUserModel();
+			if($model->switchLanguage($idLanguage,$idUser)){
+				$_SESSION['neozorus']['u_language'] = $idLanguage;
+				$this->user->setU_langue($idLanguage);
+				$this->affichageParametresUtilisateur();
+			}
+			else{
+				$errorController = new ErrorController();
+				$errorController->error('Problème lors du changement de langue, veuillez réessayer plus tard');
+			}
+			
+		}
+		catch(Exception $e){
+			$errorController = new ErrorController();
+			$errorController->error('Problème lors du changement de langue, veuillez réessayer plus tard');
+		}	
 	}
 }

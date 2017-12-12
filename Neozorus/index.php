@@ -61,5 +61,6 @@ try
 }
 catch(Exception $e)
 {
-	echo 'Error! : ' . $e->getMessage();
+	$controller = new ErrorController();
+	$controller -> error($e->getMessage());
 }
