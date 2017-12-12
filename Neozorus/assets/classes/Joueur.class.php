@@ -122,7 +122,6 @@ class Joueur{
         }else{
             return 0;
         }
-
     }
 
     /*
