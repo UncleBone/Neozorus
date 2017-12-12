@@ -8,6 +8,7 @@
 </head>
 <body>
 	<?php include(MENU) ?>
+	<img id="dino" src="./assets/img/dinosaure.png">
 	<img id="neo" src="./assets/img/crying_neo.png">
 	<img id="trex" src="./assets/img/crying_Trex.png">
 	<div id="cadre">

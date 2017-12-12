@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Mar 12 Décembre 2017 à 14:13
+-- Généré le :  Mar 12 Décembre 2017 à 15:15
 -- Version du serveur :  10.1.19-MariaDB
 -- Version de PHP :  7.0.13
 
@@ -304,6 +304,7 @@ CREATE TABLE `partie` (
   `p_id` int(11) NOT NULL,
   `p_tour` int(11) NOT NULL,
   `p_jeton` tinyint(1) NOT NULL,
+  `p_piocheEtMana` tinyint(1) NOT NULL,
   `p_etat` tinyint(1) DEFAULT NULL,
   `p_gagnant` int(25) DEFAULT NULL,
   `p_joueur1` int(11) DEFAULT NULL,
@@ -394,6 +395,7 @@ CREATE TABLE `u_p_jouer` (
   `u_p_pvPersonnage` int(11) DEFAULT NULL,
   `u_p_manaPersonnage` int(11) DEFAULT NULL,
   `u_p_personnage_fk` int(11) NOT NULL,
+  `u_p_deck_fk` int(11) NOT NULL,
   `u_p_visable` tinyint(1) NOT NULL,
   `u_p_user_fk` int(11) NOT NULL,
   `u_p_partie_fk` int(11) NOT NULL

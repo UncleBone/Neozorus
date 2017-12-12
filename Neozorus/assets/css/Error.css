@@ -86,6 +86,11 @@
   top: 17%;
   transform: translate(-50%);
   height: 250px;
+}
+
+#dino{
+  position: fixed;
+  width: 1000px;
   color: white;
 }
 
