@@ -91,7 +91,7 @@ class GameController extends CoreController{
     /*
      * Sauvegarde d'un nouvelle partie dans la BDD
      */
-/*/
+//*/
     public function saveNewGame(){
         $gameModel = new GameModel();
         $gameModel->saveNewGame($this);
