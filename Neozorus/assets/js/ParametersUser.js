@@ -151,7 +151,12 @@ $(function(){
 								return true;
 							}
 							else{
-								blocError('La nouvelle reponse doit être compris entre '+ANSWER_MIN+' et '+ANSWER_MAX+' caractères');
+								if(LANG == 2){
+									blocError('The new answer must be between '+ANSWER_MIN+' and '+ANSWER_MAX+' characters');
+								}
+								else{
+									blocError('La nouvelle reponse doit être compris entre '+ANSWER_MIN+' et '+ANSWER_MAX+' caractères');
+								}
 								return false;
 							}
 						}

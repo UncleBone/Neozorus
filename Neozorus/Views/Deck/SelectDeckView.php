@@ -1,3 +1,15 @@
+<?php
+	$lang = 1 ;
+	if(isset($_SESSION['neozorus']['u_language'])){
+		$lang = $_SESSION['neozorus']['u_language'];
+	}
+	$createDeckTrad = $lang == 1 ? 'Créer un deck' : 'Create a deck';
+	$changeHeroTrad = $lang == 1 ? 'Changer de héros' : 'switch hero';
+	$myDeckTrad = $lang == 1 ? 'mes Decks' : 'my Decks';
+	$playButtonTrad = $lang == 1 ? 'Jouer' : 'Play';
+	$modifyButtonTrad = $lang == 1 ? 'Modifier' : 'Modify';
+	$detailsButtonTrad = $lang == 1 ? 'Détails' : 'Details';
+?>
 <!DOCTYPE html>
 <html class=<?= $theme ?>>
 <head>
@@ -13,7 +25,7 @@
 		<div id="action">
 
 			<div id="creer">
-				<a href="index.php?controller=hero&action="><p>Créer un deck</p></a>
+				<a href="#"><p><?=$createDeckTrad?></p></a>
 			</div>
 
 			<div id="imageHeros" class="anime rebond">
@@ -24,9 +36,9 @@
 			</div>
 
 			<div id="modifier">
-				<a href="index.php?controller=hero&action=affichageListeHero"><p>Changer de Héros</p></a>
+				<a href="index.php?controller=hero&action=affichageListeHero"><p><?=$changeHeroTrad?></p></a>
 			</div>
-			<p class="decksExistants">Mes Decks</p>
+			<p class="decksExistants"><?=$myDeckTrad?></p>
 
 		</div>
 	</div>
@@ -48,11 +60,10 @@
 				    	<p><?= $value->getD_libelle();?></p>
 				    </div>
 						<?php
-						echo '<a class="info" href="index.php?controller=game&action=wait&id='.$value->getD_id().'">Jouer</a>';
+						echo '<a class="info" href="index.php?controller=game&action=wait&id='.$value->getD_id().'">'.$playButtonTrad.'</a>';
 						?>
-						<a class="info" href="">Modifier</a>
-						<a class="info" href=<?= '"index.php?controller=carte&action=afficherCarte&deck='.$value->getD_ID().'&hero='.$hero.'"'?>>Détail</a>
-					
+						<a class="info" href=""><?=$modifyButtonTrad?></a>
+						<a class="info" href=<?= '"index.php?controller=carte&action=afficherCarte&deck='.$value->getD_ID().'&hero='.$hero.'"'?>><?=$detailsButtonTrad?></a>	
 			    </div>
 			</div>
 		</div>

@@ -37,7 +37,7 @@
 
 	<div class="liens_media_sociaux">
 		<ul class="links">
-			<li><a href="#' alt="logo facebook"><img src="./assets/img/logo_facebook_matrix.png"></a></li>
+			<li><a href="#" alt="logo facebook"><img src="./assets/img/logo_facebook_matrix.png"></a></li>
 			<li><a href="#" alt="logo twitter"><img src="./assets/img/logo_twitter_matrix.png"></a></li>
 			<li><a href="#" alt="logo youtube"><img src="./assets/img/logo_youtube_matrix.png"></a></li>
 		</ul>

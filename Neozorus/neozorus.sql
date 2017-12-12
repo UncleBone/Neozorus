@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Mar 12 Décembre 2017 à 09:36
+-- Généré le :  Mar 12 Décembre 2017 à 11:21
 -- Version du serveur :  10.1.19-MariaDB
 -- Version de PHP :  7.0.13
 
@@ -138,10 +138,10 @@ INSERT INTO `deck` (`d_id`, `d_libelle`, `d_nbMaxCarte`, `d_personnage_fk`, `d_u
 (4, 'DeckDino', 20, 2, 8, 0),
 (18, 'Default', 20, 2, 7, 0),
 (30, 'NeoLeBoss', 20, 1, 8, 0),
-(42, 'Neo', 20, 1, 9, 0),
 (43, 'Default', 20, 1, NULL, 0),
-(44, 'Dino2', 20, 2, 9, 0),
-(45, 'Default', 20, 2, 10, 0);
+(44, 'Dino', 20, 2, 9, 0),
+(45, 'Default', 20, 2, 10, 0),
+(46, 'Default', 20, 1, 9, 0);
 
 -- --------------------------------------------------------
 
@@ -208,18 +208,6 @@ INSERT INTO `d_c_inclure` (`d_c_nbExemplaire`, `d_c_deck_fk`, `d_c_carte_fk`) VA
 (2, 30, 10),
 (2, 30, 11),
 (1, 30, 12),
-(1, 42, 1),
-(1, 42, 2),
-(1, 42, 3),
-(2, 42, 4),
-(2, 42, 5),
-(2, 42, 6),
-(2, 42, 7),
-(2, 42, 8),
-(2, 42, 9),
-(2, 42, 10),
-(2, 42, 11),
-(1, 42, 12),
 (1, 44, 13),
 (1, 44, 14),
 (1, 44, 15),
@@ -243,7 +231,19 @@ INSERT INTO `d_c_inclure` (`d_c_nbExemplaire`, `d_c_deck_fk`, `d_c_carte_fk`) VA
 (2, 45, 21),
 (2, 45, 22),
 (2, 45, 23),
-(1, 45, 24);
+(1, 45, 24),
+(1, 46, 1),
+(1, 46, 2),
+(1, 46, 3),
+(2, 46, 4),
+(2, 46, 5),
+(2, 46, 6),
+(2, 46, 7),
+(2, 46, 8),
+(2, 46, 9),
+(2, 46, 10),
+(2, 46, 11),
+(1, 46, 12);
 
 -- --------------------------------------------------------
 
@@ -306,8 +306,6 @@ CREATE TABLE `partie` (
   `p_jeton` tinyint(1) NOT NULL,
   `p_etat` tinyint(1) DEFAULT NULL,
   `p_gagnant` int(25) DEFAULT NULL,
-  `p_message` varchar(250) NOT NULL,
-  `p_erreur` varchar(250) NOT NULL,
   `p_joueur1` int(11) DEFAULT NULL,
   `p_joueur2` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -391,7 +389,7 @@ INSERT INTO `user` (`u_id`, `u_mail`, `u_pseudo`, `u_mdp`, `u_nom`, `u_prenom`, 
 (6, 'test@mail.mail', 'test', '$2y$10$TfBLqnjGzY68i29PI89iIOe0zSRfKAY.a5asKL5Eka0b2J/qCbyzy', 'test', 'test', '2010-10-10', 1, 0, 'p', 'p'),
 (7, 'user1@mail.mail', 'User1', '$2y$10$NGkAn05xK4MHUHRuAyX1se/Qiqr4LliZ2D.MKKJBvZGU0./XikW0y', 'Un', 'User', '2000-12-20', 1, 0, 'Why?', 'Because'),
 (8, 'user2@mail.mail', 'User2', '$2y$10$sSEwEdb7HJLqrS.75zNAPeyVdACoX2HMiJ5m8VW3AWvIxbdBJzFw.', 'Deux', 'User', '1998-05-10', 1, 0, 'Why?', 'Because'),
-(9, 'arnaud.ruffault@hotmail.fr', 'Criko', '$2y$10$x8TIvUKLD6bHW0Vw9YGYfOjKKqeb8MsrTxtMBheHsQOAE8NloOMHS', 'RUFFAULT', 'Arnaud', '0000-00-00', 1, 0, 'dit coucou', 'coucou'),
+(9, 'arnaud.ruffault@hotmail.fr', 'Criko', '$2y$10$x8TIvUKLD6bHW0Vw9YGYfOjKKqeb8MsrTxtMBheHsQOAE8NloOMHS', 'RUFFAULT', 'Arnaud', '0000-00-00', 2, 0, 'coucou?', 'coucou'),
 (10, 'user3@mail.mail', 'User3', '$2y$10$XfAcsZlXpc6gdUkVp6uAh.hAtd5ckBXnQAI1xOeALVtkJqnLZeDYy', 'rtrthrty', 'rteryery', '2014-03-28', 1, 0, 'dit oui', 'oui'),
 (11, 'ronan.ruffault@hotmail.fr', 'ronan', '$2y$10$z5kQN.DNfuGqPQtlHSwHmeRcRb.WBlRYG/R2A7gjy3TJT9fs2OmfO', 'ruffault', 'ronan', '1990-09-07', 1, 0, 'ecrit ronan', 'ronan');
 
@@ -529,7 +527,7 @@ ALTER TABLE `carte`
 -- AUTO_INCREMENT pour la table `deck`
 --
 ALTER TABLE `deck`
-  MODIFY `d_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+  MODIFY `d_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 --
 -- AUTO_INCREMENT pour la table `game`
 --

@@ -5,7 +5,7 @@
 	}
 	$titleTrad = $lang == 1 ? 'Parametres utilisateurs' : 'User parameters';
 	$pseudoTrad = $lang == 1 ? 'Pseudo' : 'Nickname';
-	$mailTrad = $lang == 1 ? 'mail' : 'mail';
+	$mailTrad = $lang == 1 ? 'Mail' : 'Mail';
 	$nomTrad = $lang == 1 ? 'Nom' : 'Last name';
 	$prenomTrad = $lang == 1 ? 'Prenom' : 'First name';
 	$changePasswordTrad = $lang == 1 ? 'Modifier le mot de passe' : 'Change password';
