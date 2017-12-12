@@ -104,6 +104,11 @@ class GameController extends CoreController{
 	    $gameModel->saveGame($this);
     }
 
+//    public function gameToArray(){
+//        $data['tour'] = $this->getTour();
+//        $data['jeton'] = $this->getJeton();
+//    }
+
     /*
      * Chargement d'une partie existante ou lancement de l'initialisation d'une nouvelle partie
      */
