@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Mar 12 Décembre 2017 à 11:21
+-- Généré le :  Mar 12 Décembre 2017 à 15:15
 -- Version du serveur :  10.1.19-MariaDB
 -- Version de PHP :  7.0.13
 
@@ -139,7 +139,7 @@ INSERT INTO `deck` (`d_id`, `d_libelle`, `d_nbMaxCarte`, `d_personnage_fk`, `d_u
 (18, 'Default', 20, 2, 7, 0),
 (30, 'NeoLeBoss', 20, 1, 8, 0),
 (43, 'Default', 20, 1, NULL, 0),
-(44, 'Dino', 20, 2, 9, 0),
+(44, 'T-rex', 20, 2, 9, 0),
 (45, 'Default', 20, 2, 10, 0),
 (46, 'Default', 20, 1, 9, 0);
 
@@ -304,6 +304,7 @@ CREATE TABLE `partie` (
   `p_id` int(11) NOT NULL,
   `p_tour` int(11) NOT NULL,
   `p_jeton` tinyint(1) NOT NULL,
+  `p_piocheEtMana` tinyint(1) NOT NULL,
   `p_etat` tinyint(1) DEFAULT NULL,
   `p_gagnant` int(25) DEFAULT NULL,
   `p_joueur1` int(11) DEFAULT NULL,
@@ -338,24 +339,15 @@ INSERT INTO `personnage` (`p_id`, `p_libelle`, `p_pvMax`) VALUES
 
 CREATE TABLE `saloncarte` (
   `s_id` int(11) NOT NULL,
+  `s_cid_fk` int(11) NOT NULL,
   `s_pv` int(11) DEFAULT NULL,
   `s_lieu` varchar(25) DEFAULT NULL,
+  `s_indice` int(11) NOT NULL,
   `s_visable` tinyint(1) NOT NULL,
   `s_att` tinyint(1) NOT NULL,
   `s_cible` tinyint(1) NOT NULL,
   `s_user_fk` int(11) DEFAULT NULL,
   `s_partie_fk` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Structure de la table `s_c_composer`
---
-
-CREATE TABLE `s_c_composer` (
-  `s_c_salonCarte_fk` int(11) NOT NULL,
-  `s_c_carte_fk` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -389,7 +381,7 @@ INSERT INTO `user` (`u_id`, `u_mail`, `u_pseudo`, `u_mdp`, `u_nom`, `u_prenom`, 
 (6, 'test@mail.mail', 'test', '$2y$10$TfBLqnjGzY68i29PI89iIOe0zSRfKAY.a5asKL5Eka0b2J/qCbyzy', 'test', 'test', '2010-10-10', 1, 0, 'p', 'p'),
 (7, 'user1@mail.mail', 'User1', '$2y$10$NGkAn05xK4MHUHRuAyX1se/Qiqr4LliZ2D.MKKJBvZGU0./XikW0y', 'Un', 'User', '2000-12-20', 1, 0, 'Why?', 'Because'),
 (8, 'user2@mail.mail', 'User2', '$2y$10$sSEwEdb7HJLqrS.75zNAPeyVdACoX2HMiJ5m8VW3AWvIxbdBJzFw.', 'Deux', 'User', '1998-05-10', 1, 0, 'Why?', 'Because'),
-(9, 'arnaud.ruffault@hotmail.fr', 'Criko', '$2y$10$x8TIvUKLD6bHW0Vw9YGYfOjKKqeb8MsrTxtMBheHsQOAE8NloOMHS', 'RUFFAULT', 'Arnaud', '0000-00-00', 2, 0, 'coucou?', 'coucou'),
+(9, 'arnaud.ruffault@hotmail.fr', 'Criko', '$2y$10$x8TIvUKLD6bHW0Vw9YGYfOjKKqeb8MsrTxtMBheHsQOAE8NloOMHS', 'RUFFAULT', 'Arnaud', '0000-00-00', 1, 0, 'coucou?', 'coucou'),
 (10, 'user3@mail.mail', 'User3', '$2y$10$XfAcsZlXpc6gdUkVp6uAh.hAtd5ckBXnQAI1xOeALVtkJqnLZeDYy', 'rtrthrty', 'rteryery', '2014-03-28', 1, 0, 'dit oui', 'oui'),
 (11, 'ronan.ruffault@hotmail.fr', 'ronan', '$2y$10$z5kQN.DNfuGqPQtlHSwHmeRcRb.WBlRYG/R2A7gjy3TJT9fs2OmfO', 'ruffault', 'ronan', '1990-09-07', 1, 0, 'ecrit ronan', 'ronan');
 
@@ -403,6 +395,7 @@ CREATE TABLE `u_p_jouer` (
   `u_p_pvPersonnage` int(11) DEFAULT NULL,
   `u_p_manaPersonnage` int(11) DEFAULT NULL,
   `u_p_personnage_fk` int(11) NOT NULL,
+  `u_p_deck_fk` int(11) NOT NULL,
   `u_p_visable` tinyint(1) NOT NULL,
   `u_p_user_fk` int(11) NOT NULL,
   `u_p_partie_fk` int(11) NOT NULL
@@ -487,13 +480,6 @@ ALTER TABLE `saloncarte`
   ADD PRIMARY KEY (`s_id`),
   ADD KEY `FK_salonCarte_u_id` (`s_user_fk`),
   ADD KEY `FK_salonCarte_p_id` (`s_partie_fk`);
-
---
--- Index pour la table `s_c_composer`
---
-ALTER TABLE `s_c_composer`
-  ADD PRIMARY KEY (`s_c_salonCarte_fk`,`s_c_carte_fk`),
-  ADD KEY `FK_s_c_composer_c_id` (`s_c_carte_fk`);
 
 --
 -- Index pour la table `user`
@@ -605,7 +591,7 @@ ALTER TABLE `game`
 -- Contraintes pour la table `historique`
 --
 ALTER TABLE `historique`
-  ADD CONSTRAINT `FK_historique_p_id` FOREIGN KEY (`h_partie_fk`) REFERENCES `partie` (`p_id`);
+  ADD CONSTRAINT `FK_historique_p_id` FOREIGN KEY (`h_partie_fk`) REFERENCES `partie` (`p_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `saloncarte`
@@ -613,14 +599,6 @@ ALTER TABLE `historique`
 ALTER TABLE `saloncarte`
   ADD CONSTRAINT `FK_salonCarte_p_id` FOREIGN KEY (`s_partie_fk`) REFERENCES `partie` (`p_id`),
   ADD CONSTRAINT `FK_salonCarte_u_id` FOREIGN KEY (`s_user_fk`) REFERENCES `user` (`u_id`);
-
---
--- Contraintes pour la table `s_c_composer`
---
-ALTER TABLE `s_c_composer`
-  ADD CONSTRAINT `FK_s_c_composer_c_id` FOREIGN KEY (`s_c_carte_fk`) REFERENCES `carte` (`c_id`),
-  ADD CONSTRAINT `FK_s_c_composer_s_id` FOREIGN KEY (`s_c_salonCarte_fk`) REFERENCES `saloncarte` (`s_id`),
-  ADD CONSTRAINT `s_c_composer_ibfk_1` FOREIGN KEY (`s_c_salonCarte_fk`) REFERENCES `saloncarte` (`s_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `user`

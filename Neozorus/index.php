@@ -64,3 +64,4 @@ catch(Exception $e)
 	$controller = new ErrorController();
 	$controller -> error($e->getMessage());
 }
+

@@ -8,13 +8,12 @@
 </head>
 <body>
 	<?php include(MENU) ?>
-	<div class="cadre">
-		<?php 
-		if(isset($errorCode)){
-			echo '<p class="errorCode">' . $errorCode . '</p>';
-		}
-		?>
+	<img id="dino" src="./assets/img/dinosaure.png">
+	<img id="neo" src="./assets/img/crying_neo.png">
+	<img id="trex" src="./assets/img/crying_Trex.png">
+	<div id="cadre">
 		<p class="messageError"><?=$errorMessage?></p>
+		<p class="messageError">Cette page n'existe pas ni dans la matrice, ni à l'ère mésozoïque.</p>
 	</div>
 </body>
 </html>

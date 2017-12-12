@@ -102,13 +102,12 @@ h1{
 }
 
 #zoomCard{
-	position: absolute;
-	top:0px;
-	left:0px;
+	position: fixed;
+	left: 50%;
+	top:50%;
+	transform: translate(-50%, -50%);
 	z-index: 10;
 	width: 400px;
-	left:450px;
-	top:200px;
 }
 
 #zoomCard img{
@@ -298,4 +297,61 @@ h1{
       width: 11%;
       margin: 10px 0 0 10px;
   }
+
+  #menuResponsive{
+      display: none;
+  	}
+
+@media only screen and (max-width: 961px){
+	body{
+		box-sizing: border-box;
+		margin:0;
+		padding: 0;
+	}
+	h1{
+		font-size: 30px;
+	}
+	.bloc_menu{
+      display: none;
+  	}
+
+  	#menuResponsive{
+  		margin-top:0;
+  		padding: 10px 0;
+  		z-index:100;
+	  	width: 100%;
+	  	text-align: center;
+	    display: block;
+	    font-family: "fira_code", Verdana;
+	    font-size: 30px;
+	    position: fixed;
+	    top:0;
+		left: 50%;
+		height: 30px;
+		transform: translate(-50%, 0%);
+		background-color: black;
+  	}
+
+  	#allContenu{
+		position: relative;
+		top: 30px;
+	}
+} 
+@media only screen and (max-width: 480px){
+	.affichageCarte{
+	width: 100%;
+	}
+	.affichageCarte img{
+	width: 100%;
+	}
+
+	#menu{
+		display: none;
+	}
+
+	#allContenu{
+		position: relative;
+		top: 30px;
+	}
+}
 

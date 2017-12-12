@@ -180,5 +180,13 @@
 
 }
 
+<<<<<<< HEAD
+.messageError{
+    font-size: 40px;
+    color: white;
+    /*font-family: 'army_rangers';*/
+}
+=======
 
 
+>>>>>>> 9f5bf31e197d864ebc4978be34eefd68195a63f7
