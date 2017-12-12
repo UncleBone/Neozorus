@@ -67,20 +67,20 @@ class User{
 	 * Instancie un utilisateur
 	 * @param array $data tableau comportant toutes les informations nécessaires à l'instanciation d'un utilisateur
 	 */
-	public function __construct(array $data){
-		$this->u_id = $data['u_id'];
-		$this->u_mail = $data['u_mail'];
-		$this->u_pseudo = $data['u_pseudo'];
-		$this->u_mdp = $data['u_mdp'];
-		$this->u_nom = $data['u_nom'];
-		$this->u_prenom = $data['u_prenom'];
-		$this->u_dateNaissance = $data['u_dateNaissance'];
-		$this->u_offre = $data['u_offre'];
-		$this->u_question = $data['u_question'];
-		$this->u_reponse = $data['u_reponse'];
-		$this->u_langue = $data['u_langue_fk'];
-	}
-
+	public function __construct(array $data)
+    {
+        $this->u_id = $data['u_id'];
+        $this->u_mail = $data['u_mail'];
+        $this->u_pseudo = $data['u_pseudo'];
+        $this->u_mdp = $data['u_mdp'];
+        $this->u_nom = $data['u_nom'];
+        $this->u_prenom = $data['u_prenom'];
+        $this->u_dateNaissance = $data['u_dateNaissance'];
+        $this->u_offre = $data['u_offre'];
+        $this->u_question = $data['u_question'];
+        $this->u_reponse = $data['u_reponse'];
+        $this->u_langue = $data['u_langue_fk'];
+    }
 	/**
 	 * getter id
 	 * @return [int|null] 

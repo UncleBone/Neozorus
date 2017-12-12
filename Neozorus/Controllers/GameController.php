@@ -96,6 +96,23 @@ class GameController extends CoreController{
         $gameModel->saveNewGame($this);
     }
 
+    public function saveNewGame_v2(){
+
+        $tabPartie['tour'] = $this->getTour();
+        $tabPartie['jeton'] = $this->getJeton();
+        $tabPartie['running'] = true;
+
+        for($i = 0; $i < 2; $i++){
+            $tabPartie['p_joueur'.($i+1)] = $this->getPlayer($i)->getId();
+            $tabJoueur[$i]['pv'] = $this->getPlayer($i)->getPv();
+            $tabJoueur[$i]['mana'] = $this->getPlayer($i)->getMana();
+            $tabJoueur[$i]['personnage'] = $this->getPlayer($i)->getDeck()->getHeros();
+            $tabJoueur[$i]['id'] = $this->getPlayer($i)->getId();
+            $tabJoueur[$i]['visable'] = $this->getPlayer($i)->getVisable();
+            $tabJoueur[$i]['partie'] = '';
+        }
+    }
+
     /*
      * Sauvegarde d'une partie existante
      */

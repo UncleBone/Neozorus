@@ -1,5 +1,6 @@
 <?php
 session_start();
+
 //session_destroy();
 include('ini.php');
 //Fonction d'autoload pour inclure nos classes, views, models et controllers
