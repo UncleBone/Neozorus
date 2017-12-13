@@ -25,7 +25,7 @@ class GameModel extends CoreModel{
         return $this->makeStatement($req,$param);
     }
 
-    public function saveJoueur($tabJoueur){
+    public function saveNewJoueur($tabJoueur){
         $req = 'INSERT INTO u_p_jouer (u_p_pvPersonnage, u_p_manaPersonnage, u_p_visable, u_p_personnage_fk, u_p_user_fk, u_p_partie_fk, u_p_deck_fk) 
                 VALUES (:pv,:mana,:visable, :personnage,:userId,:gameId,:deck)';
         $param = [ 'pv' => $tabJoueur['pv'],
@@ -35,6 +35,20 @@ class GameModel extends CoreModel{
                     'userId' => $tabJoueur['id'],
                     'gameId' => $tabJoueur['partie'],
                     'deck' => $tabJoueur['deck'] ];
+
+        return $this->makeStatement($req,$param);
+    }
+
+    public function saveJoueur($tabJoueur){
+        $req = 'INSERT INTO u_p_jouer (u_p_pvPersonnage, u_p_manaPersonnage, u_p_visable, u_p_personnage_fk, u_p_user_fk, u_p_partie_fk, u_p_deck_fk) 
+                VALUES (:pv,:mana,:visable, :personnage,:userId,:gameId,:deck)';
+        $param = [ 'pv' => $tabJoueur['pv'],
+            'mana' => $tabJoueur['mana'],
+            'visable' => $tabJoueur['visable'],
+            'personnage' => $tabJoueur['personnage'],
+            'userId' => $tabJoueur['id'],
+            'gameId' => $tabJoueur['partie'],
+            'deck' => $tabJoueur['deck'] ];
 
         return $this->makeStatement($req,$param);
     }
@@ -58,6 +72,19 @@ class GameModel extends CoreModel{
         $req = 'UPDATE game SET g_data = :data WHERE g_id = :id';
         $param = [ 'id' => $id, 'data' =>serialize($game) ];
         $this->makeStatement($req,$param);
+    }
+
+    public function saveGame_v2($tabGame){
+        $req = 'INSERT INTO partie (p_tour, p_jeton, p_etat, p_piocheEtMana) 
+                VALUES (:tour, :jeton, :etat, :PeM)
+                WHERE p_id = :id';
+        $param = [ 'tour' => $tabGame['tour'],
+            'jeton' => $tabGame['jeton'],
+            'etat' => $tabGame['running'],
+            'PeM' => $tabGame['PeM'],
+            'id' => $tabGame['id'] ];
+
+        return $this->makeStatement($req,$param);
     }
 
     public function load($gameId){

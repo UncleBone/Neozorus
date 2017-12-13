@@ -92,16 +92,32 @@ class Joueur{
 	    return $this->main;
     }
 
+    public function addMain($carte){
+        $this->main[] = $carte;
+    }
+
     public function getPioche(){
         return $this->pioche;
+    }
+
+    public function addPioche($carte){
+        $this->pioche[] = $carte;
     }
 
     public function getPlateau(){
         return $this->plateau;
     }
 
+    public function addPlateau($carte){
+        $this->plateau[] = $carte;
+    }
+
     public function getDefausse(){
         return $this->defausse;
+    }
+
+    public function addDefausse($carte){
+        $this->defausse[] = $carte;
     }
     /*
      * Initialise la pioche avec les cartes du deck

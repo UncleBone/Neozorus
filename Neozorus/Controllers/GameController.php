@@ -91,7 +91,7 @@ class GameController extends CoreController{
     /*
      * Sauvegarde d'un nouvelle partie dans la BDD
      */
-//*/
+/*/
     public function saveNewGame(){
         $gameModel = new GameModel();
         $gameModel->saveNewGame($this);
@@ -122,6 +122,54 @@ class GameController extends CoreController{
                 $tabJoueur[$i]['visable'] = $this->getPlayer($i)->getVisable();
                 $tabJoueur[$i]['partie'] = $gameId;
                 $tabJoueur[$i]['deck'] = $this->getPlayer($i)->getDeck()->getId();
+                $model->saveNewJoueur($tabJoueur[$i]);
+                foreach ($this->getPlayer($i)->getDeck()->getCartes() as $carte) {
+                    $tabCarte[$i]['id'] = $carte->getId();
+                    $tabCarte[$i]['indice'] = $carte->getIndice();
+                    $tabCarte[$i]['pv'] = $carte->getPv();
+                    $tabCarte[$i]['lieu'] = $carte->getLocalisation();
+                    $tabCarte[$i]['visable'] = $carte->getVisable();
+                    $tabCarte[$i]['user'] = $this->getPlayer($i)->getId();
+                    $tabCarte[$i]['partie'] = $gameId;
+                    $model->saveCarte($tabCarte[$i]);
+                }
+            }
+        }
+        catch(PDOException $e)
+        {
+            $controller = new ErrorController();
+            $controller -> error($e->getMessage().'<br>File:'.$e->getFile().'<br>Line:'.$e->getLine().'<br>Trace:'.$e->getTraceAsString());
+        }
+    }
+//*/
+
+    /*
+     * Sauvegarde d'une partie existante
+     */
+/*/
+    public function saveGame(){
+	    $gameModel = new GameModel();
+	    $gameModel->saveGame($this);
+    }
+/*/
+    public function saveGame(){
+
+        try {
+            $tabPartie['id'] = $this->getId();
+            $tabPartie['tour'] = $this->getTour();
+            $tabPartie['jeton'] = $this->getJeton();
+            $tabPartie['running'] = ($this->eog == true ? false : true);
+            $tabPartie['PeM'] = $this->getPiocheEtMana();
+
+            $model = new gameModel();
+            $model->saveGame_v2($tabPartie);
+
+            for ($i = 0; $i < 2; $i++) {
+                $tabJoueur[$i]['pv'] = $this->getPlayer($i)->getPv();
+                $tabJoueur[$i]['mana'] = $this->getPlayer($i)->getMana();
+                $tabJoueur[$i]['id'] = $this->getPlayer($i)->getId();
+                $tabJoueur[$i]['visable'] = $this->getPlayer($i)->getVisable();
+                $tabJoueur[$i]['partie'] = $this->getId();
                 $model->saveJoueur($tabJoueur[$i]);
                 foreach ($this->getPlayer($i)->getDeck()->getCartes() as $carte) {
                     $tabCarte[$i]['id'] = $carte->getId();
@@ -142,17 +190,11 @@ class GameController extends CoreController{
         }
     }
 //*/
-    /*
-     * Sauvegarde d'une partie existante
-     */
-    public function saveGame(){
-	    $gameModel = new GameModel();
-	    $gameModel->saveGame($this);
-    }
 
     /*
      * Chargement d'une partie existante ou lancement de l'initialisation d'une nouvelle partie
      */
+/*/
     public function loadGame(){
         try {
             $gameModel = new GameModel();
@@ -187,50 +229,77 @@ class GameController extends CoreController{
             echo $e;
         }
     }
-
-    public function loadGame_v2(){
+/*/
+    public function loadGame(){
         try{
             $model = new GameModel();
-            $remote_game = $model->loadGame($_SESSION['neozorus']['game']);
-            $this->id = $remote_game['p_id'];
-            $this->setTour($remote_game['p_tour']);
-            $this->setJeton($remote_game['p_jeton']);
-            $this->setEog(empty($remote_game['p_gagnant']) ? 0 : 1);
-            if (isset($this->parameters['jeton'])) {
-                $this->setJeton($this->parameters['jeton']);
-            } else {
+            if (!empty($_SESSION['neozorus']['game'])) {
+                $remote_game = $model->loadGame($_SESSION['neozorus']['game']);
+                $this->id = $remote_game['p_id'];
+                $this->setTour($remote_game['p_tour']);
                 $this->setJeton($remote_game['p_jeton']);
-            }
-            if ($this->getJeton() != $remote_game['p_jeton']) {
-                $this->setPiocheEtMana(0);
-                $this->activateCards($this->getPlayer($this->getJeton()));
-                if ($this->getJeton() == 0) {
-                    $this->tourPlus();
+                $this->setEog(empty($remote_game['p_gagnant']) ? 0 : 1);
+                if (isset($this->parameters['jeton'])) {
+                    $this->setJeton($this->parameters['jeton']);
+                } else {
+                    $this->setJeton($remote_game['p_jeton']);
                 }
-            } else {
-                $this->setPiocheEtMana($remote_game['p_piocheEtMana']);
-            }
-            $remote_player = $model->loadPlayers($this->getId());
-            for ($i = 0; $i < 2; $i++) {
-                for($j = 1; $j <= 2; $j++){
-                    if($remote_player[$i]['u_p_user_fk'] == $remote_game['p_joueur'.$j]){
-                        $this->players[$j-1] = new Joueur($remote_game['p_joueur'.$j],$remote_player[$i]['u_p_deck_fk']);
-                        $this->players[$j-1]->setPv($remote_player[$i]['u_p_pvPersonnage']);
-                        $this->players[$j-1]->setMana($remote_player[$i]['u_p_manaPersonnage']);
-                        $this->players[$j-1]->setVisable($remote_player[$i]['u_p_visable']);
-                        $cartes = $model->loadCartes($this->getId(),$remote_game['p_joueur'.$j]);
-                        foreach ($cartes as $carte){
-
+                if ($this->getJeton() != $remote_game['p_jeton']) {
+                    $this->setPiocheEtMana(0);
+                    $this->activateCards($this->getPlayer($this->getJeton()));
+                    if ($this->getJeton() == 0) {
+                        $this->tourPlus();
+                    }
+                } else {
+                    $this->setPiocheEtMana($remote_game['p_piocheEtMana']);
+                }
+                $remote_player = $model->loadPlayers($this->getId());
+                for ($i = 0; $i < 2; $i++) {
+                    for ($j = 1; $j <= 2; $j++) {
+                        if ($remote_player[$i]['u_p_user_fk'] == $remote_game['p_joueur' . $j]) {
+                            $this->players[$j - 1] = new Joueur($remote_game['p_joueur' . $j], $remote_player[$i]['u_p_deck_fk']);
+                            $this->players[$j - 1]->setPv($remote_player[$i]['u_p_pvPersonnage']);
+                            $this->players[$j - 1]->setMana($remote_player[$i]['u_p_manaPersonnage']);
+                            $this->players[$j - 1]->setVisable($remote_player[$i]['u_p_visable']);
+                            $cartes = $model->loadCartes($this->getId(), $remote_game['p_joueur' . $j]);
+                            foreach ($cartes as $remoteCarte) {
+                                foreach ($this->players[$j - 1]->getDeck()->getCartes() as $deckCard) {
+                                    if ($remoteCarte['s_cid_fk'] == $deckCard->getId() && $remoteCarte['s_indice'] == $deckCard->getIndice()) {
+                                        $deckCard->setPv($remoteCarte['s_pv']);
+                                        $deckCard->setLocalisation($remoteCarte['s_lieu']);
+                                        $deckCard->setVisable($remoteCarte['s_visable']);
+                                        switch ($deckCard->getLocalisation()) {
+                                            case GameCard::LOC_PIOCHE :
+                                                $this->players[$j - 1]->addPioche($deckCard);
+                                                break;
+                                            case GameCard::LOC_MAIN :
+                                                $this->players[$j - 1]->addMain($deckCard);
+                                                break;
+                                            case GameCard::LOC_PLATEAU :
+                                                $this->players[$j - 1]->addPlateau($deckCard);
+                                                break;
+                                            case GameCard::LOC_DEFAUSSE :
+                                                $this->players[$j - 1]->addDefausse($deckCard);
+                                                break;
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
                 }
+            }else{
+                $gameId = $model->getGameId_v2($_SESSION['neozorus']['u_id'])[0]['p_id'];
+                if (!empty($gameId)) $_SESSION['neozorus']['game'] = $gameId;
+                $this->loadGame();
             }
-
         }catch(Exception $e)
         {
-
+            $controller = new ErrorController();
+            $controller -> error($e->getMessage());
         }
     }
+//*/
      /*
       * Sauvegarde + chargement + affichage
       */
@@ -524,6 +593,7 @@ class GameController extends CoreController{
     /*
      * Pour quitter la partie, efface la variable de session, met à jour la bdd et redirige vers l'accueil
      */
+/*/
     public function quitter(){
         $this->loadGame();
         $deck = new GameDeckModel();
@@ -534,11 +604,22 @@ class GameController extends CoreController{
         $game->setRunning($_SESSION['neozorus']['GAME'],0);
         unset($_SESSION['neozorus']['GAME']);
 
-
-
 	    header('Location:?controller=home&action=affichagePageAccueil');
     }
+/*/
+    public function quitter(){
+        $this->loadGame();
+        $deck = new GameDeckModel();
+        $deckId = $this->getCurrentPlayer()->getDeck()->getId();
+        $deck->setWaitingLine($deckId,0);
 
+        $game = new GameModel();
+        $game->setRunning($_SESSION['neozorus']['game'],0);
+        unset($_SESSION['neozorus']['game']);
+
+        header('Location:?controller=home&action=affichagePageAccueil');
+    }
+//*/
     /*
      * augmente le mana du joueur courant en fonction du n° du tour
      */
