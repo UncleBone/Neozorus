@@ -161,7 +161,7 @@
         <p><?= count($pioche[$currentPlayer]) ?></p>
     </div>
     <?php  }
-    if(count($defausse) > 0){ ?>
+    if(count($defausse[$currentPlayer]) > 0){ ?>
         <div id="defausseBottom">
             <img src="<?= end($defausse[$currentPlayer]) ? end($defausse[$currentPlayer])->getPath() : ''?>">
         </div>
