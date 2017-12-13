@@ -3,7 +3,7 @@
 	if(isset($_SESSION['neozorus']['u_language'])){
 		$lang = $_SESSION['neozorus']['u_language'];
 	}
-	$linkTrad = $lang == 1 ? 'Acceuil' : 'Home';
+	$linkTrad = $lang == 1 ? 'Accueil' : 'Home';
 ?>
 
 <?php 
