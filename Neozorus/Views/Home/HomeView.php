@@ -13,6 +13,7 @@
 	<title><?=$titleTrad?></title>
 	<meta name="viewport" content="width=device-width" />
 	<link rel="stylesheet" media="screen" type="text/css" title="Exemple" href="./assets/css/HomeViewStyle.css"/>
+	<?php include(FAVICON) ?>
 </head>
 
 <body>

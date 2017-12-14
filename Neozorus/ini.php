@@ -46,6 +46,9 @@ define('ACCEUIL', '.' . DS . 'Views' . DS . 'Module' . DS .'lienAcceuil.php');
 //Constante vue des erreurs
 define('VIEW_ERROR', VIEWS_PATH . DS . 'Error' . DS . 'Error.php');
 
+//Constante acces Module Favicon
+define('FAVICON', '.' . DS . 'Views' . DS . 'Module' . DS .'favicon.php');
+
 //Constante des tailles des differents types de string
 define('PSEUDO_MIN',1);
 define('PSEUDO_MAX',60);

@@ -12,6 +12,7 @@
 	<title>Neozorus</title>
 	<link rel="stylesheet" type="text/css" href="assets/css/SelectPersonnage.css">
 	<meta name="viewport" content="width=device-width">
+	<?php include(FAVICON) ?>
 </head>
 <body>
 <?php include(MENU) ?>

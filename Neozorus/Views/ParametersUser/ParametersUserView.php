@@ -21,6 +21,7 @@
 <head>
 	<title><?=$titleTrad?></title>
 	<meta charset="utf-8">
+	<?php include(FAVICON) ?>
 	<script type="text/javascript" src="./assets/js/jquery-3.2.1.min.js"></script>
 	<script type="text/javascript">
 		let u_id = <?= $this->user->getU_id()?>;
