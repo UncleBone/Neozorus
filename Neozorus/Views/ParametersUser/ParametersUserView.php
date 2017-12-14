@@ -9,7 +9,7 @@
 	$nomTrad = $lang == 1 ? 'Nom' : 'Last name';
 	$prenomTrad = $lang == 1 ? 'Prenom' : 'First name';
 	$changePasswordTrad = $lang == 1 ? 'Modifier le mot de passe' : 'Change password';
-	$actualPasswordTrad = $lang == 1 ? 'Mot de passe actuel' : 'actual password';
+	$actualPasswordTrad = $lang == 1 ? 'Mot de passe actuel' : 'Current password';
 	$newPasswordTrad = $lang == 1 ? 'Nouveau mot de passe' : 'New password';
 	$passwordTrad = $lang == 1 ? 'Mot de passe' : 'Password';
 	$newQuestionTrad = $lang == 1 ? 'Nouvelle question' : 'New Question';
