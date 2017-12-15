@@ -14,6 +14,7 @@
 	<title>Neozorus</title>
 	<meta charset="utf-8">
 	<link rel="stylesheet" type="text/css" href="assets/css/SelectCarte.css">
+	<?php include(FAVICON) ?>
 	<script type="text/javascript" src="./assets/js/jquery-3.2.1.min.js"></script>
 	<script type="text/javascript">
 		let id = <?= $monDeck -> getD_id()?>;

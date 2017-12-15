@@ -1,0 +1,302 @@
+		@font-face
+		{
+			font-family: 'army_rangers';
+			src:url('../fonts/army_rangers/armyrangers.ttf');
+		}
+
+		@font-face
+		{
+			font-family: 'fira_code';
+			src:url('../fonts/fira-code/FiraCode-Medium.otf');
+		}
+
+		body
+		{
+			margin: 0;
+			overflow: hidden;
+			background-color: white;
+			font-size: 15px;
+		}
+
+		body *
+		{
+			box-sizing: border-box;
+		}
+
+/****************************** Background ******************************/
+
+		.haut_bas
+		{
+			width: 10000px;
+			height: 10000px;
+			position: absolute;	
+			overflow: hidden;	
+			background-clip: padding-box;	
+		}
+		#haut
+		{
+			background-color: lightgreen;
+			transform-origin: 0 100%;
+			bottom: 0;		
+			left: 0;
+			border-bottom: 1vh solid white;
+		}
+		#bas
+		{
+			background-color: lightblue;
+			transform-origin: 100% 0;
+			top: 0;
+			right: 0;
+			border-top: 1vh solid white;
+			
+		}
+		#imageHaut
+		{
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			transform-origin: 0 100%;
+		}
+		#imageBas
+		{
+			position: absolute;
+			top: 0;
+			right: 0;
+			transform-origin: 100% 0;
+		}
+
+/****************************** Boutons et logo ******************************/
+
+		#logo
+		{
+			margin: 50vh auto 0 auto;
+			transform: translateY(-50%);
+			text-align: center;
+		}
+		#logoNeozorus
+		{
+			width: 30vw;
+			min-width: 390px;
+		}
+		#logo *
+		{
+			margin: 2vh auto;
+		}
+		.btn
+		{
+			color: white;
+			width: 10vw;
+			min-width: 130px;
+			border: solid 4px white;
+			border-radius: 10vh;
+			padding: 1vh;
+			font-family: 'army_rangers',Verdana;
+			font-size: 1.5em;
+			cursor: pointer;
+		}
+		#btnDinos
+		{
+			background-color: #d80c0f;
+		}
+		#btnMatrix
+		{
+			background-color: #005b7f;
+		}
+
+/****************************** Page équipe ******************************/
+
+		main
+		{
+			position: absolute;
+			bottom: 0;
+			width: 100vw;
+			font-family: "fira_code", Verdana;
+			z-index: 1;
+			animation: fadeIn;
+			animation-duration: 2s;
+		}
+		
+		article
+		{
+			width: 50vw;
+			max-height: 40vh;
+			overflow: auto;
+			margin: 0 25vw 20vh 25vw;
+			padding: 20px;
+			text-align: center;
+			background-color: rgba(0,0,0,0.7);
+			color: rgb(194,210,1);
+			font-size: 2.5vh;
+		}
+
+		form
+		{
+			width: 40vw;
+			min-width: 440px;
+			margin: 5vh auto;
+			font-size: 0;
+		}
+
+		input
+		{
+			font-family: "fira_code", Verdana;
+			font-size: 2.5vh;
+			height: 5vh;
+		}
+
+		input:nth-child(1) 
+		{
+			width: 55%;
+			color: #c2d201;
+			margin-right: 5%;
+		}
+
+		input:nth-child(2) 
+		{
+			width: 40%;
+			color: white;
+			background-color: #326a2b;
+			border: solid 3px #c8d419;
+			border-radius: 5px;
+			cursor: pointer;
+		}
+
+		ul
+		{
+			list-style-type: none;
+			padding: 0;
+			font-size: 0;
+		}
+
+		.links
+		{
+			width: 25vw;
+			min-width: 275px;
+			margin: 3vh auto;
+		}
+		.links li
+		{
+			display: inline-block;
+			width: 33%;
+		}
+		.links li img
+		{
+			display: block;
+			margin: auto;
+			width: 7vh;
+		}
+
+		@keyframes fadeIn
+		{
+			0%
+			{
+				opacity: 0;
+			}
+			100%
+			{
+				opacity: 1;
+			}
+		}
+
+/****************************** Page Dinos ******************************/
+
+		#page_dinos input:nth-child(1) 
+		{
+			color: #c2d201;
+		}
+
+		#page_dinos ::-moz-placeholder {color: #c2d201;} /* Firefox 19+ */
+		#page_dinos :-moz-placeholder {color: #c2d201;} /* Firefox 18- */
+		#page_dinos ::-webkit-input-placeholder {color: #c2d201;} /* Chrome/Opera/Safari */
+		#page_dinos :-ms-input-placeholder {color: #c2d201;} /* IE 10+ */
+
+
+		#page_dinos input:nth-child(2) 
+		{
+			background-color: #326a2b;
+			border: solid 3px #c8d419;
+			border-radius: 5px;
+		}
+
+		
+/****************************** Page Matrix ******************************/
+
+		#page_matrix input:nth-child(1) 
+		{
+			color: #39b54a;
+		}
+		#page_matrix ::-moz-placeholder {color: #39b54a;} /* Firefox 19+ */
+		#page_matrix :-moz-placeholder {color: #39b54a;} /* Firefox 18- */
+		#page_matrix ::-webkit-input-placeholder {color: #39b54a;} /* Chrome/Opera/Safari */
+		#page_matrix :-ms-input-placeholder {color: #39b54a;} /* IE 10+ */
+
+		#page_matrix input:nth-child(2) 
+		{
+			background-color: #131313;
+			border: solid 3px #95c11f;
+			border-radius: 5px;
+		}
+
+/****************************** Responsive ******************************/
+
+
+		@media (max-width: 600px)
+		{
+			form
+			{
+				width: 50%;
+				min-width: 200px;
+			}
+			input
+			{
+				display: block;
+				margin: 5vh auto;
+			}
+			input:nth-child(1)
+			{
+				margin-right: auto;
+				width: 80%;
+				min-width: 200px;
+			}
+			input:nth-child(2)
+			{
+				width: 70%;
+				min-width: 180px;
+			}
+			article
+			{
+				margin: 0 0 10vh 0;
+				width: 100%;
+			}
+			#logoNeozorus
+			{
+				width: 70%;
+				min-width: 250px;
+			}
+		}
+
+		@media (max-height: 500px)
+		{
+			article, input
+			{
+				font-size: 14px;
+			}
+			article
+			{
+				margin: 0 0 10vh 0;
+				width: 100%;
+			}
+			input
+			{
+				height: 25px;
+			}
+			.links li img
+			{
+				width: 30px;
+			}	
+			#logoNeozorus
+			{
+				width: 250px;
+				min-width: 250px; 
+			}
+		}

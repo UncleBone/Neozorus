@@ -22,6 +22,7 @@
 	<script type="text/javascript" src="./assets/js/jquery-3.2.1.min.js"></script>
 	<script type="text/javascript" src="./assets/js/CarteCollection.js"></script>
 	<meta name="viewport" content="width=device-width" />
+	<?php include(FAVICON) ?>
 </head>
 <body>
 	<div id="menuResponsive"><?php include(ACCEUIL);?></div>

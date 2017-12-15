@@ -16,6 +16,7 @@
 	<title>Neozorus</title>
 	<meta charset="utf-8">
 	<link rel="stylesheet" href="assets/css/SelectDeckStyle.css" />
+	<?php include(FAVICON) ?>
 
 </head>
 <body>
