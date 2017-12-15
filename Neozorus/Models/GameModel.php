@@ -40,20 +40,21 @@ class GameModel extends CoreModel{
     }
 
     public function saveJoueur($tabJoueur){
-        $req = 'INSERT INTO u_p_jouer (u_p_pvPersonnage, u_p_manaPersonnage, u_p_visable, u_p_personnage_fk, u_p_user_fk, u_p_partie_fk, u_p_deck_fk) 
-                VALUES (:pv,:mana,:visable, :personnage,:userId,:gameId,:deck)';
+        $req = 'UPDATE u_p_jouer 
+                SET u_p_pvPersonnage = :pv, 
+                    u_p_manaPersonnage = :mana, 
+                    u_p_visable = :visable
+                WHERE u_p_user_fk = :userId AND u_p_partie_fk = :gameId';
         $param = [ 'pv' => $tabJoueur['pv'],
             'mana' => $tabJoueur['mana'],
             'visable' => $tabJoueur['visable'],
-            'personnage' => $tabJoueur['personnage'],
             'userId' => $tabJoueur['id'],
-            'gameId' => $tabJoueur['partie'],
-            'deck' => $tabJoueur['deck'] ];
+            'gameId' => $tabJoueur['partie'] ];
 
         return $this->makeStatement($req,$param);
     }
 
-    public function saveCarte($tabCarte){
+    public function saveNewCarte($tabCarte){
         $req = 'INSERT INTO saloncarte (s_cid_fk, s_indice, s_pv, s_lieu, s_visable, s_user_fk, s_partie_fk) 
                 VALUES (:id,:indice,:pv,:lieu,:visable,:userId,:partie)';
         $param = [ 'id' => $tabCarte['id'],
@@ -67,6 +68,23 @@ class GameModel extends CoreModel{
         return $this->makeStatement($req,$param);
     }
 
+    public function saveCarte($tabCarte){
+        $req = 'UPDATE saloncarte 
+                SET s_pv = :pv, 
+                    s_lieu = :lieu, 
+                    s_visable = :visable
+                WHERE s_cid_fk = :id AND s_indice = :indice AND s_user_fk =  :userId AND s_partie_fk = :partie';
+        $param = [ 'id' => $tabCarte['id'],
+            'indice' => $tabCarte['indice'],
+            'pv' => $tabCarte['pv'],
+            'lieu' => $tabCarte['lieu'],
+            'visable' => $tabCarte['visable'],
+            'userId' => $tabCarte['user'],
+            'partie' => $tabCarte['partie'] ];
+
+        return $this->makeStatement($req,$param);
+    }
+
     public function saveGame($game = GameController){
         $id = $game->getId();
         $req = 'UPDATE game SET g_data = :data WHERE g_id = :id';
@@ -75,12 +93,17 @@ class GameModel extends CoreModel{
     }
 
     public function saveGame_v2($tabGame){
-        $req = 'INSERT INTO partie (p_tour, p_jeton, p_etat, p_piocheEtMana) 
-                VALUES (:tour, :jeton, :etat, :PeM)
+        $req = 'UPDATE partie 
+                SET p_tour = :tour, 
+                    p_jeton = :jeton, 
+                    p_etat = :etat, 
+                    p_gagnant = :gagnant, 
+                    p_piocheEtMana = :PeM 
                 WHERE p_id = :id';
         $param = [ 'tour' => $tabGame['tour'],
             'jeton' => $tabGame['jeton'],
             'etat' => $tabGame['running'],
+            'gagnant' => $tabGame['winner'],
             'PeM' => $tabGame['PeM'],
             'id' => $tabGame['id'] ];
 
@@ -127,5 +150,16 @@ class GameModel extends CoreModel{
         $req = 'UPDATE game SET g_running = :val WHERE g_id = :id';
         $param = [ 'id' => $gid, 'val' => $val ];
         return $this->makeStatement($req,$param);
+    }
+
+    /*
+     * Vérifie si le deck d'un joueur est actuellement dans une partie en cours
+     */
+    public function checkDeckInRunningGame($deckId){
+        $req = 'SELECT * FROM u_p_jouer 
+                INNER JOIN partie ON u_p_partie_fk = p_id
+                WHERE u_p_deck_fk = :deck AND p_etat = 1';
+        $param = [ 'deck' => $deckId ];
+        return $this->makeSelect($req,$param);
     }
 }

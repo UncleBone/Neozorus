@@ -109,6 +109,7 @@ function reqAjaxCarteMain(att){
             let regex = new RegExp('.*jouer=(\\d{2,3})$', 'i');
             let id = href.match(regex)[1];
             ajax("play", "&jouer="+id, function(result) {
+                console.log(id);
                 var contenu = $('#contenu');
                 contenu.html(result['view']);
                 var infoBox = $('#infoBox');
