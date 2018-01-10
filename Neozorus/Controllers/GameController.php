@@ -257,18 +257,18 @@ class GameController extends CoreController{
                 $remote_player = $model->loadPlayers($this->getId());
                 for ($i = 0; $i < 2; $i++) {
                     for ($j = 1; $j <= 2; $j++) {
-                        if ($remote_player[$i]['u_p_user_fk'] == $remote_game['p_joueur' . $j]) {
-                            $this->players[$j - 1] = new Joueur($remote_game['p_joueur' . $j], $remote_player[$i]['u_p_deck_fk']);
-                            $this->players[$j - 1]->setPv($remote_player[$i]['u_p_pvPersonnage']);
-                            $this->players[$j - 1]->setMana($remote_player[$i]['u_p_manaPersonnage']);
-                            $this->players[$j - 1]->setVisable($remote_player[$i]['u_p_visable']);
+                        if ($remote_player[$i]['pj_user_fk'] == $remote_game['p_joueur' . $j]) {
+                            $this->players[$j - 1] = new Joueur($remote_game['p_joueur' . $j], $remote_player[$i]['pj_deck_fk']);
+                            $this->players[$j - 1]->setPv($remote_player[$i]['pj_pvPersonnage']);
+                            $this->players[$j - 1]->setMana($remote_player[$i]['pj_manaPersonnage']);
+                            $this->players[$j - 1]->setVisable($remote_player[$i]['pj_visable']);
                             $cartes = $model->loadCartes($this->getId(), $remote_game['p_joueur' . $j]);
                             foreach ($cartes as $remoteCarte) {
                                 foreach ($this->players[$j - 1]->getDeck()->getCartes() as $deckCard) {
-                                    if ($remoteCarte['s_cid_fk'] == $deckCard->getId() && $remoteCarte['s_indice'] == $deckCard->getIndice()) {
-                                        $deckCard->setPv($remoteCarte['s_pv']);
-                                        $deckCard->setLocalisation($remoteCarte['s_lieu']);
-                                        $deckCard->setVisable($remoteCarte['s_visable']);
+                                    if ($remoteCarte['pc_cid_fk'] == $deckCard->getId() && $remoteCarte['pc_indice'] == $deckCard->getIndice()) {
+                                        $deckCard->setPv($remoteCarte['pc_pv']);
+                                        $deckCard->setLocalisation($remoteCarte['pc_lieu']);
+                                        $deckCard->setVisable($remoteCarte['pc_visable']);
                                         switch ($deckCard->getLocalisation()) {
                                             case GameCard::LOC_PIOCHE :
                                                 $this->players[$j - 1]->addPioche($deckCard);
@@ -612,6 +612,7 @@ class GameController extends CoreController{
 /*/
     public function quitter(){
         $this->loadGame();
+        // Mise à jour de la table deck -> le deck utilisé pour la partie redevient libre 
         $deck = new GameDeckModel();
         $deckId = $this->getCurrentPlayer()->getDeck()->getId();
         $deck->setWaitingLine($deckId,0);
