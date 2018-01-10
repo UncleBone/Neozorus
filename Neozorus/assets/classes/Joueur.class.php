@@ -161,6 +161,7 @@ class Joueur{
             $this->plateau[$identifiant] = $this->main[$identifiant];
             $this->subMana($this->main[$identifiant]->getMana());
             unset($this->main[$identifiant]);
+            $this->plateau[$identifiant]->setLocalisation(GameCard::LOC_PLATEAU);
             $tabAbiliteCreature = $this->plateau[$identifiant]->getAbilite();
             if(in_array('2', $tabAbiliteCreature)) {
                 $this->pioche();
@@ -203,11 +204,13 @@ class Joueur{
                 if($aliveAtt == 0){
                     $this->defausse[$att] = $this->getPlateau()[$att];
                     unset($this->plateau[$att]);
+                    $this->defausse[$att]->setLocalisation(GameCard::LOC_DEFAUSSE);
                 }
             }
             if($aliveCible == 0){
                 $carteCiblePlayer->defausse[$cible] = $carteCiblePlayer->getPlateau()[$cible];
                 unset($carteCiblePlayer->plateau[$cible]);
+                $carteCiblePlayer->defausse[$cible]->setLocalisation(GameCard::LOC_DEFAUSSE);
             }
 
         }
@@ -215,6 +218,7 @@ class Joueur{
             $this->defausse[$att] = $this->main[$att];
             $this->subMana($this->main[$att]->getMana());
             unset($this->main[$att]);
+            $this->defausse[$att]->setLocalisation(GameCard::LOC_DEFAUSSE);
         }elseif ($carteAtt->getType()=='creature'){
             $carteAtt->setActive(0);
         }

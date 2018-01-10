@@ -131,7 +131,7 @@ class GameController extends CoreController{
                     $tabCarte[$i]['visable'] = $carte->getVisable();
                     $tabCarte[$i]['user'] = $this->getPlayer($i)->getId();
                     $tabCarte[$i]['partie'] = $gameId;
-                    $model->saveCarte($tabCarte[$i]);
+                    $model->saveNewCarte($tabCarte[$i]);
                 }
             }
         }
@@ -158,8 +158,9 @@ class GameController extends CoreController{
             $tabPartie['id'] = $this->getId();
             $tabPartie['tour'] = $this->getTour();
             $tabPartie['jeton'] = $this->getJeton();
-            $tabPartie['running'] = ($this->eog == true ? false : true);
+            $tabPartie['running'] = ($this->getEog() == true ? false : true);
             $tabPartie['PeM'] = $this->getPiocheEtMana();
+            $tabPartie['winner'] = $this->checkEog() ? $this->checkEog()->getId() : null;
 
             $model = new gameModel();
             $model->saveGame_v2($tabPartie);
@@ -178,7 +179,7 @@ class GameController extends CoreController{
                     $tabCarte[$i]['lieu'] = $carte->getLocalisation();
                     $tabCarte[$i]['visable'] = $carte->getVisable();
                     $tabCarte[$i]['user'] = $this->getPlayer($i)->getId();
-                    $tabCarte[$i]['partie'] = $gameId;
+                    $tabCarte[$i]['partie'] = $this->getId();
                     $model->saveCarte($tabCarte[$i]);
                 }
             }
@@ -456,7 +457,9 @@ class GameController extends CoreController{
             if(!empty($deck->checkId($id))){
                 $waitingLine = $deck->checkWaitingLine($id);
                 if(!empty($waitingLine)) {
-                    $res='ok';
+                    $gameModel = new GameModel();
+                    $DIRG = $gameModel->checkDeckInRunningGame($id);
+                    $res = !empty($DIRG) == 2 ? 'ok' : null;
                 }else{
                     $res = null;
                 }
