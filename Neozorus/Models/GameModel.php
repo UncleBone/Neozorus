@@ -158,6 +158,12 @@ class GameModel extends CoreModel{
         return $this->makeStatement($req,$param);
     }
 
+    // public function isRunning($id){
+    //     $req = 'SELECT p_etat FROM partie WHERE p_id = :id';
+    //     $param = [ 'id' => $id, 'val' => $val ];
+    //     return $this->makeStatement($req,$param);
+    // }
+
     /*
      * Vérifie si le deck d'un joueur est actuellement dans une partie en cours
      */
@@ -167,5 +173,11 @@ class GameModel extends CoreModel{
                 WHERE pj_deck_fk = :deck AND p_etat = 1';
         $param = [ 'deck' => $deckId ];
         return $this->makeSelect($req,$param);
+    }
+
+    public function deleteGame($id){
+        $req = 'DELETE FROM partie WHERE p_id = :id';
+        $param = [ 'id' => $id ];
+        return $this->makeStatement($req,$param);
     }
 }

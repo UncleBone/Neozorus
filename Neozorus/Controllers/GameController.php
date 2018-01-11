@@ -239,7 +239,7 @@ class GameController extends CoreController{
                 $this->id = $remote_game['p_id'];
                 $this->setTour($remote_game['p_tour']);
                 $this->setJeton($remote_game['p_jeton']);
-                $this->setEog(empty($remote_game['p_gagnant']) ? 0 : 1);
+                $this->setEog($remote_game['p_etat'] == 0 ? true : false);
                 if (isset($this->parameters['jeton'])) {
                     $this->setJeton($this->parameters['jeton']);
                 } else {
@@ -618,7 +618,12 @@ class GameController extends CoreController{
         $deck->setWaitingLine($deckId,0);
 
         $game = new GameModel();
-        $game->setRunning($_SESSION['neozorus']['game'],0);
+        if(!$this->EoG){
+            $game->setRunning($_SESSION['neozorus']['game'],0);
+        }else{
+            $game->deleteGame($_SESSION['neozorus']['game']);
+        }
+        
         unset($_SESSION['neozorus']['game']);
 
         header('Location:?controller=home&action=affichagePageAccueil');
