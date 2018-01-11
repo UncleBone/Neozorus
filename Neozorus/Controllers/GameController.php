@@ -89,6 +89,92 @@ class GameController extends CoreController{
     }
 
     /*
+     * Attente si aucun autre joueur disponible
+     */
+    public function wait(){
+        if(empty($this->parameters['id'])){
+            $this->redirect404();
+        }else{
+            $id = $this->parameters['id'];
+            $deck = new GameDeckModel();
+            if(empty($deck->checkId($id))){
+                $this->redirect404();
+            }else{
+                $deck->setWaitingLine($id,1);
+                $waitingLine = $deck->checkWaitingLine($id);
+                if(!empty($waitingLine)){
+                    $deck1 = $id;
+                    shuffle($waitingLine);
+                    $deck2 = $waitingLine[0]['d_id'];
+                    $this->startGame($deck1,$deck2);
+                }else{
+                    require_once( VIEWS_PATH . DS . 'Game' . DS . 'waiting.php' );
+                }
+            }
+        }
+    }
+
+    /*
+     * Vérification de la file d'attente
+     */
+    public function waitAjax(){
+        if(!empty($this->parameters['id'])){
+            $id = $this->parameters['id'];
+            $deck = new GameDeckModel();
+            if(!empty($deck->checkId($id))){
+                $waitingLine = $deck->checkWaitingLine($id);
+                if(!empty($waitingLine)) {
+                    $gameModel = new GameModel();
+                    $DIRG = $gameModel->checkDeckInRunningGame($id);
+                    $res = !empty($DIRG) == 2 ? 'ok' : null;
+                }else{
+                    $res = null;
+                }
+            }else {
+                $res = 'erreur: ce deck n\'existe pas';
+            }
+        }else{
+            $res = 'erreur: aucun deck spécifié';
+        }
+        header('Content-Type: application/json; charset=utf-8');
+        echo json_encode($res);
+    }
+
+    /*
+     * Démarrage de la partie et sauvegarde dans la bdd (fonction lancée par le 2ème joueur de la file d'attente)
+     */
+    public function startGame($deck1,$deck2){
+        $deckModel = new gameDeckModel();
+        $user1 = $deckModel->getUser($deck1);
+        if($user1 == $_SESSION['neozorus']['u_id']){
+
+            $user2 = $deckModel->getUser($deck2);
+            $this->init($user1,$deck1,$user2,$deck2);
+            $this->saveNewGame();
+        }
+//        $this->play();
+        header('Location:?controller=game&action=play');
+    }
+
+    /*
+    * Initialisation d'une partie
+    * Paramètres: ID du joueur 1, ID du deck du joueur 1, ID du joueur 2, ID du deck du joueur 2
+    */
+    public function init($idP1,$idD1,$idP2,$idD2){
+        $this->setTour(1);
+        $this->setJeton(0);
+        $p1 = new Joueur($idP1,$idD1);
+        $p2 = new Joueur($idP2,$idD2);
+        $this->setPlayer($p1);
+        $this->setPlayer($p2);
+        for($i = 0; $i < 2; $i++){
+                $this->getPlayer($i)->getDeck()->fillDeck();
+                $this->getPlayer($i)->getDeck()->shuffle();
+                $this->getPlayer($i)->initPioche();
+            }
+    }
+
+        /*
      * Sauvegarde d'un nouvelle partie dans la BDD
      */
 /*/
@@ -129,6 +215,7 @@ class GameController extends CoreController{
                     $tabCarte[$i]['pv'] = $carte->getPv();
                     $tabCarte[$i]['lieu'] = $carte->getLocalisation();
                     $tabCarte[$i]['visable'] = $carte->getVisable();
+                    $tabCarte[$i]['active'] = $carte->getActive();
                     $tabCarte[$i]['user'] = $this->getPlayer($i)->getId();
                     $tabCarte[$i]['partie'] = $gameId;
                     $model->saveNewCarte($tabCarte[$i]);
@@ -148,8 +235,8 @@ class GameController extends CoreController{
      */
 /*/
     public function saveGame(){
-	    $gameModel = new GameModel();
-	    $gameModel->saveGame($this);
+        $gameModel = new GameModel();
+        $gameModel->saveGame($this);
     }
 /*/
     public function saveGame(){
@@ -178,6 +265,7 @@ class GameController extends CoreController{
                     $tabCarte[$i]['pv'] = $carte->getPv();
                     $tabCarte[$i]['lieu'] = $carte->getLocalisation();
                     $tabCarte[$i]['visable'] = $carte->getVisable();
+                    $tabCarte[$i]['active'] = $carte->getActive();
                     $tabCarte[$i]['user'] = $this->getPlayer($i)->getId();
                     $tabCarte[$i]['partie'] = $this->getId();
                     $model->saveCarte($tabCarte[$i]);
@@ -234,65 +322,43 @@ class GameController extends CoreController{
     public function loadGame(){
         try{
             $model = new GameModel();
+            //** Si l'identifiant de la partie est déjà enregistré en session on charge les données, 
+            //** sinon on initialise la session et on relance la fonction 
             if (!empty($_SESSION['neozorus']['game'])) {
                 $remote_game = $model->loadGame($_SESSION['neozorus']['game']);
                 $this->id = $remote_game['p_id'];
                 $this->setTour($remote_game['p_tour']);
                 $this->setJeton($remote_game['p_jeton']);
                 $this->setEog($remote_game['p_etat'] == 0 ? true : false);
+                //** Si la valeur du jeton est spécifiée, on la prend, sinon on garde la valeur précédente
                 if (isset($this->parameters['jeton'])) {
                     $this->setJeton($this->parameters['jeton']);
                 } else {
                     $this->setJeton($remote_game['p_jeton']);
                 }
+                //** Si le jeton a changé, on réinitialise la variable PiocheEtMana et 
+                //** on active pour le joueur courant les éventuelles cartes jouées au tour précédent
                 if ($this->getJeton() != $remote_game['p_jeton']) {
                     $this->setPiocheEtMana(0);
                     $this->activateCards($this->getPlayer($this->getJeton()));
+                    // Si le jeton passe de 1 à O, o incrémente le nombre de tour
                     if ($this->getJeton() == 0) {
                         $this->tourPlus();
                     }
                 } else {
                     $this->setPiocheEtMana($remote_game['p_piocheEtMana']);
                 }
-                $remote_player = $model->loadPlayers($this->getId());
-                for ($i = 0; $i < 2; $i++) {
-                    for ($j = 1; $j <= 2; $j++) {
-                        if ($remote_player[$i]['pj_user_fk'] == $remote_game['p_joueur' . $j]) {
-                            $this->players[$j - 1] = new Joueur($remote_game['p_joueur' . $j], $remote_player[$i]['pj_deck_fk']);
-                            $this->players[$j - 1]->setPv($remote_player[$i]['pj_pvPersonnage']);
-                            $this->players[$j - 1]->setMana($remote_player[$i]['pj_manaPersonnage']);
-                            $this->players[$j - 1]->setVisable($remote_player[$i]['pj_visable']);
-                            $cartes = $model->loadCartes($this->getId(), $remote_game['p_joueur' . $j]);
-                            foreach ($cartes as $remoteCarte) {
-                                foreach ($this->players[$j - 1]->getDeck()->getCartes() as $deckCard) {
-                                    if ($remoteCarte['pc_cid_fk'] == $deckCard->getId() && $remoteCarte['pc_indice'] == $deckCard->getIndice()) {
-                                        $deckCard->setPv($remoteCarte['pc_pv']);
-                                        $deckCard->setLocalisation($remoteCarte['pc_lieu']);
-                                        $deckCard->setVisable($remoteCarte['pc_visable']);
-                                        switch ($deckCard->getLocalisation()) {
-                                            case GameCard::LOC_PIOCHE :
-                                                $this->players[$j - 1]->addPioche($deckCard);
-                                                break;
-                                            case GameCard::LOC_MAIN :
-                                                $this->players[$j - 1]->addMain($deckCard);
-                                                break;
-                                            case GameCard::LOC_PLATEAU :
-                                                $this->players[$j - 1]->addPlateau($deckCard);
-                                                break;
-                                            case GameCard::LOC_DEFAUSSE :
-                                                $this->players[$j - 1]->addDefausse($deckCard);
-                                                break;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
+
+                $this->loadPlayers();
+
             }else{
                 $gameId = $model->getGameId_v2($_SESSION['neozorus']['u_id'])[0]['p_id'];
-                if (!empty($gameId)) $_SESSION['neozorus']['game'] = $gameId;
-                $this->loadGame();
+                if (!empty($gameId)){
+                    $_SESSION['neozorus']['game'] = $gameId;
+                    $this->loadGame();
+                }else{
+                    throw new Exception('Impossible de charger l\'identifiant de la partie');
+                }                
             }
         }catch(Exception $e)
         {
@@ -300,6 +366,25 @@ class GameController extends CoreController{
             $controller -> error($e->getMessage());
         }
     }
+
+    public function loadPlayers(){
+        $model = new GameModel();
+        $remote_players = $model->loadPlayers($this->getId());
+        for ($i = 0; $i < 2; $i++) {
+            if($remote_players[$i]['pj_user_fk'] == $_SESSION['neozorus']['u_id']){
+                for($j = 0; $j < 2; $j++){
+                    $this->players[$j] = new Joueur($remote_players[abs($j-$i)]['pj_user_fk'], $remote_players[abs($j-$i)]['pj_deck_fk']);
+                    $this->players[$j]->setPv($remote_players[abs($j-$i)]['pj_pvPersonnage']);
+                    $this->players[$j]->setMana($remote_players[abs($j-$i)]['pj_manaPersonnage']);
+                    $this->players[$j]->setVisable($remote_players[abs($j-$i)]['pj_visable']);
+                    $cartes = $model->loadCartes($this->getId(), $remote_players[abs($j-$i)]['pj_user_fk']);
+                    $this->players[$j]->getDeck()->fillDeckWith($cartes);
+                    $this->players[$j]->updateCardArrays();
+                }
+            }
+        }
+    }
+
 //*/
      /*
       * Sauvegarde + chargement + affichage
@@ -407,12 +492,12 @@ class GameController extends CoreController{
         exit();
     }
 
-	/*
-	 * Vérifie si les conditions de victoire d'un des joueurs sont vérifiées et retourne le vainqueur
-	 */
-	public function checkEog(){
-	    $retour = false;
-	    for($i=0;$i<2;$i++){
+    /*
+     * Vérifie si les conditions de victoire d'un des joueurs sont vérifiées et retourne le vainqueur
+     */
+    public function checkEog(){
+        $retour = false;
+        for($i=0;$i<2;$i++){
             if($this->players[$i]->getPv()<=0 || empty($this->players[$i]->getPioche())){
                 $this->setEog(true);
                 $retour = $this->players[($i==0 ? 1 : 0)];
@@ -422,96 +507,12 @@ class GameController extends CoreController{
     }
 
     /*
-     * Attente si aucun autre joueur disponible
-     */
-    public function wait(){
-        if(empty($this->parameters['id'])){
-            $this->redirect404();
-        }else{
-            $id = $this->parameters['id'];
-            $deck = new GameDeckModel();
-            if(empty($deck->checkId($id))){
-                $this->redirect404();
-            }else{
-                $deck->setWaitingLine($id,1);
-                $waitingLine = $deck->checkWaitingLine($id);
-                if(!empty($waitingLine)){
-                    $deck1 = $id;
-                    shuffle($waitingLine);
-                    $deck2 = $waitingLine[0]['d_id'];
-                    $this->startGame($deck1,$deck2);
-                }else{
-                    require_once( VIEWS_PATH . DS . 'Game' . DS . 'waiting.php' );
-                }
-            }
-        }
-    }
-
-    /*
-     * Vérification de la file d'attente
-     */
-    public function waitAjax(){
-        if(!empty($this->parameters['id'])){
-            $id = $this->parameters['id'];
-            $deck = new GameDeckModel();
-            if(!empty($deck->checkId($id))){
-                $waitingLine = $deck->checkWaitingLine($id);
-                if(!empty($waitingLine)) {
-                    $gameModel = new GameModel();
-                    $DIRG = $gameModel->checkDeckInRunningGame($id);
-                    $res = !empty($DIRG) == 2 ? 'ok' : null;
-                }else{
-                    $res = null;
-                }
-            }else {
-                $res = 'erreur: ce deck n\'existe pas';
-            }
-        }else{
-            $res = 'erreur: aucun deck spécifié';
-        }
-        header('Content-Type: application/json; charset=utf-8');
-        echo json_encode($res);
-    }
-
-    /*
-     * Démarrage de la partie et sauvegarde dans la bdd (fonction lancée par le 2ème joueur de la file d'attente)
-     */
-    public function startGame($deck1,$deck2){
-        $deckModel = new gameDeckModel();
-        $user1 = $deckModel->getUser($deck1);
-        if($user1 == $_SESSION['neozorus']['u_id']){
-
-            $user2 = $deckModel->getUser($deck2);
-            $this->init($user1,$deck1,$user2,$deck2);
-            $this->saveNewGame();
-        }
-//        $this->play();
-        header('Location:?controller=game&action=play');
-    }
-
-    /*
-    * Initialisation d'une partie
-    * Paramètres: ID du joueur 1, ID du deck du joueur 1, ID du joueur 2, ID du deck du joueur 2
-    */
-    public function init($idP1,$idD1,$idP2,$idD2){
-        $this->setTour(1);
-        $this->setJeton(0);
-        $p1 = new Joueur($idP1,$idD1);
-        $p2 = new Joueur($idP2,$idD2);
-        $this->setPlayer($p1);
-        $this->setPlayer($p2);
-        $this->getPlayer(0)->getDeck()->shuffle();
-        $this->getPlayer(1)->getDeck()->shuffle();
-        $this->getPlayer(0)->initPioche();
-        $this->getPlayer(1)->initPioche();
-    }
-
-    /*
      * Si la partie est terminée, affiche le vainqueur, sinon lance le tour du joueur courant
      */
 	public function play(){	
 	    $this->loadGame();
-	    if(!($winner = $this->checkEog())){
+        $winner = $this->checkEog();
+	    if(!$winner){
             $this->tour($this->jeton);
         }else{
             $message = 'Partie terminée<br>Vainqueur: '.$winner->getPseudo();

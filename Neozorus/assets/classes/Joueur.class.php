@@ -140,6 +140,26 @@ class Joueur{
         }
     }
 
+    public function updateCardArrays(){
+        $cartes = $this->deck->getCartes();
+        foreach ($cartes as $carte) {
+            switch ($carte->getLocalisation()) {
+                case GameCard::LOC_PIOCHE :
+                    $this->addPioche($carte);
+                    break;
+                case GameCard::LOC_MAIN :
+                    $this->addMain($carte);
+                    break;
+                case GameCard::LOC_PLATEAU :
+                    $this->addPlateau($carte);
+                    break;
+                case GameCard::LOC_DEFAUSSE :
+                    $this->addDefausse($carte);
+                    break;
+            }
+        }
+    }
+
     /*
      * retire une carte du tableau main pour la mettre dans le tableau plateau
      * si la carte est un sort, lance la méthode 'ciblage'

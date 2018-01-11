@@ -55,13 +55,14 @@ class GameModel extends CoreModel{
     }
 
     public function saveNewCarte($tabCarte){
-        $req = 'INSERT INTO partie_carte (pc_cid_fk, pc_indice, pc_pv, pc_lieu, pc_visable, pc_user_fk, pc_partie_fk) 
-                VALUES (:id,:indice,:pv,:lieu,:visable,:userId,:partie)';
+        $req = 'INSERT INTO partie_carte (pc_cid_fk, pc_indice, pc_pv, pc_lieu, pc_visable, pc_active, pc_user_fk, pc_partie_fk) 
+                VALUES (:id,:indice,:pv,:lieu,:visable,:active,:userId,:partie)';
         $param = [ 'id' => $tabCarte['id'],
                     'indice' => $tabCarte['indice'],
                     'pv' => $tabCarte['pv'],
                     'lieu' => $tabCarte['lieu'],
                     'visable' => $tabCarte['visable'],
+                    'active' => $tabCarte['active'],
                     'userId' => $tabCarte['user'],
                     'partie' => $tabCarte['partie'] ];
 
@@ -72,13 +73,15 @@ class GameModel extends CoreModel{
         $req = 'UPDATE partie_carte 
                 SET pc_pv = :pv, 
                     pc_lieu = :lieu, 
-                    pc_visable = :visable
+                    pc_visable = :visable,
+                    pc_active = :active
                 WHERE pc_cid_fk = :id AND pc_indice = :indice AND pc_user_fk =  :userId AND pc_partie_fk = :partie';
         $param = [ 'id' => $tabCarte['id'],
             'indice' => $tabCarte['indice'],
             'pv' => $tabCarte['pv'],
             'lieu' => $tabCarte['lieu'],
             'visable' => $tabCarte['visable'],
+            'active' => $tabCarte['active'],
             'userId' => $tabCarte['user'],
             'partie' => $tabCarte['partie'] ];
 
@@ -129,7 +132,8 @@ class GameModel extends CoreModel{
     }
 
     public function loadCartes($game,$user){
-        $req = 'SELECT * FROM partie_carte WHERE pc_partie_fk = :game AND pc_user_fk = :user';
+        $req = 'SELECT * FROM partie_carte WHERE pc_partie_fk = :game AND pc_user_fk = :user 
+                ORDER BY pc_id ASC';
         $param = [ 'game' => $game, 'user' => $user ];
         return $this->makeSelect($req,$param);
     }

@@ -142,4 +142,13 @@ class CarteModel extends CoreModel{
 		}
 		return $mesPouvoirs;
 	}
+
+	public function getCardById($id){
+		$req = 'SELECT c_libelle, c_type, c_puissance, c_pvMax, c_mana, GROUP_CONCAT(c_a_abilite_fk) as c_abilite  FROM carte 
+				LEFT JOIN c_a_inclure ON c_a_carte_fk = c_id
+                WHERE c_id = :id
+                GROUP BY c_id';
+		$param = [ 'id' => $id ];
+		return $this->MakeSelect($req,$param);
+	}
 }
