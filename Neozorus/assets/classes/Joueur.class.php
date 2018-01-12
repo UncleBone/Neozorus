@@ -93,7 +93,7 @@ class Joueur{
     }
 
     public function addMain($carte){
-        $this->main[] = $carte;
+        $this->main[$carte->getId().$carte->getIndice()] = $carte;
     }
 
     public function getPioche(){
@@ -109,7 +109,7 @@ class Joueur{
     }
 
     public function addPlateau($carte){
-        $this->plateau[] = $carte;
+        $this->plateau[$carte->getId().$carte->getIndice()] = $carte;
     }
 
     public function getDefausse(){
