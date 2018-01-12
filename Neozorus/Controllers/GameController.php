@@ -336,10 +336,13 @@ class GameController extends CoreController{
                 } else {
                     $this->setJeton($remote_game['p_jeton']);
                 }
+                
+                $this->loadPlayers($remote_game['p_joueur1'],$remote_game['p_joueur2']);
+
                 //** Si le jeton a changé, on réinitialise la variable PiocheEtMana et 
                 //** on active pour le joueur courant les éventuelles cartes jouées au tour précédent
                 if ($this->getJeton() != $remote_game['p_jeton']) {
-                    $this->setPiocheEtMana(0);
+                    $this->setPiocheEtMana(0);    
                     $this->activateCards($this->getPlayer($this->getJeton()));
                     // Si le jeton passe de 1 à O, o incrémente le nombre de tour
                     if ($this->getJeton() == 0) {
@@ -348,8 +351,6 @@ class GameController extends CoreController{
                 } else {
                     $this->setPiocheEtMana($remote_game['p_piocheEtMana']);
                 }
-
-                $this->loadPlayers($remote_game['p_joueur1'],$remote_game['p_joueur2']);
 
             }else{
                 $gameId = $model->getGameId_v2($_SESSION['neozorus']['u_id'])[0]['p_id'];
@@ -505,7 +506,7 @@ class GameController extends CoreController{
     /*
      * Si la partie est terminée, affiche le vainqueur, sinon lance le tour du joueur courant
      */
-	public function play(){	
+	public function play(){
 	    $this->loadGame();
         $winner = $this->checkEog();
 	    if(!$winner){

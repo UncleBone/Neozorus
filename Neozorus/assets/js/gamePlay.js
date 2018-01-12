@@ -85,6 +85,7 @@ function gamePlay(jet, att, cible, abilite, eog){
 
         /*****************Changement de jeton au click sur le bouton 'fin de tour'******************/
         $('#end').click(function(){
+            // console.log('fin de tour');
             ajax("play", "&jeton="+(1-jeton), function(result) {
                 var contenu = $('#contenu');
                 contenu.html(result['view']);
