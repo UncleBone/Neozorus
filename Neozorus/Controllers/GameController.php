@@ -426,7 +426,8 @@ class GameController extends CoreController{
             } elseif ($ajax == '1') {
                 ob_start();
                 require_once(VIEWS_PATH . DS . 'Game' . DS . 'gameView.php');
-                $gameView = utf8_encode(ob_get_contents());
+                // $gameView = utf8_encode(ob_get_contents());
+                $gameView = ob_get_contents();
                 ob_clean();
                 header('Content-Type: application/json; charset=utf-8');
                 $data = ['view' => $gameView,
@@ -438,7 +439,7 @@ class GameController extends CoreController{
                         'error' => json_last_error_msg()];
 
                 echo json_encode($data, JSON_UNESCAPED_UNICODE );
-//                echo json_last_error_msg();
+               // echo json_last_error_msg();
                 exit();
             }
         }catch(Exception $e){
@@ -479,7 +480,7 @@ class GameController extends CoreController{
         }
         ob_start();
         require(VIEWS_PATH . DS . 'Game' . DS . 'gameView.php');
-        $gameView = utf8_encode(ob_get_contents());
+        $gameView = ob_get_contents();
         ob_clean();
         header('Content-Type: application/json; charset=utf-8');
         $data = [ 'view' => $gameView, 'jeton' => $jeton, 'eog' => $eog ];

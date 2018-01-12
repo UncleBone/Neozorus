@@ -176,7 +176,7 @@
                     }else{
                         echo '<a class="carteMain">';
                     }
-                    echo '<img src="'.$value->getPath().'" data_libelle="'.ucfirst(strtolower($value->getLibelle())).'" 
+                    echo '<img src="'.$value->getPath().'" data_libelle="'.ucfirst(mb_strtolower($value->getLibelle())).'" 
                     data_abilite="'.$value->getAbilite()[0].'" data_abilite_2="'.(count($value->getAbilite())==2 ? $value->getAbilite()[1] : '0').'">';
                     echo '<span class="stat1Miniature">'.$value->getPuissance().'</span>';
                     echo '<span class="stat2Miniature">'.$value->getPv().'</span>';
@@ -190,7 +190,7 @@
                         echo '<a class="carteMain">';
                     }
 
-                    echo '<img src="'.$value->getPath().'" data_libelle="'.ucfirst(strtolower($value->getLibelle())).'"
+                    echo '<img src="'.$value->getPath().'" data_libelle="'.ucfirst(mb_strtolower($value->getLibelle())).'"
                     data_abilite="'.$value->getAbilite()[0].'" data_abilite_2="'.(count($value->getAbilite())==2 ? $value->getAbilite()[1] : '0').'">';
                     echo '<span class="stat1Miniature">'.$value->getPuissance().'</span>';
                     echo '<span class="stat2Miniature">'.$value->getMana().'</span>';
@@ -203,7 +203,7 @@
                         echo '<a class="carteMain">';
                     }
 
-                    echo '<img src="'.$value->getPath().'" data_libelle="'.ucfirst(strtolower($value->getLibelle())).'"
+                    echo '<img src="'.$value->getPath().'" data_libelle="'.ucfirst(mb_strtolower($value->getLibelle())).'"
                     data_abilite="'.$value->getAbilite()[0].'" data_abilite_2="'.(count($value->getAbilite())==2 ? $value->getAbilite()[1] : '0').'">';
                     echo '<span class="stat1MiniatureSpeciale">'.$value->getPuissance().'</span>';
                     echo '<span class="stat2MiniatureSpeciale">'.$value->getPv().'</span>';
