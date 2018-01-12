@@ -325,7 +325,7 @@ class GameController extends CoreController{
             //** Si l'identifiant de la partie est déjà enregistré en session on charge les données, 
             //** sinon on initialise la session et on relance la fonction 
             if (!empty($_SESSION['neozorus']['game'])) {
-                $remote_game = $model->loadGame($_SESSION['neozorus']['game']);
+                $remote_game = $model->loadGame($_SESSION['neozorus']['game'])[0];
                 $this->id = $remote_game['p_id'];
                 $this->setTour($remote_game['p_tour']);
                 $this->setJeton($remote_game['p_jeton']);
@@ -616,9 +616,12 @@ class GameController extends CoreController{
         $deck->setWaitingLine($deckId,0);
 
         $game = new GameModel();
-        if(!$this->EoG){
-            $game->setRunning($_SESSION['neozorus']['game'],0);
-        }else{
+        $gameId = $this->getId();
+        $playerId = $this->getCurrentPlayer()->getId();
+
+        $game->deletePlayerFromGame($playerId, $gameId);
+
+        if(empty($game->playerStillInGame($gameId))){
             $game->deleteGame($_SESSION['neozorus']['game']);
         }
         

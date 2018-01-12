@@ -122,7 +122,7 @@ class GameModel extends CoreModel{
     public function loadGame($gameId){
         $req = 'SELECT * FROM partie WHERE p_id = :id';
         $param = [ 'id' => $gameId ];
-        return $this->makeSelect($req,$param)[0];
+        return $this->makeSelect($req,$param);
     }
 
     public function loadPlayers($game){
@@ -176,6 +176,18 @@ class GameModel extends CoreModel{
                 INNER JOIN partie ON pj_partie_fk = p_id
                 WHERE pj_deck_fk = :deck AND p_etat = 1';
         $param = [ 'deck' => $deckId ];
+        return $this->makeSelect($req,$param);
+    }
+
+    public function deletePlayerFromGame($playerId, $gameId){
+        $req = 'DELETE FROM partie_joueur WHERE pj_user_fk = :pid AND pj_partie_fk = :gid';
+        $param = [ 'pid' => $playerId, 'gid' => $gameId ];
+        return $this->makeStatement($req,$param);
+    }
+
+    public function playerStillInGame($gameId){
+        $req = 'SELECT * FROM partie_joueur WHERE pj_partie_fk = :gid';
+        $param = [ 'gid' => $gameId ];
         return $this->makeSelect($req,$param);
     }
 
