@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.1
--- http://www.phpmyadmin.net
+-- version 4.7.4
+-- https://www.phpmyadmin.net/
 --
--- Client :  127.0.0.1
--- Généré le :  Mar 12 Décembre 2017 à 15:15
--- Version du serveur :  10.1.19-MariaDB
--- Version de PHP :  7.0.13
+-- Hôte : 127.0.0.1
+-- Généré le :  ven. 12 jan. 2018 à 16:16
+-- Version du serveur :  10.1.28-MariaDB
+-- Version de PHP :  7.1.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -33,7 +35,7 @@ CREATE TABLE `abilite` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Contenu de la table `abilite`
+-- Déchargement des données de la table `abilite`
 --
 
 INSERT INTO `abilite` (`a_id`, `a_libelle`, `a_description`) VALUES
@@ -58,19 +60,19 @@ CREATE TABLE `carte` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Contenu de la table `carte`
+-- Déchargement des données de la table `carte`
 --
 
 INSERT INTO `carte` (`c_id`, `c_libelle`, `c_type`, `c_puissance`, `c_pvMax`, `c_mana`, `c_personnage_fk`) VALUES
 (1, 'TRINITY', 'sort', 1, NULL, 1, 1),
 (2, 'MORPHEUS', 'sort', 4, NULL, 3, 1),
-(3, 'L''ORACLE', 'sort', 6, NULL, 5, 1),
-(4, 'L''AGENT SMITH', 'creature', 2, 1, 1, 1),
+(3, 'L\'ORACLE', 'sort', 6, NULL, 5, 1),
+(4, 'L\'AGENT SMITH', 'creature', 2, 1, 1, 1),
 (5, 'LE MAÎTRE DES CLEFS', 'creature', 2, 3, 2, 1),
 (6, 'CYPHER', 'creature', 5, 3, 3, 1),
 (7, 'LES TWINS', 'creature', 2, 4, 4, 1),
 (8, 'NIOBE', 'creature', 7, 5, 5, 1),
-(9, 'L''ARCHITECTE', 'creature', 8, 6, 7, 1),
+(9, 'L\'ARCHITECTE', 'creature', 8, 6, 7, 1),
 (10, 'LE FEMME EN ROUGE', 'creature', 1, 3, 1, 1),
 (11, 'SENTINELLE', 'creature', 3, 6, 3, 1),
 (12, 'LE CHAT NOIR', 'speciale', 9, 9, 9, 1),
@@ -99,7 +101,7 @@ CREATE TABLE `c_a_inclure` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Contenu de la table `c_a_inclure`
+-- Déchargement des données de la table `c_a_inclure`
 --
 
 INSERT INTO `c_a_inclure` (`c_a_abilite_fk`, `c_a_carte_fk`) VALUES
@@ -130,7 +132,7 @@ CREATE TABLE `deck` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Contenu de la table `deck`
+-- Déchargement des données de la table `deck`
 --
 
 INSERT INTO `deck` (`d_id`, `d_libelle`, `d_nbMaxCarte`, `d_personnage_fk`, `d_user_fk`, `d_waiting`) VALUES
@@ -156,7 +158,7 @@ CREATE TABLE `d_c_inclure` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Contenu de la table `d_c_inclure`
+-- Déchargement des données de la table `d_c_inclure`
 --
 
 INSERT INTO `d_c_inclure` (`d_c_nbExemplaire`, `d_c_deck_fk`, `d_c_carte_fk`) VALUES
@@ -287,7 +289,7 @@ CREATE TABLE `langue` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Contenu de la table `langue`
+-- Déchargement des données de la table `langue`
 --
 
 INSERT INTO `langue` (`l_id`, `l_libelle`) VALUES
@@ -314,6 +316,40 @@ CREATE TABLE `partie` (
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `partie_carte`
+--
+
+CREATE TABLE `partie_carte` (
+  `pc_id` int(11) NOT NULL,
+  `pc_cid_fk` int(11) NOT NULL,
+  `pc_pv` int(11) DEFAULT NULL,
+  `pc_lieu` varchar(25) DEFAULT NULL,
+  `pc_indice` int(11) NOT NULL,
+  `pc_visable` tinyint(1) NOT NULL,
+  `pc_active` tinyint(1) NOT NULL DEFAULT '0',
+  `pc_user_fk` int(11) DEFAULT NULL,
+  `pc_partie_fk` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `partie_joueur`
+--
+
+CREATE TABLE `partie_joueur` (
+  `pj_pvPersonnage` int(11) DEFAULT NULL,
+  `pj_manaPersonnage` int(11) DEFAULT NULL,
+  `pj_personnage_fk` int(11) NOT NULL,
+  `pj_deck_fk` int(11) NOT NULL,
+  `pj_visable` tinyint(1) NOT NULL,
+  `pj_user_fk` int(11) NOT NULL,
+  `pj_partie_fk` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `personnage`
 --
 
@@ -324,31 +360,12 @@ CREATE TABLE `personnage` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Contenu de la table `personnage`
+-- Déchargement des données de la table `personnage`
 --
 
 INSERT INTO `personnage` (`p_id`, `p_libelle`, `p_pvMax`) VALUES
 (1, 'NEO', 20),
 (2, 'TYRANNOSAURE REX', 20);
-
--- --------------------------------------------------------
-
---
--- Structure de la table `saloncarte`
---
-
-CREATE TABLE `saloncarte` (
-  `s_id` int(11) NOT NULL,
-  `s_cid_fk` int(11) NOT NULL,
-  `s_pv` int(11) DEFAULT NULL,
-  `s_lieu` varchar(25) DEFAULT NULL,
-  `s_indice` int(11) NOT NULL,
-  `s_visable` tinyint(1) NOT NULL,
-  `s_att` tinyint(1) NOT NULL,
-  `s_cible` tinyint(1) NOT NULL,
-  `s_user_fk` int(11) DEFAULT NULL,
-  `s_partie_fk` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -371,7 +388,7 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Contenu de la table `user`
+-- Déchargement des données de la table `user`
 --
 
 INSERT INTO `user` (`u_id`, `u_mail`, `u_pseudo`, `u_mdp`, `u_nom`, `u_prenom`, `u_dateNaissance`, `u_langue_fk`, `u_offre`, `u_question`, `u_reponse`) VALUES
@@ -385,24 +402,8 @@ INSERT INTO `user` (`u_id`, `u_mail`, `u_pseudo`, `u_mdp`, `u_nom`, `u_prenom`, 
 (10, 'user3@mail.mail', 'User3', '$2y$10$XfAcsZlXpc6gdUkVp6uAh.hAtd5ckBXnQAI1xOeALVtkJqnLZeDYy', 'rtrthrty', 'rteryery', '2014-03-28', 1, 0, 'dit oui', 'oui'),
 (11, 'ronan.ruffault@hotmail.fr', 'ronan', '$2y$10$z5kQN.DNfuGqPQtlHSwHmeRcRb.WBlRYG/R2A7gjy3TJT9fs2OmfO', 'ruffault', 'ronan', '1990-09-07', 1, 0, 'ecrit ronan', 'ronan');
 
--- --------------------------------------------------------
-
 --
--- Structure de la table `u_p_jouer`
---
-
-CREATE TABLE `u_p_jouer` (
-  `u_p_pvPersonnage` int(11) DEFAULT NULL,
-  `u_p_manaPersonnage` int(11) DEFAULT NULL,
-  `u_p_personnage_fk` int(11) NOT NULL,
-  `u_p_deck_fk` int(11) NOT NULL,
-  `u_p_visable` tinyint(1) NOT NULL,
-  `u_p_user_fk` int(11) NOT NULL,
-  `u_p_partie_fk` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Index pour les tables exportées
+-- Index pour les tables déchargées
 --
 
 --
@@ -468,18 +469,25 @@ ALTER TABLE `partie`
   ADD PRIMARY KEY (`p_id`);
 
 --
+-- Index pour la table `partie_carte`
+--
+ALTER TABLE `partie_carte`
+  ADD PRIMARY KEY (`pc_id`),
+  ADD KEY `FK_salonCarte_u_id` (`pc_user_fk`),
+  ADD KEY `FK_salonCarte_p_id` (`pc_partie_fk`);
+
+--
+-- Index pour la table `partie_joueur`
+--
+ALTER TABLE `partie_joueur`
+  ADD PRIMARY KEY (`pj_user_fk`,`pj_partie_fk`),
+  ADD KEY `FK_u_p_jouer_p_id` (`pj_partie_fk`);
+
+--
 -- Index pour la table `personnage`
 --
 ALTER TABLE `personnage`
   ADD PRIMARY KEY (`p_id`);
-
---
--- Index pour la table `saloncarte`
---
-ALTER TABLE `saloncarte`
-  ADD PRIMARY KEY (`s_id`),
-  ADD KEY `FK_salonCarte_u_id` (`s_user_fk`),
-  ADD KEY `FK_salonCarte_p_id` (`s_partie_fk`);
 
 --
 -- Index pour la table `user`
@@ -489,14 +497,7 @@ ALTER TABLE `user`
   ADD KEY `u_langue_fk` (`u_langue_fk`);
 
 --
--- Index pour la table `u_p_jouer`
---
-ALTER TABLE `u_p_jouer`
-  ADD PRIMARY KEY (`u_p_user_fk`,`u_p_partie_fk`),
-  ADD KEY `FK_u_p_jouer_p_id` (`u_p_partie_fk`);
-
---
--- AUTO_INCREMENT pour les tables exportées
+-- AUTO_INCREMENT pour les tables déchargées
 --
 
 --
@@ -504,53 +505,63 @@ ALTER TABLE `u_p_jouer`
 --
 ALTER TABLE `abilite`
   MODIFY `a_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
 --
 -- AUTO_INCREMENT pour la table `carte`
 --
 ALTER TABLE `carte`
   MODIFY `c_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+
 --
 -- AUTO_INCREMENT pour la table `deck`
 --
 ALTER TABLE `deck`
   MODIFY `d_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+
 --
 -- AUTO_INCREMENT pour la table `game`
 --
 ALTER TABLE `game`
   MODIFY `g_id` int(20) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT pour la table `historique`
 --
 ALTER TABLE `historique`
   MODIFY `h_id` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT pour la table `langue`
 --
 ALTER TABLE `langue`
   MODIFY `l_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
 --
 -- AUTO_INCREMENT pour la table `partie`
 --
 ALTER TABLE `partie`
-  MODIFY `p_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `p_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
+
+--
+-- AUTO_INCREMENT pour la table `partie_carte`
+--
+ALTER TABLE `partie_carte`
+  MODIFY `pc_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2021;
+
 --
 -- AUTO_INCREMENT pour la table `personnage`
 --
 ALTER TABLE `personnage`
   MODIFY `p_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
---
--- AUTO_INCREMENT pour la table `saloncarte`
---
-ALTER TABLE `saloncarte`
-  MODIFY `s_id` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT pour la table `user`
 --
 ALTER TABLE `user`
   MODIFY `u_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
 --
--- Contraintes pour les tables exportées
+-- Contraintes pour les tables déchargées
 --
 
 --
@@ -594,24 +605,25 @@ ALTER TABLE `historique`
   ADD CONSTRAINT `FK_historique_p_id` FOREIGN KEY (`h_partie_fk`) REFERENCES `partie` (`p_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Contraintes pour la table `saloncarte`
+-- Contraintes pour la table `partie_carte`
 --
-ALTER TABLE `saloncarte`
-  ADD CONSTRAINT `FK_salonCarte_p_id` FOREIGN KEY (`s_partie_fk`) REFERENCES `partie` (`p_id`),
-  ADD CONSTRAINT `FK_salonCarte_u_id` FOREIGN KEY (`s_user_fk`) REFERENCES `user` (`u_id`);
+ALTER TABLE `partie_carte`
+  ADD CONSTRAINT `FK_salonCarte_p_id` FOREIGN KEY (`pc_partie_fk`) REFERENCES `partie` (`p_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `FK_salonCarte_u_id` FOREIGN KEY (`pc_user_fk`) REFERENCES `user` (`u_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `partie_joueur`
+--
+ALTER TABLE `partie_joueur`
+  ADD CONSTRAINT `FK_u_p_jouer_p_id` FOREIGN KEY (`pj_partie_fk`) REFERENCES `partie` (`p_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `FK_u_p_jouer_u_id` FOREIGN KEY (`pj_user_fk`) REFERENCES `user` (`u_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `user`
 --
 ALTER TABLE `user`
   ADD CONSTRAINT `user_ibfk_1` FOREIGN KEY (`u_langue_fk`) REFERENCES `langue` (`l_id`);
-
---
--- Contraintes pour la table `u_p_jouer`
---
-ALTER TABLE `u_p_jouer`
-  ADD CONSTRAINT `FK_u_p_jouer_p_id` FOREIGN KEY (`u_p_partie_fk`) REFERENCES `partie` (`p_id`),
-  ADD CONSTRAINT `FK_u_p_jouer_u_id` FOREIGN KEY (`u_p_user_fk`) REFERENCES `user` (`u_id`);
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
