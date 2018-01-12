@@ -349,7 +349,7 @@ class GameController extends CoreController{
                     $this->setPiocheEtMana($remote_game['p_piocheEtMana']);
                 }
 
-                $this->loadPlayers();
+                $this->loadPlayers($remote_game['p_joueur1'],$remote_game['p_joueur2']);
 
             }else{
                 $gameId = $model->getGameId_v2($_SESSION['neozorus']['u_id'])[0]['p_id'];
@@ -367,21 +367,17 @@ class GameController extends CoreController{
         }
     }
 
-    public function loadPlayers(){
+    public function loadPlayers($id1,$id2){
         $model = new GameModel();
         $remote_players = $model->loadPlayers($this->getId());
         for ($i = 0; $i < 2; $i++) {
-            if($remote_players[$i]['pj_user_fk'] == $_SESSION['neozorus']['u_id']){
-                for($j = 0; $j < 2; $j++){
-                    $this->players[$j] = new Joueur($remote_players[abs($j-$i)]['pj_user_fk'], $remote_players[abs($j-$i)]['pj_deck_fk']);
-                    $this->players[$j]->setPv($remote_players[abs($j-$i)]['pj_pvPersonnage']);
-                    $this->players[$j]->setMana($remote_players[abs($j-$i)]['pj_manaPersonnage']);
-                    $this->players[$j]->setVisable($remote_players[abs($j-$i)]['pj_visable']);
-                    $cartes = $model->loadCartes($this->getId(), $remote_players[abs($j-$i)]['pj_user_fk']);
-                    $this->players[$j]->getDeck()->fillDeckWith($cartes);
-                    $this->players[$j]->updateCardArrays();
-                }
-            }
+            $this->players[$i] = new Joueur($remote_players[$i]['pj_user_fk'], $remote_players[$i]['pj_deck_fk']);
+            $this->players[$i]->setPv($remote_players[$i]['pj_pvPersonnage']);
+            $this->players[$i]->setMana($remote_players[$i]['pj_manaPersonnage']);
+            $this->players[$i]->setVisable($remote_players[$i]['pj_visable']);
+            $cartes = $model->loadCartes($this->getId(), $remote_players[$i]['pj_user_fk']);
+            $this->players[$i]->getDeck()->fillDeckWith($cartes);
+            $this->players[$i]->updateCardArrays();
         }
     }
 

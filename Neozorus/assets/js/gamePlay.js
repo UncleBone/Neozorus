@@ -1,4 +1,3 @@
-
 if(currentPlayer != jeton){
     gameWaitingTurn();
 }else {
@@ -220,6 +219,7 @@ function abiliteTexte(ab){
 function gameWaitingTurn(){
     var interval;
     interval = window.setInterval(function(){
+        console.log('waiting');
         ajax("refreshViewAjax", "", function(result) {
             var contenu = $('#contenu');
             var j = result['jeton'];
