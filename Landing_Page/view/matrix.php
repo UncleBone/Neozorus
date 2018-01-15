@@ -1,4 +1,4 @@
-<main id="page_dinos">
+<main id="page_matrix">
 	
 	<article>
 		<p>Neozorus, c’est le nouveau jeu de cartes en ligne. <br>
@@ -16,14 +16,13 @@
 
 	<form>
 		<input type="text" name="email" placeholder="E-mail">
-		<input type="submit" value="Je suis un T-Rex">
+		<input type="submit" value="Suis le lapin blanc">
 	</form>
 
-	
 	<ul class="links">
-		<li><a href="" alt="logo facebook"><img src="images/Landing_Page/logo_facebook_dinos.png"></a></li>
-		<li><a href="" alt="logo twitter"><img src="images/Landing_Page/logo_twitter_dinos.png"></a></li>
-		<li><a href="" alt="logo youtube"><img src="images/Landing_Page/logo_youtube_dinos.png"></a></li>
+		<li><a href="" alt="logo facebook"><img src="<?= IMG_PATH . DS . 'logo_facebook_matrix.png' ?>"></a></li>
+		<li><a href="" alt="logo twitter"><img src="<?= IMG_PATH . DS . 'logo_twitter_matrix.png' ?>"></a></li>
+		<li><a href="" alt="logo youtube"><img src="<?= IMG_PATH . DS . 'logo_youtube_matrix.png' ?>"></a></li>
 	</ul>
 	
 
