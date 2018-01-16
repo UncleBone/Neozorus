@@ -1,4 +1,4 @@
-// $(function(){
+// $(landingPage);
 document.addEventListener("DOMContentLoaded", landingPage);
 
 $(window).resize(landingPage);
@@ -22,7 +22,27 @@ function landingPage(){
 	var logo = $('#logo');				/* logo Neozorus + boutons */
 	var logoNeozorus = $('#logoNeozorus');		/* logo Neozorus */	
 
-/**********************Mise en place du background***************************/
+
+/************************Vérification de l'orientation de l'écran*******************************/
+
+	if(height > width){
+		if($('body').find('#messageOrientation').length == 0){
+			$('body').children().css('display', 'none');
+			$('body').css('background-color', 'rgb(20,20,20)');
+			$('body').css('color', 'white').css('font-family', 'fira_code');
+			var p = $('<p></p>').attr('id','messageOrientation').text('Veuillez tourner votre écran').css('text-align', 'center');
+			$('body').append(p);
+		}
+		p.css('margin-top', '50vh').css('transform','translateY(-50%)');
+	}else{
+
+		if($('body').find('#messageOrientation').length > 0){
+			$('body').find('#messageOrientation').remove();
+			$('body').css('background-color', 'white');
+			$('body').children().css('display', 'block');	
+		}
+
+	/**********************Mise en place du background***************************/
 	
 	styleAdjust(page);
 
@@ -266,4 +286,5 @@ function landingPage(){
 			}
 		}
 	}
+}
 };
