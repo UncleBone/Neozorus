@@ -1,5 +1,10 @@
 // $(function(){
-document.addEventListener("DOMContentLoaded", function(){	
+document.addEventListener("DOMContentLoaded", landingPage);
+
+$(window).resize(landingPage);
+
+function landingPage(){
+
 /**********************Déclaration des variables***************************/
 
 	var width = $(window).width();			/* Largeur de la fenêtre du navigateur */
@@ -19,21 +24,7 @@ document.addEventListener("DOMContentLoaded", function(){
 
 /**********************Mise en place du background***************************/
 	
-	/* rotation des blocs */
-	divHaut.css('transform', 'rotate(-'+angle+'deg)');
-	divBas.css('transform', 'rotate(-'+angle+'deg)');
-	
-	/* rotation inverse et dimensionnement des images de background */
-	imgHaut.css('transform', 'rotate('+angle+'deg)');
-	imgHaut.width(100+'vw');
-	imgHaut.height(100+'vh');
-	imgBas.css('transform', 'rotate('+angle+'deg)');
-	imgBas.width(100+'vw');
-	imgBas.height(100+'vh');
-
-	/* positionnement des images par rapport aux blocs */
-	imgHaut.css('bottom',-1*Math.cos(angle*Math.PI/180)+'vh');
-	imgBas.css('top', -1*Math.cos(angle*Math.PI/180)+'vh');
+	styleAdjust(page);
 
 	if(page == "noteam"){
 
@@ -42,32 +33,7 @@ document.addEventListener("DOMContentLoaded", function(){
 
 	}else if(page == "matrix"){
 
-		/* positionnement des blocs et images */
-		divHaut.css('bottom', 90+'vh');
-		divBas.css('top', -90+'vh');
-		imgHaut.css('bottom', -(90+1)*Math.cos(angle*Math.PI/180)+'vh');
-		imgHaut.css('left', -90*Math.sin(angle*Math.PI/180)+'vh');
-		imgBas.css('top', (90-1)*Math.cos(angle*Math.PI/180)+'vh');
-		imgBas.css('right', 90*Math.sin(angle*Math.PI/180)+'vh');
-
-		/* disparition des boutons */
-		btnDinos.css('visibility', 'hidden');
-		btnMatrix.css('visibility', 'hidden');
-		btnDinos.css('opacity', 0);
-		btnMatrix.css('opacity', 0);
-
-		/* positionnement du logo */
-		logo.css('marginTop', 10+'vh');
-
-		/* modification du curseur sur les éléments qui deviennent clickables */
-		logo.css('cursor', "pointer");
-		imgHaut.css('cursor', "pointer");
-
-		/* coin supérieur au premier plan pour qu'il reste clickable */
-		divHaut.css('zIndex', "2");
-
 		var main = $('#page_matrix');
-
 
 		/* Lancement de la fonction "dinosReverse au click sur le logo ou le coin supérieur */
 		logoNeozorus.click(matrixReverse);
@@ -75,30 +41,6 @@ document.addEventListener("DOMContentLoaded", function(){
 
 
 	}else if(page == "dinos"){
-		
-		/* positionnement des blocs et images */
-		divHaut.css('bottom', -90+'vh');
-		divBas.css('top', 90+'vh');
-		imgHaut.css('bottom', (90-1)*Math.cos(angle*Math.PI/180)+'vh');
-		imgHaut.css('left', 90*Math.sin(angle*Math.PI/180)+'vh');
-		imgBas.css('top', -(90+1)*Math.cos(angle*Math.PI/180)+'vh');
-		imgBas.css('right', -90*Math.sin(angle*Math.PI/180)+'vh');
-
-		/* disparition des boutons */
-		btnDinos.css('visibility', 'hidden');
-		btnMatrix.css('visibility', 'hidden');
-		btnDinos.css('opacity', 0);
-		btnMatrix.css('opacity', 0);
-
-		/* positionnement du logo */
-		logo.css('margin-top', 10+'vh');
-
-		/* modification du curseur sur les éléments qui deviennent clickables */
-		logo.css('cursor', "pointer");
-		imgBas.css('cursor', "pointer");
-
-		/* coin inférieur au premier plan pour qu'il reste clickable */
-		divBas.css('zIndex', "2");
 
 	    var main = $('#page_dinos');
 
@@ -106,6 +48,79 @@ document.addEventListener("DOMContentLoaded", function(){
 		logoNeozorus.click(dinosReverse);
 		imgBas.click(dinosReverse);
 		
+	}
+
+	function styleAdjust(page){
+
+		/* rotation des blocs */
+		divHaut.css('transform', 'rotate(-'+angle+'deg)');
+		divBas.css('transform', 'rotate(-'+angle+'deg)');
+		
+		/* rotation inverse et dimensionnement des images de background */
+		imgHaut.css('transform', 'rotate('+angle+'deg)');
+		imgHaut.width(100+'vw');
+		imgHaut.height(100+'vh');
+		imgBas.css('transform', 'rotate('+angle+'deg)');
+		imgBas.width(100+'vw');
+		imgBas.height(100+'vh');
+
+		/* positionnement des images par rapport aux blocs */
+		imgHaut.css('bottom',-1*Math.cos(angle*Math.PI/180)+'vh');
+		imgBas.css('top', -1*Math.cos(angle*Math.PI/180)+'vh');
+
+		if(page == 'matrix'){
+
+			/* positionnement des blocs et images */
+			divHaut.css('bottom', 90+'vh');
+			divBas.css('top', -90+'vh');
+			imgHaut.css('bottom', -(90+1)*Math.cos(angle*Math.PI/180)+'vh');
+			imgHaut.css('left', -90*Math.sin(angle*Math.PI/180)+'vh');
+			imgBas.css('top', (90-1)*Math.cos(angle*Math.PI/180)+'vh');
+			imgBas.css('right', 90*Math.sin(angle*Math.PI/180)+'vh');
+
+			/* disparition des boutons */
+			btnDinos.css('visibility', 'hidden');
+			btnMatrix.css('visibility', 'hidden');
+			btnDinos.css('opacity', 0);
+			btnMatrix.css('opacity', 0);
+
+			/* positionnement du logo */
+			logo.css('marginTop', 10+'vh');
+
+			/* modification du curseur sur les éléments qui deviennent clickables */
+			logo.css('cursor', "pointer");
+			imgHaut.css('cursor', "pointer");
+
+			/* coin supérieur au premier plan pour qu'il reste clickable */
+			divHaut.css('zIndex', "2");
+
+		}else if(page == 'dinos'){
+
+			/* positionnement des blocs et images */
+			divHaut.css('bottom', -90+'vh');
+			divBas.css('top', 90+'vh');
+			imgHaut.css('bottom', (90-1)*Math.cos(angle*Math.PI/180)+'vh');
+			imgHaut.css('left', 90*Math.sin(angle*Math.PI/180)+'vh');
+			imgBas.css('top', -(90+1)*Math.cos(angle*Math.PI/180)+'vh');
+			imgBas.css('right', -90*Math.sin(angle*Math.PI/180)+'vh');
+
+			/* disparition des boutons */
+			btnDinos.css('visibility', 'hidden');
+			btnMatrix.css('visibility', 'hidden');
+			btnDinos.css('opacity', 0);
+			btnMatrix.css('opacity', 0);
+
+			/* positionnement du logo */
+			logo.css('margin-top', 10+'vh');
+
+			/* modification du curseur sur les éléments qui deviennent clickables */
+			logo.css('cursor', "pointer");
+			imgBas.css('cursor', "pointer");
+
+			/* coin inférieur au premier plan pour qu'il reste clickable */
+			divBas.css('zIndex', "2");
+
+		}
 	}
 
 	/* fonction lancée au click sur le bouton "dinos" */
@@ -251,4 +266,4 @@ document.addEventListener("DOMContentLoaded", function(){
 			}
 		}
 	}
-});
+};
