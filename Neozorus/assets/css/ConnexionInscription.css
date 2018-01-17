@@ -86,9 +86,28 @@
 			min-width: 200px;
 			border: solid 1px white;
 			padding: 1vh;
-			font-size: 1.5em;
+			font-size: 20px;
 			cursor: pointer;
 			background-color: rgba(0,0,0,0.7);
+		}
+
+		.connexion-inscription .sous-menu
+		{
+			display: flex;
+			flex-direction: row;
+			justify-content: space-between;
+			width: 10vw;
+			min-width: 200px;
+			margin: auto;
+		}
+
+		.connexion-inscription .sous-menu .btn
+		{
+			font-size: 14px;
+			border-radius: 5px;
+			width: 5vw;
+			min-width: 90px;
+			margin-top: 1vh;
 		}
 
 		.confirmation .btn
@@ -187,7 +206,14 @@
 
 /****************************** Responsive ******************************/
 
-
+		@media (max-height: 700px)
+		{
+			#inscription
+			{
+				margin-top: 60vh;
+			}
+		}
+		
 		@media (max-width: 600px)
 		{
 			#logoNeozorus
@@ -207,18 +233,18 @@
 			}
 		}
 
-		@media (max-height: 700px)
-		{
-			#inscription
-			{
-				margin-top: 60vh;
-			}
-		}
-
-		@media (max-height: 400px){
+		@media (max-height: 500px){
 			#logoNeozorus
 			{
 				width: 250px;
 				min-width: 250px; 
+			}
+			.btn
+			{
+				font-size: 16px;
+			}
+			.connexion-inscription .sous-menu .btn
+			{
+				font-size: 12px;
 			}
 		}
