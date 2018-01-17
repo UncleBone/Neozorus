@@ -121,7 +121,7 @@
 			width: 50vw;
 			max-height: 40vh;
 			overflow: auto;
-			margin: 0 25vw 20vh 25vw;
+			margin: 0 25vw 17vh 25vw;
 			padding: 20px;
 			text-align: center;
 			background-color: rgba(0,0,0,0.7);
@@ -132,28 +132,33 @@
 		form
 		{
 			width: 40vw;
-			min-width: 440px;
+			min-width: 600px;
 			margin: 5vh auto;
 			font-size: 0;
+			display: flex;
+			justify-content: space-around;
 		}
 
 		input
 		{
 			font-family: "fira_code", Verdana;
-			font-size: 2.5vh;
+			/*font-size: 2.5vh;*/
+			font-size: 16px;
 			height: 5vh;
 		}
 
 		input:nth-child(1) 
 		{
 			width: 55%;
+			max-width: 40vw;
 			color: #c2d201;
-			margin-right: 5%;
+			/*margin-right: 5%;*/
 		}
 
 		input:nth-child(2) 
 		{
-			width: 40%;
+			min-width: 40%;
+			min-width: 200px;
 			color: white;
 			background-color: #326a2b;
 			border: solid 3px #c8d419;
@@ -239,29 +244,22 @@
 
 /****************************** Responsive ******************************/
 
-
 		@media (max-width: 600px)
 		{
 			form
 			{
-				width: 50%;
-				min-width: 200px;
+				width: 100%;
+				min-width: 300px;
 			}
 			input
 			{
 				display: block;
-				margin: 5vh auto;
 			}
-			input:nth-child(1)
-			{
-				margin-right: auto;
-				width: 80%;
-				min-width: 200px;
-			}
+			
 			input:nth-child(2)
 			{
-				width: 70%;
-				min-width: 180px;
+				max-width: 50vw;
+				min-width: 200px;
 			}
 			article
 			{
@@ -277,6 +275,11 @@
 
 		@media (max-height: 500px)
 		{
+			.btn
+			{
+				font-size: 1.1em;
+				border-width : 3px;
+			}
 			article, input
 			{
 				font-size: 14px;
@@ -296,7 +299,7 @@
 			}	
 			#logoNeozorus
 			{
-				width: 250px;
-				min-width: 250px; 
+				width: 200px;
+				min-width: 200px;
 			}
 		}
