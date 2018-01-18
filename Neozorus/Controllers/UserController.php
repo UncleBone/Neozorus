@@ -23,8 +23,8 @@ class UserController extends CoreController
 	**/
 	public function connexion(){
 		$param['title'] = 'Connexion';
-		$param['email'] = (!empty($this->session['neozorus']['connexion']['email']) ? $this->session['neozorus']['connexion']['email'] : '');
-		$param['mdp'] = (!empty($this->session['neozorus']['connexion']['mdp']) ? $this->session['neozorus']['connexion']['mdp'] : '');
+		$param['email'] = (!empty($this->session['connexion']['email']) ? $this->session['connexion']['email'] : '');
+		$param['mdp'] = (!empty($this->session['connexion']['mdp']) ? $this->session['connexion']['mdp'] : '');
 		$param['error'] = (!empty($this->parameters['error']) ? $this->parameters['error'] : '');
 		$param['errorMessage'] = $this->errorMessage($param['error']);
 		$this->display('Connexion.php',$param);

@@ -27,7 +27,7 @@
 
 	<?php
 	if(!empty($error)){
-		echo "<div class=\"error\"><p>";
+		echo "<div class=\"error errorInscription\"><p>";
 		echo $errorMessage;
 		echo "</p></div>";
 	}
