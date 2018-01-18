@@ -6,10 +6,10 @@ class UserController extends CoreController
 	public function display($viewName,$param = array()){
 		extract($param);
 		ob_start();
-		require( VIEWS_PATH . DS . 'User' . DS . $viewName );
+		require( VIEWS_PATH . DS . 'Connexion' . DS . $viewName );
 		$view = ob_get_contents();
 		ob_clean();
-		require(VIEWS_PATH . DS . 'User' . DS . 'Layout.php');
+		require(VIEWS_PATH . DS . 'Connexion' . DS . 'Layout.php');
 	}
 
 	/*Affichage de la page de choix
