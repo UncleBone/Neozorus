@@ -5,6 +5,12 @@
 			src:url('../font/fira-code/FiraCode-Medium.otf');
 		}
 
+		@font-face
+		{
+			font-family: 'godzilla';
+			src:url('../font/godzilla/Godzilla.ttf');
+		}
+
 		body
 		{
 			margin: 0;
@@ -138,7 +144,7 @@
 			color: white;
 		}
 
-		#connection input
+		#connexion input
 		{
 			 width: 60%;
 		}
@@ -149,14 +155,15 @@
 			margin: 10px auto;
 			padding:5px 2px;
 			position: relative;
-			background-color: black;
-			color:#16E62A;
-			font-family: 'fira_code';
 			font-size: 15px;
-			outline: none;
-			border-radius: 10%;
-			background-color: black;
 			text-align: center;
+		}
+
+		#connexion input[name="Connexion"]
+		{
+			width: 30%;
+			margin: 20px auto;
+			padding: 2px 0;
 		}
 
 		#inscription input[name$="nom"], #inscription input[name$="mail"], #inscription input[name$="mdp"]
@@ -194,13 +201,18 @@
 		{
 			width: 20vw;
 			min-width: 300px;
+			content: black;
 			background-color: rgb(200,100,100);
 			text-align: center;
 			position: absolute;
 			bottom: 10vh;
 			left: 50vw;
 			transform: translateX(-50%);
-
+			padding: 5px;
+		}
+		.error p
+		{
+			margin: 0;
 		}
 
 
@@ -227,9 +239,24 @@
 				min-width: 0px;
 				padding: 5vh 0;
 			}
+			#connexion input
+			{
+				width: 50%;
+				font-size: 13px;
+			}
 			form label
 			{
 				font-size: 0.8em;
+			}
+			.back
+			{
+				position: relative;
+				top: 10px;
+				left: 10px;
+			}
+			.error
+			{
+				font-size: 13px;
 			}
 		}
 
@@ -246,5 +273,19 @@
 			.connexion-inscription .sous-menu .btn
 			{
 				font-size: 12px;
+			}
+			form#connexion
+			{
+				margin: 56vh auto 0 auto;
+			}
+			.back
+			{
+				position: relative;
+				top: 10px;
+			}
+			.error
+			{
+				bottom: 5vh;
+				color: black;
 			}
 		}
