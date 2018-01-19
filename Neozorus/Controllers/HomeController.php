@@ -3,7 +3,7 @@
 class HomeController extends CoreController{
 
 	/**
-	 * Génère une page d'acceuil personnalisé si l'authentification d'un utilisateur a réussi
+	 * Affiche la page d'accueil
 	 */
 	public function display(){
 		$this->isSessionNeozorus();
@@ -18,9 +18,8 @@ class HomeController extends CoreController{
 	/**
 	 * Affiche la page des régles du jeu
 	 */
-	public function affichagePageRegles(){
-			include('./Views/Home/ReglesHomeView.php');
-		
+	public function rules(){
+		include(VIEWS_PATH . DS . 'Home' . DS . 'RulesView.php');
 	}
 	
 	/**

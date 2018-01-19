@@ -1,47 +1,42 @@
 <?php
 $lang = 1;
-
 	if(isset($_SESSION['neozorus']['u_language'])){
 		$lang = $_SESSION['neozorus']['u_language'];
 	}
 ?>
-
 
 <!DOCTYPE html>
 <html>
 <head>
 	<title>Règles du jeu</title>
 	<meta name="viewport" content="width=device-width" />
-	<link rel="stylesheet" media="screen" type="text/css" title="Exemple" href="./assets/css/ReglesHomeViewStyle.css"/>
+	<link rel="stylesheet" media="screen" type="text/css" title="Exemple" href="<?= CSS_PATH . DS . 'RulesViewStyle.css' ?>"/>
+	<script type="text/javascript" src="<?= JS_PATH . DS . 'jquery-3.2.1.min.js' ?>"></script>
+	<script src="<?= JS_PATH . DS . 'checkOrientation.js' ?>"></script>  
 	<?php include(FAVICON) ?>
-</head>
 <body>
-<header>
-		<div class="retouraccueil">
-			<?php include(MENU) ?>
-		</div>
-		<div class="bloc_logo">
-			<img class="logo" src="./assets/img/logoNeozorus.png" id="logoNeozorus">
-		</div>
-</header>
+
+	<header>
+		<a href=".?controller=home&action=display" title="Retour"><img src="<?= IMG_PATH . DS . 'logoNeozorus.png' ?>" id="logoNeozorus"></a>
+	</header>
 	
-	<div id="container">
+	<article>
 		<?php
 		if($reglesTrad = $lang == 1){
 		?>
 
 		<h1>Règles du jeu</h1>
 
-		<h2>Initialisation de la partie</h2>
+		<h3>Initialisation de la partie</h3>
 
 			<ul>
 				<li>Chacun des 2 joueurs choisit un héros</li>
 				<li>Chaque héros dispose de cartes qui lui sont propres.<br>
-				Chaque joueur créé un deck de 20 cartes parmis celles correspondant à son héros ou selectionne un deck sauvegardé. Un deck sauvegardé peu être modifié avant chaque partie.</li>
-				<li>Lorsque les 2 joueurs ont constitué ou selectionner leur deck, la partie peut commencer.</li>
+				Chaque joueur crée un deck de 20 cartes parmis celles correspondant à son héros ou selectionne un deck sauvegardé. Un deck sauvegardé peut être modifié avant chaque partie.</li>
+				<li>Lorsque les 2 joueurs ont constitué ou selectionné leur deck, la partie peut commencer.</li>
 			</ul>
 
-		<h2>Les cartes</h2>
+		<h3>Les cartes</h3>
 			
 			<p>Il existe 3 types de cartes :</p>
 			<ol>
@@ -53,7 +48,7 @@ $lang = 1;
 				Ce sont des cartes créatures ultra puissantes. Il en existe 1 par héros.</li>
 			</ol>
 
-		<h2>Début de partie</h2>
+		<h3>Début de partie</h3>
 
 			<p>Le joueur qui commence la partie est désigné aléatoirement.</p>
 			<ul>
@@ -63,7 +58,7 @@ $lang = 1;
 				Exemple : tour 1 : 1 mana, tour 2 : 2 manas, tour 3 : 3 manas...tour 10 : 10 manas).​ A la fin du tour, les points de ​mana non dépensés sont perdus.</li>
 			</ul>
 
-		<h2>Pendant la partie</h2>
+		<h3>Pendant la partie</h3>
 
 			<p>Les joueurs jouent l'un après l'autre.</p>
 			<ul>
@@ -82,7 +77,7 @@ $lang = 1;
 				<li>Le joueur termine son tour en appuyant sur le bouton en bas à droite avec l'image de l'adversaire</li>
 			</ul>
 
-		<h2>Fin de la partie</h2>
+		<h3>Fin de la partie</h3>
 
 			<p>La partie se termine si l'un des héros arrive à 0 point de vie ou si l'un des joueurs n'a plus de cartes à jouer.</p>
 			<?php
@@ -90,7 +85,7 @@ $lang = 1;
 		?>
 		<h1>Game's rules</h1>
 
-		<h2>Initialisation of the game</h2>
+		<h3>Initialisation of the game</h3>
 
 			<ul>
 				<li>Each of the two players pick a hero</li>
@@ -99,7 +94,7 @@ $lang = 1;
 				<li>When two players have created or selected a deck, the game can start.</li>
 			</ul>
 
-		<h2>The cards</h2>
+		<h3>The cards</h3>
 
 		<p>3 types of cards are available :</p>
 		<ol>
@@ -121,7 +116,7 @@ $lang = 1;
 				Example : round 1 : 1 mana, round 2 : 2 manas, round 3 : 3 manas ... round 10 : 10 manas. At the end of the round, the mana that weren't 	used 	are lost.</li>
 			</ul>
 
-		<h2>During the game</h2>
+		<h3>During the game</h3>
 
 			<p>The players play one after the other.</p>
 			<ul>
@@ -138,14 +133,14 @@ $lang = 1;
 				<li>The player end his round by pushing the button at the bottom right where is the picture of the enemy</li>
 			</ul>
 
-		<h2>End of the game</h2>
+		<h3>End of the game</h3>
 
 		<p>The game is over if one of the heroes lose all his lives or if one of the players doesn't have cards anymore.</p>
 
 		<?php
 	}
 		?>
-	</div>
+	</article>
 
 </body>
 </html>

@@ -12,9 +12,9 @@
 <nav id="bloc_menu">
 	<div><p>Menu</p>
 		<ul id="menu">
-			<a href=".?controller=home&action=affichagePageAccueil"><li><?= $linkHomeTrad ?></li>
+			<a href=".?controller=home&action=display"><li><?= $linkHomeTrad ?></li>
 			<a href=".?controller=carte&action=afficherCollectionCarte"><li><?=$linkCardsTrad?></li></a>
-			<a href=".?controller=home&action=affichagePageRegles"><li><?=$linkRulesTrad?></li></a>
+			<a href=".?controller=home&action=rules"><li><?=$linkRulesTrad?></li></a>
 			<a href="#"><li>Forum</li></a>
 			<?php
 			if(isset($_SESSION['neozorus']['u_id'])){			
