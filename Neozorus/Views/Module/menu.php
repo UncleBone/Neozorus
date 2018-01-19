@@ -3,26 +3,25 @@
 	if(isset($_SESSION['neozorus']['u_language'])){
 		$lang = $_SESSION['neozorus']['u_language'];
 	}
-	$linkCardsTrad = $lang == 1 ? 'Les cartes' : 'The Cards';
-	$linkRulesTrad = $lang == 1 ? 'Regles du jeu' : 'Game\'s rules';
-	$linkParametersTrad = $lang == 1 ? 'Parametres' : 'Parameters';
-	$linkDecoTrad = $lang == 1 ? 'Se deconnecter' : 'Deconnexion';
+	$linkHomeTrad = $lang == 1 ? 'Accueil' : 'Home';
+	$linkCardsTrad = $lang == 1 ? 'Les cartes' : 'Cards';
+	$linkRulesTrad = $lang == 1 ? 'Règles du jeu' : 'Game\'s rules';
+	$linkParametersTrad = $lang == 1 ? 'Paramètres' : 'Parameters';
+	$linkDecoTrad = $lang == 1 ? 'Se déconnecter' : 'Deconnexion';
 ?>
-<div class="bloc_menu">
-	<ul id="menu_jouer">
-		<li><a href="#">Menu</a>
-			<ul id="menu">
-				<li><?php include(ACCEUIL) ?></li>
-				<li><a href="index.php?controller=carte&action=afficherCollectionCarte"><?=$linkCardsTrad?></a></li>
-				<li><a href="index.php?controller=home&action=affichagePageRegles"><?=$linkRulesTrad?></a></li>
-				<li><a href="#">Forum</a></li>
-				<?php
-				if(isset($_SESSION['neozorus'])){			
-					echo '<li><a href="index.php?controller=parametersUser&action=affichageParametresUtilisateur">'.$linkParametersTrad.'</a></li>';
-					echo '<li><a href="index.php?controller=home&action=deconnexion">'.$linkDecoTrad.'</a></li>';
-				}
-				?>
-			</ul>
-		</li>
-	</ul>
-</div>
+<nav id="bloc_menu">
+	<div><p>Menu</p>
+		<ul id="menu">
+			<a href=".?controller=home&action=affichagePageAccueil"><li><?= $linkHomeTrad ?></li>
+			<a href=".?controller=carte&action=afficherCollectionCarte"><li><?=$linkCardsTrad?></li></a>
+			<a href=".?controller=home&action=affichagePageRegles"><li><?=$linkRulesTrad?></li></a>
+			<a href="#"><li>Forum</li></a>
+			<?php
+			if(isset($_SESSION['neozorus']['u_id'])){			
+				echo '<a href=".?controller=parametersUser&action=affichageParametresUtilisateur"><li>'.$linkParametersTrad.'</li></a>';
+				echo '<a href=".?controller=home&action=deconnexion"><li>'.$linkDecoTrad.'</li></a>';
+			}
+			?>
+		</ul>
+	</div>
+</nav>

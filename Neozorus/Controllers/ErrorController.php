@@ -26,7 +26,7 @@ class ErrorController extends CoreController{
 	 * Affiche un message d'erreur quand un utilisateur sans session tente d'acceder à une page
 	 */
 	public function noSession(){
-		header('Location:index.php?controller=user&action=connexion');
+		header('Location:.');
 	}
 
 	/**

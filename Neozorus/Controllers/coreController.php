@@ -38,7 +38,6 @@ class CoreController{
 	}
 
 
-
 	/**
 	 * test si il existe une session, sinon, on invoque le controller Error sur sa methode noSession 
 	 * @return boolean [description]

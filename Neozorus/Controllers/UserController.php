@@ -47,7 +47,7 @@ class UserController extends CoreController
 			$_SESSION['neozorus']['u_id'] = $check;
 			$_SESSION['neozorus']['u_language'] = $language;
 			unset($_SESSION['neozorus']['connexion']);
-			header("Location:.?controller=home&action=affichagePageAccueil");
+			header("Location:.?controller=home&action=display");
 			exit();
 		}
 	}

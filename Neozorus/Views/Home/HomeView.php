@@ -3,47 +3,51 @@
 	if(isset($_SESSION['neozorus']['u_language'])){
 		$lang = $_SESSION['neozorus']['u_language'];
 	}
-	$titleTrad = $lang == 1 ? 'Acceuil' : 'Home';
-	$helloTrad = $lang == 1 ? 'Bonjour ' : 'Hello ';
-	$buttonPlayTrad = $lang == 1 ? 'Jouer' : 'Play';
+	$titleTrad = $lang == 1 ? 'Accueil' : 'Home';
+	$helloTrad = $lang == 1 ? 'Bienvenue ' : 'Welcome ';
 ?>
 <!DOCTYPE html>
 <html>
 <head>
 	<title><?=$titleTrad?></title>
 	<meta name="viewport" content="width=device-width" />
-	<link rel="stylesheet" media="screen" type="text/css" title="Exemple" href="./assets/css/HomeViewStyle.css"/>
+	<script type="text/javascript" src="<?= JS_PATH . DS . 'jquery-3.2.1.min.js' ?>"></script>
+	<script src="<?= JS_PATH . DS . 'splitBackground.js' ?>"></script> <!-- script de mise en forme du background --> 
+	<link rel="stylesheet" media="screen" type="text/css" title="Exemple" href="<?= CSS_PATH . DS . 'HomeViewStyle.css' ?>"/>
 	<?php include(FAVICON) ?>
 </head>
 
 <body>
-<header>
-	<?php include(MENU) ?>
+	<section id="haut" class="haut_bas">
+		<img src="<?= IMG_PATH . DS . 'background_jungle.jpg' ?>" id="imageHaut">
+	</section>
 
-	<div class="bonjour">
-		<p><?=$helloTrad?><?=$user?></p>
-	</div>
-		<div class="bloc_logo">
-		<img class="logo" src="./assets/img/logoNeozorus.png" id="logoNeozorus">
-	</div>
-</header>
-<main>
-	<article>
-		<form method="GET" action="index.php">
-				<input type="hidden" name="controller" value="hero"  id="Jouer" />
-				<input type="hidden" name="action" value="affichageListeHero">
-				<input type="submit" value="<?=$buttonPlayTrad?>"  id="Jouer" />
-		</form>
-	</article>
+	<section id="bas" class="haut_bas">
+		<img src="<?= IMG_PATH . DS . 'background_matrix.jpg' ?>" id="imageBas">
+	</section>
 
-	<div class="liens_media_sociaux">
+	<!-- <main> -->
+		<header>
+			<?php include(MENU) ?>
+			<div class="welcome">
+				<p><?=$helloTrad?><?=$user?></p>
+			</div>
+		</header>
+
+		<nav id="logo">
+			<div id="btnDinos" class="btn">Les Dinos</div>
+			<img src="<?= IMG_PATH . DS . 'logoNeozorus.png' ?>" id="logoNeozorus">
+			<div id="btnMatrix" class="btn">La Matrice</div>
+		</nav>
+
+
 		<ul class="links">
-			<li><a href="#" alt="logo facebook"><img src="./assets/img/logo_facebook_matrix.png"></a></li>
-			<li><a href="#" alt="logo twitter"><img src="./assets/img/logo_twitter_matrix.png"></a></li>
-			<li><a href="#" alt="logo youtube"><img src="./assets/img/logo_youtube_matrix.png"></a></li>
+			<li><a href="#" alt="logo facebook" title="Facebook"><img src="<?= IMG_PATH . DS . 'logo_facebook_matrix.png' ?>"></a></li>
+			<li><a href="#" alt="logo twitter" title="Twitter"><img src="<?= IMG_PATH . DS . 'logo_twitter_matrix.png' ?>"></a></li>
+			<li><a href="#" alt="logo youtube" title="YouTube"><img src="<?= IMG_PATH . DS . 'logo_youtube_matrix.png' ?>"></a></li>
 		</ul>
 
-	</div>
-</main>
+
+	<!-- </main> -->
 </body>
 </html>

@@ -5,12 +5,6 @@
 			src:url('../font/fira-code/FiraCode-Medium.otf');
 		}
 
-		@font-face
-		{
-			font-family: 'godzilla';
-			src:url('../font/godzilla/Godzilla.ttf');
-		}
-
 		body
 		{
 			margin: 0;

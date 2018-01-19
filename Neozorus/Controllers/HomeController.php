@@ -5,13 +5,13 @@ class HomeController extends CoreController{
 	/**
 	 * Génère une page d'acceuil personnalisé si l'authentification d'un utilisateur a réussi
 	 */
-	public function affichagePageAccueil(){
+	public function display(){
 		$this->isSessionNeozorus();
 		$userID = $this->session;
 		$model = new HomeModel();
 		if(!empty($userData = $model->verifyUser($userID))){
 			$user = $userData -> getU_pseudo();
-			include('./Views/Home/HomeView.php');
+			include(VIEWS_PATH . DS . 'Home' . DS . 'HomeView.php');
 		}
 	}
 
