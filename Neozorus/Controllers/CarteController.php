@@ -46,15 +46,15 @@ class CarteController extends CoreController{
 		}
 		else{
 			//Si c'est une requete ajax, on va regarder les différents filtres
-			$idHero = htmlentities($this->parameters['idHero']) == 'null' ? null : htmlentities($this->parameters['idHero']);
-			$type = htmlentities($this->parameters['type']) == 'null' ? null : htmlentities($this->parameters['type']);
-			$mana = htmlentities($this->parameters['mana']) == 'null' ? null : htmlentities($this->parameters['mana']);
-			$idPouvoir = htmlentities($this->parameters['idPouvoir']) == 'null' ? null : htmlentities($this->parameters['idPouvoir']);
+			$idHero = $this->parameters['idHero'] == 'null' ? null : $this->parameters['idHero'];
+			$type = $this->parameters['type'] == 'null' ? null : $this->parameters['type'];
+			$mana = $this->parameters['mana'] == 'null' ? null : $this->parameters['mana'];
+			$idPouvoir = $this->parameters['idPouvoir'] == 'null' ? null : $this->parameters['idPouvoir'];
 			$tri = 'c_mana';//par defaut les cartes sont trié par cout en mana
-			if(htmlentities($this->parameters['tri']) == 'valPuissance'){
+			if($this->parameters['tri'] == 'valPuissance'){
 				$tri = 'c_puissance';
 			}
-			else if(htmlentities($this->parameters['tri']) == 'valVitalite'){
+			else if($this->parameters['tri'] == 'valVitalite'){
 				$tri = 'c_pvMax';
 			}
 			$model = new CarteModel();
