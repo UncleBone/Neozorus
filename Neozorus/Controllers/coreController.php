@@ -18,7 +18,9 @@ class CoreController{
 	 * @param array $parameters Contient les données reçues en GET
 	 */
 	public function setParameters(array $parameters){
-		$this->parameters = $parameters;
+		foreach ($parameters as $key => $value) {
+			$this->parameters[$key] = htmlentities($value);
+		}
 	}
 
 	/**
@@ -26,7 +28,9 @@ class CoreController{
 	 * @param array $data Contient les données reçues en POST
 	 */
 	public function setData(array $data){
-		$this->data = $data;
+		foreach ($data as $key => $value) {
+			$this->data[$key] = htmlentities($value);
+		}
 	}
 
 	/**
@@ -34,7 +38,9 @@ class CoreController{
 	 * @param array $session Contient les données reçues en SESSION
 	 */
 	public function setSession(array $session){
-		$this->session = $session;
+		foreach ($session as $key => $value) {
+			$this->session[$key] = htmlentities($value);
+		}
 	}
 
 
