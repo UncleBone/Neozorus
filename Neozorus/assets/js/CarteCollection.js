@@ -1,9 +1,9 @@
 $(function(){
-	//fonction aui affiche aune aura au survol d'une carte
+	//fonction qui affiche aune aura au survol d'une carte
 	function cardStyle(card){
 		$(card).toggleClass('hoverCard');
 	}
-	//permet de cliker sur une image pour l'agrandir
+	//permet de cliker sur une image pour l'aggrandir
 	function callback(){
 		//on recupere toutes nos images et on applique une aura au survol
 		$('.mesGabarits img').hover(function(){
@@ -55,5 +55,5 @@ $(function(){
 		$('.affichageCarte').load('index.php?controller=carte&action=afficherCollectionCarte&ajax=1&idHero='+idHero+'&type='+type+'&mana='+coutMana+'&idPouvoir='+idPouvoir+'&tri='+tri,callback);
 	})
 	//Requete Ajax au chargement de la page , affiche toutes les cartes sans filtre par defaut
-	$('.affichageCarte').load('index.php?controller=carte&action=afficherCollectionCarte&ajax=1&idHero=null&type=null&mana=null&idPouvoir=null&tri=valMana',callback);
+	// $('.affichageCarte').load('index.php?controller=carte&action=afficherCollectionCarte&ajax=1&idHero=null&type=null&mana=null&idPouvoir=null&tri=valMana',callback);
 });

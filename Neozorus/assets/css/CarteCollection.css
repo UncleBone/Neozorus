@@ -1,9 +1,9 @@
 /*******************************DECLARATION DES POLICES****************************************/
 @font-face
-		{
-			font-family: 'army_rangers';
-			src:url('../font/army_rangers/armyrangers.ttf');
-		}
+{
+	font-family: 'army_rangers';
+	src:url('../font/army_rangers/armyrangers.ttf');
+}
 
 @font-face
 {
@@ -14,14 +14,35 @@
 @font-face
 {
 	font-family: 'godzilla';
-	src:url('../font/army_rangers/Godzilla.ttf');
+	src:url('../font/godzilla/Godzilla.ttf');
 }
 /*************************ILLUSTRATION DE LA PAGE*****************************************************/
-.theme{
+/*.theme{
 	background-image: url("../img/fond_mixte.png");
 }
-
+*/
 /*************************GENERAL*****************************************************/
+body
+{
+  margin: 0;
+  overflow: hidden;
+  background-image: url('../img/fond_mixte.png');
+  background-size: 100vw 100vh;
+  background-repeat: no-repeat;
+  font-size: 15px;
+  font-family: 'fira_code', Verdana;
+}
+
+body *
+{
+  box-sizing: border-box;
+}
+
+p
+{
+  margin: 0;
+}
+
 body, a, a:visited{
 	color:white;
 }
@@ -33,31 +54,119 @@ a, a:visited{
 a:hover{
 	color:#D04F4F;
 }
-
+/*
 h1{
 	text-align: center;
 	font-family: 'godzilla';
 	font-size: 75px;
 	margin:20px 0px;
 	text-shadow: 3px 3px 3px #E41F2D ;
+}*/
+ul
+{
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
 }
 
-/*************************BLOC MENU*****************************************************/
-#conteneur{
+/*************************HEADER***************************/
+
+header
+{
+  position: absolute;
+  top: 0;
+  width: 100%;
+  font-size: 1.2rem;
+  font-family: "fira_code", Verdana;
+  text-align: center;
+  animation: slideDown;
+  animation-duration: 2s;
+}
+
+header h1, #bloc_menu
+{
+	position: absolute;
+	top: 20px;
+	width: 20vw;
+	min-width: 200px;
+	z-index: 1;
+}
+header h1
+{
+  right: 20px;
+  font-size: 1.2rem;
+  margin: 0;
+  /*font-family: godzilla;*/
+}
+
+#bloc_menu
+{
+  left: 20px;
+  cursor: pointer;
+}
+
+#bloc_menu p, #bloc_menu li, header h1
+{
+  padding: 10px;
+  background-color: rgba(0,0,0,0.7);
+  color: rgb(194,210,1); 
+}
+#bloc_menu li
+{
+  padding: 5px;
+  margin-top: 2px; 
+  text-align: left;
+  font-size: 1em;
+  transition: all 0.5s;
+}
+#bloc_menu li:hover
+{
+  transform: translateX(20px);
+  color: white;
+}
+#bloc_menu div ul
+{
+  max-height:0;
+  overflow: hidden;
+  transition: all 1s;
+}
+#bloc_menu div:hover ul
+{
+  max-height:100vh;
+}
+#logoNeozorus
+{
+  position: relative;
+  /*width: 30vw;*/
+  /*min-width: 390px;*/
+  height: 100px;
+  /*transition: 1s;*/
+  z-index: 1;
+}
+
+/*#logoNeozorus:hover
+{
+  transform: rotate(2deg);
+}*/
+/*************************BLOC SELECT*****************************************************/
+/*#conteneur{
 	display: flex;
 	flex-direction: row;
 	width: 100%;
-}
-#menu{
+}*/
+#filter{
+	position: absolute;
+	top: 20vh;
+	right: 20px;
 	text-align: center;
-	width: 30%;
-	height: 100%;
+	width: 20vw;
+	height: 75vh;
 	font-family: 'godzilla';
-	font-size: 30px;
+	font-size: 1rem;
 	background-color: rgba(0, 0, 0, 0.80);
 }
 
-#menu select{
+#filter select{
 	position: relative;
 	top: -7px;
 	height: 35px;
@@ -72,17 +181,35 @@ h1{
 	text-align: center;
 }
 
-#menu th{
+#filter th{
 	text-align: right;
 }
 /*************************BLOC AFFICHAGE CARTE*****************************************************/
+.carte
+{
+	display: inline-block;
+	width: 20%;
+	min-width: 150px;
+	margin: 10px;
+}
+.carte img
+{
+	max-width: 100%;
+}
 .affichageCarte{
-	display: flex;
+	position: absolute;
+	top: 20vh;
+	left: 20px;
+	background-color: rgba(0, 0, 0, 0.80);
+	/*display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
-	justify-content: center;
-	align-items: flex-start;
-	width: 70%;
+	justify-content: space-around;*/
+	/*align-items: flex-start;*/
+	width: 75%;
+	height: 75vh;
+	overflow: auto;
+	padding: 10px;
 }
 
 .mesGabarits{
@@ -309,7 +436,7 @@ h1{
 		padding: 0;
 	}
 	h1{
-		font-size: 30px;
+		/*font-size: 30px;*/
 	}
 	.bloc_menu{
       display: none;

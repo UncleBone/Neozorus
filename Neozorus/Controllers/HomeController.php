@@ -7,6 +7,7 @@ class HomeController extends CoreController{
 	 */
 	public function display(){
 		$this->isSessionNeozorus();
+		$title = 'Home';
 		$userID = $this->session;
 		$model = new HomeModel();
 		if(!empty($userData = $model->verifyUser($userID))){

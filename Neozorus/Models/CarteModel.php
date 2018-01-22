@@ -73,7 +73,10 @@ class CarteModel extends CoreModel{
 		$filterMana = $mana == null ? '' : 'AND c_mana=:mana';
 		$filterPouvoir = $pouvoir == null ? '' : 'AND a_id=:pouvoir';
 
-		$sql ='SELECT DISTINCT carte.* FROM carte LEFT JOIN  c_a_inclure ON c_id = c_a_carte_fk LEFT JOIN abilite ON c_a_abilite_fk=a_id '.$filterHero.' '.$filterType.' '.$filterMana.' '.$filterPouvoir.' ORDER BY '.$tri;
+		// $sql ='SELECT DISTINCT carte.* FROM carte LEFT JOIN  c_a_inclure ON c_id = c_a_carte_fk LEFT JOIN abilite ON c_a_abilite_fk=a_id '.$filterHero.' '.$filterType.' '.$filterMana.' '.$filterPouvoir.' ORDER BY '.$tri;
+		$sql ='SELECT DISTINCT carte.* FROM carte 
+				LEFT JOIN  c_a_inclure ON c_id = c_a_carte_fk 
+				LEFT JOIN abilite ON c_a_abilite_fk=a_id '.$filterHero.' '.$filterType.' '.$filterMana.' '.$filterPouvoir.' ORDER BY '.$tri;
 
 		$params = array();
 		if($idHero != null){
