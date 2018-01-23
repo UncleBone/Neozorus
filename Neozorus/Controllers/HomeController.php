@@ -20,7 +20,18 @@ class HomeController extends CoreController{
 	 * Affiche la page des régles du jeu
 	 */
 	public function rules(){
+		$title = 'Règles du jeu';
+
+		$lang = 1;
+		if(isset($_SESSION['neozorus']['u_language'])){
+			$lang = $_SESSION['neozorus']['u_language'];
+		}
+
+		ob_start();
 		include(VIEWS_PATH . DS . 'Home' . DS . 'RulesView.php');
+		$view = ob_get_contents();
+		ob_clean();
+		include(VIEWS_PATH . DS . 'Home' . DS . 'Layout_CardsAndRules.php');
 	}
 	
 	/**

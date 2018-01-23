@@ -1,24 +1,10 @@
-<?php
-	$lang = 1 ;
-	if(isset($_SESSION['neozorus']['u_language'])){
-		$lang = $_SESSION['neozorus']['u_language'];
-	}
-	$titleTrad = $lang == 1 ? 'Les cartes' : 'The Cards';
-		$helloTrad = $lang == 1 ? 'Bonjour ' : 'Hello ';
-	$buttonPlayTrad = $lang == 1 ? 'Jouer' : 'Play';
-	$filterTitleTrad = $lang == 1 ? 'Filtrer par:' : 'Filter by:';
-	$labelManaTrad = $lang == 1 ? 'Cout en mana:' : 'Mana cost:';
-	$labelAbilityTrad = $lang == 1 ? 'Pouvoir:' : 'Ability:';
-	$labelOrderByTrad = $lang == 1 ? 'Trier par:' : 'Order by:';
-	$powerTrad = $lang == 1 ? 'Puissance' : 'Power';
-	$vitalityTrad = $lang == 1 ? 'Vitalite' : 'Vitality';
-?>
 <!DOCTYPE html>
 <html class="theme">
 <head>
-	<title><?=$titleTrad?></title>
+	<title><?= $title ?></title>
 	<meta charset="utf-8">
-	<link rel="stylesheet" type="text/css" href="assets/css/CarteCollection.css">
+	<!-- <link rel="stylesheet" type="text/css" href="assets/css/CarteCollection.css"> -->
+	<link rel="stylesheet" media="screen" type="text/css" title="Exemple" href="<?= CSS_PATH . DS . 'Home_CardsAndRules.css' ?>"/>
 	<script type="text/javascript" src="./assets/js/jquery-3.2.1.min.js"></script>
 	<script type="text/javascript" src="./assets/js/CarteCollection.js"></script>
 	<meta name="viewport" content="width=device-width" />
@@ -28,7 +14,7 @@
 	<header>
 		<?php include(MENU) ?>
 		<img src="<?= IMG_PATH . DS . 'logoNeozorus.png' ?>" id="logoNeozorus">
-		<h1><?=$titleTrad?></h1>
+		<h1> - <?=$titleTrad?> - </h1>
 	</header>
 
 	<main>
@@ -45,9 +31,9 @@
 		</div>
 		<div><hr></div>
 		<div id="logo">
-			<img src="<?= IMG_PATH . DS . 'gabarit' . DS . 'logo' . DS .  'logoCreature_1.png' ?>">
-			<img src="<?= IMG_PATH . DS . 'gabarit' . DS . 'logo' . DS .  'logoSort_1.png' ?>">
-			<img src="<?= IMG_PATH . DS . 'gabarit' . DS . 'logo' . DS .  'logoSpeciale_1.png' ?>">
+			<img src="<?= IMG_PATH . DS . 'gabarit' . DS . 'logo' . DS .  'logoCreature_3.png' ?>">
+			<img src="<?= IMG_PATH . DS . 'gabarit' . DS . 'logo' . DS .  'logoSort_3.png' ?>">
+			<img src="<?= IMG_PATH . DS . 'gabarit' . DS . 'logo' . DS .  'logoSpeciale_3.png' ?>">
 		</div>
 		<div><hr></div>
 		<ul id="mana">

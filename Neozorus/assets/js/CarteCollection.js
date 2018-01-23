@@ -1,8 +1,8 @@
 $(function(){
 	//fonction qui affiche aune aura au survol d'une carte
-	function cardStyle(card){
-		$(card).toggleClass('hoverCard');
-	}
+	// function cardStyle(card){
+	// 	$(card).toggleClass('hoverCard');
+	// }
 	//permet de cliker sur une image pour l'aggrandir
 	function callback(){
 		//on recupere toutes nos images et on applique une aura au survol

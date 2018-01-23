@@ -1,25 +1,4 @@
-<?php
-$lang = 1;
-	if(isset($_SESSION['neozorus']['u_language'])){
-		$lang = $_SESSION['neozorus']['u_language'];
-	}
-?>
 
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Règles du jeu</title>
-	<meta name="viewport" content="width=device-width" />
-	<link rel="stylesheet" media="screen" type="text/css" title="Exemple" href="<?= CSS_PATH . DS . 'RulesViewStyle.css' ?>"/>
-	<script type="text/javascript" src="<?= JS_PATH . DS . 'jquery-3.2.1.min.js' ?>"></script>
-	<script src="<?= JS_PATH . DS . 'checkOrientation.js' ?>"></script>  
-	<?php include(FAVICON) ?>
-<body>
-
-	<header>
-		<a href=".?controller=home&action=display" title="Retour"><img src="<?= IMG_PATH . DS . 'logoNeozorus.png' ?>" id="logoNeozorus"></a>
-	</header>
-	
 	<article>
 		<?php
 		if($reglesTrad = $lang == 1){
@@ -142,5 +121,3 @@ $lang = 1;
 		?>
 	</article>
 
-</body>
-</html>
