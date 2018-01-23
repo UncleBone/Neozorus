@@ -65,6 +65,23 @@ ul
   padding: 0;
 }
 
+main
+{
+	animation: fadeIn;
+	animation-duration: 2s;
+}
+
+@keyframes fadeIn
+{
+  0%
+  {
+    opacity: 0;
+  }
+  100%
+  {
+    opacity: 1;
+  }
+}
 /*************************HEADER***************************/
 
 header
@@ -145,7 +162,7 @@ header h1
   transform: rotate(2deg);
 }*/
 
-/****************************** Texte ******************************/
+/****************************** Règles ******************************/
 
 article
 {
@@ -161,8 +178,7 @@ article
   background-color: rgba(0,0,0,0.7);
   color: rgb(194,210,1);
   font-size: 1.2em;
-  animation: fadeIn;
-  animation-duration: 2s;
+  
 }
 article ul
 {
@@ -170,17 +186,7 @@ article ul
   list-style-type: circle;
 }
 
-@keyframes fadeIn
-{
-  0%
-  {
-    opacity: 0;
-  }
-  100%
-  {
-    opacity: 1;
-  }
-}
+
 
 /****************************** Responsive ******************************/
 
@@ -294,7 +300,7 @@ article ul
 /*	background-color: rgb(50,50,50);
 	border-color: rgb(200,200,200);
 	color: rgb(200,200,200);*/
-#logo
+#type
 {
 	margin-top: 20px;
 	/*position: absolute;
@@ -302,7 +308,7 @@ article ul
 	bottom: 0;
 	width: 50%;*/
 }
-#logo img
+#type img
 {
 	width: 20%;
 	margin: 10px;

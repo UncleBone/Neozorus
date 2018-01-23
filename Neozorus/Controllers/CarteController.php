@@ -30,12 +30,12 @@ class CarteController extends CoreController{
 			//Si ce n'est pas une requete ajax, on va chercher dans la BDD toutes les cartes. Le nombre de types de carte differents, les différents coûts en mana des cartes, le nombre de heros différents ainsi que le nombre de pouvoirs différents qui vont nous servir à créer des select
 			$carteModel = new CarteModel();
 			$mesCartes = $carteModel -> GetCartesByFilter();
-			$mesTypes = $carteModel -> GetType();
-			$mesCoutsMana = $carteModel -> GetCoutMana();
-			$mesPouvoirs = $carteModel -> GetPouvoirs();
+			// $mesTypes = $carteModel -> GetType();
+			// $mesCoutsMana = $carteModel -> GetCoutMana();
+			// $mesPouvoirs = $carteModel -> GetPouvoirs();
 
-			$heroModel = new HeroModel();
-			$mesHeros = $heroModel -> GetListHeros();
+			// $heroModel = new HeroModel();
+			// $mesHeros = $heroModel -> GetListHeros();
 
 			$lang = 1 ;
 			if(isset($_SESSION['neozorus']['u_language'])){
@@ -60,22 +60,22 @@ class CarteController extends CoreController{
 		}
 		else{
 			//Si c'est une requete ajax, on va regarder les différents filtres
-			$idHero = $this->parameters['idHero'] == 'null' ? null : $this->parameters['idHero'];
-			$type = $this->parameters['type'] == 'null' ? null : $this->parameters['type'];
-			$mana = $this->parameters['mana'] == 'null' ? null : $this->parameters['mana'];
-			$idPouvoir = $this->parameters['idPouvoir'] == 'null' ? null : $this->parameters['idPouvoir'];
+			$team = empty($this->parameters['team']) ? null : $this->parameters['team'];
+			$type = empty($this->parameters['type']) ? null : $this->parameters['type'];
+			$mana = empty($this->parameters['mana']) ? null : $this->parameters['mana'];
+			$idPouvoir = empty($this->parameters['idPouvoir']) == 'null' ? null : $this->parameters['idPouvoir'];
 			$tri = 'c_mana';//par defaut les cartes sont trié par cout en mana
-			if($this->parameters['tri'] == 'valPuissance'){
-				$tri = 'c_puissance';
-			}
-			else if($this->parameters['tri'] == 'valVitalite'){
-				$tri = 'c_pvMax';
-			}
+			// if($this->parameters['tri'] == 'valPuissance'){
+			// 	$tri = 'c_puissance';
+			// }
+			// else if($this->parameters['tri'] == 'valVitalite'){
+			// 	$tri = 'c_pvMax';
+			// }
 			$model = new CarteModel();
-			$mesCartes = $model->GetCartesByFilter($idHero, $type, $mana, $idPouvoir, $tri);
+			$mesCartes = $model->GetCartesByFilter($team, $type, $mana, $idPouvoir, $tri);
 			//on génère la view à injecter dans la page
 			// include(VIEWS_PATH . DS . 'Carte' . DS . 'FilterView.php');
-			include(VIEWS_PATH . DS . 'Carte' . DS . 'CardsView.php');
+			include(VIEWS_PATH . DS . 'Carte' . DS . 'CardsFiltered.php');
 		}
 	}
 }

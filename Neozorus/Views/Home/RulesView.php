@@ -1,4 +1,4 @@
-
+<main>
 	<article>
 		<?php
 		if($reglesTrad = $lang == 1){
@@ -108,7 +108,7 @@
 				<li>An active creature can decide to attack the adverse hero or an enemy creature</li>
 				<li>If a hero or a creature was attacked , its/his lives decrease depending on the attack score of the creature who attacked before</li>
 				<li>A creature can attack only one time during a round</li>
-				<li>The creatures type shield attract the adverse attacks so they protect the hero and the creatures of this hero from the enemy's attack</	li>
+				<li>The creatures type shield attract the adverse attacks so they protect the hero and the creatures of this hero from the enemy's attack</li>
 				<li>The player end his round by pushing the button at the bottom right where is the picture of the enemy</li>
 			</ul>
 
@@ -120,4 +120,4 @@
 	}
 		?>
 	</article>
-
+</main>
