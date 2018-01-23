@@ -82,6 +82,46 @@ main
     opacity: 1;
   }
 }
+
+@keyframes oscillate_3
+{
+  0%
+  {
+    transform: rotate(0deg);
+  }
+  25%
+  {
+    transform: rotate(3deg);
+  }
+  75%
+  {
+    transform: rotate(-3deg);
+  }
+  100%
+  {
+     transform: rotate(0deg);
+  }
+}
+
+@keyframes oscillate_5
+{
+  0%
+  {
+    transform: rotate(0deg);
+  }
+  25%
+  {
+    transform: rotate(5deg);
+  }
+  75%
+  {
+    transform: rotate(-5deg);
+  }
+  100%
+  {
+     transform: rotate(0deg);
+  }
+}
 /*************************HEADER***************************/
 
 header
@@ -273,12 +313,16 @@ article ul
 	font-family: 'army_rangers',Verdana;
 	font-size: 1.2em;
 	cursor: pointer;
-	transition: 1s;
+	transition: hover 1s;
 	background-color: rgb(50,50,50);
 	border-color: rgb(200,200,200);
 	color: rgb(200,200,200);
 }
-
+.btn.selected
+{
+	color: white;
+	border-color: white;
+}
 #btnDinos.selected
 {
   background-color: #d80c0f;
@@ -287,16 +331,22 @@ article ul
 {
   background-color: #005b7f;
 }
-#btnDinos:hover
+.btn:hover
 {
-	color: #d80c0f;
-	background-color: white;
+	animation: oscillate_3;
+	animation-duration: 0.5s;
 }
-#btnMatrix:hover
+.btn:active
+{
+	background-color: white;
+	color: white;
+	border-color: white;
+}
+/*#btnMatrix:hover
 {
 	color: #005b7f;
 	background-color: white;
-}
+}*/
 /*	background-color: rgb(50,50,50);
 	border-color: rgb(200,200,200);
 	color: rgb(200,200,200);*/
@@ -312,6 +362,11 @@ article ul
 {
 	width: 20%;
 	margin: 10px;
+}
+#type img:hover, #mana li:hover img
+{
+	animation: oscillate_5;
+	animation-duration: 0.5s;
 }
 #mana
 {
