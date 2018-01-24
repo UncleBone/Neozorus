@@ -136,7 +136,7 @@ header
   animation-duration: 2s;
 }
 
-header h1, #bloc_menu
+header h1, #bloc_menu, header nav
 {
 	position: absolute;
 	top: 20px;
@@ -152,13 +152,13 @@ header h1
   /*font-family: godzilla;*/
 }
 
-#bloc_menu
+#bloc_menu, header nav
 {
   left: 20px;
   cursor: pointer;
 }
 
-#bloc_menu p, #bloc_menu li, header h1
+#bloc_menu p, #bloc_menu li, header h1, header nav
 {
   padding: 10px;
   background-color: rgba(0,0,0,0.7);
@@ -342,22 +342,6 @@ article ul
 	color: white;
 	border-color: white;
 }
-/*#btnMatrix:hover
-{
-	color: #005b7f;
-	background-color: white;
-}*/
-/*	background-color: rgb(50,50,50);
-	border-color: rgb(200,200,200);
-	color: rgb(200,200,200);*/
-#type
-{
-	margin-top: 20px;
-	/*position: absolute;
-	right: 0;
-	bottom: 0;
-	width: 50%;*/
-}
 #type img
 {
 	width: 20%;
@@ -370,11 +354,6 @@ article ul
 }
 #mana
 {
-	margin-top: 20px;
-	/*position: absolute;
-	left: 0;
-	bottom: 0;
-	width: 50%;*/
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
@@ -383,31 +362,16 @@ article ul
 #mana img
 {
 	width: 20px;
-	/*margin: 0 10px;*/
-}
-#mana li
-{
-	/*width: 50px;*/
 }
 
 /*************************BLOC AFFICHAGE CARTE*****************************************************/
-.carte
-{
-	display: inline-block;
-	width: 20%;
-	min-width: 150px;
-	margin: 10px;
-}
-.carte img
-{
-	max-width: 100%;
-}
+
 .affichageCarte{
 	position: absolute;
 	top: 20vh;
 	left: 20px;
 	background-color: rgba(0, 0, 0, 0.80);
-	/*display: flex;
+/*	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
 	justify-content: space-around;*/
@@ -418,12 +382,58 @@ article ul
 	padding: 10px;
 }
 
-.mesGabarits{
-	margin: 0.5px 10px;
+.carte
+{
+	display: inline-block;
+	width: 150px;
+	margin: 10px;
+	position: relative;
 }
 
-.mesGabarits img{
-	width: 150px;
+.carte img
+{
+	max-width: 100%;
+}
+
+.carte span
+{
+	position: absolute;
+	font-family: godzilla, Verdana;
+	z-index: 1;
+}
+
+.carte.creature span.pv, .carte.sort span.puissance
+{
+	top: 29px;
+	left: 49px;
+}
+.carte.creature span.puissance, .carte.sort span.manaCost
+{
+	top: 54px;
+	left: 31px;
+/*	color: red;*/
+}
+.carte.creature span.manaCost
+{
+	top: 84px;
+	left: 24px;
+	/*color: red;*/
+}
+.carte.speciale span
+{
+	left: 22px;
+}
+.carte.speciale span.pv
+{
+	top: 15px;
+}
+.carte.speciale span.puissance
+{
+	top: 40px;
+}
+.carte.speciale span.manaCost
+{
+	top: 64px;
 }
 
 .hoverCard{

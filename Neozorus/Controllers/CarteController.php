@@ -30,12 +30,6 @@ class CarteController extends CoreController{
 			//Si ce n'est pas une requete ajax, on va chercher dans la BDD toutes les cartes. Le nombre de types de carte differents, les différents coûts en mana des cartes, le nombre de heros différents ainsi que le nombre de pouvoirs différents qui vont nous servir à créer des select
 			$carteModel = new CarteModel();
 			$mesCartes = $carteModel -> GetCartesByFilter();
-			// $mesTypes = $carteModel -> GetType();
-			// $mesCoutsMana = $carteModel -> GetCoutMana();
-			// $mesPouvoirs = $carteModel -> GetPouvoirs();
-
-			// $heroModel = new HeroModel();
-			// $mesHeros = $heroModel -> GetListHeros();
 
 			$lang = 1 ;
 			if(isset($_SESSION['neozorus']['u_language'])){
@@ -65,16 +59,10 @@ class CarteController extends CoreController{
 			$mana = empty($this->parameters['mana']) ? null : $this->parameters['mana'];
 			$idPouvoir = empty($this->parameters['idPouvoir']) == 'null' ? null : $this->parameters['idPouvoir'];
 			$tri = 'c_mana';//par defaut les cartes sont trié par cout en mana
-			// if($this->parameters['tri'] == 'valPuissance'){
-			// 	$tri = 'c_puissance';
-			// }
-			// else if($this->parameters['tri'] == 'valVitalite'){
-			// 	$tri = 'c_pvMax';
-			// }
+
 			$model = new CarteModel();
 			$mesCartes = $model->GetCartesByFilter($team, $type, $mana, $idPouvoir, $tri);
-			//on génère la view à injecter dans la page
-			// include(VIEWS_PATH . DS . 'Carte' . DS . 'FilterView.php');
+
 			include(VIEWS_PATH . DS . 'Carte' . DS . 'CardsFiltered.php');
 		}
 	}

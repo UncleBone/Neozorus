@@ -17,7 +17,8 @@
 <body>
 
 	<header>
-		<?php include(MENU) ?>
+		<!-- <?php include(MENU) ?> -->
+		<a href="."><nav>Retour</nav></a>
 		<img src="<?= IMG_PATH . DS . 'logoNeozorus.png' ?>" id="logoNeozorus">
 		<h1> - <?= $title ?> - </h1>
 	</header>
