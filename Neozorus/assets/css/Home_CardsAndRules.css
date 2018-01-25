@@ -190,8 +190,12 @@ article ul
 
 #type img
 {
-	width: 20%;
+/*	width: 20%;
+	height: auto;*/
+	width: 3.5vw;
+	height: 3.5vw;
 	min-width: 40px;
+	min-height: 40px;
 	margin: 10px;
 }
 #type img:hover, #mana li:hover img
@@ -422,6 +426,7 @@ article ul
 	#type img
 	{
 		width: 6vh;
+		height: 6vh;
 	}
 	#mana li
 	{
@@ -491,7 +496,7 @@ article ul
 	}
 }
 
-@media (max-height: 650px)
+@media (max-height: 650px) and (max-width: 800px)
 {
 	#filter
 	{
@@ -515,7 +520,7 @@ article ul
 	}
 }
 
-@media (max-height: 500px)
+@media (max-height: 500px) and (max-width: 1200px)
 {
 	header nav, header h1
 	{
@@ -560,6 +565,7 @@ article ul
 	#type img
 	{
 		min-width: 35px;
+		min-height: 35px;
 	}
 	#mana img
 	{
@@ -567,7 +573,7 @@ article ul
 	}
 }
 
-@media (max-height: 350px)
+@media (max-height: 350px) and (max-width: 1200px)
 {
 	#logoNeozorus
 	{
