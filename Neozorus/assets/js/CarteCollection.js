@@ -28,7 +28,7 @@ $(function(){
 		$('#filter').find('.selected').each(function(){
 			parameters += '&' + $(this).parent().attr('id') + '=' + $(this).attr('data');
 		});
-		$('.affichageCarte').load('.?controller=carte&action=afficherCollectionCarte&ajax=1'+parameters,zoom);
+		$('#cartes').load('.?controller=carte&action=afficherCollectionCarte&ajax=1'+parameters,zoom);
 
 		styleFilters();
 	}
@@ -105,7 +105,7 @@ $(function(){
 			newDiv.css('position', 'absolute');
 			newDiv.css('top', '20vh');
 			if(leftOrigin < $(window).width()/2){
-				newDiv.css('left', parseInt(leftOrigin+300)+'px');
+				newDiv.css('left', parseInt(leftOrigin+250)+'px');
 			}else{
 				newDiv.css('left', parseInt(leftOrigin-300)+'px');
 			}

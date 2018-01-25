@@ -4,7 +4,7 @@
 		if($reglesTrad = $lang == 1){
 		?>
 
-		<h1>Règles du jeu</h1>
+		<!-- <h1>Règles du jeu</h1> -->
 
 		<h3>Initialisation de la partie</h3>
 

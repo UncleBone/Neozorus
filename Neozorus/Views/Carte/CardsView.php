@@ -1,7 +1,7 @@
 
 <main>
 
-	<div class="affichageCarte">
+	<div id="cartes">
 		
 		<?php
 		include(VIEWS_PATH . DS . 'Carte' . DS . 'CardsFiltered.php')
