@@ -328,6 +328,46 @@ article ul
 	top: 128px;
 }
 
+.zoom_200 span
+{
+	position: absolute;
+	font-family: godzilla, Verdana;
+	font-size: 1.3rem;
+	z-index: 1;
+}
+
+.zoom_200.creature span.pv, .zoom_200.sort span.puissance
+{
+	top: 40px;
+	left: 65px;
+}
+.zoom_200.creature span.puissance, .zoom_200.sort span.manaCost
+{
+	top: 72px;
+	left: 41px;
+}
+.zoom_200.creature span.manaCost
+{
+	top: 112px;
+	left: 32px;
+}
+.zoom_200.speciale span
+{
+	left: 30px;
+}
+.zoom_200.speciale span.pv
+{
+	top: 22px;
+}
+.zoom_200.speciale span.puissance
+{
+	top: 54px;
+}
+.zoom_200.speciale span.manaCost
+{
+	top: 86px;
+}
+
 /************************************Animations*********************************/
 
 @keyframes fadeIn
@@ -388,14 +428,12 @@ article ul
 {
 	#cartes
 	{
-		/*top: 25vh;*/
 		left: 2vw;
 		width: 96vw;
 		height: 70vh;
 	}
 	#filter
 	{
-		/*top: 13vh;*/
 		bottom: 75vh;
 		left: 2vw;
 		width: 96vw;

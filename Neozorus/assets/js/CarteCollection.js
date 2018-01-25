@@ -103,22 +103,33 @@ $(function(){
 			newDiv.append(newSpanPuissance);
 			newDiv.append(newSpanMana);
 			newDiv.css('position', 'absolute');
-			newDiv.css('top', '20vh');
-			if(leftOrigin < $(window).width()/2){
-				newDiv.css('left', parseInt(leftOrigin+250)+'px');
+			if(parseInt(leftOrigin+target.width()/2) < $(window).width()/2){
+				newDiv.css('left', parseInt(leftOrigin+220)+'px');
 			}else{
-				newDiv.css('left', parseInt(leftOrigin-300)+'px');
+				if($(window).height()>500){
+					newDiv.css('left', parseInt(leftOrigin-300)+'px');
+				}else{
+					newDiv.css('left', parseInt(leftOrigin-250)+'px');
+				}
+			}
+			if($(window).height()>500){
+				newDiv.css('width', '300px');
+				newDiv.css('top', '20vh');
+				newDiv.addClass('zoom');
+			}else{
+				newDiv.css('width', '200px');
+				newDiv.css('top', '50vh');
+				newDiv.css('transform', 'translateY(-50%)');
+				newDiv.addClass('zoom_200');
 			}
 			
-			newDiv.css('width', '300px');
 			newDiv.css('z-index', '1');
-			newDiv.addClass('zoom');
 			newDiv.addClass(type);
 			
 			$('main').append(newDiv);
 		}, 1000);
 	}, function(){
-		$('.zoom').remove();
+		$('[class^=zoom]').remove();
 		clearTimeout(timer);
 	});
 	}	
