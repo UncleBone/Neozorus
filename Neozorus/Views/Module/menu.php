@@ -15,7 +15,6 @@
 			<?= $title != 'Home' ? '<a href=".?controller=home&action=display"><li>'.$linkHomeTrad.'</li></a>' : '' ?>
 			<?= $title != 'Collection' ? '<a href=".?controller=carte&action=displayCards"><li>'.$linkCardsTrad.'</li></a>' : '' ?>
 			<a href=".?controller=home&action=rules"><li><?=$linkRulesTrad?></li></a>
-			<a href="#"><li>Forum</li></a>
 			<?php
 			if(isset($_SESSION['neozorus']['u_id'])){			
 				echo '<a href=".?controller=parameters&action=display"><li>'.$linkParametersTrad.'</li></a>';

@@ -10,6 +10,7 @@ class ParametersController extends CoreController{
 		$this->getLanguages();
 	}
 
+	// Affiche les paramètres
 	public function display(){
 		$title = 'Paramètres';
 		$lang = 1 ;
@@ -22,7 +23,21 @@ class ParametersController extends CoreController{
 		$pseudo = $this->user['u_pseudo'];
 
 		ob_start();
-		require(VIEWS_PATH . DS . 'Home' . DS . 'ParametersView.php');
+		require(VIEWS_PATH . DS . 'Parameters' . DS . 'ParametersView.php');
+		$view = ob_get_contents();
+		ob_clean();
+		require(VIEWS_PATH . DS . 'Home' . DS . 'Layout_CardsAndRules.php');
+	}
+
+	public function changeEmail(){
+		$title = 'Paramètres';
+		$lang = 1 ;
+		if(isset($_SESSION['neozorus']['u_language'])){
+			$lang = $_SESSION['neozorus']['u_language'];
+		}
+
+		ob_start();
+		require(VIEWS_PATH . DS . 'Parameters' . DS . 'ChangeEmail.php');
 		$view = ob_get_contents();
 		ob_clean();
 		require(VIEWS_PATH . DS . 'Home' . DS . 'Layout_CardsAndRules.php');
@@ -53,6 +68,7 @@ class ParametersController extends CoreController{
 			$controller->error($e->getMessage());
 		}
 	}
+
 	/**
 	 * A partir d'une donné recuperer en ajax, on traite cette donné et si tout est ok on met à jour la BDD
 	 * @return json tableau

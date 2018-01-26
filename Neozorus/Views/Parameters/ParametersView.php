@@ -5,13 +5,13 @@
 			<h3>Détails du compte</h3>
 			<hr>
 			<h4>Email</h4>
-			<p><?= $mail ?> <span>[<a>Modifier</a>]<span></p>
+			<p><?= $mail ?> <span>[<a href=".?controller=parameters&action=changeEmail">Modifier</a>]<span></p>
 			<br>
 			<h4>Nom</h4>
 			<p><?= $prenom . ' ' . $nom ?></p>
 			<br>
 			<h4>Pseudo</h4>
-			<p><?= $pseudo ?> <span>[<a>Modifier</a>]<span></p>
+			<p><?= $pseudo ?> <span>[<a id="changePseudo">Modifier</a>]<span></p>
 			<br>
 			<h4>Langue</h4>	
 			<form>
@@ -19,6 +19,7 @@
 					<option>English</option>
 					<option>Français</option>
 				</select>
+				<input type="submit" value="Changer langue">
 			</form>	
 			<br>
 		</section>
