@@ -61,7 +61,6 @@ header
   top: 0;
   width: 100%;
   font-size: 1.2rem;
-  font-family: "fira_code", Verdana;
   text-align: center;
   animation: slideDown;
   animation-duration: 2s;
@@ -131,15 +130,14 @@ article ul
 #filter
 {
 	position: absolute;
-	/*top: 20vh;*/
 	bottom: 5vh;
 	right: 20px;
-	text-align: center;
 	width: 20vw;
 	height: 75vh;
 	font-family: 'godzilla';
 	font-size: 1rem;
-	background-color: rgba(0, 0, 0, 0.80);
+	text-align: center;
+	background-color: rgba(0, 0, 0, 0.7);
 	padding: 20px;
 	display: flex;
 	flex-direction: column;
@@ -190,15 +188,13 @@ article ul
 
 #type img
 {
-/*	width: 20%;
-	height: auto;*/
 	width: 3.5vw;
 	height: 3.5vw;
 	min-width: 40px;
 	min-height: 40px;
 	margin: 10px;
 }
-#type img:hover, #mana li:hover img
+#type img:hover
 {
 	animation: oscillate_5;
 	animation-duration: 0.5s;
@@ -215,16 +211,20 @@ article ul
 {
 	width: 20px;
 }
+#mana li:hover img
+{
+	animation: oscillate_10;
+	animation-duration: 0.5s;
+}
 
 /***************************************Cartes***************************************/
 
 #cartes
 {
 	position: absolute;
-	/*top: 20vh;*/
 	bottom: 5vh;
 	left: 20px;
-	background-color: rgba(0, 0, 0, 0.80);
+	background-color: rgba(0, 0, 0, 0.7);
 	width: 75%;
 	height: 75vh;
 	overflow: auto;
@@ -249,7 +249,7 @@ article ul
 	max-width: 100%;
 }
 
-.carte span
+.carte span, .zoom span, .zoom_200 span
 {
 	position: absolute;
 	font-family: godzilla, Verdana;
@@ -290,10 +290,7 @@ article ul
 
 .zoom span
 {
-	position: absolute;
-	font-family: godzilla, Verdana;
 	font-size: 2rem;
-	z-index: 1;
 }
 
 .zoom.creature span.pv, .zoom.sort span.puissance
@@ -330,10 +327,7 @@ article ul
 
 .zoom_200 span
 {
-	position: absolute;
-	font-family: godzilla, Verdana;
 	font-size: 1.3rem;
-	z-index: 1;
 }
 
 .zoom_200.creature span.pv, .zoom_200.sort span.puissance
@@ -415,6 +409,26 @@ article ul
   75%
   {
     transform: rotate(-5deg);
+  }
+  100%
+  {
+     transform: rotate(0deg);
+  }
+}
+
+@keyframes oscillate_10
+{
+  0%
+  {
+    transform: rotate(0deg);
+  }
+  25%
+  {
+    transform: rotate(10deg);
+  }
+  75%
+  {
+    transform: rotate(-10deg);
   }
   100%
   {
@@ -558,7 +572,7 @@ article ul
 	}
 }
 
-@media (max-height: 500px) and (max-width: 1200px)
+@media (max-height: 500px) and (max-width: 800px)
 {
 	header nav, header h1
 	{
@@ -611,7 +625,7 @@ article ul
 	}
 }
 
-@media (max-height: 350px) and (max-width: 1200px)
+@media (max-height: 350px) and (max-width: 800px)
 {
 	#logoNeozorus
 	{

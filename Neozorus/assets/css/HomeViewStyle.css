@@ -175,6 +175,11 @@ header
   font-size: 1.5em;
   cursor: pointer;
 }
+.btn:hover
+{
+  animation: oscillate_3;
+  animation-duration: 0.5s; 
+}
 #btnDinos
 {
   background-color: #d80c0f;
@@ -184,67 +189,13 @@ header
   background-color: #005b7f;
 }
 
-/****************************** Page équipe ******************************/
+/****************************** Footer ******************************/
 
-/*main
+footer
 {
-  position: absolute;
-  top: 0;
-  height: 100vh;
-  width: 100vw;
-  font-family: "fira_code", Verdana;
-  z-index: 1;
   animation: fadeIn;
   animation-duration: 2s;
-}*/
-
-/*article
-{
-  width: 50vw;
-  max-height: 40vh;
-  overflow: auto;
-  margin: 0 25vw 17vh 25vw;
-  padding: 20px;
-  text-align: center;
-  background-color: rgba(0,0,0,0.7);
-  color: rgb(194,210,1);
-  font-size: 2.5vh;
-}*/
-
-/*form
-{
-  width: 40vw;
-  min-width: 600px;
-  margin: 5vh auto;
-  font-size: 0;
-  display: flex;
-  justify-content: space-around;
 }
-
-input
-{
-  font-family: "fira_code", Verdana;
-  font-size: 16px;
-  height: 5vh;
-}
-
-input:nth-child(1) 
-{
-  width: 55%;
-  max-width: 40vw;
-  color: #c2d201;
-}
-
-input:nth-child(2) 
-{
-  min-width: 40%;
-  min-width: 200px;
-  color: white;
-  background-color: #326a2b;
-  border: solid 3px #c8d419;
-  border-radius: 5px;
-  cursor: pointer;
-}*/
 
 .links
 {
@@ -255,7 +206,6 @@ input:nth-child(2)
   transform: translateX(-50%);
   width: 25vw;
   min-width: 275px;
-  /*margin: 3vh auto;*/
 }
 .links li
 {
@@ -300,69 +250,30 @@ input:nth-child(2)
   }
 }
 
-/****************************** Page Dinos ******************************/
-
-#page_dinos input:nth-child(1) 
+@keyframes oscillate_3
 {
-  color: #c2d201;
-}
-
-#page_dinos ::-moz-placeholder {color: #c2d201;} /* Firefox 19+ */
-#page_dinos :-moz-placeholder {color: #c2d201;} /* Firefox 18- */
-#page_dinos ::-webkit-input-placeholder {color: #c2d201;} /* Chrome/Opera/Safari */
-#page_dinos :-ms-input-placeholder {color: #c2d201;} /* IE 10+ */
-
-
-#page_dinos input:nth-child(2) 
-{
-  background-color: #326a2b;
-  border: solid 3px #c8d419;
-  border-radius: 5px;
-}
-
-
-/****************************** Page Matrix ******************************/
-
-#page_matrix input:nth-child(1) 
-{
-  color: #39b54a;
-}
-#page_matrix ::-moz-placeholder {color: #39b54a;} /* Firefox 19+ */
-#page_matrix :-moz-placeholder {color: #39b54a;} /* Firefox 18- */
-#page_matrix ::-webkit-input-placeholder {color: #39b54a;} /* Chrome/Opera/Safari */
-#page_matrix :-ms-input-placeholder {color: #39b54a;} /* IE 10+ */
-
-#page_matrix input:nth-child(2) 
-{
-  background-color: #131313;
-  border: solid 3px #95c11f;
-  border-radius: 5px;
+  0%
+  {
+    transform: rotate(0deg);
+  }
+  25%
+  {
+    transform: rotate(3deg);
+  }
+  75%
+  {
+    transform: rotate(-3deg);
+  }
+  100%
+  {
+     transform: rotate(0deg);
+  }
 }
 
 /****************************** Responsive ******************************/
 
 @media (max-width: 600px)
 {
-  form
-  {
-    width: 100%;
-    min-width: 300px;
-  }
-  input
-  {
-    display: block;
-  }
-  
-  input:nth-child(2)
-  {
-    max-width: 50vw;
-    min-width: 200px;
-  }
-  article
-  {
-    margin: 0 0 10vh 0;
-    width: 100%;
-  }
   #logoNeozorus
   {
     width: 70%;
@@ -380,19 +291,6 @@ input:nth-child(2)
   {
     font-size: 1.1em;
     border-width : 3px;
-  }
-  article, input
-  {
-    font-size: 14px;
-  }
-  article
-  {
-    margin: 0 0 10vh 0;
-    width: 100%;
-  }
-  input
-  {
-    height: 25px;
   }
   .links li img
   {
