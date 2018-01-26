@@ -1,5 +1,5 @@
 <?php
-class ParametersUserModel extends CoreModel{
+class ParametersModel extends CoreModel{
 	/**
 	 * recupere dans la BDD un utilisateur à partir de son ID, puis retourne une instance User
 	 * @param  int $id Identifiant de l'utilisateur en BDD
@@ -14,13 +14,14 @@ class ParametersUserModel extends CoreModel{
 			throw new Exception("Aucun Utilisateur avec cet identifiant dans la base de donnée");		
 		}
 
-		$User = array();
+		// $User = array();
 
-		foreach ($data as $key => $value) {
-			$User[]=new User ($value);
-		}
+		// foreach ($data as $key => $value) {
+		// 	$User[]=new User ($value);
+		// }
 
-		return $User[0];
+		// return $User[0];
+		return $data;
 	}
 
 	public function getLanguages(){

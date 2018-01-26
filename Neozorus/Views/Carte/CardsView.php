@@ -10,7 +10,7 @@
 	</div>
 
 	<div id="filter">
-	<!-- <h2><?=$filterTitleTrad?></h2> -->
+
 		<div id="team" class="select">
 			<div id="btnDinos" class="btn" data="2">Les Dinos</div>
 			<div id="btnMatrix" class="btn" data="1">La Matrice</div>
@@ -28,11 +28,9 @@
 
 		<ul id="mana" class="select">
 		<?php
-		// echo '<ul>';
 		for($i=1;$i<10;$i++){
 			echo '<li data="'.$i.'">'.$i.'<br><img src="'.IMG_PATH . DS . 'plateau' . DS .'pilluleBleueVide.png"></li>';
 		}
-		// echo '</ul>';
 		?>
 		</ul>
 

@@ -10,6 +10,11 @@
 	font-family: 'fira_code';
 	src:url('../font/fira-code/FiraCode-Medium.otf');
 }
+@font-face
+{
+	font-family: 'fira_code';
+	src:url('../font/fira-code/FiraCode-Bold.otf');
+}
 
 @font-face
 {
@@ -123,6 +128,53 @@ article ul
 {
   margin: 20px;
   list-style-type: circle;
+}
+
+/****************************** Paramètres ******************************/
+
+#parameters article
+{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+}
+#parameters article section
+{
+	width: 45%;
+}
+#parameters h3
+{
+	text-transform: uppercase;
+	font-weight: bold;
+	margin: 10px 0;
+}
+
+#parameters h4
+{
+	text-transform: uppercase;
+	font-weight: normal;
+	margin: 10px 0;
+}
+#parameters p
+{
+	text-indent: 20px;
+}
+#parameters p span
+{
+	font-size: 0.8em;
+}
+#parameters p span a
+{
+	color: rgb(1,194,210);
+	cursor: pointer;
+}
+#parameters p span a:hover
+{
+	color: rgb(210,1,194);
+}
+#parameters select
+{
+	margin-left: 20px;
 }
 
 /*************************************Filtres*****************************************/

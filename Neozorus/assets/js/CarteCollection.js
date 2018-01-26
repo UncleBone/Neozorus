@@ -68,6 +68,7 @@ $(function(){
 		});
 	}
 
+	// Zoom sur les cartes survolées
 	function zoom(){
 	var timer;
 

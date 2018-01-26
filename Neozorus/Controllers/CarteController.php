@@ -20,14 +20,14 @@ class CarteController extends CoreController{
 		}
 	}
 
-	/**
-	 * Fonction qui, par defaut, récupère toutes les cartes du jeu. Si il y a un paramètre ajax, elle récupère les cartes en fonctions des filtres
-	 */
-	public function afficherCollectionCarte(){
+	
+/************************ Affiche les cartes du jeu *********************************/
+	 
+	public function displayCards(){
 		$title = 'Les cartes';
 		//On verifie si il y a une requete ajax ou non
 		if(!isset($this->parameters['ajax'])){
-			//Si ce n'est pas une requete ajax, on va chercher dans la BDD toutes les cartes. Le nombre de types de carte differents, les différents coûts en mana des cartes, le nombre de heros différents ainsi que le nombre de pouvoirs différents qui vont nous servir à créer des select
+			//Si ce n'est pas une requete ajax, on va chercher dans la BDD toutes les cartes.
 			$carteModel = new CarteModel();
 			$mesCartes = $carteModel -> GetCartesByFilter();
 
@@ -53,12 +53,12 @@ class CarteController extends CoreController{
 			include(VIEWS_PATH . DS . 'Home' . DS . 'Layout_CardsAndRules.php');
 		}
 		else{
-			//Si c'est une requete ajax, on va regarder les différents filtres
+			//Si c'est une requete ajax, on va chercher uniquement les cartes sélectionnées
 			$team = empty($this->parameters['team']) ? null : $this->parameters['team'];
 			$type = empty($this->parameters['type']) ? null : $this->parameters['type'];
 			$mana = empty($this->parameters['mana']) ? null : $this->parameters['mana'];
 			$idPouvoir = empty($this->parameters['idPouvoir']) == 'null' ? null : $this->parameters['idPouvoir'];
-			$tri = 'c_mana';//par defaut les cartes sont trié par cout en mana
+			$tri = 'c_mana';//par defaut les cartes sont triées par cout en mana
 
 			$model = new CarteModel();
 			$mesCartes = $model->GetCartesByFilter($team, $type, $mana, $idPouvoir, $tri);

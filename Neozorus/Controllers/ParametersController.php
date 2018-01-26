@@ -1,27 +1,31 @@
 <?php
-class ParametersUserController extends CoreController{
-	/**
-	 * Instance User
-	 * @var Object
-	 */
-	private $user;
+class ParametersController extends CoreController{
 
+	private $user;
 	private $languages;
 
-	/**
-	 * Instancie un ParametersUserController
-	 */
 	public function __construct(){
-		$this->isSessionNeozorus();//On verifie qu'une session est en cours
+		$this->isSessionNeozorus();	//On verifie qu'une session est en cours
 		$this->getDataUser();
 		$this->getLanguages();
 	}
 
-	/**
-	 * affiche la view de des paramètres
-	 */
-	public function affichageParametresUtilisateur(){
-		include(VIEWS_PATH . DS . 'ParametersUser' . DS . 'ParametersUserView.php');
+	public function display(){
+		$title = 'Paramètres';
+		$lang = 1 ;
+		if(isset($_SESSION['neozorus']['u_language'])){
+			$lang = $_SESSION['neozorus']['u_language'];
+		}
+		$mail = $this->user['u_mail'];
+		$nom = $this->user['u_nom'];
+		$prenom = $this->user['u_prenom'];
+		$pseudo = $this->user['u_pseudo'];
+
+		ob_start();
+		require(VIEWS_PATH . DS . 'Home' . DS . 'ParametersView.php');
+		$view = ob_get_contents();
+		ob_clean();
+		require(VIEWS_PATH . DS . 'Home' . DS . 'Layout_CardsAndRules.php');
 	}
 
 	/**
@@ -29,9 +33,9 @@ class ParametersUserController extends CoreController{
 	 */
 	private function getDataUser(){
 		try{
-			$model = new ParametersUserModel();
+			$model = new ParametersModel();
 			$user = $model -> getDataUserDB($_SESSION['neozorus']['u_id']);
-			$this->user = $user;
+			$this->user = $user[0];
 		}
 		catch(Exception $e){
 			$controller = new ErrorController();
@@ -41,7 +45,7 @@ class ParametersUserController extends CoreController{
 
 	private function getlanguages(){
 		try{
-			$model = new ParametersUserModel();
+			$model = new ParametersModel();
 			$this->languages = $model -> getLanguages();
 		}
 		catch(Exception $e){
@@ -54,7 +58,7 @@ class ParametersUserController extends CoreController{
 	 * @return json tableau
 	 */
 	public function changeDataUser(){	
-		$model = new ParametersUserModel();
+		$model = new ParametersModel();
 		$user= $this->data['u_id'];
 		//Si newPseudo existe, c'est que l'utilisateur veut modifier son pseudo
 		if(!empty($this->data['newPseudo'])){
@@ -148,7 +152,7 @@ class ParametersUserController extends CoreController{
 	 * @return json encode tableau
 	 */
 	public function changePassword(){
-		$model = new ParametersUserModel();
+		$model = new ParametersModel();
 		//on recupere le mot de passe haché
 		$hash = $this->user->getU_mdp();
 		//On vérifie que le mot de passe fourni par l'utilisateur ne soit pas vide
@@ -189,7 +193,7 @@ class ParametersUserController extends CoreController{
 	 * @return JSON
 	 */
 	public function changeQuestionAnswer(){
-		$model = new ParametersUserModel();
+		$model = new ParametersModel();
 		//on recupere le mot de passe haché
 		$hash = $this->user->getU_mdp();
 		//On verifie que le mot de passe saisi par l'utilisateur corresponde au mot de passe de la BDD
@@ -236,7 +240,7 @@ class ParametersUserController extends CoreController{
 		if(isset($this->parameters['language'])){
 			$idLanguage = $this->parameters['language'];
 			try{
-				$model = new ParametersUserModel();
+				$model = new ParametersModel();
 				//On met à jour la BDD en modifiant la langue associé à l'utilisateur
 				if($model->switchLanguage($idLanguage,$idUser)){
 					//On modifie la langue associé en session
