@@ -38,9 +38,7 @@ class CoreController{
 	 * @param array $session Contient les données reçues en SESSION
 	 */
 	public function setSession(array $session){
-		foreach ($session as $key => $value) {
-			$this->session[$key] = htmlentities($value);
-		}
+		$this->session = $session;
 	}
 
 

@@ -1,14 +1,38 @@
 <?php
 class UserModel extends CoreModel{
 
-	/*retourne la liste complète des identifiants
-	**/
+/************************************retourne la liste complète des identifiants*****************************************/
+
 	public function getLoginList(){
 		$req = 'SELECT u_id, u_mail, u_mdp FROM user';
 		return $this->makeSelect($req);
 	}
 
-	/**
+/************************************ Retourne le mot de passe d'un utilisateur *****************************************/
+
+	public function getPassword($id){
+		$req = 'SELECT u_mdp FROM user WHERE u_id = :id';
+		$param = [ 'id' => $id ];
+		return $this->makeSelect($req, $param);
+	}
+
+/************************************Retourne le pseudo d'un utilisateur*****************************************/
+
+	public function getPseudo($id){
+		$req = 'SELECT u_pseudo FROM user WHERE u_id = :id';
+		$param = [ 'id' => $id ];
+		return $this->makeSelect($req, $param)[0];
+	}
+
+/************************************Retourne toutes les informations d'un utilisateur*****************************************/
+
+	public function getData($id){
+		$req = 'SELECT * FROM user WHERE u_id = :id';
+		$param = [ 'id' => $id ];
+		return $this->makeSelect($req, $param);
+	}
+
+/**
 	 * recupere la l'id de la langue associé à un utilisateur
 	 * @param  int $idUser identifiant de l'utilisateur
 	 * @return int         identifiant de la langue
@@ -49,9 +73,36 @@ class UserModel extends CoreModel{
 		return $e;
 	}
 
-	public function getPseudo($id){
-		$req = 'SELECT u_pseudo FROM user WHERE u_id = :id';
-		$param = [ 'id' => $id ];
-		return $this->makeSelect($req, $param)[0];
+/*********************************** Mise à jour de l'adresse email ****************************************/
+
+	public function updateEmail($id,$newEmail){
+		$req = 'UPDATE user SET u_mail = :newMail WHERE u_id = :id';
+		$param = [ 'id' => $id, 'newMail' => $newEmail ];
+		return $this->makeStatement($req, $param);
 	}
+
+/*********************************** Mise à jour du pseudo ****************************************/
+
+	public function updatePseudo($id,$newPseudo){
+		$req = 'UPDATE user SET u_pseudo = :newPseudo WHERE u_id = :id';
+		$param = [ 'id' => $id, 'newPseudo' => $newPseudo ];
+		return $this->makeStatement($req, $param);
+	}
+
+/*********************************** Mise à jour du mot de passe ****************************************/
+
+	public function updatePassword($id,$newPassword){
+		$req = 'UPDATE user SET u_mdp = :newPassword WHERE u_id = :id';
+		$param = [ 'id' => $id, 'newPassword' => $newPassword ];
+		return $this->makeStatement($req, $param);
+	}
+
+/*********************************** Mise à jour de la question secrète ****************************************/
+
+	public function updateQuestion($id,$newQuestion, $newAnswer){
+		$req = 'UPDATE user SET u_question = :newQuestion, u_reponse = :newAnswer WHERE u_id = :id';
+		$param = [ 'id' => $id, 'newQuestion' => $newQuestion, 'newAnswer' => $newAnswer ];
+		return $this->makeStatement($req, $param);
+	}
+
 }

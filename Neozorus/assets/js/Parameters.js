@@ -1,15 +1,46 @@
 $(function(){
-	$('#changeMail').click(function(){
-		let form = $('<form>').addClass('formChange');
-		let inputNewEmail = $('<input>').attr('type','email').attr('name', 'newEmail').attr('placeholder', 'Nouvelle adresse email');
-		let confirmNewEmail = $('<input>').attr('type','email').attr('name', 'confirmNewEmail').attr('placeholder', 'Confirmee la nouvelle adresse email');
-		let inputPassword = $('<input>').attr('type','password').attr('name', 'password').attr('placeholder', 'Mot de passe');
-		let submit = $('<input>').attr('type','submit').attr('value','Valider');
-		let cancel = $('<input>').attr('type','submit').attr('value','Annuler');
-
-		$('#parameters').children().remove();
-
-		form.append(inputNewEmail).append(confirmNewEmail).append(inputPassword).append(submit).append(cancel);
-		$('#parameters').append(form);
+	$('.formChange input[value=Annuler]').click(function(event){
+		event.preventDefault();
+		window.location.replace('.?controller=parameters&action=display');
 	});
 });
+
+// $(function(){
+// 	$('#changeEmail').click(function(event){
+// 		$('#parameters').children().remove();
+// 		$.getJSON('?controller=parameters&action=changeEmail', function(result){
+// 			$('#parameters').html(result);
+// 			changeEmail();
+// 		});
+// 		event.preventDefault();	
+// 	});
+
+// });
+
+function changeEmail(){
+
+	$('.formChange input[name=newEmail]').focusout(function(){
+		let input = $(this);
+		$.getJSON('?controller=parameters&action=checkEmailValidity&newEmail='+$(this).val(), function(result){
+			if(result != true){
+				error(result);
+			}else{
+				$('.error').remove();
+				$('.formChange input[name=confirmNewEmail]').focusout(function(){
+					console.log($(this).val());
+					if ($(this).val() != $('.formChange input[name=newEmail]').val()){
+						error('Erreur: les entrées ne correspondent pas');
+					}
+
+				});
+			}
+			// changeEmail();
+		});
+	});
+
+}
+
+function error(message){
+	error = $('<div>').addClass('error').html('<p>'+message+'</p>');
+	$('#parameters').append(error);
+}

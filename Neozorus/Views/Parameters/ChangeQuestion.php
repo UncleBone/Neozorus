@@ -1,10 +1,10 @@
 <?php
 if(empty($success)){
 ?>
-<form class="formChange" method="POST" action=".?controller=parameters&action=changeEmail">
-	<h3>Changement d'adresse Email</h3>
-	<input type="email" name="newEmail" placeholder="Nouvelle adresse email">
-	<input type="email" name="confirmNewEmail" placeholder="Confirmez la nouvelle adresse">
+<form class="formChange" method="POST" action=".?controller=parameters&action=changeQuestion">
+	<h3>Changement de question secrète</h3>
+	<input type="text" name="newQuestion" placeholder="Nouvelle question secrète">
+	<input type="text" name="newAnswer" placeholder="Réponse">
 	<input type="password" name="password" placeholder="Mot de passe">
 	<div class="bottomButtons">
 		<input type="submit" value="Valider">
