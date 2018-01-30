@@ -1,12 +1,28 @@
+<?php
+	$lang = 1 ;
+	if(isset($_SESSION['neozorus']['u_language'])){
+		$lang = $_SESSION['neozorus']['u_language'];
+	}
+	$createDeckTrad = $lang == 1 ? 'Créer un deck' : 'Create a deck';
+	$changeHeroTrad = $lang == 1 ? 'Changer de héros' : 'switch hero';
+	$myDeckTrad = $lang == 1 ? 'mes Decks' : 'my Decks';
+	$playButtonTrad = $lang == 1 ? 'Jouer' : 'Play';
+	$modifyButtonTrad = $lang == 1 ? 'Modifier' : 'Modify';
+	$detailsButtonTrad = $lang == 1 ? 'Détails' : 'Details';
+?>
+<!DOCTYPE html>
+<html class=<?= $theme ?>>
+<head>
+	<title>Neozorus</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="assets/css/SelectDeckStyle.css" />
+	<?php include(FAVICON) ?>
 
-<header id="deckHeader">
-	<a href=".?controller=home&action=display"><nav>Retour</nav></a>
-	<h1> - <?= $title ?> - </h1>
-</header>
-
-
-<!-- 
-<div id="headerDecks">
+</head>
+<body>
+<header>
+	<?php include(MENU) ?>
+	<div id="headerDecks">
 		<div id="action">
 
 			<div id="creer">
@@ -27,6 +43,8 @@
 
 		</div>
 	</div>
+</header>
+
 	<article>
 	<div class="horizon1">
 		<?php
@@ -55,4 +73,7 @@
 
 		
 	</div>
-	</article> -->
+	</article>
+	
+</body>
+</html>

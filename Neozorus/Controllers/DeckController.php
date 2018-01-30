@@ -6,6 +6,38 @@ class DeckController extends CoreController{
 		parent::__construct();
 		$this->isSessionNeozorus();
 	}
+
+	public function display(){
+		$lang = 1 ;
+		if(isset($_SESSION['neozorus']['u_language'])){
+			$lang = $_SESSION['neozorus']['u_language'];
+		}
+		$createDeckTrad = $lang == 1 ? 'Créer un deck' : 'Create a deck';
+		$changeHeroTrad = $lang == 1 ? 'Changer de héros' : 'switch hero';
+		$myDeckTrad = $lang == 1 ? 'mes Decks' : 'my Decks';
+		$playButtonTrad = $lang == 1 ? 'Jouer' : 'Play';
+		$modifyButtonTrad = $lang == 1 ? 'Modifier' : 'Modify';
+		$detailsButtonTrad = $lang == 1 ? 'Détails' : 'Details';
+		$model = new DeckModel();
+		$decks = $model -> GetAllDecks($this->session['u_id'],$this->parameters['team'] == 'matrix' ? '1' : '2');
+		//Si l'utilisateur n'a pas de deck, on invoque une fonction qui va créer un deck par defaut
+		if(empty($decks)){
+			$this->buildDefaultDeck($this->session['u_id'],$this->parameters['team'] == 'matrix' ? '1' : '2');
+		}
+		//On défini le theme de la page en fonction du héro et on invoque la view
+		else{
+			$team = $this->parameters['team'];
+			$title = $team;
+			$hero = $team;
+			$theme = $this->parameters['team'] == 1 ? '"matrixtheme"' : '"dinotheme"';
+			ob_start();
+			include(VIEWS_PATH . DS . 'Deck' . DS . 'SelectDeckView.php');
+			$view = ob_get_contents();
+			ob_clean();
+			include(VIEWS_PATH . DS . 'Common' . DS . 'splitBackgroundLayout.php');
+		}	
+	}
+
 	/**
 	 * Cette fonction va chercher les deck en fonction de l'utilisateur et du héro
 	 */

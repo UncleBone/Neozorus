@@ -43,30 +43,30 @@ function splitBackground(){
 		}
 
 	/**********************Mise en place du background***************************/
-	// console.log(page.type);
+
 	styleAdjust(typeof page !== 'undefined' ? page : '');
 
-	// if(page == "noteam"){
+	if(page == "noteam" || page == ""){
 
-	// 	btnDinos.click(dinos);		/* lance la fonction "dinos" au click sur le bouton dinos */
-	// 	btnMatrix.click(matrix);		/* lance la fonction "matrix" au click sur le bouton matrix */
+		btnDinos.click(dinos);		/* lance la fonction "dinos" au click sur le bouton dinos */
+		btnMatrix.click(matrix);		/* lance la fonction "matrix" au click sur le bouton matrix */
 
-	// }else if(page == "matrix"){
+	}else if(page == "matrix"){
 
-	// 	var main = $('#page_matrix');
+		var main = $('#page_matrix');
 	
-	// 	logoNeozorus.click(matrixReverse);	/* Lance la fonction "dinosReverse" au click sur le logo */
-	// 	imgHaut.click(matrixReverse);		/* Lance la fonction "dinosReverse" au click sur le coin supérieur */
+		logoNeozorus.click(matrixReverse);	/* Lance la fonction "dinosReverse" au click sur le logo */
+		imgHaut.click(matrixReverse);		/* Lance la fonction "dinosReverse" au click sur le coin supérieur */
 
 
-	// }else if(page == "dinos"){
+	}else if(page == "dinos"){
 
-	//     var main = $('#page_dinos');
+	    var main = $('#page_dinos');
 
-	// 	logoNeozorus.click(dinosReverse);	/* Lance la fonction "dinosReverse" au click sur le logo */
-	// 	imgBas.click(dinosReverse);			/* Lance la fonction "dinosReverse" au click sur le coin inférieur */
+		logoNeozorus.click(dinosReverse);	/* Lance la fonction "dinosReverse" au click sur le logo */
+		imgBas.click(dinosReverse);			/* Lance la fonction "dinosReverse" au click sur le coin inférieur */
 		
-	// }
+	}
 
 	function styleAdjust(page){
 
@@ -86,7 +86,15 @@ function splitBackground(){
 		imgHaut.css('bottom',-1*Math.cos(angle*Math.PI/180)+'vh');
 		imgBas.css('top', -1*Math.cos(angle*Math.PI/180)+'vh');
 
-		if(page == 'matrix'){
+		if(page == 'noteam'){
+
+			/* désactivation du fade in css sur le logo */
+			$('#logo').css('animation','none');
+
+		}else if(page == 'matrix'){
+
+			/* désactivation du fade in css sur le logo */
+			$('#logo').css('animation','none');
 
 			/* positionnement des blocs et images */
 			divHaut.css('bottom', 90+'vh');
@@ -113,6 +121,9 @@ function splitBackground(){
 			divHaut.css('zIndex', "2");
 
 		}else if(page == 'dinos'){
+
+			/* désactivation du fade in css sur le logo */
+			$('#logo').css('animation','none');
 
 			/* positionnement des blocs et images */
 			divHaut.css('bottom', -90+'vh');
@@ -147,6 +158,7 @@ function splitBackground(){
 		team='dinos';
 		backgroundSlide('D');
 		logoSlide('U');
+		headerSlide();
 	}
 
 	/* fonction lancée au click sur le bouton "matrix" */
@@ -155,6 +167,7 @@ function splitBackground(){
 		team='matrix';
 		backgroundSlide('U');
 		logoSlide('U');
+		headerSlide();
 	}
 
 	/* fonction de glissement du BG */
@@ -222,6 +235,23 @@ function splitBackground(){
 		}	
 	}
 
+	/* fonction de déplacement du header + fading du footer */
+	function headerSlide()
+	{
+		var y = 20;
+		var I = setInterval(hSlide,5);
+		function hSlide()
+		{
+			if(y <= -80){
+				clearInterval(I);
+			}else{
+				y--;
+				$('header nav, header h1, header div').css('top', y+'px');
+				$('footer').css('opacity', (y+80)/100);
+			}
+		}	
+	}
+
 	/* fonction d'animation pour le retour en page d'accueil */
 	function dinosReverse()
 	{
@@ -229,6 +259,7 @@ function splitBackground(){
 		divBas.css('zIndex', "0");	
 		backgroundSlideReverse('D')
 		logoSlide('D');
+		headerSlide();
 	}
 
 	/* fonction d'animation pour le retour en page d'accueil */
@@ -238,6 +269,7 @@ function splitBackground(){
 		divHaut.css('zIndex', "0");
 		backgroundSlideReverse('U');
 		logoSlide('D');
+		headerSlide();
 	}
 
 
@@ -277,10 +309,10 @@ function splitBackground(){
 	function redirect()
 	{
 		if(backgroundSlideOver===true && logoSlideOver===true){ /* la redirection ne se fait qu'après que les 2 animations soient terminées */
-			if (page=='noteam') {
-				window.location.replace('.?team='+team);
+			if (page=='noteam' || page == '') {
+				window.location.replace('.?controller=deck&action=display&team='+team);
 			}else{
-				window.location.replace('.');
+				window.location.replace('.?controller=home&action=display&team=noteam');
 			}
 		}
 	}
