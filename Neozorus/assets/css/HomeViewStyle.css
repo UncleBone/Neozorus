@@ -125,7 +125,7 @@ header
   padding: 5px;
   margin-top: 2px; 
   text-align: left;
-  font-size: 1em;
+  font-size: 0.9em;
   transition: all 0.5s;
 }
 #bloc_menu li:hover
@@ -274,6 +274,10 @@ footer
 
 @media (max-width: 600px)
 {
+  body
+  {
+    font-size: 12px;
+  }
   #logoNeozorus
   {
     width: 70%;
@@ -287,9 +291,13 @@ footer
 
 @media (max-height: 500px)
 {
+  body
+  {
+    font-size: 12px;
+  }
   .btn
   {
-    font-size: 1.1em;
+    /*font-size: 1.1em;*/
     border-width : 3px;
   }
   .links li img
@@ -303,6 +311,6 @@ footer
   }
   header
   {
-    font-size: 0.9em;
+    /*font-size: 0.9em;*/
   }
 }
