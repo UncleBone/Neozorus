@@ -700,7 +700,7 @@ article ul
 	}
 }
 
-@media (max-height: 500px)
+@media (max-height: 500px), (max-width: 650px)
 {
 	body
 	{
@@ -763,7 +763,7 @@ article ul
 	}
 }
 
-@media (max-height: 350px)
+@media (max-height: 350px), (max-width: 550px) 
 {
 	#logoNeozorus
 	{
