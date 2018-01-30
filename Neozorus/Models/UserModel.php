@@ -73,6 +73,14 @@ class UserModel extends CoreModel{
 		return $e;
 	}
 
+/*********************************** Mise à jour de la langue ****************************************/
+
+	public function updateLangue($id,$newLang){
+		$req = 'UPDATE user SET u_langue_fk = :newLang WHERE u_id = :id';
+		$param = [ 'id' => $id, 'newLang' => $newLang ];
+		return $this->makeStatement($req, $param);
+	}	
+
 /*********************************** Mise à jour de l'adresse email ****************************************/
 
 	public function updateEmail($id,$newEmail){

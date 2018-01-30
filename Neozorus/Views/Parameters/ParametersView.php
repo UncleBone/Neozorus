@@ -14,10 +14,10 @@
 			<p><?= $pseudo ?> <span>[<a id="changePseudo" href=".?controller=parameters&action=changePseudo">Modifier</a>]<span></p>
 			<br>
 			<h4>Langue</h4>	
-			<form>
-				<select>
-					<option>English</option>
-					<option>Français</option>
+			<form method="POST" action="">
+				<select name="langue">
+					<option value="1" <?= $lang == 1 ? 'selected' : '' ?>>Français</option>
+					<option value="2" <?= $lang == 2 ? 'selected' : '' ?>>English</option>					
 				</select>
 				<input type="submit" value="Changer langue">
 			</form>	

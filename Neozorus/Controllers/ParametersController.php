@@ -7,8 +7,33 @@ class ParametersController extends CoreController{
 	public function __construct(){
 		$this->isSessionNeozorus();	//On verifie qu'une session est en cours
 		$this->getUserData();
-		$this->getLanguages();
+		// $this->getLanguages();
 	}
+
+/***************** Retourne les informations de l'utilisateur ***********************/
+
+	private function getUserData(){
+		try{
+			$model = new UserModel();
+			$user = $model -> getData($_SESSION['neozorus']['u_id']);
+			$this->user = $user[0];
+		}
+		catch(Exception $e){
+			$controller = new ErrorController();
+			$controller->error($e->getMessage());
+		}
+	}
+
+	// private function getlanguages(){
+	// 	try{
+	// 		$model = new ParametersModel();
+	// 		$this->languages = $model -> getLanguages();
+	// 	}
+	// 	catch(Exception $e){
+	// 		$controller = new ErrorController();
+	// 		$controller->error($e->getMessage());
+	// 	}
+	// }
 
 /**************** Affiche les paramètres **********************/
 
@@ -22,12 +47,26 @@ class ParametersController extends CoreController{
 		$nom = $this->user['u_nom'];
 		$prenom = $this->user['u_prenom'];
 		$pseudo = $this->user['u_pseudo'];
+		if(!empty($this->data['langue'])){
+			$this->changeLangue($this->data['langue']);
+		}
 
 		ob_start();
 		require(VIEWS_PATH . DS . 'Parameters' . DS . 'ParametersView.php');
 		$view = ob_get_contents();
 		ob_clean();
 		require(VIEWS_PATH . DS . 'Home' . DS . 'Layout_CardsAndRules.php');
+	}
+
+/**************** Change la langue par de l'utilisateur **********************/
+
+	private function changeLangue($lang){
+		if(($lang == '1' || $lang == '2') && $lang != $this->session['u_language']){
+			$model = new UserModel();
+			$model->updateLangue($this->session['u_id'], $lang);
+			$_SESSION['neozorus']['u_language'] = $lang;
+			header('Location:.?controller=parameters&action=display');
+		}
 	}
 
 /**************** Page de changement d'email **********************/
@@ -157,13 +196,13 @@ class ParametersController extends CoreController{
 				$check = $this->checkPassword();
 				if ($check !== true) {
 					$error = $check;
-			}else{
-				$model = new UserModel();
-				if($model->updateQuestion($_SESSION['neozorus']['u_id'], $this->data['newQuestion'], $this->data['newAnswer'])){
-					$success = 'Changement effectué avec succès';
 				}else{
-					$error = 'Erreur d\'écriture dans la base de données';
-				}
+					$model = new UserModel();
+					if($model->updateQuestion($_SESSION['neozorus']['u_id'], $this->data['newQuestion'], $this->data['newAnswer'])){
+						$success = 'Changement effectué avec succès';
+					}else{
+						$error = 'Erreur d\'écriture dans la base de données';
+					}
 				}
 			}
 		}
@@ -173,32 +212,6 @@ class ParametersController extends CoreController{
 		$view = ob_get_contents();
 		ob_clean();
 		require(VIEWS_PATH . DS . 'Home' . DS . 'Layout_CardsAndRules.php');
-	}
-
-
-/***************** Retourne les informations de l'utilisateur ***********************/
-
-	private function getUserData(){
-		try{
-			$model = new UserModel();
-			$user = $model -> getData($_SESSION['neozorus']['u_id']);
-			$this->user = $user[0];
-		}
-		catch(Exception $e){
-			$controller = new ErrorController();
-			$controller->error($e->getMessage());
-		}
-	}
-
-	private function getlanguages(){
-		try{
-			$model = new ParametersModel();
-			$this->languages = $model -> getLanguages();
-		}
-		catch(Exception $e){
-			$controller = new ErrorController();
-			$controller->error($e->getMessage());
-		}
 	}
 
 /***************** Vérifie la validité d'une adresse email ***********************/
