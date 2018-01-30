@@ -28,7 +28,7 @@ $(function(){
 		$('#filter').find('.selected').each(function(){
 			parameters += '&' + $(this).parent().attr('id') + '=' + $(this).attr('data');
 		});
-		$('#cartes').load('.?controller=carte&action=afficherCollectionCarte&ajax=1'+parameters,zoom);
+		$('#cartes').load('.?controller=carte&action=displayCards&ajax=1'+parameters,zoom);
 
 		styleFilters();
 	}
