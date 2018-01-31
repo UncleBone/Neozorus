@@ -2,23 +2,17 @@
 class DeckModel extends CoreModel{
 
 	/**
-	 * Récupère dans la BDD tous les deck d'un utilisateur en fonction du héro
+	 * Récupère dans la BDD tous les deck d'un utilisateur en fonction du héros
 	 * @param [int] $UserID       ID de l'utilisateur
-	 * @param [int] $personnageID ID du héro
-	 * @return [array] Tableau qui contient des instances de Deck
+	 * @param [int] $personnageID ID du héros
+	 * @return [array] Tableau qui contient les données des Decks
 	 */
 	public function GetAllDecks($UserID,$personnageID){
-		$Decks = array();
+		$req = 'SELECT d_id, d_libelle,d_nbMaxCarte,d_personnage_fk FROM deck 
+				WHERE d_user_fk =:user AND d_personnage_fk = :heros';
+		$param = [ 'user' => $UserID, 'heros' => $personnageID ];
 
-		$sql='SELECT d_id, d_libelle,d_nbMaxCarte,d_personnage_fk FROM deck WHERE d_user_fk =:user AND d_personnage_fk = :hero';
-		$params=array('user'=>$UserID, 'hero'=>$personnageID);
-		$datas=$this->MakeSelect($sql,$params);
-
-		foreach ($datas as $key => $data) {
-			$Decks[]=new Deck ($data);
-		}
-		
-		return $Decks;
+		return $this->MakeSelect($req,$param);
 	}
 
 	/**
@@ -37,21 +31,19 @@ class DeckModel extends CoreModel{
 	}
 
 	/**
-	 * Ajoute un deck dans la BDD associé à un héro et un utilisateur
+	 * Ajoute un deck par défaut dans la BDD associé à un héros et un utilisateur
 	 * @param [int] $user ID de l'utilisateur
-	 * @param [int] $hero ID du héro
+	 * @param [int] $hero ID du héros
 	 * @return [false|int] retourne false si l'ajout du deck a échoué, et l'id du deck si l'ajout a réussi
 	 */
-	public function addDeckDb($user,$hero){
-		$sql = 'INSERT INTO deck (d_libelle,d_nbMaxCarte, d_personnage_fk, d_user_fk, d_waiting) VALUES ("Default", 20, :personnage, :user,0)';
+	public function addDefaultDeck($user,$heros){
+		$req = 'INSERT INTO deck (d_libelle,d_nbMaxCarte, d_personnage_fk, d_user_fk, d_waiting) 
+				VALUES ("Default", 20, :personnage, :user,0)';
 
-            $params = array(
-                'personnage' => $hero,
-                'user' => $user
-            );
+        $param = [ 'personnage' => $heros, 'user' => $user ];
 
-        if($this->makeStatement($sql,$params)){
-        	$id = $this->GetAllDecks($user,$hero)[0];
+        if($this->makeStatement($req,$param)){
+        	$id = $this->GetAllDecks($user,$hero)[0]['d_id'];
         	return $id;
         }
         return false;

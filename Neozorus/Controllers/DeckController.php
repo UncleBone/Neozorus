@@ -12,14 +12,16 @@ class DeckController extends CoreController{
 		if(isset($_SESSION['neozorus']['u_language'])){
 			$lang = $_SESSION['neozorus']['u_language'];
 		}
-		$createDeckTrad = $lang == 1 ? 'Créer un deck' : 'Create a deck';
-		$changeHeroTrad = $lang == 1 ? 'Changer de héros' : 'switch hero';
 		$myDeckTrad = $lang == 1 ? 'mes Decks' : 'my Decks';
 		$playButtonTrad = $lang == 1 ? 'Jouer' : 'Play';
-		$modifyButtonTrad = $lang == 1 ? 'Modifier' : 'Modify';
 		$detailsButtonTrad = $lang == 1 ? 'Détails' : 'Details';
+
 		$model = new DeckModel();
-		$decks = $model -> GetAllDecks($this->session['u_id'],$this->parameters['team'] == 'matrix' ? '1' : '2');
+		$deckList = $model -> GetAllDecks($this->session['u_id'],$this->parameters['team'] == 'matrix' ? '1' : '2');
+		foreach ($deckList as $data) {
+			$decks[] = new Deck($data);
+		}
+
 		//Si l'utilisateur n'a pas de deck, on invoque une fonction qui va créer un deck par defaut
 		if(empty($decks)){
 			$this->buildDefaultDeck($this->session['u_id'],$this->parameters['team'] == 'matrix' ? '1' : '2');
@@ -28,7 +30,7 @@ class DeckController extends CoreController{
 		else{
 			$team = $this->parameters['team'];
 			$title = $team;
-			$hero = $team;
+			$heros = $team == 'matrix' ? '1' : '2';
 			$theme = $this->parameters['team'] == 1 ? '"matrixtheme"' : '"dinotheme"';
 			ob_start();
 			include(VIEWS_PATH . DS . 'Deck' . DS . 'SelectDeckView.php');
@@ -87,7 +89,7 @@ class DeckController extends CoreController{
 	private function buildDefaultDeck($user,$hero){
 		$model = new DeckModel();
 		//On crée d'abord un deck à l'utilisateur en fonction du héro dans la BDD
-		$deckDefaultId = $model -> addDeckDb($user,$hero);
+		$deckDefaultId = $model -> addDefaultDeck($user,$hero);
 		//Si l'ajout du deck a fonctionné, on rempli le deck avec des cartes,puis on rappele la fonction d'affichage des deck
 		if($deckDefaultId != false){
 			if($model -> fillDeckDefault($deckDefaultId)){

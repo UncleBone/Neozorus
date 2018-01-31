@@ -4,28 +4,29 @@
 	<h1> - <?= $title ?> - </h1>
 </header>
 
+<main id="decks">
+	<div id="teamCard">
+		<img src="<?= IMG_PATH . DS . 'gabarit' . DS . 'personnage' . DS . $heros .'.png' ?>">
+	</div>
 
+	<form>
+		<label>Decks:</label>
+		<select>
+			<?php
+			foreach ($decks as $deck) {
+				echo '<option value="'.$deck->getId().'">'.$deck->getLibelle().'</option>';
+			}
+			?>
+		</select>
+		<div class="bottomButtons">
+			<input type="submit" value="Voir">
+			<input type="submit" value="Jouer">
+		</div>
+	</form>
+</main>
 <!-- 
 <div id="headerDecks">
-		<div id="action">
-
-			<div id="creer">
-				<a href="#"><p><?=$createDeckTrad?></p></a>
-			</div>
-
-			<div id="imageHeros" class="anime rebond">
-				<?php
-				$source = $theme == '"matrixtheme"' ? "'assets/img/headshot_neo.png'" : "'assets/img/headshot_rex.png'";
-				?>
-				<img src=<?=$source?>>
-			</div>
-
-			<div id="modifier">
-				<a href="index.php?controller=hero&action=affichageListeHero"><p><?=$changeHeroTrad?></p></a>
-			</div>
-			<p class="decksExistants"><?=$myDeckTrad?></p>
-
-		</div>
+		
 	</div>
 	<article>
 	<div class="horizon1">
@@ -40,13 +41,13 @@
 			    <img src=<?=$imagedeck?>>
 			    <div class="mask">
 				    <div class="nomdeck">
-				    	<p><?= $value->getD_libelle();?></p>
+				    	<p><?= $value->getLibelle();?></p>
 				    </div>
 						<?php
-						echo '<a class="info" href="index.php?controller=game&action=wait&id='.$value->getD_id().'">'.$playButtonTrad.'</a>';
+						echo '<a class="info" href="index.php?controller=game&action=wait&id='.$value->getId().'">'.$playButtonTrad.'</a>';
 						?>
 						<a class="info" href=""><?=$modifyButtonTrad?></a>
-						<a class="info" href=<?= '"index.php?controller=carte&action=afficherCarte&deck='.$value->getD_ID().'&hero='.$hero.'"'?>><?=$detailsButtonTrad?></a>	
+						<a class="info" href=<?= '"index.php?controller=carte&action=afficherCarte&deck='.$value->getId().'&hero='.$hero.'"'?>><?=$detailsButtonTrad?></a>	
 			    </div>
 			</div>
 		</div>

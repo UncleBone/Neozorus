@@ -4,19 +4,19 @@ class Deck{
 	 * Identifiant du deck
 	 * @var [int]
 	 */
-	private $d_id;
+	private $id;
 
 	/**
 	 * Libelle du deck
 	 * @var [string]
 	 */
-	private $d_libelle;
+	private $libelle;
 
 	/**
 	 * Identifiant du hero associé au deck
 	 * @var [int]
 	 */
-	private $d_personnage;
+	private $personnage;
 
 	/**
 	 * Nombre de carte maximum que peut contenir un deck
@@ -28,57 +28,57 @@ class Deck{
 	 * @param [array] $data tableau comportant toutes les informations nécessaires à l'instanciation d'un deck
 	 */
 	public function __construct(array $data){
-		$this->setD_id($data['d_id']);
-		$this->setD_libelle($data['d_libelle']);
-		$this->setD_personnage_fk($data['d_personnage_fk']);
+		$this->setId($data['d_id']);
+		$this->setLibelle($data['d_libelle']);
+		$this->setPersonnage($data['d_personnage_fk']);
 	}
 
 	/**
 	 * setter ID
 	 * @param [int] $ID 
 	 */
-	private function setD_id($ID){
-		$this->d_id = $ID;
+	private function setId($ID){
+		$this->id = $ID;
 	}
 
 	/**
 	 * setter Libelle
 	 * @param [string] $Libelle
 	 */
-	private function setD_libelle($Libelle){
-		$this->d_libelle = $Libelle;
+	private function setLibelle($Libelle){
+		$this->libelle = $Libelle;
 	}
 
 	/**
 	 * setter hero associé au deck
 	 * @param [int] $idPersonnage 
 	 */
-	private function setD_personnage_fk($idPersonnage){
-		$this->d_personnage = $idPersonnage;
+	private function setPersonnage($idPersonnage){
+		$this->personnage = $idPersonnage;
 	}
 
 	/**
 	 * getter id
 	 * @return [int]
 	 */
-	public function getD_id(){
-		return $this->d_id;
+	public function getId(){
+		return $this->id;
 	}
 
 	/**
 	 * getter Libelle
 	 * @return [string]
 	 */
-	public function getD_libelle(){
-		return $this->d_libelle;
+	public function getLibelle(){
+		return $this->libelle;
 	}
 
 	/**
 	 * getter Id du hero associé au deck
 	 * @return [int]
 	 */
-	public function getD_personnage(){
-		return $this->d_personnage;
+	public function getPersonnage(){
+		return $this->personnage;
 	}
 
 	/**

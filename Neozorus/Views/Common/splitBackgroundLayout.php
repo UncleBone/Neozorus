@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title><?=$titleTrad?></title>
+	<title><?=$title?></title>
 	<meta name="viewport" content="width=device-width" />
 	<script type="text/javascript" src="<?= JS_PATH . DS . 'jquery-3.2.1.min.js' ?>"></script>
 	<script type="text/javascript">
