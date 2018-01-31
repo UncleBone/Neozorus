@@ -43,7 +43,7 @@ class DeckModel extends CoreModel{
         $param = [ 'personnage' => $heros, 'user' => $user ];
 
         if($this->makeStatement($req,$param)){
-        	$id = $this->GetAllDecks($user,$hero)[0]['d_id'];
+        	$id = $this->GetAllDecks($user,$heros)[0]['d_id'];
         	return $id;
         }
         return false;
@@ -55,9 +55,9 @@ class DeckModel extends CoreModel{
 	 * @return [bool]       retourne true si le deck a été rempli, sinon false
 	 */
 	public function fillDeckDefault(Deck $deck){
-		$id = $deck->getD_id();
+		$id = $deck->getId();
 		//En fonction du héro associé au deck , on établit une liste de carte différents
-		if($deck->getD_personnage() == 1){
+		if($deck->getPersonnage() == 1){
 			$sql=
 			"INSERT INTO d_c_inclure (d_c_nbExemplaire, d_c_deck_fk, d_c_carte_fk) VALUES ( 1 , ". $id .", 1 );
 			INSERT INTO d_c_inclure (d_c_nbExemplaire, d_c_deck_fk, d_c_carte_fk) VALUES ( 1 , ". $id .", 2 );
@@ -72,7 +72,7 @@ class DeckModel extends CoreModel{
 			INSERT INTO d_c_inclure (d_c_nbExemplaire, d_c_deck_fk, d_c_carte_fk) VALUES ( 2 , ". $id .", 10 );
 			INSERT INTO d_c_inclure (d_c_nbExemplaire, d_c_deck_fk, d_c_carte_fk) VALUES ( 2 , ". $id .", 11 )";
 		}
-		else if($deck->getD_personnage() == 2){
+		else if($deck->getPersonnage() == 2){
 			$sql=
 			"INSERT INTO d_c_inclure (d_c_nbExemplaire, d_c_deck_fk, d_c_carte_fk) VALUES ( 1 , ". $id .", 13 );
 			INSERT INTO d_c_inclure (d_c_nbExemplaire, d_c_deck_fk, d_c_carte_fk) VALUES ( 1 , ". $id .", 14 );

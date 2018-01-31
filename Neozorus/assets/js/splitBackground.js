@@ -20,8 +20,7 @@ function splitBackground(){
 	var imgHaut = $('#imageHaut');		/* image background supérieure */
 	var imgBas = $('#imageBas');		/* image background inférieure */
 	var logo = $('#logo');				/* logo Neozorus + boutons */
-	var logoNeozorus = $('#logoNeozorus');		/* logo Neozorus */	
-
+	var logoNeozorus = $('#logoNeozorus');		/* logo Neozorus */		
 
 /************************Vérification de l'orientation de l'écran*******************************/
 

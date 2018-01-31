@@ -29,7 +29,7 @@ class DeckController extends CoreController{
 		//On défini le theme de la page en fonction du héro et on invoque la view
 		else{
 			$team = $this->parameters['team'];
-			$title = $team;
+			$title = $team == 'matrix' ? 'La matrice' : 'Les dinos';
 			$heros = $team == 'matrix' ? '1' : '2';
 			$theme = $this->parameters['team'] == 1 ? '"matrixtheme"' : '"dinotheme"';
 			ob_start();
@@ -45,7 +45,7 @@ class DeckController extends CoreController{
 	 */
 	public function affichageDeck(){
 		$model = new DeckModel();
-		$decks = $model -> GetAllDecks($this->session['u_id'],$this->parameters['hero']);
+		$decks = $model -> GetAllDecks($this->session['u_id'],$this->parameters['heros']);
 		//Si l'utilisateur n'a pas de deck, on invoque une fonction qui va créer un deck par defaut
 		if(empty($decks)){
 			$this->buildDefaultDeck($this->session['u_id'],$this->parameters['hero']);
@@ -86,17 +86,21 @@ class DeckController extends CoreController{
 	 * @param  [type] $user ID du l'utilisateur
 	 * @param  [type] $hero ID du héro
 	 */
-	private function buildDefaultDeck($user,$hero){
+	private function buildDefaultDeck($user,$heros){
 		$model = new DeckModel();
-		//On crée d'abord un deck à l'utilisateur en fonction du héro dans la BDD
-		$deckDefaultId = $model -> addDefaultDeck($user,$hero);
+		//On crée d'abord un deck à l'utilisateur en fonction du héros dans la BDD
+		$deckDefaultId = $model -> addDefaultDeck($user,$heros);
 		//Si l'ajout du deck a fonctionné, on rempli le deck avec des cartes,puis on rappele la fonction d'affichage des deck
-		if($deckDefaultId != false){
-			if($model -> fillDeckDefault($deckDefaultId)){
-				$this -> affichageDeck();
+		if($deckDefaultId !== false){
+			$defaultDeck = new Deck([ 'd_id' => $deckDefaultId, 'd_libelle' => 'Default', 'd_personnage_fk' => $heros ]);
+			var_dump($defaultDeck);
+			if($model -> fillDeckDefault($defaultDeck)){
+				// $this -> affichageDeck();
+				$this->display();
 			}
 			else{
 				//générer une page d'erreur pour dire que le deck par defaut n'a pas ete cree
+				echo 'non';
 			}
 		}
 	}

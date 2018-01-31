@@ -8,6 +8,11 @@
 		var page = "<?= !empty($team) ? $team : '' ?>";
 	</script>
 	<script src="<?= JS_PATH . DS . 'splitBackground.js' ?>"></script> <!-- script de mise en forme du background --> 
+	<?php
+	if($title != 'Accueil'){
+		echo '<script src="'. JS_PATH . DS . 'deck.js"></script>';
+	}
+	?>
 	<link rel="stylesheet" media="screen" type="text/css" title="Exemple" href="<?= CSS_PATH . DS . 'HomeDeckStyle.css' ?>"/>
 	<?php include(FAVICON) ?>
 </head>
