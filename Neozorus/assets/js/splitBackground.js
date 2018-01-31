@@ -55,17 +55,17 @@ function splitBackground(){
 
 		var main = $('#page_matrix');
 	
-		logoNeozorus.click(matrixReverse);	/* Lance la fonction "dinosReverse" au click sur le logo */
-		imgHaut.click(matrixReverse);		/* Lance la fonction "dinosReverse" au click sur le coin supérieur */
-
+		// logoNeozorus.click(matrixReverse);	/* Lance la fonction "matrixReverse" au click sur le logo */
+		imgHaut.click(matrixReverse);		/* Lance la fonction "matrixReverse" au click sur le coin supérieur */
+		$('header nav').click(matrixReverse);		/* Lance la fonction "matrixReverse" au click sur le lien retour */
 
 	}else if(page == "dinos"){
 
 	    var main = $('#page_dinos');
 
-		logoNeozorus.click(dinosReverse);	/* Lance la fonction "dinosReverse" au click sur le logo */
+		// logoNeozorus.click(dinosReverse);	/* Lance la fonction "dinosReverse" au click sur le logo */
 		imgBas.click(dinosReverse);			/* Lance la fonction "dinosReverse" au click sur le coin inférieur */
-		
+		$('header nav').click(dinosReverse);		/* Lance la fonction "dinosReverse" au click sur le lien retour */
 	}
 
 	function styleAdjust(page){
@@ -114,8 +114,7 @@ function splitBackground(){
 			logo.css('marginTop', 10+'vh');
 
 			/* modification du curseur sur les éléments qui deviennent clickables */
-			logo.css('cursor', "pointer");
-			imgHaut.css('cursor', "pointer");
+			// imgHaut.css('cursor', "pointer");
 
 			/* coin supérieur au premier plan pour qu'il reste clickable */
 			divHaut.css('zIndex', "2");
@@ -143,8 +142,7 @@ function splitBackground(){
 			logo.css('margin-top', 10+'vh');
 
 			/* modification du curseur sur les éléments qui deviennent clickables */
-			logo.css('cursor', "pointer");
-			imgBas.css('cursor', "pointer");
+			// imgBas.css('cursor', "pointer");
 
 			/* coin inférieur au premier plan pour qu'il reste clickable */
 			divBas.css('zIndex', "2");
@@ -155,19 +153,19 @@ function splitBackground(){
 	/* fonction lancée au click sur le bouton "dinos" */
 	function dinos()
 	{
-		team='dinos';
+		team='dinos';		// variable de redirection
+		headerSlide(page);
 		backgroundSlide('D');
 		logoSlide('U');
-		headerSlide();
 	}
 
 	/* fonction lancée au click sur le bouton "matrix" */
 	function matrix()
 	{	
-		team='matrix';
+		team='matrix';		// variable de redirection
+		headerSlide(page);
 		backgroundSlide('U');
 		logoSlide('U');
-		headerSlide();
 	}
 
 	/* fonction de glissement du BG */
@@ -235,8 +233,8 @@ function splitBackground(){
 		}	
 	}
 
-	/* fonction de déplacement du header + fading du footer */
-	function headerSlide()
+	/* fonction de déplacement du header + fading de la page */
+	function headerSlide(page)
 	{
 		var y = 20;
 		var I = setInterval(hSlide,5);
@@ -244,10 +242,22 @@ function splitBackground(){
 		{
 			if(y <= -80){
 				clearInterval(I);
+				// si on est sur une page deck, on lance le glissement de background et de logo à la fin
+				if(page == 'matrix'){
+					backgroundSlideReverse('U');
+					logoSlide('D');
+				}else if (page == 'dinos') {
+					backgroundSlideReverse('D')
+					logoSlide('D');
+				}
 			}else{
 				y--;
 				$('header nav, header h1, header div').css('top', y+'px');
-				$('footer').css('opacity', (y+80)/100);
+				if(page == 'noteam' || page == ''){
+					$('footer').css('opacity', (y+80)/100);
+				}else{
+					$('#deck').css('opacity', (y+80)/100);
+				}	
 			}
 		}	
 	}
@@ -257,9 +267,7 @@ function splitBackground(){
 	{
 		main.css('display', "none");
 		divBas.css('zIndex', "0");	
-		backgroundSlideReverse('D')
-		logoSlide('D');
-		headerSlide();
+		headerSlide(page);
 	}
 
 	/* fonction d'animation pour le retour en page d'accueil */
@@ -267,9 +275,7 @@ function splitBackground(){
 	{
 		main.css('display', "none");
 		divHaut.css('zIndex', "0");
-		backgroundSlideReverse('U');
-		logoSlide('D');
-		headerSlide();
+		headerSlide(page);
 	}
 
 

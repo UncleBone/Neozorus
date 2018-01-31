@@ -1,10 +1,10 @@
 
 <header id="deckHeader">
-	<a href=".?controller=home&action=display"><nav>Retour</nav></a>
+	<nav>Retour</nav>
 	<h1> - <?= $title ?> - </h1>
 </header>
 
-<main id="decks">
+<main id="deck">
 	<div id="teamCard">
 		<img src="<?= IMG_PATH . DS . 'gabarit' . DS . 'personnage' . DS . $heros .'.png' ?>">
 		<span class="pvMax">20</span>
