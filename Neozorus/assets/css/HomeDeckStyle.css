@@ -10,6 +10,12 @@
   src:url('../font/fira-code/FiraCode-Medium.otf');
 }
 
+@font-face
+{
+  font-family: 'godzilla';
+  src:url('../font/godzilla/Godzilla.ttf');
+}
+
 body
 {
   margin: 0;
@@ -249,10 +255,21 @@ header
 { 
   width: 200px;
   margin: auto;
+  position: relative;
 }
 #teamCard img
 {
   width: 100%;
+}
+#teamCard .pvMax
+{
+  position: absolute;
+  top: 63px;
+  left: 43px;
+  font-family: godzilla, Verdana;
+  font-size: 1.3rem;
+  color: white;
+  z-index: 1;
 }
 #decks form
 {

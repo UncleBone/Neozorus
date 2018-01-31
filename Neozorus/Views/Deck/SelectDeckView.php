@@ -7,6 +7,7 @@
 <main id="decks">
 	<div id="teamCard">
 		<img src="<?= IMG_PATH . DS . 'gabarit' . DS . 'personnage' . DS . $heros .'.png' ?>">
+		<span class="pvMax">20</span>
 	</div>
 
 	<form>
