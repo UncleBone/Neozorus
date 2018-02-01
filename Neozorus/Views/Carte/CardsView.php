@@ -11,11 +11,24 @@
 
 	<div id="filter">
 
+		<?php
+		if(empty($deckId)){
+		?>
+
 		<div id="team" class="select">
 			<div id="btnDinos" class="btn" data="2">Les Dinos</div>
 			<div id="btnMatrix" class="btn" data="1">La Matrice</div>
 		</div>
 
+		<?php
+		}else{
+		?>
+
+		<div id="deckName" data_id="<?= $deckId ?>"></div>
+
+		<?php
+		}
+		?>
 		<div><hr></div>
 		
 		<div id="type" class="select">
