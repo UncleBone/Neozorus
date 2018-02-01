@@ -36,14 +36,6 @@ class CarteController extends CoreController{
 				$lang = $_SESSION['neozorus']['u_language'];
 			}
 			$titleTrad = $lang == 1 ? 'Les cartes' : 'The Cards';
-			$helloTrad = $lang == 1 ? 'Bonjour ' : 'Hello ';
-			$buttonPlayTrad = $lang == 1 ? 'Jouer' : 'Play';
-			$filterTitleTrad = $lang == 1 ? 'Filtrer par:' : 'Filter by:';
-			$labelManaTrad = $lang == 1 ? 'Cout en mana:' : 'Mana cost:';
-			$labelAbilityTrad = $lang == 1 ? 'Pouvoir:' : 'Ability:';
-			$labelOrderByTrad = $lang == 1 ? 'Trier par:' : 'Order by:';
-			$powerTrad = $lang == 1 ? 'Puissance' : 'Power';
-			$vitalityTrad = $lang == 1 ? 'Vitalite' : 'Vitality';
 
 			ob_start();
 			include(VIEWS_PATH . DS . 'Carte' . DS . 'CardsView.php');
@@ -74,22 +66,22 @@ class CarteController extends CoreController{
 		//On verifie si il y a une requete ajax ou non
 		if(!isset($this->parameters['ajax'])){
 			//Si ce n'est pas une requete ajax, on va chercher dans la BDD toutes les cartes du deck
-			$carteModel = new CarteModel();
-			$mesCartes = $carteModel -> GetCardsByDeck($this->parameters['deckId']);
+			$deckModel = new DeckModel();
+			$deckData = $deckModel->getDeckById($this->parameters['deckId'])[0];
+			$deck = new Deck($deckData['d_id'], $deckData['d_libelle'], $deckData['d_personnage_fk']);
+			$deck->setCartes();
+			$mesCartes = $deck->getCartes();
+			// $carteModel = new CarteModel();
+			// $data = $carteModel -> GetCardsByDeck($this->parameters['deckId']);
+			// foreach ($data as $value){
+			// 	$mesCartes[]=new Carte($value['c_id'], $value['c_libelle'], $value['c_type'], $value['c_puissance'], $value['c_pvMax'], $value['c_mana']);
+			// }	
 
 			$lang = 1 ;
 			if(isset($_SESSION['neozorus']['u_language'])){
 				$lang = $_SESSION['neozorus']['u_language'];
 			}
 			$titleTrad = $lang == 1 ? 'Les cartes' : 'The Cards';
-			$helloTrad = $lang == 1 ? 'Bonjour ' : 'Hello ';
-			$buttonPlayTrad = $lang == 1 ? 'Jouer' : 'Play';
-			$filterTitleTrad = $lang == 1 ? 'Filtrer par:' : 'Filter by:';
-			$labelManaTrad = $lang == 1 ? 'Cout en mana:' : 'Mana cost:';
-			$labelAbilityTrad = $lang == 1 ? 'Pouvoir:' : 'Ability:';
-			$labelOrderByTrad = $lang == 1 ? 'Trier par:' : 'Order by:';
-			$powerTrad = $lang == 1 ? 'Puissance' : 'Power';
-			$vitalityTrad = $lang == 1 ? 'Vitalite' : 'Vitality';
 
 			ob_start();
 			include(VIEWS_PATH . DS . 'Carte' . DS . 'CardsView.php');

@@ -1,7 +1,6 @@
 <?php
 class DeckController extends CoreController{
 
-
 	public function __construct(){
 		parent::__construct();
 		$this->isSessionNeozorus();
@@ -18,57 +17,55 @@ class DeckController extends CoreController{
 
 		$model = new DeckModel();
 		$deckList = $model -> GetAllDecks($this->session['u_id'],$this->parameters['team'] == 'matrix' ? '1' : '2');
-		foreach ($deckList as $data) {
-			$decks[] = new Deck($data);
-		}
-
-		//Si l'utilisateur n'a pas de deck, on invoque une fonction qui va créer un deck par defaut
-		if(empty($decks)){
+		if(!empty($deckList)){
+			foreach ($deckList as $data) {
+				$decks[] = new Deck($data['d_id'], $data['d_libelle'], $data['d_personnage_fk']);
+			}
+		}else{		//Si l'utilisateur n'a pas de deck, on invoque une fonction qui va créer un deck par defaut
 			$this->buildDefaultDeck($this->session['u_id'],$this->parameters['team'] == 'matrix' ? '1' : '2');
 		}
-		//On défini le theme de la page en fonction du héro et on invoque la view
-		else{
-			$team = $this->parameters['team'];
-			$title = $team == 'matrix' ? 'La matrice' : 'Les dinos';
-			$heros = $team == 'matrix' ? '1' : '2';
-			$theme = $this->parameters['team'] == 1 ? '"matrixtheme"' : '"dinotheme"';
-			ob_start();
-			include(VIEWS_PATH . DS . 'Deck' . DS . 'SelectDeckView.php');
-			$view = ob_get_contents();
-			ob_clean();
-			include(VIEWS_PATH . DS . 'Common' . DS . 'splitBackgroundLayout.php');
-		}	
+
+		$team = $this->parameters['team'];
+		$title = $team == 'matrix' ? 'La matrice' : 'Les dinos';
+		$heros = $team == 'matrix' ? '1' : '2';
+		$theme = $this->parameters['team'] == 1 ? '"matrixtheme"' : '"dinotheme"';
+
+		ob_start();
+		include(VIEWS_PATH . DS . 'Deck' . DS . 'SelectDeckView.php');
+		$view = ob_get_contents();
+		ob_clean();
+		include(VIEWS_PATH . DS . 'Common' . DS . 'splitBackgroundLayout.php');	
 	}
 
 	/**
 	 * Cette fonction va chercher les deck en fonction de l'utilisateur et du héro
 	 */
-	public function affichageDeck(){
-		$model = new DeckModel();
-		$decks = $model -> GetAllDecks($this->session['u_id'],$this->parameters['heros']);
-		//Si l'utilisateur n'a pas de deck, on invoque une fonction qui va créer un deck par defaut
-		if(empty($decks)){
-			$this->buildDefaultDeck($this->session['u_id'],$this->parameters['hero']);
-		}
-		//On défini le theme de la page en fonction du héro et on invoque la view
-		else{
-			$hero = $this->parameters['hero'];
-			$theme = $this->parameters['hero'] == 1 ? '"matrixtheme"' : '"dinotheme"';
-			include(VIEWS_PATH . DS . 'Deck' . DS . 'SelectDeckView.php');
-		}	
-	}
+	// public function affichageDeck(){
+	// 	$model = new DeckModel();
+	// 	$decks = $model -> GetAllDecks($this->session['u_id'],$this->parameters['heros']);
+	// 	//Si l'utilisateur n'a pas de deck, on invoque une fonction qui va créer un deck par defaut
+	// 	if(empty($decks)){
+	// 		$this->buildDefaultDeck($this->session['u_id'],$this->parameters['hero']);
+	// 	}
+	// 	//On défini le theme de la page en fonction du héro et on invoque la view
+	// 	else{
+	// 		$hero = $this->parameters['hero'];
+	// 		$theme = $this->parameters['hero'] == 1 ? '"matrixtheme"' : '"dinotheme"';
+	// 		include(VIEWS_PATH . DS . 'Deck' . DS . 'SelectDeckView.php');
+	// 	}	
+	// }
 
 
 	/**
 	 * On affiche un deck en fonction de son ID
 	 * @param  [type] $deckID ID du deck
 	 */
-	public function affichageCarte($deckID){
-		$model = new DeckModel();
-		$decks = $model -> GetDeck($deckID);
-		$theme = $this->parameters['hero'] == 1 ? '"matrixtheme"' : '"dinotheme"';
-		include(VIEWS_PATH . DS . 'Deck' . DS . 'SelectDeckView.php');
-	}
+	// public function affichageCarte($deckID){
+	// 	$model = new DeckModel();
+	// 	$decks = $model -> GetDeck($deckID);
+	// 	$theme = $this->parameters['hero'] == 1 ? '"matrixtheme"' : '"dinotheme"';
+	// 	include(VIEWS_PATH . DS . 'Deck' . DS . 'SelectDeckView.php');
+	// }
 
 
 	/**
@@ -92,7 +89,7 @@ class DeckController extends CoreController{
 		$deckDefaultId = $model -> addDefaultDeck($user,$heros);
 		//Si l'ajout du deck a fonctionné, on rempli le deck avec des cartes,puis on rappele la fonction d'affichage des deck
 		if($deckDefaultId !== false){
-			$defaultDeck = new Deck([ 'd_id' => $deckDefaultId, 'd_libelle' => 'Default', 'd_personnage_fk' => $heros ]);
+			$defaultDeck = new Deck($deckDefaultId, 'Default', $heros);
 			if($model -> fillDeckDefault($defaultDeck)){
 				// $this -> affichageDeck();
 				$this->display();

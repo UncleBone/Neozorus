@@ -9,18 +9,13 @@ Class Carte
 	private $pvMax;	// Point de Vie maximum de la carte [int]
 	private $mana;	// Coût en mana de la carte [int]
 	private $gabarit;	// Chemin vers l'illustration de la carte [string]
-	private $indice = NULL;	// Indice de la carte (pour differencier des cartes en double dans un deck) [null|int]
+	// private $indice = NULL;	// Indice de la carte (pour differencier des cartes en double dans un deck) [null|int]
+	private $nbExemplaire; 	// Nombre d'exemplaire de la carte (dans le deck) [int]
 
 	const EXEMPLAIRE_CREATURE = Nb_EXEMPLAIRE_CREATURE;	//Nombre de creature doublon autorise
 	const  EXEMPLAIRE_SPECIALE = Nb_EXEMPLAIRE_SPECIALE;	//Nombre de carte speciale doublon autorise
 	const EXEMPLAIRE_SORT = Nb_EXEMPLAIRE_SORT;	//Nombre de carte sort doublon autorise
 
-	/**
-	 * Instancie une carte à partir d'un tableau $data, et d'un parametre facultatif $indice
-	 *
-	 * @param [array]  $data   tableau comportant toutes les informations nécessaires à l'instanciation d'une carte
-	 * @param [int] $indice spécifie l'indice d'une carte, par défaut c'est égal à 1
-	 */
 	// public function __construct(array $data,$indice = 1){
 	// 	$this->setC_id($data['c_id']);
 	// 	$this->setC_libelle($data['c_libelle']);
@@ -31,7 +26,7 @@ Class Carte
 	// 	$this->setC_gabarit($data['c_type'],$data['c_id']);
 	// 	$this->setC_indice($indice);
 	// }
-	public function __construct($id,$libelle,$type,$puissance,$pv,$mana,$indice = 1){
+	public function __construct($id,$libelle,$type,$puissance,$pv,$mana,$n = 1){
 		$this->setId($id);
 		$this->setLibelle($libelle);
 		$this->setType($type);
@@ -39,7 +34,8 @@ Class Carte
 		$this->setPvMax($pv);
 		$this->setMana($mana);
 		$this->setGabarit($type,$id);
-		$this->setIndice($indice);
+		// $this->setIndice($indice);
+		$this->setNbExemplaire($n);
 	}
 
 	/**
@@ -106,11 +102,32 @@ Class Carte
 	 * setter Indice
 	 * @param [int] $indice 
 	 */
-	private function setIndice($indice){
+	// private function setIndice($indice){
+	// 	switch ($this->type) {
+	// 		case 'creature':
+	// 			if ($indice >0 && $indice <= self::EXEMPLAIRE_CREATURE) {
+	// 				$this->indice = $indice;				
+	// 			}
+	// 			else{
+	// 				return false;
+	// 			}
+	// 			break;
+	// 		case 'sort':
+	// 		case 'speciale':
+	// 			if ($indice >0 && $indice <= self::EXEMPLAIRE_SORT) {
+	// 				$this->indice = $indice;				
+	// 			}
+	// 			else{
+	// 				return false;
+	// 			}
+	// 			break;
+	// 	}
+	// }
+	private function setNbExemplaire($n){
 		switch ($this->type) {
 			case 'creature':
-				if ($indice >0 && $indice <= self::EXEMPLAIRE_CREATURE) {
-					$this->indice = $indice;				
+				if ($n >0 && $n <= self::EXEMPLAIRE_CREATURE) {
+					$this->nbExemplaire = $n;				
 				}
 				else{
 					return false;
@@ -118,8 +135,8 @@ Class Carte
 				break;
 			case 'sort':
 			case 'speciale':
-				if ($indice >0 && $indice <= self::EXEMPLAIRE_SORT) {
-					$this->indice = $indice;				
+				if ($n >0 && $n <= self::EXEMPLAIRE_SORT) {
+					$this->nbExemplaire = $n;				
 				}
 				else{
 					return false;
@@ -158,8 +175,12 @@ Class Carte
 		return $this->gabarit;
 	}
 
-	public function getIndice(){
-		return $this->indice;
+	// public function getIndice(){
+	// 	return $this->indice;
+	// }
+
+	public function getNbExemplaire(){
+		return $this->nbExemplaire;
 	}
 
 }

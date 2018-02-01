@@ -11,16 +11,16 @@ define('HANDLERS_PATH', 'Handlers');
 define('HANDLERS_EXTENSION', '.php');
 define('VIEWS_PATH', 'Views');
 
-//Chemins d'accès aux données
-define('IMG_PATH', 'assets' . DS . 'img');
-define('CSS_PATH', 'assets' . DS . 'css');
-define('JS_PATH', 'assets' . DS . 'js');
-
 //Parametres de connexion à la BDD
 define('DB_HOST', 'localhost');
 define('DB_NAME', 'neozorus');
 define('DB_USER', 'root');
 define('DB_PASS','');
+
+//Chemins d'accès aux données
+define('IMG_PATH', 'assets' . DS . 'img');
+define('CSS_PATH', 'assets' . DS . 'css');
+define('JS_PATH', 'assets' . DS . 'js');
 
 //Acces aux Gabarits des cartes
 define('GABARIT_PATH', IMG_PATH . DS . 'gabarit');

@@ -1,115 +1,89 @@
 <?php
-class Deck{
-	/**
-	 * Identifiant du deck
-	 * @var [int]
-	 */
-	private $id;
+class Deck
+{
+	private $id;		// Identifiant du deck [int]
+	private $libelle;	// Nom du deck [string]
+	private $personnage;	// Identifiant du héros associé au deck [int]
+	private $cartes; 	// Tableau des cartes composant le deck [array(Carte)]
 
-	/**
-	 * Libelle du deck
-	 * @var [string]
-	 */
-	private $libelle;
+	const MAX_CARTE = NB_MAX_CARTE;		// Nombre de carte maximum que peut contenir un deck
 
-	/**
-	 * Identifiant du hero associé au deck
-	 * @var [int]
-	 */
-	private $personnage;
-
-	/**
-	 * Nombre de carte maximum que peut contenir un deck
-	 */
-	const MAX_CARTE = NB_MAX_CARTE;//NB_MAX_CARTE defini dans ini.php
-
-	/**
-	 * Instancie un deck
-	 * @param [array] $data tableau comportant toutes les informations nécessaires à l'instanciation d'un deck
-	 */
-	public function __construct(array $data){
-		$this->setId($data['d_id']);
-		$this->setLibelle($data['d_libelle']);
-		$this->setPersonnage($data['d_personnage_fk']);
+	// public function __construct(array $data){
+	// 	$this->setId($data['d_id']);
+	// 	$this->setLibelle($data['d_libelle']);
+	// 	$this->setPersonnage($data['d_personnage_fk']);
+	// }
+	public function __construct($id, $libelle, $team){
+		$this->setId($id);
+		$this->setLibelle($libelle);
+		$this->setPersonnage($team);
 	}
 
-	/**
-	 * setter ID
-	 * @param [int] $ID 
-	 */
+/**************** SETTERS ********************/
+
 	private function setId($ID){
 		$this->id = $ID;
 	}
 
-	/**
-	 * setter Libelle
-	 * @param [string] $Libelle
-	 */
 	private function setLibelle($Libelle){
 		$this->libelle = $Libelle;
 	}
 
-	/**
-	 * setter hero associé au deck
-	 * @param [int] $idPersonnage 
-	 */
 	private function setPersonnage($idPersonnage){
 		$this->personnage = $idPersonnage;
 	}
 
-	/**
-	 * getter id
-	 * @return [int]
-	 */
+	public function setCartes(){
+		$model = new CarteModel();
+		$data = $model->getCardsByDeck($this->id);
+		foreach ($data as $value){
+			$this->cartes[]=new Carte($value['c_id'], $value['c_libelle'], $value['c_type'], $value['c_puissance'], $value['c_pvMax'], $value['c_mana']);
+		}
+	}
+
+/**************** GETTERS ********************/
+
 	public function getId(){
 		return $this->id;
 	}
 
-	/**
-	 * getter Libelle
-	 * @return [string]
-	 */
 	public function getLibelle(){
 		return $this->libelle;
 	}
 
-	/**
-	 * getter Id du hero associé au deck
-	 * @return [int]
-	 */
 	public function getPersonnage(){
 		return $this->personnage;
 	}
 
-	/**
-	 * [AjouterCarte description]
-	 * @param Carte $carte [description]
-	 */
-	public function AjouterCarte(Carte $carte){
-		$indice=0;
-		if(count($this->d_cartes) < self::MAX_CARTE){
-			foreach ($this->d_cartes as $key => $value) {
-				if($value->getC_id()==$carte->getC_id()){
-					$indice++;
-				}
-			}
-			switch ($carte->getC_type()) {
-				case 'creature':
-					if($indice<2){
-						$this->d_cartes[]=$carte;
-					}
-					break;
-				case 'speciale':
-					if($indice<1){
-						$this->d_cartes[]=$carte;
-					}
-					break;
-				case 'sort':
-					if($indice<1){
-						$this->d_cartes[]=$carte;
-					}
-					break;							
-			}
-		}
+	public function getCartes(){
+		return $this->cartes;
 	}
+
+	// public function AjouterCarte(Carte $carte){
+	// 	$indice=0;
+	// 	if(count($this->d_cartes) < self::MAX_CARTE){
+	// 		foreach ($this->d_cartes as $key => $value) {
+	// 			if($value->getC_id()==$carte->getC_id()){
+	// 				$indice++;
+	// 			}
+	// 		}
+	// 		switch ($carte->getC_type()) {
+	// 			case 'creature':
+	// 				if($indice<2){
+	// 					$this->d_cartes[]=$carte;
+	// 				}
+	// 				break;
+	// 			case 'speciale':
+	// 				if($indice<1){
+	// 					$this->d_cartes[]=$carte;
+	// 				}
+	// 				break;
+	// 			case 'sort':
+	// 				if($indice<1){
+	// 					$this->d_cartes[]=$carte;
+	// 				}
+	// 				break;							
+	// 		}
+	// 	}
+	// }
 }

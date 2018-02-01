@@ -103,11 +103,13 @@ class CarteModel extends CoreModel{
 
 	public function getCardsByDeck($deckId){
 		$req = 'SELECT carte.*,d_c_NbExemplaire AS NbExemplaire FROM carte 
-			INNER JOIN d_c_inclure ON c_id = d_c_carte_fk 
-			INNER JOIN deck ON d_c_deck_fk = d_id 
-			WHERE d_id = :deckID';
+				INNER JOIN d_c_inclure ON c_id = d_c_carte_fk 
+				INNER JOIN deck ON d_c_deck_fk = d_id 
+				WHERE d_id = :deckID
+				ORDER BY c_mana, c_id ASC';
 		$param = [ 'deckID' => $deckId ];
-		
+
+		return $this->MakeSelect($req, $param); 		
 	}
 
 	/**

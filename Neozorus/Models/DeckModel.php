@@ -5,12 +5,27 @@ class DeckModel extends CoreModel{
 	 * Récupère dans la BDD tous les deck d'un utilisateur en fonction du héros
 	 * @param [int] $UserID       ID de l'utilisateur
 	 * @param [int] $personnageID ID du héros
+	 *
 	 * @return [array] Tableau qui contient les données des Decks
 	 */
 	public function GetAllDecks($UserID,$personnageID){
 		$req = 'SELECT d_id, d_libelle,d_nbMaxCarte,d_personnage_fk FROM deck 
 				WHERE d_user_fk =:user AND d_personnage_fk = :heros';
 		$param = [ 'user' => $UserID, 'heros' => $personnageID ];
+
+		return $this->MakeSelect($req,$param);
+	}
+
+	/**
+	* 	Récupère les données d'un deck
+	*	@param [int] $id 	ID du deck [int]
+	*
+	*	@return [array] Tableau contenant les données du deck	
+	*/
+	public function getDeckById($id){
+		$req = 'SELECT d_id, d_libelle, d_personnage_fk FROM deck
+				WHERE d_id = :id';
+		$param = [ 'id' => $id ];
 
 		return $this->MakeSelect($req,$param);
 	}
