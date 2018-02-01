@@ -93,7 +93,6 @@ class DeckController extends CoreController{
 		//Si l'ajout du deck a fonctionné, on rempli le deck avec des cartes,puis on rappele la fonction d'affichage des deck
 		if($deckDefaultId !== false){
 			$defaultDeck = new Deck([ 'd_id' => $deckDefaultId, 'd_libelle' => 'Default', 'd_personnage_fk' => $heros ]);
-			var_dump($defaultDeck);
 			if($model -> fillDeckDefault($defaultDeck)){
 				// $this -> affichageDeck();
 				$this->display();

@@ -51,7 +51,7 @@ class CarteModel extends CoreModel{
 			//on fait une boucle qui instancie une carte n fois en fonction du nombre d'exemplaire
 			for ($i=0; $i < $NbExemplaire; $i++) { 
 				$indice = $i+1;//indice est un attribut de la carte
-				$mesCartes[]=new Carte($value,$indice);
+				$mesCartes[]=new Carte($value['c_id'], $value['c_libelle'], $value['c_type'], $value['c_puissance'], $value['c_pvMax'], $value['c_mana'], $indice);
 			}		
 		}
 		return $mesCartes;
@@ -96,7 +96,7 @@ class CarteModel extends CoreModel{
 
 		$mesCartes = array();
 		foreach ($data as $key => $value){
-			$mesCartes[]=new Carte($value);				
+			$mesCartes[]=new Carte($value['c_id'], $value['c_libelle'], $value['c_type'], $value['c_puissance'], $value['c_pvMax'], $value['c_mana']);				
 		}	
 		return $mesCartes;
 	}
