@@ -50,6 +50,17 @@ $(function(){
 							}, 'json');
 						}
 					});
+					$('#deckName input').off('keypress');
+					$('#deckName input').keypress( function(event){
+						if(event.which == 13 && newName.length > 0 ){
+							$.post('.?controller=deck&action=changeName&deckId='+$('#deckName').attr('data_id'), { 'newName' :  newName }, function(result){
+								console.log(result);
+								if($.type(result) == 'string'){
+									resetDeckName('', result);
+								}			
+							}, 'json');
+						}
+					});
 
 				}else{
 					$('#deckName button').css('cursor', 'default').css('color', 'rgb(150,150,150)').hover(function(){
