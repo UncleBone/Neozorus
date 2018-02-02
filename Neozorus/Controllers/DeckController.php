@@ -115,17 +115,17 @@ class DeckController extends CoreController{
 	}
 
 	/**
-	 * permet de changer le nom d'un deck
+	 * Pour changer le nom d'un deck
 	 */
-	public function changeNameDeck(){
-		//On vérifie que le nouveau nom ne soit pas vide,puis on le nettoie
+	public function changeName(){
 		if(!empty($this->data['newName'])){
-			$newName = htmlentities($this->data['newName']);
+			$newName = $this->data['newName'];
 			//On vérifie que le nouveau nom soit compris entre 3 et 60 caractères, qu'il soit alphanumérique avec tirets et underscore
-			if(StringHandler::isAlphaNumeric($this->data['newName'],DECK_NAME_MIN,DECK_NAME_MAX)){
+			if(StringHandler::isAlphaNumeric($newName,DECK_NAME_MIN,DECK_NAME_MAX)){
+
 				$model = new DeckModel;
 				//Si tout est OK, on modifie le nom du deck dans la BDD et on renvoie le nouveau nom
-				if($model->updateName($this->parameters['deck'],$newName)){
+				if($model->updateName($this->parameters['deckId'],$newName)){
 					echo json_encode($newName);
 				}
 				else{

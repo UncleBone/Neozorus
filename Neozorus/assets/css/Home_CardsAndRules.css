@@ -96,6 +96,10 @@ header nav
   left: 20px;
   cursor: pointer;
 }
+header nav:hover
+{
+  color: white;
+}
 
 header h1, header nav
 {
@@ -334,6 +338,37 @@ article ul
 {
 	animation: oscillate_10;
 	animation-duration: 0.5s;
+}
+
+#deckName
+{
+	font-family: 'fira_code', Verdana;
+	color: rgb(194,210,1); 
+}
+#deckName span, #deckName input
+{
+	display: block;
+	min-width: 120px;
+	font-family: 'army_rangers','godzilla', Verdana;
+	font-size: 1.2em;
+	text-align: center;
+	border: 1px solid white;
+	border-radius: 5px;
+	margin: 10px 0;
+	padding: 10px;
+	cursor: pointer;
+}
+#deckName button
+{
+	/*background-color: rgba(50,50,50);*/
+	background-color: transparent;
+	border: none;
+	color: rgb(150,150,150);
+	/*border: solid 1px white;*/
+	/*border-radius: 5px;*/
+	font-family: 'fira_code', Verdana;
+	font-size: 0.8em;
+	/*padding: 5px 20px;*/
 }
 
 /***************************************Cartes***************************************/

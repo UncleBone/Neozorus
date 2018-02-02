@@ -1,6 +1,7 @@
 $(function(){
 
 	zoom();
+	editDeckName();
 
 	//  Ajoute la classe selected au filtre cliqué ou la retire si elle y est déjà 
 	$('.select').children().click(function(){
@@ -19,7 +20,67 @@ $(function(){
 		loadFilteredView();	// charge la vue
 
 	});
-	
+
+	// Gère l'édition du nom de deck
+	function editDeckName(){
+		// au click, transforme le champ du nom en input éditable
+		$('#deckName span').click(function(){
+			let name = $(this).text();
+			let input = $('<input>').val(name).attr('data_origin', name).css('cursor','default');
+			$(this).replaceWith(input);
+			input.focus();
+			// à l'édition, activation et mise en forme du bouton 'modifier'
+			input.on('input',function(){ 
+				if($(this).val() != name){
+					$('#deckName button').css('cursor', 'pointer').css('color', 'rgb(194,210,1)').hover(function(){
+						$(this).css('color', 'white');
+					}, function(){
+						$(this).css('color', 'rgb(194,210,1)');
+					});
+					let newName = $(this).val();
+					// $('#deckName button').click( { 'newName' :  newName }, submitName);
+					$('#deckName button').click( function(){
+						$.post('.?controller=deck&action=changeName&deckId='+$('#deckName').attr('data_id'), { 'newName' :  newName }, function(result){
+							resetDeckName('', newName);
+						});
+					});
+
+				}else{
+					$('#deckName button').css('cursor', 'default').css('color', 'rgb(150,150,150)').hover(function(){
+						$(this).css('color', 'rgb(150,150,150)');
+					}, function(){
+						$(this).css('color', 'rgb(150,150,150)');
+					});
+				}
+			});
+
+			$('#deckName input').focusout(function(event){
+				resetDeckName(event,name);
+			});
+		});	
+	}
+
+	// désactive l'input modifiable + mise en forme bouton
+	function resetDeckName(event,name){
+		if(event == '' || $(event.relatedTarget).prop('nodeName') != 'BUTTON'){
+			let span = $('<span>').text(name);
+			$('#deckName input').replaceWith(span);
+			$('#deckName button').css('cursor', 'default').css('color', 'rgb(150,150,150)').hover(function(){
+					$(this).css('color', 'rgb(150,150,150)');
+				}, function(){
+					$(this).css('color', 'rgb(150,150,150)');
+				});
+		}
+		editDeckName();
+	}
+
+	// envoir la requête ajax pour un changement de nom de deck et gère la réponse
+	function submitName(e,name){
+		console.log(name);
+		$.post('.?controller=deck&action=changeName', name, function(result){
+			console.log(result);
+		});
+	}
 
 	// fonction de chargement des cartes sélectionnées + mise en forme des boutons de filtre
 	function loadFilteredView(){

@@ -24,7 +24,11 @@
 		}else{
 		?>
 
-		<div id="deckName" data_id="<?= $deckId ?>"></div>
+		<div id="deckName" data_id="<?= $deckId ?>">
+			<p>Nom du Deck: </p>
+			<span><?= $deck->getLibelle() ?></span>
+			<button>[Modifier]</button>
+		</div>
 
 		<?php
 		}

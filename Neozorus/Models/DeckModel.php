@@ -127,17 +127,15 @@ class DeckModel extends CoreModel{
 	 * Modifie le nom d'un deck dans la BDD
 	 * @param  [int] $id      Identifiant du deck à renommer
 	 * @param  [string] $newName Nouveau nom du deck
+	 *
 	 * @return [bool]          renvoi true si le nom a bien été modifié, sinon false
 	 */
 	public function updateName($id,$newName){
-		$sql = 'UPDATE deck SET d_libelle=:name WHERE d_id=:id';
+		$sql = 'UPDATE deck SET d_libelle = :name WHERE d_id=:id';
 		$params = array(
             'name' => $newName,
             'id' => $id
         );
-        if($this->makeStatement($sql,$params)){
-        	return true;
-        }
-        return false;
-	}
+        return $this->makeStatement($sql,$params);
+    }
 }
