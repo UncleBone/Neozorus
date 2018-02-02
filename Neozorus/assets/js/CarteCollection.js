@@ -26,7 +26,7 @@ $(function(){
 		// au click, transforme le champ du nom en input éditable
 		$('#deckName span').click(function(){
 			let name = $(this).text();
-			let input = $('<input>').val(name).attr('data_origin', name).css('cursor','default');
+			let input = $('<input>').val(name).attr('data_origin', name).css('cursor','default').attr('maxlength','16');
 			$(this).replaceWith(input);
 			input.focus();
 			// à l'édition, activation et mise en forme du bouton 'modifier'
@@ -39,19 +39,16 @@ $(function(){
 					});
 					let newName = $(this).val();
 					// $('#deckName button').click( { 'newName' :  newName }, submitName);
-					console.log(newName);
 					$('#deckName button').off('click');
 					$('#deckName button').click( function(){
-						
-						console.log(newName+'click');
-						$.post('.?controller=deck&action=changeName&deckId='+$('#deckName').attr('data_id'), { 'newName' :  newName }, function(result){
-							resetDeckName('', newName);
-							// if(!$.isArray(result)){
-							// 	resetDeckName('', newName);
-							// }else{
-							// 	console.log(result);
-							// }			
-						});
+						if(newName.length > 0 ){
+							$.post('.?controller=deck&action=changeName&deckId='+$('#deckName').attr('data_id'), { 'newName' :  newName }, function(result){
+
+								if($.type(result) == 'string'){
+									resetDeckName('', result);
+								}			
+							}, 'json');
+						}
 					});
 
 				}else{
