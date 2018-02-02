@@ -103,11 +103,9 @@ class CarteController extends CoreController{
 			echo $team;
 			$type = empty($this->parameters['type']) ? null : $this->parameters['type'];
 			$mana = empty($this->parameters['mana']) ? null : $this->parameters['mana'];
-			$idPouvoir = empty($this->parameters['idPouvoir']) == 'null' ? null : $this->parameters['idPouvoir'];
-			$tri = 'c_mana';//par defaut les cartes sont triées par cout en mana
 
 			$model = new CarteModel();
-			$mesCartes = $model->GetCartesByFilter($team, $type, $mana, $idPouvoir, $tri);
+			$mesCartes = $model->GetCardsByDeckByFilter($deckId, $type, $mana);
 
 			include(VIEWS_PATH . DS . 'Carte' . DS . 'CardsFiltered.php');
 		}

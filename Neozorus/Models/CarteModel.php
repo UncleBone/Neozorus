@@ -112,6 +112,35 @@ class CarteModel extends CoreModel{
 		return $this->MakeSelect($req, $param); 		
 	}
 
+	public function getCardsByDeckByFilter($deckId, $type = null, $mana = null){
+
+		$filterType = $type == null ? '' : 'AND c_type=:type ';
+		$filterMana = $mana == null ? '' : 'AND c_mana=:mana ';
+
+		$req = 'SELECT carte.*,d_c_NbExemplaire AS nbExemplaire FROM carte 
+				INNER JOIN d_c_inclure ON c_id = d_c_carte_fk 
+				INNER JOIN deck ON d_c_deck_fk = d_id
+				WHERE d_id = :deckID '.$filterType.$filterMana.'
+				ORDER BY c_mana, c_id ASC';
+
+		$param = [ 'deckID' => $deckId ];
+		
+		if($type != null){
+			$param['type'] = $type;
+		}
+		if($mana != null){
+			$param['mana'] = $mana;
+		}
+
+		$data=$this->MakeSelect($req,$param);
+
+		$mesCartes = array();
+		foreach ($data as $key => $value){
+			$mesCartes[]=new Carte($value['c_id'], $value['c_libelle'], $value['c_type'], $value['c_puissance'], $value['c_pvMax'], $value['c_mana'], $value['nbExemplaire']);				
+		}	
+		return $mesCartes;
+	}
+
 	/**
 	 * Retourne les différents types de cartes qui existent en BDD
 	 * @return [array] contient les types de cartes
