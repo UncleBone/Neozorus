@@ -349,6 +349,7 @@ article ul
 {
 	display: block;
 	min-width: 120px;
+	width: 100%;
 	font-family: 'army_rangers','godzilla', Verdana;
 	font-size: 1.2em;
 	text-align: center;
@@ -654,6 +655,17 @@ article ul
 	{
 		width: 1px;
 		height: 50px;
+	}
+	#deckName p, #deckName button
+	{
+		display: none;
+	}
+	#deckName span, #deckName input
+	{
+		width: 15vw;
+		min-width: 120px;
+		padding: 5px;
+		overflow: hidden;
 	}
 }
 @media (max-width: 800px)
