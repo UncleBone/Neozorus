@@ -39,9 +39,18 @@ $(function(){
 					});
 					let newName = $(this).val();
 					// $('#deckName button').click( { 'newName' :  newName }, submitName);
+					console.log(newName);
+					$('#deckName button').off('click');
 					$('#deckName button').click( function(){
+						
+						console.log(newName+'click');
 						$.post('.?controller=deck&action=changeName&deckId='+$('#deckName').attr('data_id'), { 'newName' :  newName }, function(result){
 							resetDeckName('', newName);
+							// if(!$.isArray(result)){
+							// 	resetDeckName('', newName);
+							// }else{
+							// 	console.log(result);
+							// }			
 						});
 					});
 
@@ -52,6 +61,7 @@ $(function(){
 						$(this).css('color', 'rgb(150,150,150)');
 					});
 				}
+				// editDeckName();
 			});
 
 			$('#deckName input').focusout(function(event){
@@ -75,12 +85,12 @@ $(function(){
 	}
 
 	// envoir la requête ajax pour un changement de nom de deck et gère la réponse
-	function submitName(e,name){
-		console.log(name);
-		$.post('.?controller=deck&action=changeName', name, function(result){
-			console.log(result);
-		});
-	}
+	// function submitName(e,name){
+	// 	console.log(name);
+	// 	$.post('.?controller=deck&action=changeName', name, function(result){
+	// 		console.log(result);
+	// 	});
+	// }
 
 	// fonction de chargement des cartes sélectionnées + mise en forme des boutons de filtre
 	function loadFilteredView(){

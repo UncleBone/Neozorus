@@ -129,14 +129,12 @@ class DeckController extends CoreController{
 					echo json_encode($newName);
 				}
 				else{
-					echo json_encode('');
+					echo json_encode([ 'error' => 'Erreur d\'écriture dans la base de données' ]);
 				}
+			}else{
+				echo json_encode([ 'error' => 'Le nom doit être compris entre 1 et 16 caractères' ]);
 			}
-			else{
-				echo json_encode('');
-			}
-		}
-		else{
+		}else{
 			echo json_encode('');
 		}
 	}
