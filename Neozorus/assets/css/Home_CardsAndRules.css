@@ -403,11 +403,21 @@ article ul
 	max-width: 100%;
 }
 
+.carte span
+{
+	font-size: 15px;
+}
 .carte span, .zoom span, .zoom_200 span
 {
 	position: absolute;
 	font-family: godzilla, Verdana;
 	z-index: 1;
+}
+
+.carte span.nbExemplaire
+{
+	top: 25px;
+	right: -13px;
 }
 
 .carte.creature span.pv, .carte.sort span.puissance
@@ -444,7 +454,8 @@ article ul
 
 .zoom span
 {
-	font-size: 2rem;
+	/*font-size: 2rem;*/
+	font-size: 30px;
 }
 
 .zoom.creature span.pv, .zoom.sort span.puissance
@@ -481,7 +492,8 @@ article ul
 
 .zoom_200 span
 {
-	font-size: 1.3rem;
+	/*font-size: 1.3rem;*/
+	font-size: 20px;
 }
 
 .zoom_200.creature span.pv, .zoom_200.sort span.puissance

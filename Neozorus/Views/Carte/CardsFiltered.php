@@ -11,6 +11,9 @@
 		echo $value->getType() != 'sort' ? '<span class="pv">'.$value->getPvMax().'</span>' : '';
 		echo '<span class="puissance">'.$value->getPuissance().'</span>';
 		echo '<span class="manaCost">'.$value->getMana().'</span>';
+		if($value->getNbExemplaire() > 1){
+			echo '<span class="nbExemplaire">x'.$value->getNbExemplaire().'</span>';
+		}
 		echo '</div>';
 	}
 ?>	

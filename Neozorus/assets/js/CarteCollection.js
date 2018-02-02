@@ -38,7 +38,6 @@ $(function(){
 						$(this).css('color', 'rgb(194,210,1)');
 					});
 					let newName = $(this).val();
-					// $('#deckName button').click( { 'newName' :  newName }, submitName);
 					$('#deckName button').off('click');
 					$('#deckName button').click( function(){
 						if(newName.length > 0 ){
@@ -50,6 +49,7 @@ $(function(){
 							}, 'json');
 						}
 					});
+					// Validation du changement de nom en pressant la touche entrée
 					$('#deckName input').off('keypress');
 					$('#deckName input').keypress( function(event){
 						if(event.which == 13 && newName.length > 0 ){

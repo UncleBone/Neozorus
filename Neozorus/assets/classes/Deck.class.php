@@ -37,7 +37,7 @@ class Deck
 		$model = new CarteModel();
 		$data = $model->getCardsByDeck($this->id);
 		foreach ($data as $value){
-			$this->cartes[]=new Carte($value['c_id'], $value['c_libelle'], $value['c_type'], $value['c_puissance'], $value['c_pvMax'], $value['c_mana']);
+			$this->cartes[]=new Carte($value['c_id'], $value['c_libelle'], $value['c_type'], $value['c_puissance'], $value['c_pvMax'], $value['c_mana'], $value['nbExemplaire']);
 		}
 	}
 
