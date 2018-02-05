@@ -66,12 +66,12 @@ function gamePlay(jet, att, cible, abilite, eog){
                     }
                 }
                 $('body').append(infoBox);
-                $(this).css('top','-10px');
+                $(this).css('top','10px');
             });
             $(this).mouseout(function(){
                 var oldInfoBox = $('#infoBox');
                 if(oldInfoBox.length != 0)  oldInfoBox.remove();
-                $(this).css('top',"0px");
+                $(this).css('top',"40px");
             });
         });
 
@@ -86,7 +86,7 @@ function gamePlay(jet, att, cible, abilite, eog){
         });
 
         /*****************Changement de jeton au click sur le bouton 'fin de tour'******************/
-        $('#end').click(function(){
+        $('#end img').click(function(){
             // console.log('fin de tour');
             ajax("play", "&jeton="+(1-jeton), function(result) {
                 var contenu = $('#contenu');
@@ -95,6 +95,11 @@ function gamePlay(jet, att, cible, abilite, eog){
                 gameWaitingTurn();
             });
         });
+        // $('#end img').hover(function(){
+        //     $(this).attr('src','./assets/img/plateau/bouton_valid2.png');
+        // }, function(){
+        //     $(this).attr('src','./assets/img/plateau/bouton_valid1.png');
+        // });
     }
 }
 /*
@@ -234,6 +239,7 @@ function gameWaitingTurn(){
             }
         })
     },1000);
+    // $('#end img:hover').css('animation', 'none');
 }
 
 /*****************Fonction de fade out**********************/

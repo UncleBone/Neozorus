@@ -24,13 +24,24 @@ body
 	height: 100%;
 	box-sizing: border-box;*/
 	margin: 0;
-	background-image: url('../img/plateau/plateau.png');
+	background-image: url('../img/plateau/plateau_alt.png');
 	background-size: 100vw 100vh;
 	font-size: 15px;
+	overflow: hidden;
 	/*position:fixed;
 	top:0px;
 	width:100%;
 	height:100%;*/
+}
+
+body *
+{
+	box-sizing: border-box;
+}
+
+a
+{
+	text-decoration: none;
 }
 
 .message{
@@ -300,29 +311,95 @@ body
 	height: 19vh;
 }
 
-/*LA MAIN*/
-#main{
-	position: fixed;
-	bottom:0px;
-	left:9%;
-	height: 9.5%;
-	margin: auto;
-	width: 82%;
+
+
+
+/**************************** Barre de contrôle *****************************/
+
+#actionBar
+{
+	position: absolute;
+	bottom: 0;
+	width: 100vw;
+	height: 10vh;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	align-items: center;
+}
+
+#quitter{
+/*	position: fixed;
+	bottom: 30px;*/
+	flex: 1;
+	/*position: relative;*/
+	/*left:25px;*/
+	text-align: center;
+	
+}
+
+#quitter a
+{
+	color: #8cbe22;
+  	/*font-size: 1em;*/
+	font-family: 'fira-code', Verdana;
+	/*text-decoration: none;*/
+  	background-color: rgba(0, 0, 0, 0.6);
+  	padding: 10px 15px;
+  	border: solid #8cbe22 2px;
+  	border-radius: 6px;
+}
+
+#quitter a:hover{
+	color: white;
+	border-color: white;
+}
+
+#end
+{
+/*	position: fixed;
+	right: 2.2%;
+	bottom: 3.3%;*/
+	flex: 1;
+	text-align: center;
+}
+#end img
+{
+	height: 8vh;
+}
+
+#end .anim:hover
+{
+	animation: oscillate_5;
+	animation-duration: 0.5s;
+}
+
+#main
+{
+	flex: 8;
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
+	flex-wrap: nowrap;
+
 }
 
-.carteMain  {
-	position: relative;
-	width: 130px;
-	overflow: hidden;
+/**************************** Main *****************************/
+
+.carteMain  
+{
+	position: relative;	/* pour positionner les stats */
+	top: 40px;
+	display: block;
+	width: 100px;
+	margin: 0 1%;
+	/*overflow: hidden;*/
 }
 
 .carteMain img{
 	width: 100%;
-	max-width: 80%;
-	text-align: center; 
+	/*max-width: 80%;*/
+	/*text-align: center; */
 }
 .carteJouable{
 	border-radius: 17px;
@@ -334,33 +411,33 @@ body
 	z-index:10;
 	color:white;
 	font-family: 'Godzilla';
-	font-size: 11px;
+	font-size: 0.8em;
 }
 
 .stat1Miniature{
-	top:20px;
-	left:33px;
+	top:19px;
+	left:32px;
 }
 .stat2Miniature{
-	top:37px;
-	left: 22px;
+	top:35px;
+	left: 20px;
 }
 .stat3Miniature{
-	top:58px;
-	left:16px;
+	top:56px;
+	left:15px;
 }
 
 .stat1MiniatureSpeciale{
-	top:11px;
-	left:15px;
+	top:10px;
+	left:14px;
 }
 .stat2MiniatureSpeciale{
-	top:28px;
-	left: 15px;
+	top:27px;
+	left: 14px;
 }
 .stat3MiniatureSpeciale{
-	top:45px;
-	left:15px;
+	top:44px;
+	left:14px;
 }
 #infoBox{
 	text-align: center;
@@ -373,36 +450,6 @@ body
 	font-style: italic;
 	color: lightgreen;
 }
-/*BOUTTON PASSER LE TOUR*/
-
-#end{
-	position: fixed;
-	right: 2.2%;
-	bottom: 3.3%;
-}
-/*BOUTTON QUITER*/
-
-#quitter{
-	position: fixed;
-	bottom: 30px;
-}
-#quitter a{
-	position: relative;
-	left:25px;
-	color: #8cbe22;
-  	font-size: 1em;
-	font-family: 'fira-code';
-	text-decoration: none;
-  	background-color: rgba(0, 0, 0, 0.6);
-  	padding: 10px 15px 10px 15px;
-  	border: solid #8cbe22 2px;
-  	border-radius: 6px;
-}
-
-#quitter a:hover{
-	background-color: rgba(0, 0, 0, 0.3);
-}
-
 #mask{
 	position: relative;
 	background-color: #01222C;
@@ -411,6 +458,28 @@ body
 	width: 75px;
 	height: 75px;
 	z-index: 100;
+}
+
+/**************************** Animation *****************************/
+
+@keyframes oscillate_5
+{
+  0%
+  {
+    transform: rotate(0deg);
+  }
+  25%
+  {
+    transform: rotate(5deg);
+  }
+  75%
+  {
+    transform: rotate(-5deg);
+  }
+  100%
+  {
+     transform: rotate(0deg);
+  }
 }
 
 /* Responsive */

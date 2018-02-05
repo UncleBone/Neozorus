@@ -165,7 +165,11 @@
             <img src="<?= end($defausse[$currentPlayer]) ? end($defausse[$currentPlayer])->getPath() : ''?>">
         </div>
     <?php  } ?>
+
     <div id="actionBar">
+        <nav id="quitter">
+            <a href="?controller=game&action=quitter">Quitter</a>
+        </nav>
         <div id="main">
             <?php
             foreach($main[$joueurActif] AS $cle=>$value){
@@ -212,20 +216,22 @@
             }
             ?>
         </div>
+
+        <nav id="end">
+        <?php
+            if($jeton == $joueurActif){
+                // echo '<img src="./assets/img/plateau/bouttonTourSuivant/'. $heros[$joueurPassif] .'.png">'; 
+                echo '<img class="anim" src="' . IMG_PATH . DS . 'plateau' . DS . 'bouton_valid1.png">';       
+            }
+            else{
+                echo '<img src="' . IMG_PATH . DS . 'plateau' . DS . 'bouton_valid3.png">';
+            }
+        ?>
+        </nav>
+
     </div>
-    <!-- Ici c'est le bouton passer le tour donc adapter la minature en fonction du hero-->
-    <div id="end">
-    <?php
-        if($jeton == $joueurActif){
-            echo '<img src="./assets/img/plateau/bouttonTourSuivant/'. $heros[$joueurPassif] .'.png">';       
-        }
-        else{
-            echo '<div id="mask"></div>';
-        }
-    ?>
-    </div>
-    <div id="quitter">
-        <a href="?controller=game&action=quitter">Quitter</a>
-    </div>
+
+    
+    
 
    
