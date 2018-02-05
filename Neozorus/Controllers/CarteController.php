@@ -100,7 +100,6 @@ class CarteController extends CoreController{
 		else{
 			//Si c'est une requete ajax, on va chercher uniquement les cartes sélectionnées
 			$team = $deck->getPersonnage();
-			echo $team;
 			$type = empty($this->parameters['type']) ? null : $this->parameters['type'];
 			$mana = empty($this->parameters['mana']) ? null : $this->parameters['mana'];
 

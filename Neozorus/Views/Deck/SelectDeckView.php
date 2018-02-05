@@ -1,6 +1,6 @@
 
 <header id="deckHeader">
-	<nav>Retour</nav>
+	<nav>Accueil</nav>
 	<h1> - <?= $title ?> - </h1>
 </header>
 
@@ -11,8 +11,8 @@
 	</div>
 
 	<form>
-		<label>Decks:</label>
-		<select>
+		<label>Deck:</label>
+		<select name="id">
 			<?php
 			foreach ($decks as $deck) {
 				echo '<option value="'.$deck->getId().'">'.$deck->getLibelle().'</option>';

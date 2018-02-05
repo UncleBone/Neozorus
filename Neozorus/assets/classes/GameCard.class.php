@@ -114,7 +114,7 @@ class GameCard
         return $this->path;
     }
     function setPath(){
-        $this->path = COMMON_PATH . DS . $this->getType() . DS . $this->getId() . '.png';
+        $this->path = GABARIT_PATH . DS . $this->getType() . DS . $this->getId() . '.png';
     }
 
     function getActive(){

@@ -263,9 +263,9 @@ body {
 	position: absolute;
 	left: 5vw;
 	bottom: 10%;
-	background-color: #01222C;
-	border-radius: 5px;
-	padding: 1px;
+	/*background-color: #01222C;*/
+	/*border-radius: 5px;*/
+	/*padding: 1px;*/
 }
 #piocheBottom img{
 	height: 19vh;

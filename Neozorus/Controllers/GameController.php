@@ -628,7 +628,7 @@ class GameController extends CoreController{
         
         unset($_SESSION['neozorus']['game']);
 
-        header('Location:?controller=home&action=affichagePageAccueil');
+        header('Location:.?controller=home&action=display');
     }
 //*/
     /*

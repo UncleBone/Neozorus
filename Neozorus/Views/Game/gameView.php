@@ -38,10 +38,10 @@
         <div id="manaLeft">
             <?php
             for ($i=0; $i < 10-$mana[$joueurActif]; $i++) {
-                echo '<div class="pilluleBleu"><img src="./assets/img/plateau/pilluleBleuVide.png"></div>';
+                echo '<div class="pilluleBleu"><img src="'. IMG_PATH . DS. 'plateau' . DS . 'pilluleBleueVide.png"></div>';
             }
             for ($i=0; $i < $mana[$joueurActif]; $i++) {
-                echo '<div class="pilluleBleu"><img src="./assets/img/plateau/pilluleBleu.png"></div>';
+                echo '<div class="pilluleBleu"><img src="'. IMG_PATH . DS. 'plateau' . DS . 'pilluleBleue.png"></div>';
             }
             ?>
         </div>
@@ -142,10 +142,10 @@
         <div id="manaRight">
             <?php
             for ($i=0; $i < 10-$mana[$joueurPassif]; $i++) {
-                echo '<div class="pilluleBleu"><img src="./assets/img/plateau/pilluleRougeVide.png"></div>';
+                echo '<div class="pilluleBleu"><img src="'. IMG_PATH . DS . 'plateau' . DS . 'pilluleRougeVide.png"></div>';
             }
             for ($i=0; $i < $mana[$joueurPassif]; $i++) {
-                echo '<div class="pilluleBleu"><img src="./assets/img/plateau/pilluleRouge.png"></div>';
+                echo '<div class="pilluleBleu"><img src="'. IMG_PATH . DS . 'plateau' . DS . 'pilluleRouge.png"></div>';
             }
             ?>
         </div>
@@ -157,7 +157,7 @@
     </div>
     <?php if(count($pioche) > 0){ ?>
     <div id="piocheBottom">
-        <img src="./assets/img/gabarit/verso.png">
+        <img src="<?= GABARIT_PATH . DS .'verso_alt.png' ?>">
         <p><?= count($pioche[$currentPlayer]) ?></p>
     </div>
     <?php  }

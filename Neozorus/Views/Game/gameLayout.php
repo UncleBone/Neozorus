@@ -24,8 +24,7 @@
             var cible = '<?=$cible?>';
             var abilite = '<?=$abilite?>';
             var error = '<?=$error?>';
-            var message = '<?=$message?>';
-//      
+            var message = '<?=$message?>';     
      </script>
 
 </head>
