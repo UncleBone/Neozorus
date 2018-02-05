@@ -1,6 +1,5 @@
     <?php
-    //On definit les variables representant d'une part la joueur qui doit jouer (actif), et le joueur qui attend son tour(passif)
-    //    $joueurActif = $jeton;
+
     $joueurActif = $currentPlayer;
     $joueurPassif = $joueurActif == 0 ? 1:0;
     if(!isset($att)){
@@ -22,13 +21,13 @@
     if(!empty($att) && $visable[$joueurPassif] == 1 && $currentPlayer == $jeton && !$eog){
         echo '<div id="topHero">';
         echo '<a href="?controller=game&action=play&jeton='.$joueurActif.'&att='.$att.'&cible=J'.$joueurPassif.'&abilite='.$abilite.'"><img src="./assets/img/plateau/portrait/'.$heros[$joueurPassif].'.png"></a>';
-        echo '<span class="vitaHero">'.$pv[$joueurPassif].'</span>';
+        echo '<span class="vitaHeros">'.$pv[$joueurPassif].'</span>';
         echo '</div>';
     }
     else{
         echo '<div id="topHero">';
         echo '<img src="./assets/img/plateau/portrait/'.$heros[$joueurPassif].'.png">';
-        echo '<span class="vitaHero">'.$pv[$joueurPassif].'</span>';
+        echo '<span class="vitaHeros">'.$pv[$joueurPassif].'</span>';
         echo '</div>';
     }
     ?>
@@ -152,7 +151,7 @@
     </div>
     <div id="bottomHero">
         <img src="./assets/img/plateau/portrait/<?=$heros[$joueurActif]?>.png">
-        <span class="vitaHero"><?=$pv[$joueurActif]?></span>
+        <span class="vitaHeros"><?=$pv[$joueurActif]?></span>
         <p>Tour <?= $tour ?></p>
     </div>
     <?php if(count($pioche) > 0){ ?>

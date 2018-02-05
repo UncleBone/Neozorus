@@ -1,8 +1,10 @@
-if(currentPlayer != jeton){
-    gameWaitingTurn();
-}else {
-    gamePlay(jeton, att, cible, abilite, eog);
-}
+$(function(){
+    if(currentPlayer != jeton){
+        gameWaitingTurn();
+    }else {
+        gamePlay(jeton, att, cible, abilite, eog);
+    }
+});
 
 function ajax(nom,data,fct){
     $.getJSON('.?controller=game&action='+nom+data+"&ajax=1", function(result){

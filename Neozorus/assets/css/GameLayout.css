@@ -1,4 +1,4 @@
-/*FONTS */
+/***************** Common *******************/
 
 @font-face
 {
@@ -16,19 +16,21 @@
 	src:url('../font/godzilla/Godzilla.ttf');
 }
 
-/*ARRIERE PLAN DU PLATEAU*/
-
-body {
-	position: fixed;
+body 
+{
+	/*position: fixed;
 	top: 0px;
 	width: 100%;
 	height: 100%;
-	box-sizing: border-box;
+	box-sizing: border-box;*/
 	margin: 0;
-	position:fixed;
+	background-image: url('../img/plateau/plateau.png');
+	background-size: 100vw 100vh;
+	font-size: 15px;
+	/*position:fixed;
 	top:0px;
 	width:100%;
-	height:100%;
+	height:100%;*/
 }
 
 .message{
@@ -55,44 +57,51 @@ body {
 
 
 
-#plateau{
+/*#plateau{
 	position: fixed;
 	width: 100%;
 	height: 100%;
 	z-index: -10;
-}
+}*/
 
-/*HEROS*/
+/*********** Héros ***********/
 
-#topHero,#bottomHero{
+#topHero,#bottomHero
+{
 	/*width: 8%;*/
 	/*height: 17.9%;*/
 	width:155px;
-	height: 180px;
-}
-#topHero{
-	position: fixed;
-	top: 1.5%;
+	/*height: 180px;*/
+	position: absolute;
 	left: 50%;
 	transform: translateX(-50%);
+}
+#topHero
+{
+	/*position: absolute;*/
+	top: 1%;
+/*	left: 50%;
+	transform: translateX(-50%);*/
 	
 }
-#topHero img{
+#topHero img, #bottomHero img
+{
 	width: 100%
 }
 
 #bottomHero{
-	position: fixed;
-	left: 50%;
-	transform: translateX(-50%);
-	bottom: 10%;
+	/*position: fixed;*/
+/*	left: 50%;
+	transform: translateX(-50%);*/
+	bottom: 9%;
 }
 
-#bottomHero img{
+/*#bottomHero img{
 	width: 100%
-}
+}*/
 
-#bottomHero p{
+#bottomHero p
+{
 	position: absolute;
 	bottom: -5px;
 	left:50%;
@@ -106,7 +115,7 @@ body {
 	border-radius: 5px;
 }
 
-.vitaHero{
+.vitaHeros{
 	z-index: 10;
 	position: absolute;
 	color: white;
@@ -381,8 +390,8 @@ body {
 	position: relative;
 	left:25px;
 	color: #8cbe22;
-  	font-size: 20px;
-	font-family: 'fira_code';
+  	font-size: 1em;
+	font-family: 'fira-code';
 	text-decoration: none;
   	background-color: rgba(0, 0, 0, 0.6);
   	padding: 10px 15px 10px 15px;
@@ -411,21 +420,22 @@ body {
 {
 	#topHero,#bottomHero{
 		width:120px;
-		height: 150px;
-		overflow: hidden;
+		/*height: 150px;*/
+		/*overflow: hidden;*/
 	}
 	#bottomHero p{
 		font-size: 13px;
 		width: 110px;
 	}
-	.vitaHero{
-		z-index: 10;
+	.vitaHeros{
+		/*z-index: 10;
 		position: absolute;
 		color: white;
-		font-family: 'Godzilla';
-		font-size: 21px;
+		font-family: 'Godzilla';*/
+		/*font-size: 21px;*/
+		font-size: 1.1em;
 		top:33px;
-		left:22px;
+		left:21px;
 	}
 	.carte img{
 		width: 120px;

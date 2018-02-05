@@ -26,13 +26,13 @@
             var error = '<?=$error?>';
             var message = '<?=$message?>';     
      </script>
-
+     <script src="<?= JS_PATH . DS . 'gamePlay.js' ?>"></script>
 </head>
 <body>
-    <img id="plateau" src="./assets/img/plateau/plateau.png">
-    <div id="contenu">
+    <!-- <img id="plateau" src="<?= IMG_PATH . DS . 'plateau' . DS . 'plateau.png' ?>"> -->
+    <main id="contenu">
         <?= $gameView ?>
-    </div>
-     <script src="<?= JS_PATH . DS . 'gamePlay.js' ?>"></script>
+    </main>
+     
 </body>
 </html>
