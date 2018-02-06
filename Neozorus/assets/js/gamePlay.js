@@ -37,41 +37,96 @@ function gamePlay(jet, att, cible, abilite, eog){
         var carteMain = $('.carteMain');
         var cartePlateau = $('#bottomCreature a.carte img');
 
-        /******************animation et infobox sur les cartes de la main*******************/
+        /******************animation et zoom sur les cartes de la main*******************/
         carteMain.each(function(){
-            $(this).mouseover(function(e){
-                // var img = $(this).find('img');
-                // var libelle = img.attr('data_libelle');
-                // var abilite1 = img.attr('data_abilite');
-                // var abilite2 = img.attr('data_abilite_2');
-                // var infoBox = $('<div></div>');
-                // var oldInfoBox = $('#infoBox');
-                // if(oldInfoBox.length != 0)  oldInfoBox.remove();
-
-                // infoBox.attr('id','infoBox');
-                // infoBox.css('background-color','rgba(0,0,0,0.7)');
-                // infoBox.css('color','white');
-                // infoBox.css('position','absolute');
-                // infoBox.css('top',e.clientY+'px');
-                // infoBox.css('left',e.clientX+'px');
-                // infoBox.css('transform','translate(-100%,-100%)');
-                // infoBox.css('font-family','fira-code');
-                // infoBox.css('padding','0 10px');
-                // infoBox.css('border-radius','5px');
-                // infoBox.html('<p class="libelle">'+libelle+'</p>');
-                // if(abilite1 != '0'){
-                //     infoBox.html(infoBox.html()+'<p class="abilite">'+abiliteTexte(abilite1)+'</p>');
-                //     if(abilite2 != '0'){
-                //         infoBox.html(infoBox.html()+'<p class="abilite">'+abiliteTexte(abilite2)+'</p>');
-                //     }
-                // }
-                // $('body').append(infoBox);
+            var timer;
+            $(this).hover(function(e){
                 $(this).css('top','10px');
-            });
-            $(this).mouseout(function(){
+                var target = $(this);
+                timer = setTimeout(function(){
+                    let src = target.find('img').attr('src');
+                    let regex = new RegExp('carteMain (.*)', 'i');
+                    let type = target.attr('class').replace(regex, '$1');
+                    let pv =  target.find('.pv').text();
+                    let puissance =  target.find('.puissance').text();
+                    let mana =  target.find('.mana').text();
+                    let leftOrigin = target.offset().left;
+                    let topOrigin = target.offset().top;
+                    let width = target.width();
+                    let height = target.height();
+
+                    let newDiv = $('<div>');
+                    let newImg = $('<img>');
+                    let newSpanPv = $('<span>');
+                    let newSpanPuissance = $('<span>');
+                    let newSpanMana = $('<span>');
+                    let zoomWidth = 200;
+
+                    newImg.attr('src', src);
+                    newImg.css('max-width', '100%');
+                    newSpanPv.text(pv);
+                    newSpanPv.addClass('pv');
+                    newSpanPuissance.text(puissance);
+                    newSpanPuissance.addClass('puissance');
+                    newSpanMana.text(mana);
+                    newSpanMana.addClass('manaCost');
+
+                    newDiv.append(newImg);
+                    newDiv.append(newSpanPv);
+                    newDiv.append(newSpanPuissance);
+                    newDiv.append(newSpanMana);
+
+                    newDiv.css('position', 'absolute');
+                    if(parseInt(leftOrigin+target.width()/2) < $(window).width()/2){
+                        newDiv.css('left', parseInt(leftOrigin+width)+'px');
+                    }else{
+                        newDiv.css('left', parseInt(leftOrigin-zoomWidth)+'px');
+                    }
+                    
+                    newDiv.css('width', zoomWidth+'px');
+                    newDiv.css('bottom', '10vh');
+                    newDiv.addClass('zoomMain');
+                   
+                    newDiv.css('z-index', '2');
+                    newDiv.addClass(type);
+                    
+                    $('main').append(newDiv);
+                    // console.log();
+
+                    // let img = $(this).find('img');
+                    // let libelle = img.attr('data_libelle');
+                    // let abilite1 = img.attr('data_abilite');
+                    // let abilite2 = img.attr('data_abilite_2');
+                    // let infoBox = $('<div></div>');
+                    // let oldInfoBox = $('#infoBox');
+                    // if(oldInfoBox.length != 0)  oldInfoBox.remove();
+
+                    // infoBox.attr('id','infoBox');
+                    // infoBox.css('background-color','rgba(0,0,0,0.7)');
+                    // infoBox.css('color','white');
+                    // infoBox.css('position','absolute');
+                    // infoBox.css('top',e.clientY+'px');
+                    // infoBox.css('left',e.clientX+'px');
+                    // infoBox.css('transform','translate(-100%,-100%)');
+                    // infoBox.css('font-family','fira-code');
+                    // infoBox.css('padding','0 10px');
+                    // infoBox.css('border-radius','5px');
+                    // infoBox.html('<p class="libelle">'+libelle+'</p>');
+                    // if(abilite1 != '0'){
+                    //     infoBox.html(infoBox.html()+'<p class="abilite">'+abiliteTexte(abilite1)+'</p>');
+                    //     if(abilite2 != '0'){
+                    //         infoBox.html(infoBox.html()+'<p class="abilite">'+abiliteTexte(abilite2)+'</p>');
+                    //     }
+                    // }
+                    // $('body').append(infoBox);
+                    
+                }, 1000);
+            }, function(){
                 var oldInfoBox = $('#infoBox');
                 if(oldInfoBox.length != 0)  oldInfoBox.remove();
                 $(this).css('top',"40px");
+                $('[class^=zoom]').remove();
+                clearTimeout(timer);
             });
         });
 

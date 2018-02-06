@@ -402,13 +402,12 @@ a
 	/*max-width: 80%;*/
 	/*text-align: center; */
 }
-.carteJouable{
+/*.carteJouable{
 	border-radius: 17px;
 	box-shadow: -1px 1px 19px 7px rgba(255,30,5,0.9);
 }
-
-/*.stat1Miniature,.stat2Miniature,.stat3Miniature,.stat1MiniatureSpeciale,.stat2MiniatureSpeciale,.stat3MiniatureSpeciale*/
-.carteMain span
+*/
+.carteMain span, .zoomMain span
 {
 	position: absolute;
 	z-index:10;
@@ -417,50 +416,87 @@ a
 	font-size: 0.8em;
 }
 
-.statPuissanceMain
+.carteMain .puissance
 {
 	top:19px;
 	left:32px;
 }
-.creature .statPvMain, .sort .statManaMain
+.carteMain.creature .pv, .carteMain.sort .mana
 {
 	top:35px;
 	left: 20px;
 }
-.creature .statManaMain
+.carteMain.creature .mana
 {
 	top:56px;
 	left:15px;
 }
-.speciale span
+.carteMain.speciale span
 {
 	left:14px;
 }
-.speciale .statPuissanceMain
+.carteMain.speciale .puissance
 {
 	top:10px;
 }
-.speciale .statPvMain
+.carteMain.speciale .pv
 {
 	top:27px;
 }
-.speciale .statManaMain
+.carteMain.speciale .mana
 {
 	top:44px;
 }
-
-#infoBox{
-	text-align: center;
+.zoomMain span
+{
+	/*font-size: 1.3rem;*/
+	font-size: 20px;
 }
-.libelle{
+
+.zoomMain.creature span.pv, .zoomMain.sort span.puissance
+{
+	top: 40px;
+	left: 65px;
+}
+.zoomMain.creature span.puissance, .zoomMain.sort span.manaCost
+{
+	top: 72px;
+	left: 41px;
+}
+.zoomMain.creature span.manaCost
+{
+	top: 112px;
+	left: 32px;
+}
+.zoomMain.speciale span
+{
+	left: 30px;
+}
+.zoomMain.speciale span.pv
+{
+	top: 22px;
+}
+.zoomMain.speciale span.puissance
+{
+	top: 54px;
+}
+.zoomMain.speciale span.manaCost
+{
+	top: 86px;
+}
+
+/*#infoBox{
+	text-align: center;
+}*/
+/*.libelle{
 	font-weight: bold;
 }
 .abilite{
 	font-size: 80%;
 	font-style: italic;
 	color: lightgreen;
-}
-#mask{
+}*/
+/*#mask{
 	position: relative;
 	background-color: #01222C;
 	top:15px;
@@ -468,7 +504,7 @@ a
 	width: 75px;
 	height: 75px;
 	z-index: 100;
-}
+}*/
 
 /**************************** Animation *****************************/
 

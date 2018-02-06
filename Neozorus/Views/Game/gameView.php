@@ -183,10 +183,10 @@
                 switch($value->getType()){
                     case 'creature':
                     case 'speciale':
-                        echo '<span class="statPvMain">'.$value->getPv().'</span>';
+                        echo '<span class="pv">'.$value->getPv().'</span>';
                     case 'sort':                        
-                        echo '<span class="statPuissanceMain">'.$value->getPuissance().'</span>';
-                        echo '<span class="statManaMain">'.$value->getMana().'</span>';
+                        echo '<span class="puissance">'.$value->getPuissance().'</span>';
+                        echo '<span class="mana">'.$value->getMana().'</span>';
                         break;
                 }
                 echo'</a>';
