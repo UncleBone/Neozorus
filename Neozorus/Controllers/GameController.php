@@ -396,7 +396,7 @@ class GameController extends CoreController{
                 $pv[$i] = $this->getPlayer($i)->getPv();
                 $mana[$i] = $this->getPlayer($i)->getMana();
                 $pioche[$i]= $this->getPlayer($i)->getPioche();
-                $main[$i] = $this->getPlayer($i)->getMain();
+                $main[$i] = array_reverse($this->getPlayer($i)->getMain());
                 $plateau[$i] = $this->getPlayer($i)->getPlateau();
                 $defausse[$i] = $this->getPlayer($i)->getDefausse();
                 $visable[$i] = $this->getPlayer($i)->getVisable();
@@ -458,7 +458,7 @@ class GameController extends CoreController{
             $pv[$i] = $this->getPlayer($i)->getPv();
             $mana[$i] = $this->getPlayer($i)->getMana();
             $pioche[$i]= $this->getPlayer($i)->getPioche();
-            $main[$i] = $this->getPlayer($i)->getMain();
+            $main[$i] = array_reverse($this->getPlayer($i)->getMain());
             $plateau[$i] = $this->getPlayer($i)->getPlateau();
             $defausse[$i] = $this->getPlayer($i)->getDefausse();
             $visable[$i] = $this->getPlayer($i)->getVisable();
