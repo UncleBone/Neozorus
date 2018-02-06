@@ -207,9 +207,11 @@ function reqAjaxCartePlateau(jet,att){
 
         let regex = new RegExp('&att=(\\d{2,3})(?:&cible=(\\d{2,3}))*&abilite=(\\d)$', 'i');
 
-        let attCarte = href.match(regex)[1];
-        let cibleCarte = href.match(regex)[2];
-        let abiliteCarte = href.match(regex)[3];
+        if(typeof(href) != 'undefined'){
+            let attCarte = href.match(regex)[1];
+            let cibleCarte = href.match(regex)[2];
+            let abiliteCarte = href.match(regex)[3];
+        }
 
         let parentId = $(this).parent().attr('id');
 

@@ -138,13 +138,13 @@ a
 
 /*DIV MANA+CREATURE */
 
-#blocCentral{
+/*#blocCentral{
 	position: fixed;
 	top: 21.2%;
 	left: 0.6%;
 	width: 98.5%;
 	height: 49%;
-}
+}*/
 
 /*MANA*/
 
@@ -184,7 +184,7 @@ a
 
 /*DIV DES CREATURES*/
 
-#creatureBox{
+/*#creatureBox{
 	position: fixed;
 	top: 21.2%;
 	right: 5%;
@@ -194,98 +194,167 @@ a
 #topCreature,#bottomCreature{
 	width: 100%;
 	height: 49%;
-}
+}*/
 
 /*DIV DES CREATURES ADVERSES*/
 
- #topCreature{
+ /*#topCreature{
 	position: absolute;
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
-}
+}*/
 
 /*DIV DES CREATURES DU JOUEUR*/
 
-#bottomCreature{
+/*#bottomCreature{
 	position: absolute;
 	bottom:0;
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
-} 
-/*POUR GERER LES CARTES*/
-.carte  {
-	position: relative;
-	width: 10%;
-	text-align: center;
+} */
+
+
+/************************************ Plateau *****************************************/
+
+#plateau
+{
+	position: absolute;
+	top: 21vh;
+	left: 5vw;
+	height: 50vh;
+	width: 90vw;
 }
-.carte img{
-	/*height: 100%;*/
-	width: 170px;
+#topPlateau, #bottomPlateau
+{
+	width: 100%;
+	height: 50%;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
 }
 
-.stat1,.stat2,.stat3,.stat1Speciale,.stat2Speciale,.stat3Speciale{
+/************************* Cartes du plateau *****************************/
+
+.carte  
+{
+	position: relative;	/* pour positionner les stats */
+	display: block;
+	width: 120px;
+	margin: 0 1%;
+}
+
+.carte img
+{
+	width: 100%;
+}
+
+.carte span, .zoomMain span
+{
 	position: absolute;
-	z-index:10;
+	z-index:1;
 	color:white;
 	font-family: 'Godzilla';
+	font-size: 0.9em;
+}
+
+.carte .puissance
+{
+	top:23px;
+	left:39px;
+}
+.carte.creature .pv, .carteMain.sort .mana
+{
+	top:43px;
+	left: 25px;
+}
+.carte.creature .mana
+{
+	top:67px;
+	left:20px;
+}
+.carte.speciale span
+{
+	left:14px;
+}
+.carte.speciale .puissance
+{
+	top:10px;
+}
+.carte.speciale .pv
+{
+	top:27px;
+}
+.carte.speciale .mana
+{
+	top:44px;
+}
+.zoomMain span
+{
+	/*font-size: 1.3rem;*/
 	font-size: 20px;
 }
 
-.stat1{
-	top:34px;
-	left: 57px;
+.zoomMain.creature span.pv, .zoomMain.sort span.puissance
+{
+	top: 40px;
+	left: 65px;
 }
-.stat2{
-	top:61px;
-	left:37px;
+.zoomMain.creature span.puissance, .zoomMain.sort span.manaCost
+{
+	top: 72px;
+	left: 41px;
 }
-.stat3{
-	top:95px;
+.zoomMain.creature span.manaCost
+{
+	top: 112px;
+	left: 32px;
+}
+.zoomMain.speciale span
+{
 	left: 30px;
 }
+.zoomMain.speciale span.pv
+{
+	top: 22px;
+}
+.zoomMain.speciale span.puissance
+{
+	top: 54px;
+}
+.zoomMain.speciale span.manaCost
+{
+	top: 86px;
+}
 
-.stat1Speciale{
-	top:18px;
-	left: 27px;
-}
-.stat2Speciale{
-	top:45px;
-	left: 27px;
-}
-.stat3Speciale{
-	top:73px;
-	left: 27px;
-}
-
-.indice{
+.carte .indice{
 	position: absolute;
 	background-color: white;
-	width:10px;
-  	height:10px;
+	width:8px;
+  	height:8px;
 	border-radius: 50%;
-	z-index: 10;
-	left: 156px;
-	/*right: 5px;*/
-	top: 30px;
+	z-index: 1;
+	right: 3px;
+	top: 20px;	
 }
 
 .indice span{
-	position: absolute;
-	font-size: 10px;
+	position: relative;
+	top: -8px;
+	left: 1px;
+	color: black;
+	font-size: 8px;
 	font-family: 'fira-code';
-	left:1px;
 }
 
-/* LA PIOCHE */
+/*************************** Pioche et défausse ****************************/
+
 #piocheBottom{
 	position: absolute;
 	left: 5vw;
 	bottom: 10%;
-	/*background-color: #01222C;*/
-	/*border-radius: 5px;*/
-	/*padding: 1px;*/
 }
 #piocheBottom img{
 	height: 19vh;
@@ -301,7 +370,6 @@ a
 	color: #01222C;
 }
 
-/* LA DEFAUSSE */
 #defausseBottom{
 	position: absolute;
 	right: 5vw;
@@ -310,9 +378,6 @@ a
 #defausseBottom img{
 	height: 19vh;
 }
-
-
-
 
 /**************************** Barre de contrôle *****************************/
 
@@ -545,17 +610,12 @@ a
 		width: 110px;
 	}
 	.vitaHeros{
-		/*z-index: 10;
-		position: absolute;
-		color: white;
-		font-family: 'Godzilla';*/
-		/*font-size: 21px;*/
 		font-size: 1.1em;
 		top:33px;
 		left:21px;
 	}
 	.carte img{
-		width: 120px;
+		/*width: 120px;*/
 		}
 	.stat1,.stat2,.stat3,.stat1Speciale,.stat2Speciale,.stat3Speciale{
 		font-size: 16px;
@@ -585,7 +645,7 @@ a
 		top:50px;
 		left: 17px;
 	}
-	.indice{
+	/*.indice{
 		top: 22px;
 		left: 108px;
 	}
@@ -594,7 +654,7 @@ a
 		font-size: 8px;
 		font-family: 'fira-code';
 		top: 1px;
-		left:2px;
+		left:2px;*/
 	}
 }
 
