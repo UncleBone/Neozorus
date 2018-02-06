@@ -396,7 +396,8 @@ a
 	/*overflow: hidden;*/
 }
 
-.carteMain img{
+.carteMain img
+{
 	width: 100%;
 	/*max-width: 80%;*/
 	/*text-align: center; */
@@ -406,7 +407,9 @@ a
 	box-shadow: -1px 1px 19px 7px rgba(255,30,5,0.9);
 }
 
-.stat1Miniature,.stat2Miniature,.stat3Miniature,.stat1MiniatureSpeciale,.stat2MiniatureSpeciale,.stat3MiniatureSpeciale{
+/*.stat1Miniature,.stat2Miniature,.stat3Miniature,.stat1MiniatureSpeciale,.stat2MiniatureSpeciale,.stat3MiniatureSpeciale*/
+.carteMain span
+{
 	position: absolute;
 	z-index:10;
 	color:white;
@@ -414,31 +417,38 @@ a
 	font-size: 0.8em;
 }
 
-.stat1Miniature{
+.statPuissanceMain
+{
 	top:19px;
 	left:32px;
 }
-.stat2Miniature{
+.creature .statPvMain, .sort .statManaMain
+{
 	top:35px;
 	left: 20px;
 }
-.stat3Miniature{
+.creature .statManaMain
+{
 	top:56px;
 	left:15px;
 }
-
-.stat1MiniatureSpeciale{
+.speciale span
+{
+	left:14px;
+}
+.speciale .statPuissanceMain
+{
 	top:10px;
-	left:14px;
 }
-.stat2MiniatureSpeciale{
+.speciale .statPvMain
+{
 	top:27px;
-	left: 14px;
 }
-.stat3MiniatureSpeciale{
+.speciale .statManaMain
+{
 	top:44px;
-	left:14px;
 }
+
 #infoBox{
 	text-align: center;
 }

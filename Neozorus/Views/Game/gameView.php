@@ -172,47 +172,64 @@
         </nav>
         <div id="main">
             <?php
-            foreach($main[$joueurActif] AS $cle=>$value){
-                if($value->getType()=='creature'){
-                    if ($currentPlayer == $jeton){
-                        echo '<a class="carteMain" href="?controller=game&action=play&jeton='.$jeton.'&jouer='.$value->getId().$value->getIndice().'">';
-                    }else{
-                        echo '<a class="carteMain">';
-                    }
-                    echo '<img src="'.$value->getPath().'" data_libelle="'.ucfirst(mb_strtolower($value->getLibelle())).'" 
-                    data_abilite="'.$value->getAbilite()[0].'" data_abilite_2="'.(count($value->getAbilite())==2 ? $value->getAbilite()[1] : '0').'">';
-                    echo '<span class="stat1Miniature">'.$value->getPuissance().'</span>';
-                    echo '<span class="stat2Miniature">'.$value->getPv().'</span>';
-                    echo '<span class="stat3Miniature">'.$value->getMana().'</span>';
-                    echo'</a>';
+            foreach($main[$joueurActif] AS $value){
+                if ($currentPlayer == $jeton){
+                    echo '<a class="carteMain '.$value->getType().'" href="?controller=game&action=play&jeton='.$jeton.'&jouer='.$value->getId().$value->getIndice().'">';
+                }else{
+                    echo '<a class="carteMain '.$value->getType().'">';
                 }
-                else if($value->getType()=='sort'){
-                    if ($currentPlayer == $jeton){
-                        echo '<a class="carteMain" href="?controller=game&action=play&jeton='.$jeton.'&jouer='.$value->getId().$value->getIndice().'">';
-                    }else{
-                        echo '<a class="carteMain">';
-                    }
+                echo '<img src="'.$value->getPath().'" data_libelle="'.ucfirst(mb_strtolower($value->getLibelle())).'" data_abilite="'.
+                    $value->getAbilite()[0].'" data_abilite_2="'.(count($value->getAbilite())==2 ? $value->getAbilite()[1] : '0').'">';
+                switch($value->getType()){
+                    case 'creature':
+                    case 'speciale':
+                        echo '<span class="statPvMain">'.$value->getPv().'</span>';
+                    case 'sort':                        
+                        echo '<span class="statPuissanceMain">'.$value->getPuissance().'</span>';
+                        echo '<span class="statManaMain">'.$value->getMana().'</span>';
+                        break;
+                }
+                echo'</a>';
+                // if($value->getType()=='creature'){
+                //     if ($currentPlayer == $jeton){
+                //         echo '<a class="carteMain" href="?controller=game&action=play&jeton='.$jeton.'&jouer='.$value->getId().$value->getIndice().'">';
+                //     }else{
+                //         echo '<a class="carteMain">';
+                //     }
+                //     echo '<img src="'.$value->getPath().'" data_libelle="'.ucfirst(mb_strtolower($value->getLibelle())).'" 
+                //     data_abilite="'.$value->getAbilite()[0].'" data_abilite_2="'.(count($value->getAbilite())==2 ? $value->getAbilite()[1] : '0').'">';
+                //     echo '<span class="stat1Miniature">'.$value->getPuissance().'</span>';
+                //     echo '<span class="stat2Miniature">'.$value->getPv().'</span>';
+                //     echo '<span class="stat3Miniature">'.$value->getMana().'</span>';
+                //     echo'</a>';
+                // }
+                // else if($value->getType()=='sort'){
+                //     if ($currentPlayer == $jeton){
+                //         echo '<a class="carteMain" href="?controller=game&action=play&jeton='.$jeton.'&jouer='.$value->getId().$value->getIndice().'">';
+                //     }else{
+                //         echo '<a class="carteMain">';
+                //     }
 
-                    echo '<img src="'.$value->getPath().'" data_libelle="'.ucfirst(mb_strtolower($value->getLibelle())).'"
-                    data_abilite="'.$value->getAbilite()[0].'" data_abilite_2="'.(count($value->getAbilite())==2 ? $value->getAbilite()[1] : '0').'">';
-                    echo '<span class="stat1Miniature">'.$value->getPuissance().'</span>';
-                    echo '<span class="stat2Miniature">'.$value->getMana().'</span>';
-                    echo'</a>';
-                }
-                else{
-                    if ($currentPlayer == $jeton){
-                        echo '<a class="carteMain" href="?controller=game&action=play&jeton='.$jeton.'&jouer='.$value->getId().$value->getIndice().'">';
-                    }else{
-                        echo '<a class="carteMain">';
-                    }
+                //     echo '<img src="'.$value->getPath().'" data_libelle="'.ucfirst(mb_strtolower($value->getLibelle())).'"
+                //     data_abilite="'.$value->getAbilite()[0].'" data_abilite_2="'.(count($value->getAbilite())==2 ? $value->getAbilite()[1] : '0').'">';
+                //     echo '<span class="stat1Miniature">'.$value->getPuissance().'</span>';
+                //     echo '<span class="stat2Miniature">'.$value->getMana().'</span>';
+                //     echo'</a>';
+                // }
+                // else{
+                //     if ($currentPlayer == $jeton){
+                //         echo '<a class="carteMain" href="?controller=game&action=play&jeton='.$jeton.'&jouer='.$value->getId().$value->getIndice().'">';
+                //     }else{
+                //         echo '<a class="carteMain">';
+                //     }
 
-                    echo '<img src="'.$value->getPath().'" data_libelle="'.ucfirst(mb_strtolower($value->getLibelle())).'"
-                    data_abilite="'.$value->getAbilite()[0].'" data_abilite_2="'.(count($value->getAbilite())==2 ? $value->getAbilite()[1] : '0').'">';
-                    echo '<span class="stat1MiniatureSpeciale">'.$value->getPuissance().'</span>';
-                    echo '<span class="stat2MiniatureSpeciale">'.$value->getPv().'</span>';
-                    echo '<span class="stat3MiniatureSpeciale">'.$value->getMana().'</span>';
-                    echo'</a>';
-                }
+                //     echo '<img src="'.$value->getPath().'" data_libelle="'.ucfirst(mb_strtolower($value->getLibelle())).'"
+                //     data_abilite="'.$value->getAbilite()[0].'" data_abilite_2="'.(count($value->getAbilite())==2 ? $value->getAbilite()[1] : '0').'">';
+                //     echo '<span class="stat1MiniatureSpeciale">'.$value->getPuissance().'</span>';
+                //     echo '<span class="stat2MiniatureSpeciale">'.$value->getPv().'</span>';
+                //     echo '<span class="stat3MiniatureSpeciale">'.$value->getMana().'</span>';
+                //     echo'</a>';
+                // }
             }
             ?>
         </div>
