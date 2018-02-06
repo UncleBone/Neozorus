@@ -485,17 +485,19 @@ a
 	top: 86px;
 }
 
-/*#infoBox{
+#infoBox{
 	text-align: center;
-}*/
-/*.libelle{
+	z-index: 3;
+	white-space: nowrap;
+}
+.libelle{
 	font-weight: bold;
 }
 .abilite{
 	font-size: 80%;
 	font-style: italic;
 	color: lightgreen;
-}*/
+}
 /*#mask{
 	position: relative;
 	background-color: #01222C;

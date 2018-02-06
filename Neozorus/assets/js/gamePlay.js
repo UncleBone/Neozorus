@@ -88,42 +88,43 @@ function gamePlay(jet, att, cible, abilite, eog){
                     newDiv.addClass('zoomMain');
                    
                     newDiv.css('z-index', '2');
+                    newDiv.css('overflow', 'visible');
                     newDiv.addClass(type);
                     
                     $('main').append(newDiv);
-                    // console.log();
 
-                    // let img = $(this).find('img');
-                    // let libelle = img.attr('data_libelle');
-                    // let abilite1 = img.attr('data_abilite');
-                    // let abilite2 = img.attr('data_abilite_2');
-                    // let infoBox = $('<div></div>');
-                    // let oldInfoBox = $('#infoBox');
-                    // if(oldInfoBox.length != 0)  oldInfoBox.remove();
+                    let img = target.find('img');
+                    let libelle = img.attr('data_libelle');
+                    let abilite1 = img.attr('data_abilite');
+                    let abilite2 = img.attr('data_abilite_2');
+                    let infoBox = $('<div></div>');
+                    let oldInfoBox = $('#infoBox');
+                    if(oldInfoBox.length != 0)  oldInfoBox.remove();
 
-                    // infoBox.attr('id','infoBox');
-                    // infoBox.css('background-color','rgba(0,0,0,0.7)');
-                    // infoBox.css('color','white');
-                    // infoBox.css('position','absolute');
-                    // infoBox.css('top',e.clientY+'px');
-                    // infoBox.css('left',e.clientX+'px');
+                    infoBox.attr('id','infoBox');
+                    infoBox.css('background-color','rgba(0,0,0,0.7)');
+                    infoBox.css('color','white');
+                    infoBox.css('position','absolute');
+                    infoBox.css('top','0');
+                    infoBox.css('left', parseInt(zoomWidth+2)+'px');
                     // infoBox.css('transform','translate(-100%,-100%)');
-                    // infoBox.css('font-family','fira-code');
-                    // infoBox.css('padding','0 10px');
-                    // infoBox.css('border-radius','5px');
-                    // infoBox.html('<p class="libelle">'+libelle+'</p>');
-                    // if(abilite1 != '0'){
-                    //     infoBox.html(infoBox.html()+'<p class="abilite">'+abiliteTexte(abilite1)+'</p>');
-                    //     if(abilite2 != '0'){
-                    //         infoBox.html(infoBox.html()+'<p class="abilite">'+abiliteTexte(abilite2)+'</p>');
-                    //     }
-                    // }
-                    // $('body').append(infoBox);
+                    infoBox.css('font-family','fira-code');
+                    infoBox.css('padding','0 10px');
+                    infoBox.css('border-radius','5px');
+                    // infoBox.css('width', zoomWidth);
+                    infoBox.html('<p class="libelle">'+libelle+'</p>');
+                    if(abilite1 != '0'){
+                        infoBox.html(infoBox.html()+'<p class="abilite">'+abiliteTexte(abilite1)+'</p>');
+                        if(abilite2 != '0'){
+                            infoBox.html(infoBox.html()+'<p class="abilite">'+abiliteTexte(abilite2)+'</p>');
+                        }
+                    }
+                    newDiv.append(infoBox);
                     
                 }, 1000);
             }, function(){
-                var oldInfoBox = $('#infoBox');
-                if(oldInfoBox.length != 0)  oldInfoBox.remove();
+                // var oldInfoBox = $('#infoBox');
+                // if(oldInfoBox.length != 0)  oldInfoBox.remove();
                 $(this).css('top',"40px");
                 $('[class^=zoom]').remove();
                 clearTimeout(timer);
