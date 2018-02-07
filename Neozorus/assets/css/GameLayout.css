@@ -245,19 +245,43 @@ a
 	width: 120px;
 	margin: 0 1%;
 }
+.carte img:hover
+{
+	outline: 1px solid white;
+}
 
 .carte img
 {
 	width: 100%;
 }
 
-.carte span, .zoomMain span
+.carte span, .zoom span
 {
 	position: absolute;
 	z-index:1;
 	color:white;
 	font-family: 'Godzilla';
 	font-size: 0.9em;
+}
+
+.carte .indice{
+	position: absolute;
+	background-color: white;
+	width:8px;
+  	height:8px;
+	border-radius: 50%;
+	z-index: 1;
+	right: 3px;
+	top: 20px;	
+}
+
+.carte .indice span{
+	position: relative;
+	top: -8px;
+	left: 1px;
+	color: black;
+	font-size: 8px;
+	font-family: 'fira-code';
 }
 
 .carte .puissance
@@ -291,64 +315,62 @@ a
 {
 	top:44px;
 }
-.zoomMain span
+.zoom span
 {
 	/*font-size: 1.3rem;*/
 	font-size: 20px;
 }
 
-.zoomMain.creature span.pv, .zoomMain.sort span.puissance
+.zoom.creature span.pv, .zoom.sort span.puissance
 {
 	top: 40px;
 	left: 65px;
 }
-.zoomMain.creature span.puissance, .zoomMain.sort span.manaCost
+.zoom.creature span.puissance, .zoom.sort span.manaCost
 {
 	top: 72px;
 	left: 41px;
 }
-.zoomMain.creature span.manaCost
+.zoom.creature span.manaCost
 {
 	top: 112px;
 	left: 32px;
 }
-.zoomMain.speciale span
+.zoom.speciale span
 {
 	left: 30px;
 }
-.zoomMain.speciale span.pv
+.zoom.speciale span.pv
 {
 	top: 22px;
 }
-.zoomMain.speciale span.puissance
+.zoom.speciale span.puissance
 {
 	top: 54px;
 }
-.zoomMain.speciale span.manaCost
+.zoom.speciale span.manaCost
 {
 	top: 86px;
 }
-
-.carte .indice{
+.zoom .indice{
 	position: absolute;
 	background-color: white;
-	width:8px;
-  	height:8px;
+	width:10px;
+  	height:10px;
 	border-radius: 50%;
 	z-index: 1;
-	right: 3px;
-	top: 20px;	
+	right: 10px;
+	top: 35px;	
 }
 
-.indice span{
+.zoom .indice span{
 	position: relative;
-	top: -8px;
+	top: -6px;
 	left: 1px;
 	color: black;
-	font-size: 8px;
+	font-size: 10px;
 	font-family: 'fira-code';
 }
-
 /*************************** Pioche et défausse ****************************/
 
 #piocheBottom{
@@ -472,7 +494,7 @@ a
 	box-shadow: -1px 1px 19px 7px rgba(255,30,5,0.9);
 }
 */
-.carteMain span, .zoomMain span
+.carteMain span
 {
 	position: absolute;
 	z-index:10;
@@ -511,43 +533,6 @@ a
 .carteMain.speciale .mana
 {
 	top:44px;
-}
-.zoomMain span
-{
-	/*font-size: 1.3rem;*/
-	font-size: 20px;
-}
-
-.zoomMain.creature span.pv, .zoomMain.sort span.puissance
-{
-	top: 40px;
-	left: 65px;
-}
-.zoomMain.creature span.puissance, .zoomMain.sort span.manaCost
-{
-	top: 72px;
-	left: 41px;
-}
-.zoomMain.creature span.manaCost
-{
-	top: 112px;
-	left: 32px;
-}
-.zoomMain.speciale span
-{
-	left: 30px;
-}
-.zoomMain.speciale span.pv
-{
-	top: 22px;
-}
-.zoomMain.speciale span.puissance
-{
-	top: 54px;
-}
-.zoomMain.speciale span.manaCost
-{
-	top: 86px;
 }
 
 #infoBox{

@@ -37,91 +37,13 @@ function gamePlay(jet, att, cible, abilite, eog){
         var carteMain = $('.carteMain');
         var cartePlateau = $('#bottomPlateau a.carte');
 
-        /******************animation et zoom sur les cartes de la main*******************/
+        /****************** animation et zoom sur les cartes de la main *******************/
         carteMain.each(function(){
-            var timer;
+            let timer;
             $(this).hover(function(e){
                 $(this).css('top','10px');
                 var target = $(this);
-                timer = setTimeout(function(){
-                    let src = target.find('img').attr('src');
-                    let regex = new RegExp('carteMain (.*)', 'i');
-                    let type = target.attr('class').replace(regex, '$1');
-                    let pv =  target.find('.pv').text();
-                    let puissance =  target.find('.puissance').text();
-                    let mana =  target.find('.mana').text();
-                    let leftOrigin = target.offset().left;
-                    let topOrigin = target.offset().top;
-                    let width = target.width();
-                    let height = target.height();
-
-                    let newDiv = $('<div>');
-                    let newImg = $('<img>');
-                    let newSpanPv = $('<span>');
-                    let newSpanPuissance = $('<span>');
-                    let newSpanMana = $('<span>');
-                    let zoomWidth = 200;
-
-                    newImg.attr('src', src);
-                    newImg.css('max-width', '100%');
-                    newSpanPv.text(pv);
-                    newSpanPv.addClass('pv');
-                    newSpanPuissance.text(puissance);
-                    newSpanPuissance.addClass('puissance');
-                    newSpanMana.text(mana);
-                    newSpanMana.addClass('manaCost');
-
-                    newDiv.append(newImg);
-                    newDiv.append(newSpanPv);
-                    newDiv.append(newSpanPuissance);
-                    newDiv.append(newSpanMana);
-
-                    newDiv.css('position', 'absolute');
-                    if(parseInt(leftOrigin+target.width()/2) < $(window).width()/2){
-                        newDiv.css('left', parseInt(leftOrigin+width)+'px');
-                    }else{
-                        newDiv.css('left', parseInt(leftOrigin-zoomWidth)+'px');
-                    }
-                    
-                    newDiv.css('width', zoomWidth+'px');
-                    newDiv.css('bottom', '10vh');
-                    newDiv.addClass('zoomMain');
-                   
-                    newDiv.css('z-index', '2');
-                    newDiv.css('overflow', 'visible');
-                    newDiv.addClass(type);
-                    
-                    $('main').append(newDiv);
-
-                    let img = target.find('img');
-                    let libelle = img.attr('data_libelle');
-                    let abilite1 = img.attr('data_abilite');
-                    let abilite2 = img.attr('data_abilite_2');
-                    let infoBox = $('<div></div>');
-                    let oldInfoBox = $('#infoBox');
-                    if(oldInfoBox.length != 0)  oldInfoBox.remove();
-
-                    infoBox.attr('id','infoBox');
-                    infoBox.css('background-color','rgba(0,0,0,0.7)');
-                    infoBox.css('color','white');
-                    infoBox.css('position','absolute');
-                    infoBox.css('top','0');
-                    infoBox.css('left', parseInt(zoomWidth+2)+'px');
-                    // infoBox.css('transform','translate(-100%,-100%)');
-                    infoBox.css('font-family','fira-code');
-                    infoBox.css('padding','0 10px');
-                    infoBox.css('border-radius','5px');
-                    // infoBox.css('width', zoomWidth);
-                    infoBox.html('<p class="libelle">'+libelle+'</p>');
-                    if(abilite1 != '0'){
-                        infoBox.html(infoBox.html()+'<p class="abilite">'+abiliteTexte(abilite1)+'</p>');
-                        if(abilite2 != '0'){
-                            infoBox.html(infoBox.html()+'<p class="abilite">'+abiliteTexte(abilite2)+'</p>');
-                        }
-                    }
-                    newDiv.append(infoBox);
-                    
-                }, 1000);
+                timer = setTimeout(zoom, 1000, target);
             }, function(){
                 // var oldInfoBox = $('#infoBox');
                 // if(oldInfoBox.length != 0)  oldInfoBox.remove();
@@ -131,15 +53,31 @@ function gamePlay(jet, att, cible, abilite, eog){
             });
         });
 
-        /*******************Animation des cartes en jeu*********************/
-        cartePlateau.each(function(){
-            $(this).mouseover(function(){
-                $(this).css('width',parseInt(this.clientWidth)+2+'px');
-            });
-            $(this).mouseout(function(){
-                $(this).css('width',parseInt(this.clientWidth)-2+'px');
+        /****************** animation et zoom sur les cartes du plateau *******************/
+        $('.carte').each(function(){
+            let timer;
+            $(this).hover(function(e){
+                // $(this).css('top','10px');
+                var target = $(this);
+                timer = setTimeout(zoom, 1000, target);
+            }, function(){
+                // var oldInfoBox = $('#infoBox');
+                // if(oldInfoBox.length != 0)  oldInfoBox.remove();
+                // $(this).css('top',"40px");
+                $('[class^=zoom]').remove();
+                clearTimeout(timer);
             });
         });
+
+        /*******************Animation des cartes en jeu*********************/
+        // cartePlateau.each(function(){
+        //     $(this).mouseover(function(){
+        //         $(this).css('width',parseInt(this.clientWidth)+2+'px');
+        //     });
+        //     $(this).mouseout(function(){
+        //         $(this).css('width',parseInt(this.clientWidth)-2+'px');
+        //     });
+        // });
 
         /*****************Changement de jeton au click sur le bouton 'fin de tour'******************/
         $('#end img').click(function(){
@@ -169,6 +107,8 @@ function reqAjaxCarteMain(att){
         $(this).removeAttr('href');
         $(this).css('cursor',"pointer");
         $(this).click(function(){
+            $(this).off('hover');
+            $('[class^=zoom]').remove();
             let regex = new RegExp('.*jouer=(\\d{2,3})$', 'i');
             let id = href.match(regex)[1];
             ajax("play", "&jouer="+id, function(result) {
@@ -340,4 +280,108 @@ function chgTurnMssg(t){
 
     $('body').append(messageBox);
     fade(messageBox);
+}
+
+/********************** Fonction de zoom sur les cartes ***********************/
+
+function zoom(target){
+    let localisation = target.parent().attr('id');
+    let src = target.find('img').attr('src');
+    // console.log(localisation);
+    if(localisation == 'main'){
+        var regex = new RegExp('carteMain (.*)', 'i');
+    }else{
+        var regex = new RegExp('carte (.*)', 'i');
+    }
+    let type = target.attr('class').replace(regex, '$1');
+    let pv =  target.find('.pv').text();
+    let puissance =  target.find('.puissance').text();
+    let mana =  target.find('.mana').text();
+    if(localisation != 'main'){
+        var indice = target.find('.indice span').text();
+    }
+    let leftOrigin = target.offset().left;
+    let topOrigin = target.offset().top;
+    let width = target.width();
+    let height = target.height();
+    
+    let newDiv = $('<div>');
+    let newImg = $('<img>');
+    let newSpanPv = $('<span>');
+    let newSpanPuissance = $('<span>');
+    let newSpanMana = $('<span>');
+    if(localisation != 'main'){
+        var newIndice = $('<div>').html('<span>'+indice+'</span>');
+        newIndice.addClass('indice');
+    }
+    let zoomWidth = 200;
+
+    newImg.attr('src', src);
+    newImg.css('max-width', '100%');
+    newSpanPv.text(pv);
+    newSpanPv.addClass('pv');
+    newSpanPuissance.text(puissance);
+    newSpanPuissance.addClass('puissance');
+    newSpanMana.text(mana);
+    newSpanMana.addClass('manaCost');
+
+    newDiv.append(newImg);
+    newDiv.append(newSpanPv);
+    newDiv.append(newSpanPuissance);
+    newDiv.append(newSpanMana);
+    if(localisation != 'main'){
+        newDiv.append(newIndice);
+    }
+
+    newDiv.css('position', 'absolute');
+    if(parseInt(leftOrigin+target.width()/2) < $(window).width()/2){
+        newDiv.css('left', parseInt(leftOrigin+width+2)+'px');
+    }else{
+        newDiv.css('left', parseInt(leftOrigin-zoomWidth-2)+'px');
+    }
+    
+    newDiv.css('width', zoomWidth+'px');
+    if(localisation == 'main'){
+        newDiv.css('bottom', '10vh');
+    }else{
+        newDiv.css('top', '50vh');
+        newDiv.css('transform','translateY(-50%)');
+    }
+    newDiv.addClass('zoom');
+   
+    newDiv.css('z-index', '2');
+    newDiv.css('overflow', 'visible');
+    newDiv.addClass(type);
+    
+    $('main').append(newDiv);
+
+    if(localisation == 'main'){
+        let img = target.find('img');
+        let libelle = img.attr('data_libelle');
+        let abilite1 = img.attr('data_abilite');
+        let abilite2 = img.attr('data_abilite_2');
+        let infoBox = $('<div></div>');
+        let oldInfoBox = $('#infoBox');
+        if(oldInfoBox.length != 0)  oldInfoBox.remove();
+    
+        infoBox.attr('id','infoBox');
+        infoBox.css('background-color','rgba(0,0,0,0.7)');
+        infoBox.css('color','white');
+        infoBox.css('position','absolute');
+        infoBox.css('top','0');
+        infoBox.css('left', parseInt(zoomWidth+2)+'px');
+        // infoBox.css('transform','translate(-100%,-100%)');
+        infoBox.css('font-family','fira-code');
+        infoBox.css('padding','0 10px');
+        infoBox.css('border-radius','5px');
+        // infoBox.css('width', zoomWidth);
+        infoBox.html('<p class="libelle">'+libelle+'</p>');
+        if(abilite1 != '0'){
+            infoBox.html(infoBox.html()+'<p class="abilite">'+abiliteTexte(abilite1)+'</p>');
+            if(abilite2 != '0'){
+                infoBox.html(infoBox.html()+'<p class="abilite">'+abiliteTexte(abilite2)+'</p>');
+            }
+        }
+        newDiv.append(infoBox);
+    }
 }
