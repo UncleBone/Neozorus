@@ -35,9 +35,10 @@ function gamePlay(jet, att, cible, abilite, eog){
         reqAjaxJoueur(jeton);
 
         var carteMain = $('.carteMain');
-        var cartePlateau = $('#bottomPlateau a.carte');
+        // var cartePlateau = $('#bottomPlateau a.carte');
 
         /****************** animation et zoom sur les cartes de la main *******************/
+
         carteMain.each(function(){
             let timer;
             $(this).hover(function(e){
@@ -54,16 +55,18 @@ function gamePlay(jet, att, cible, abilite, eog){
         });
 
         /****************** animation et zoom sur les cartes du plateau *******************/
+
         $('.carte').each(function(){
             let timer;
             $(this).hover(function(e){
                 // $(this).css('top','10px');
                 var target = $(this);
+                target.find('img').css('outline', '1px solid white');
                 timer = setTimeout(zoom, 1000, target);
             }, function(){
                 // var oldInfoBox = $('#infoBox');
                 // if(oldInfoBox.length != 0)  oldInfoBox.remove();
-                // $(this).css('top',"40px");
+                $(this).find('img').css('outline',"none");
                 $('[class^=zoom]').remove();
                 clearTimeout(timer);
             });
