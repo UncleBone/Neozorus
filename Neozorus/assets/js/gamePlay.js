@@ -35,7 +35,7 @@ function gamePlay(jet, att, cible, abilite, eog){
         reqAjaxJoueur(jeton);
 
         var carteMain = $('.carteMain');
-        var cartePlateau = $('#bottomCreature a.carte img');
+        var cartePlateau = $('#bottomPlateau a.carte');
 
         /******************animation et zoom sur les cartes de la main*******************/
         carteMain.each(function(){
@@ -204,28 +204,27 @@ function reqAjaxCartePlateau(jet,att){
     cartePlateau.each(function(){
         let href = $(this).attr('href');
         $(this).removeAttr('href');
-
+        // console.log(href);
         let regex = new RegExp('&att=(\\d{2,3})(?:&cible=(\\d{2,3}))*&abilite=(\\d)$', 'i');
 
         if(typeof(href) != 'undefined'){
-            let attCarte = href.match(regex)[1];
-            let cibleCarte = href.match(regex)[2];
-            let abiliteCarte = href.match(regex)[3];
+            var attCarte = href.match(regex)[1];
+            var cibleCarte = href.match(regex)[2];
+            var abiliteCarte = href.match(regex)[3];
         }
 
         let parentId = $(this).parent().attr('id');
 
-        if(parentId == 'bottomCreature' && currentPlayer == jeton){
+        if(parentId == 'bottomPlateau' && currentPlayer == jeton && $(this).attr('data_active') == 1){
             $(this).css('cursor',"pointer");
             $(this).click(function(){
-
                 ajax("play", "&att="+attCarte+"&abilite="+abiliteCarte, function(result) {
                     let contenu = $('#contenu');
                     contenu.html(result['view']);
                     gamePlay(result['jeton'],result['att'],result['cible'],result['abilite'],result['eog']);
                 });
             });
-        }else if(parentId == 'topCreature' && currentPlayer == jeton && att != '' ){
+        }else if(parentId == 'topPlateau' && currentPlayer == jeton && att != '' ){
             $(this).css('cursor',"pointer");
             $(this).click(function(){
                 ajax("play", "&att="+att+"&cible="+cibleCarte+"&abilite="+abiliteCarte, function(result) {
