@@ -371,6 +371,23 @@ a
 	font-size: 10px;
 	font-family: 'fira-code';
 }
+
+.sommeil
+{
+	font-family: godzilla, Verdana;
+	color: rgb(50,50,50);
+	/*color: black;*/
+	text-shadow: white 0px 0px 2px;
+	animation: sleep;
+	animation-duration: 1s;
+	animation-iteration-count: infinite;
+	animation-timing-function: linear;
+}
+/*.sommeil:nth-child(even)
+{
+	animation-delay: 0.5s;
+}*/
+
 /*************************** Pioche et défausse ****************************/
 
 #piocheBottom{
@@ -578,6 +595,25 @@ a
   {
      transform: rotate(0deg);
   }
+}
+
+@keyframes sleep
+{
+	0%
+	{
+		font-size: 1em;
+		transform: translate(0,0);
+	}
+	50%
+	{
+		font-size: 1.5em;
+		transform: translate(15px,-15px);
+	}
+	100%
+	{
+		font-size: 2em;
+		transform: translate(20px,-30px);
+	}
 }
 
 /* Responsive */

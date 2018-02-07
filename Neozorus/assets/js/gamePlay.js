@@ -46,8 +46,6 @@ function gamePlay(jet, att, cible, abilite, eog){
                 var target = $(this);
                 timer = setTimeout(zoom, 1000, target);
             }, function(){
-                // var oldInfoBox = $('#infoBox');
-                // if(oldInfoBox.length != 0)  oldInfoBox.remove();
                 $(this).css('top',"40px");
                 $('[class^=zoom]').remove();
                 clearTimeout(timer);
@@ -58,33 +56,25 @@ function gamePlay(jet, att, cible, abilite, eog){
 
         $('.carte').each(function(){
             let timer;
+            let target = $(this);
+            if(target.attr('data_active') == 0){
+                sommeil(target);
+            }
             $(this).hover(function(e){
-                // $(this).css('top','10px');
-                var target = $(this);
+                
                 target.find('img').css('outline', '1px solid white');
                 timer = setTimeout(zoom, 1000, target);
             }, function(){
-                // var oldInfoBox = $('#infoBox');
-                // if(oldInfoBox.length != 0)  oldInfoBox.remove();
                 $(this).find('img').css('outline',"none");
                 $('[class^=zoom]').remove();
                 clearTimeout(timer);
             });
         });
 
-        /*******************Animation des cartes en jeu*********************/
-        // cartePlateau.each(function(){
-        //     $(this).mouseover(function(){
-        //         $(this).css('width',parseInt(this.clientWidth)+2+'px');
-        //     });
-        //     $(this).mouseout(function(){
-        //         $(this).css('width',parseInt(this.clientWidth)-2+'px');
-        //     });
-        // });
 
         /*****************Changement de jeton au click sur le bouton 'fin de tour'******************/
+
         $('#end img').click(function(){
-            // console.log('fin de tour');
             ajax("play", "&jeton="+(1-jeton), function(result) {
                 var contenu = $('#contenu');
                 contenu.html(result['view']);
@@ -92,11 +82,6 @@ function gamePlay(jet, att, cible, abilite, eog){
                 gameWaitingTurn();
             });
         });
-        // $('#end img').hover(function(){
-        //     $(this).attr('src','./assets/img/plateau/bouton_valid2.png');
-        // }, function(){
-        //     $(this).attr('src','./assets/img/plateau/bouton_valid1.png');
-        // });
     }
 }
 /*
@@ -290,7 +275,6 @@ function chgTurnMssg(t){
 function zoom(target){
     let localisation = target.parent().attr('id');
     let src = target.find('img').attr('src');
-    // console.log(localisation);
     if(localisation == 'main'){
         var regex = new RegExp('carteMain (.*)', 'i');
     }else{
@@ -387,4 +371,18 @@ function zoom(target){
         }
         newDiv.append(infoBox);
     }
+}
+
+function sommeil(target){
+    let span = $('<span>');
+    let targetTop = target.offset().top;
+    let targetLeft = target.offset().left;
+    let targetWidth = target.width();
+    let targetHeight = target.height();
+
+    span.text('Z');
+    span.addClass('sommeil');
+    span.css('position','absolute').css('top',parseInt(targetTop+targetHeight/4)+'px').css('left',parseInt(targetLeft+targetWidth/2)+'px');
+
+    $('main').append(span);
 }
