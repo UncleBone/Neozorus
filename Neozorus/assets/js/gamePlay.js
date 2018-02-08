@@ -24,6 +24,7 @@ function gamePlay(jet, att, cible, abilite, eog){
     var att = att;
     var cible = cible;
     var abilite = abilite;
+    console.log('jet:'+jet+', att:'+att+', cible:'+cible+', abilite:'+abilite+' eog:'+eog);
 
     if(eog != '1'){
         $('#end').css('cursor','pointer').attr('title','Fin de tour');
@@ -50,6 +51,10 @@ function gamePlay(jet, att, cible, abilite, eog){
                 $('[class^=zoom]').remove();
                 clearTimeout(timer);
             });
+            $(this).click(function(){
+                $('[class^=zoom]').remove();
+                clearTimeout(timer);
+            });
         });
 
         /****************** animation et zoom sur les cartes du plateau *******************/
@@ -60,12 +65,15 @@ function gamePlay(jet, att, cible, abilite, eog){
             if(target.attr('data_active') == 0){
                 sommeil(target);
             }
-            $(this).hover(function(e){
-                
+            $(this).hover(function(e){     
                 target.find('img').css('outline', '1px solid white');
                 timer = setTimeout(zoom, 1000, target);
             }, function(){
                 $(this).find('img').css('outline',"none");
+                $('[class^=zoom]').remove();
+                clearTimeout(timer);
+            });
+            $(this).click(function(){
                 $('[class^=zoom]').remove();
                 clearTimeout(timer);
             });
@@ -101,11 +109,17 @@ function reqAjaxCarteMain(att){
             let id = href.match(regex)[1];
             ajax("play", "&jouer="+id, function(result) {
                 console.log(id);
-                var contenu = $('#contenu');
-                contenu.html(result['view']);
-                var infoBox = $('#infoBox');
-                if (infoBox.length != 0) infoBox.remove();
-                gamePlay(result['jeton'],result['att'],result['cible'],result['abilite'],result['eog']);
+                if(result['error'] != null){
+                    let error = $('<p>').addClass('error').text(result['error']);
+                    $('main').append(error);
+                    fade(error);
+                }else{
+                    var contenu = $('#contenu');
+                    contenu.html(result['view']);
+                    var infoBox = $('#infoBox');
+                    if (infoBox.length != 0) infoBox.remove();
+                    gamePlay(result['jeton'],result['att'],result['cible'],result['abilite'],result['eog']);
+                }
             });
         });
 
@@ -128,7 +142,7 @@ function reqAjaxCarteMain(att){
 function reqAjaxCartePlateau(jet,att){
     var jeton = jet;
     var att = att;
-    var cartePlateau = $('a.carte');
+    var cartePlateau = $('.carte');
     cartePlateau.each(function(){
         let href = $(this).attr('href');
         $(this).removeAttr('href');
@@ -145,10 +159,17 @@ function reqAjaxCartePlateau(jet,att){
 
         if(parentId == 'bottomPlateau' && currentPlayer == jeton && $(this).attr('data_active') == 1){
             $(this).css('cursor',"pointer");
+
             $(this).click(function(){
+                // console.log($._data( $(this)[0], 'events' ));
+                // console.log($(this));
+                // $(this).off('mouseenter mouseleave');
+                // $('[class^=zoom]').remove();
+                // console.log($._data( $(this)[0], 'events' ));
                 ajax("play", "&att="+attCarte+"&abilite="+abiliteCarte, function(result) {
                     let contenu = $('#contenu');
                     contenu.html(result['view']);
+
                     gamePlay(result['jeton'],result['att'],result['cible'],result['abilite'],result['eog']);
                 });
             });

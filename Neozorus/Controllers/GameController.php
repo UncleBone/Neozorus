@@ -589,7 +589,13 @@ class GameController extends CoreController{
      * Renvoie vers un lien qui affiche un message d'erreur
      */
     public function error($e){
-	    $this->saveAndRefreshView(null,$e);
+	    // $this->saveAndRefreshView(null,$e);
+        header('Content-Type: application/json; charset=utf-8');
+        $data = [ 'error' => $this->message($e) ];
+
+        echo json_encode($data);
+//        echo json_last_error_msg();
+        exit();
     }
 
     /*
