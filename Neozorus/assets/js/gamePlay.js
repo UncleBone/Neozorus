@@ -44,6 +44,7 @@ function gamePlay(jet, att, cible, abilite, eog){
                 $('.message').remove();
                 gamePlay(jeton, '', '', abilite, eog);
             });
+            $('#plateau :not(.carte)').css('cursor','url(assets/img/cursor/cursorCross.png), auto');
         }
         // var cartePlateau = $('#bottomPlateau a.carte');
 
@@ -81,6 +82,11 @@ function gamePlay(jet, att, cible, abilite, eog){
             /* Si la carte n'est pas sélectionnée pour attaquer: border au hover */
             if(att != id+index){ 
                 flickeringBorder(target.find('img'), 'off');
+                if(target.parent().attr('id') == 'topPlateau' && target.attr('data_visable') == '1'){
+                    target.css('cursor','url(assets/img/cursor/cursorTarget.png), auto');
+                }else{
+                    target.css('cursor','url(assets/img/cursor/cursorCross.png), auto');
+                }
                 $(this).hover(function(e){     
                     target.find('img').css('outline', '1px solid white');
                     timer = setTimeout(zoom, 1000, target);
@@ -202,13 +208,13 @@ function reqAjaxCartePlateau(jet,att){
                         $('.message').remove();
                         let message = $('<p>').addClass('message').text(result['error']);
                         $('main').append(message);
-                        // fade(error);
+                        gamePlay(jeton,attCarte,cible,abiliteCarte,eog);
                     }else{
                         let contenu = $('#contenu');
                         contenu.html(result['view']);
                          gamePlay(result['jeton'],result['att'],result['cible'],result['abilite'],result['eog']);
                     }
-                    gamePlay(jeton,attCarte,cible,abiliteCarte,eog);
+                    
                 });
             });
         }else if(parentId == 'topPlateau' && currentPlayer == jeton && att != '' ){

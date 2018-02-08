@@ -233,6 +233,7 @@ a
 	left: 5vw;
 	height: 50vh;
 	width: 90vw;
+	/*cursor: url(../img/cursor/cursorTarget.png), auto;*/
 }
 #topPlateau, #bottomPlateau
 {

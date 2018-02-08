@@ -53,7 +53,7 @@
                 foreach ($plateau[$joueurPassif] as $value){
                     //la carte est selectionnable si le joueur actif
                     
-                    echo '<a class="carte '.$value->getType().'" ';
+                    echo '<a class="carte '.$value->getType().'" data_visable="'.$value->getVisable().'"';
                     if(!empty($att) && $att != $value->getId().$value->getIndice() && $value->getVisable() == 1 && $currentPlayer == $jeton && !$eog){
                         echo 'href="?controller=game&action=play&jeton='.$jeton.'&att='.$att.'&cible='.$value->getId().$value->getIndice().'&abilite='.$abilite.'">';
                     }else{
