@@ -436,7 +436,7 @@ class GameController extends CoreController{
                         'cible' => $cible,
                         'att' => $att,
                         'abilite' => $abilite,
-                        'error' => json_last_error_msg()];
+                        'errorJSON' => json_last_error_msg()];
 
                 echo json_encode($data, JSON_UNESCAPED_UNICODE );
                // echo json_last_error_msg();

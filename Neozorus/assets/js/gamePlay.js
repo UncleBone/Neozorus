@@ -24,18 +24,26 @@ function gamePlay(jet, att, cible, abilite, eog){
     var att = att;
     var cible = cible;
     var abilite = abilite;
-    // console.log('jet:'+jet+', att:'+att+', cible:'+cible+', abilite:'+abilite+' eog:'+eog);
+    console.log('jet:'+jet+', att:'+att+', cible:'+cible+', abilite:'+abilite+' eog:'+eog);
 
     if(eog != '1'){
         $('#end').css('cursor','pointer').attr('title','Fin de tour');
 
         if($('.error').length != 0) fade($('.error'));
         $('.sommeil').remove();
+        
         reqAjaxCarteMain(att);
         reqAjaxCartePlateau(jeton, att);
         reqAjaxJoueur(jeton);
 
         var carteMain = $('.carteMain');
+        $('#plateau :not(.carte)').off('click');
+        if($.isNumeric(att)) {
+            $('#plateau :not(.carte)').click(function(){
+                $('.message').remove();
+                gamePlay(jeton, '', '', abilite, eog);
+            });
+        }
         // var cartePlateau = $('#bottomPlateau a.carte');
 
         /****************** animation et zoom sur les cartes de la main *******************/
@@ -62,21 +70,34 @@ function gamePlay(jet, att, cible, abilite, eog){
         $('.carte').each(function(){
             let timer;
             let target = $(this);
+            let id = $(this).attr('data_id');
+            let index = $(this).find('.indice span').text();
+
             if(target.attr('data_active') == 0 ){
                 sommeil(target);
             }
-            $(this).hover(function(e){     
-                target.find('img').css('outline', '1px solid white');
-                timer = setTimeout(zoom, 1000, target);
-            }, function(){
-                $(this).find('img').css('outline',"none");
-                $('[class^=zoom]').remove();
-                clearTimeout(timer);
-            });
-            $(this).click(function(){
-                $('[class^=zoom]').remove();
-                clearTimeout(timer);
-            });
+            // console.log('att:'+att+', id+index:'+id+index);
+            /* Si la carte n'est pas sélectionnée pour attaquer: border au hover */
+            if(att != id+index){  
+                $(this).hover(function(e){     
+                    target.find('img').css('outline', '1px solid white');
+                    timer = setTimeout(zoom, 1000, target);
+                }, function(){
+                    $(this).find('img').css('outline',"none");
+                    $('[class^=zoom]').remove();
+                    clearTimeout(timer);
+                });
+                $(this).click(function(){
+                    $('[class^=zoom]').remove();
+                    clearTimeout(timer);
+                });
+            }else{
+                let width = target.width();
+                $(this).off('mouseenter mouseleave');
+                target.find('img').css('outline', 'none');
+                // target.css('width', parseInt(width+5)+'px');
+                // target.find('img').css('box-shadow', '2px 2px');
+            }
         });
 
 
@@ -100,15 +121,16 @@ function reqAjaxCarteMain(att){
     var carteMain = $('.carteMain');
     carteMain.each(function(){
         let href = $(this).attr('href');
-        $(this).removeAttr('href');
+        // $(this).removeAttr('href');
         $(this).css('cursor',"pointer");
-        $(this).click(function(){
+        $(this).click(function(e){
+            e.preventDefault();
             $(this).off('hover');
             $('[class^=zoom]').remove();
             let regex = new RegExp('.*jouer=(\\d{2,3})$', 'i');
             let id = href.match(regex)[1];
             ajax("play", "&jouer="+id, function(result) {
-                console.log(id);
+                // console.log(id);
                 if(result['error'] != null){
                     $('.error').remove();
                     $('.message').remove();
@@ -147,7 +169,7 @@ function reqAjaxCartePlateau(jet,att){
     var cartePlateau = $('.carte');
     cartePlateau.each(function(){
         let href = $(this).attr('href');
-        $(this).removeAttr('href');
+        // $(this).removeAttr('href');
         // console.log(href);
         let regex = new RegExp('&att=(\\d{2,3})(?:&cible=(\\d{2,3}))*&abilite=(\\d)$', 'i');
 
@@ -161,14 +183,16 @@ function reqAjaxCartePlateau(jet,att){
 
         if(parentId == 'bottomPlateau' && currentPlayer == jeton && $(this).attr('data_active') == 1){
             $(this).css('cursor',"pointer");
-
-            $(this).click(function(){
+            $(this).off('click');
+            $(this).click(function(e){
+                e.preventDefault();
                 // console.log($._data( $(this)[0], 'events' ));
                 // console.log($(this));
                 // $(this).off('mouseenter mouseleave');
                 // $('[class^=zoom]').remove();
                 // console.log($._data( $(this)[0], 'events' ));
                 ajax("play", "&att="+attCarte+"&abilite="+abiliteCarte, function(result) {
+                    // console.log('click');
                     if(result['error'] != null){
                         $('.error').remove();
                         $('.message').remove();
@@ -178,9 +202,9 @@ function reqAjaxCartePlateau(jet,att){
                     }else{
                         let contenu = $('#contenu');
                         contenu.html(result['view']);
+                         gamePlay(result['jeton'],result['att'],result['cible'],result['abilite'],result['eog']);
                     }
-
-                    gamePlay(result['jeton'],result['att'],result['cible'],result['abilite'],result['eog']);
+                    gamePlay(jeton,attCarte,cible,abiliteCarte,eog);
                 });
             });
         }else if(parentId == 'topPlateau' && currentPlayer == jeton && att != '' ){
