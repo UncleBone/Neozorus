@@ -24,13 +24,13 @@ function gamePlay(jet, att, cible, abilite, eog){
     var att = att;
     var cible = cible;
     var abilite = abilite;
-    console.log('jet:'+jet+', att:'+att+', cible:'+cible+', abilite:'+abilite+' eog:'+eog);
+    // console.log('jet:'+jet+', att:'+att+', cible:'+cible+', abilite:'+abilite+' eog:'+eog);
 
     if(eog != '1'){
         $('#end').css('cursor','pointer').attr('title','Fin de tour');
 
         if($('.error').length != 0) fade($('.error'));
-
+        $('.sommeil').remove();
         reqAjaxCarteMain(att);
         reqAjaxCartePlateau(jeton, att);
         reqAjaxJoueur(jeton);
@@ -62,7 +62,7 @@ function gamePlay(jet, att, cible, abilite, eog){
         $('.carte').each(function(){
             let timer;
             let target = $(this);
-            if(target.attr('data_active') == 0){
+            if(target.attr('data_active') == 0 ){
                 sommeil(target);
             }
             $(this).hover(function(e){     
