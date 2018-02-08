@@ -44,7 +44,7 @@ a
 	text-decoration: none;
 }
 
-.message{
+/*.message{
 	margin:0px;
 	position: fixed;
 	top:15px;
@@ -53,17 +53,23 @@ a
 	font-size: 25px;
 	color:white;
 	background-color: rgba(0, 0, 0, 0.7);
-}
+}*/
 
-.error {
+.error, .message
+{
 	position: absolute;
-	right: 0;
+	right: 25vw;
 	top: 0;
+	transform: translateX(50%);
 	padding: 10px;
 	font-family: 'godzilla';
 	font-size: 25px;
 	color: white;
 	background-color: rgba(0, 0, 0, 0.7);
+}
+.message
+{
+	font-family: 'fira-code';
 }
 
 

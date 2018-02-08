@@ -110,6 +110,8 @@ function reqAjaxCarteMain(att){
             ajax("play", "&jouer="+id, function(result) {
                 console.log(id);
                 if(result['error'] != null){
+                    $('.error').remove();
+                    $('.message').remove();
                     let error = $('<p>').addClass('error').text(result['error']);
                     $('main').append(error);
                     fade(error);
@@ -167,8 +169,16 @@ function reqAjaxCartePlateau(jet,att){
                 // $('[class^=zoom]').remove();
                 // console.log($._data( $(this)[0], 'events' ));
                 ajax("play", "&att="+attCarte+"&abilite="+abiliteCarte, function(result) {
-                    let contenu = $('#contenu');
-                    contenu.html(result['view']);
+                    if(result['error'] != null){
+                        $('.error').remove();
+                        $('.message').remove();
+                        let message = $('<p>').addClass('message').text(result['error']);
+                        $('main').append(message);
+                        // fade(error);
+                    }else{
+                        let contenu = $('#contenu');
+                        contenu.html(result['view']);
+                    }
 
                     gamePlay(result['jeton'],result['att'],result['cible'],result['abilite'],result['eog']);
                 });

@@ -579,7 +579,7 @@ class GameController extends CoreController{
                     }
                 }
             }else{
-                $message = "cliquez sur la cible";
+                $this->error("Choisissez la cible");
             }
         }
         $this->saveAndRefreshView($message);
@@ -592,9 +592,7 @@ class GameController extends CoreController{
 	    // $this->saveAndRefreshView(null,$e);
         header('Content-Type: application/json; charset=utf-8');
         $data = [ 'error' => $this->message($e) ];
-
         echo json_encode($data);
-//        echo json_last_error_msg();
         exit();
     }
 
