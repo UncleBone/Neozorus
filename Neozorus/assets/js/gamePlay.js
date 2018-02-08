@@ -24,6 +24,7 @@ function gamePlay(jet, att, cible, abilite, eog){
     var att = att;
     var cible = cible;
     var abilite = abilite;
+    var timerFB;
     console.log('jet:'+jet+', att:'+att+', cible:'+cible+', abilite:'+abilite+' eog:'+eog);
 
     if(eog != '1'){
@@ -65,7 +66,7 @@ function gamePlay(jet, att, cible, abilite, eog){
             });
         });
 
-        /****************** animation et zoom sur les cartes du plateau *******************/
+        /****************** animations et zoom sur les cartes du plateau *******************/
 
         $('.carte').each(function(){
             let timer;
@@ -78,7 +79,8 @@ function gamePlay(jet, att, cible, abilite, eog){
             }
             // console.log('att:'+att+', id+index:'+id+index);
             /* Si la carte n'est pas sélectionnée pour attaquer: border au hover */
-            if(att != id+index){  
+            if(att != id+index){ 
+                flickeringBorder(target.find('img'), 'off');
                 $(this).hover(function(e){     
                     target.find('img').css('outline', '1px solid white');
                     timer = setTimeout(zoom, 1000, target);
@@ -95,8 +97,10 @@ function gamePlay(jet, att, cible, abilite, eog){
                 let width = target.width();
                 $(this).off('mouseenter mouseleave');
                 target.find('img').css('outline', 'none');
+                flickeringBorder(target.find('img'), 'on');
                 // target.css('width', parseInt(width+5)+'px');
-                // target.find('img').css('box-shadow', '2px 2px');
+                // target.find('img').css('box-shadow', '5px 5px 5px');
+
             }
         });
 
@@ -298,6 +302,25 @@ function fade(element) {
         }
 
     }, 50);
+}
+
+/***************************** border clignotante **********************************/
+function flickeringBorder(element, swtch){
+    let cpt = 0;
+    if(swtch == 'on'){
+        timerFB = setInterval(function () {
+            if(cpt % 2 == 0){
+                $(element).css('outline', '1px solid white');
+            }else{
+                $(element).css('outline', '1px solid transparent');
+            }
+            cpt++;
+        }, 500);
+    }else{
+        console.log('clearInterval');
+        if(typeof(timerFB) != 'undefined')  clearInterval(timerFB);
+        $(element).css('outline', 'none');
+    }
 }
 
 /**********************Affichage d'un message de changement de tour***********************/
