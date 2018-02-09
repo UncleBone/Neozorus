@@ -99,12 +99,14 @@ function gamePlay(jet, att, cible, abilite, eog){
             
             // console.log('att:'+att+', id+index:'+id+index);
             target.css('cursor','auto');    // réinitialisation du curseur
-            $(this).off('mouseenter mouseleave');   // désactiation du hover
+            $(this).off('mouseenter mouseleave');   // désactivation du hover
+
             /* Si aucune carte n'est sélectionnée pour attaquer: border au hover + zoom */
             if(!$.isNumeric(att)){ 
                 $(this).hover(function(e){     
                     target.find('img').css('outline', '1px solid white');
                     timer = setTimeout(zoom, 1000, target);
+                    console.log('hover');
                 }, function(){
                     $(this).find('img').css('outline',"none");
                     $('[class^=zoom]').remove();
@@ -240,6 +242,7 @@ function reqAjaxCartePlateau(jet,att,abilite){
             $(this).off('click');
             $(this).click(function(e){
                 e.preventDefault();
+                e.stopPropagation();
                 // console.log('click');
                 // console.log($._data( $(this)[0], 'events' ));
                 // console.log($(this));
@@ -266,7 +269,9 @@ function reqAjaxCartePlateau(jet,att,abilite){
             });
         }else if(parentId == 'topPlateau' && currentPlayer == jeton && att != '' ){
             // $(this).css('cursor',"pointer");
-            $(this).click(function(){
+            $(this).click(function(e){
+                e.preventDefault();
+                e.stopPropagation();
                 // console.log(cibleCarte);
                 let id = $(this).attr('data_id');
                 let index = $(this).find('.indice span').text();
@@ -274,6 +279,7 @@ function reqAjaxCartePlateau(jet,att,abilite){
                 ajax("play", "&att="+att+"&cible="+id+index+"&abilite="+abilite, function(result) {
                     let contenu = $('#contenu');
                     contenu.html(result['view']);
+                    
                     gamePlay(result['jeton'],result['att'],result['cible'],result['abilite'],result['eog']);
                 });
             });
