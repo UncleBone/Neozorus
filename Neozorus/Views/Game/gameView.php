@@ -140,7 +140,7 @@ if(count($defausse[$currentPlayer]) > 0){ ?>
                     echo '<a class="carteMain '.$value->getType().'">';
                 }
                 echo '<img src="'.$value->getPath().'" data_libelle="'.ucfirst(mb_strtolower($value->getLibelle())).'" data_abilite="'.
-                    $value->getAbilite()[0].'" data_abilite_2="'.(count($value->getAbilite())==2 ? $value->getAbilite()[1] : '0').'">';
+                    $value->getAbilite()[0].'" data_abilite_2="'.(count($value->getAbilite())==2 ? $value->getAbilite()[1] : '0').'" data_id="'.$value->getId().'" data_indice="'.$value->getIndice().'">';
                 switch($value->getType()){
                     case 'creature':
                     case 'speciale':

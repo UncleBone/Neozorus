@@ -58,20 +58,31 @@ function gamePlay(jet, att, cible, abilite, eog){
         /****************** animation et zoom sur les cartes de la main *******************/
 
         carteMain.each(function(){
-            let timer;
-            $(this).hover(function(e){
-                $(this).css('top','10px');
-                var target = $(this);
-                timer = setTimeout(zoom, 1000, target);
-            }, function(){
+            let id = $(this).find('img').attr('data_id');
+            let indice = $(this).find('img').attr('data_indice');
+            // console.log(att+' '+id+indice);
+            $(this).off('mouseenter mouseleave');
+            $(this).find('img').css('outline','none');
+            // $(this).off('click');
+            if(!$.isNumeric(att)){
                 $(this).css('top',"40px");
-                $('[class^=zoom]').remove();
-                clearTimeout(timer);
-            });
-            $(this).click(function(){
-                $('[class^=zoom]').remove();
-                clearTimeout(timer);
-            });
+                let timer;
+                $(this).hover(function(e){
+                    $(this).css('top','10px');
+                    var target = $(this);
+                    timer = setTimeout(zoom, 1000, target);
+                }, function(){
+                    $(this).css('top',"40px");
+                    $('[class^=zoom]').remove();
+                    clearTimeout(timer);
+                });
+                $(this).click(function(){
+                    $('[class^=zoom]').remove();
+                    clearTimeout(timer);
+                });
+            }else if(att == id+indice){
+                flickeringBorder($(this).find('img'), 'on');
+            }
         });
 
         /****************** animations et zoom sur les cartes du plateau *******************/
@@ -148,9 +159,11 @@ function reqAjaxCarteMain(att){
         let href = $(this).attr('href');
         // $(this).removeAttr('href');
         $(this).css('cursor',"pointer");
+        $(this).off('click');
         $(this).click(function(e){
             e.preventDefault();
-            $(this).off('hover');
+            let carte = $(this);
+            carte.off('hover');
             $('[class^=zoom]').remove();
             let regex = new RegExp('.*jouer=(\\d{2,3})$', 'i');
             let id = href.match(regex)[1];
@@ -159,9 +172,26 @@ function reqAjaxCarteMain(att){
                 if(result['error'] != null){
                     $('.error').remove();
                     $('.message').remove();
-                    let error = $('<p>').addClass('error').text(result['error']);
-                    $('main').append(error);
-                    fade(error);
+                    if(result['error'] == "Vous n'avez pas assez de mana!" ){
+                        let error = $('<p>').addClass('error').text(result['error']);
+                        $('main').append(error);
+                        fade(error);
+                    }else if(result['error'] == "Choisissez la cible" ){
+                        carte.addClass('att');
+                        let message = $('<p>').addClass('message').text(result['error']);
+                        $('main').append(message);
+                        let id = carte.find('img').attr('data_id');
+                        let indice = carte.find('img').attr('data_indice');
+                        let attCarte = id+indice;
+                        let abilite = [];
+                        let abiliteCarte = 0;
+                        abilite.push(carte.find('img').attr('data_abilite'));
+                        abilite.push(carte.find('img').attr('data_abilite_2'));
+                        for(ab of abilite){
+                            if(ab != 0) abiliteCarte = ab;
+                        }
+                        gamePlay(jeton,attCarte,cible,abiliteCarte,eog);
+                    }
                 }else{
                     var contenu = $('#contenu');
                     contenu.html(result['view']);
