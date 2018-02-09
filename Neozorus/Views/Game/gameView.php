@@ -19,7 +19,7 @@
     <!--DIV QUI COMPRENDS LES INFORMATIONS DU HERO PASSIF-->
     <?php
     // if(!empty($att) && $visable[$joueurPassif] == 1 && $currentPlayer == $jeton && !$eog){
-        echo '<div id="topHeros" data_visable='.$visable[$joueurPassif].'>';
+        echo '<div id="topHeros" data_visable='.$visable[$joueurPassif].' data_cible=J'.$joueurPassif.'>';
         // echo '<a href="?controller=game&action=play&jeton='.$joueurActif.'&att='.$att.'&cible=J'.$joueurPassif.'&abilite='.$abilite.'">'
         echo '<img src="./assets/img/plateau/portrait/'.$heros[$joueurPassif].'.png">';
         // echo '</a>';
@@ -55,7 +55,7 @@
                 foreach ($plateau[$joueurPassif] as $value){
                     //la carte est selectionnable si le joueur actif
                     
-                    echo '<a class="carte '.$value->getType().'" data_visable="'.$value->getVisable().'"';
+                    echo '<a class="carte '.$value->getType().'" data_visable="'.$value->getVisable().'" data_id="'.$value->getId().'"';
                     if(!empty($att) && $att != $value->getId().$value->getIndice() && $value->getVisable() == 1 && $currentPlayer == $jeton && !$eog){
                         echo 'href="?controller=game&action=play&jeton='.$jeton.'&att='.$att.'&cible='.$value->getId().$value->getIndice().'&abilite='.$abilite.'">';
                     }else{

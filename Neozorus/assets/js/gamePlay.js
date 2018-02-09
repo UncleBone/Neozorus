@@ -38,15 +38,16 @@ function gamePlay(jet, att, cible, abilite, eog){
         $('#plateau :not(.carte)').off('click'); // réinitialisation de l'event click
         $('main').css('cursor','auto'); // réinitialisation du curseur
         $('.ciblage').remove(); // effacement des animations de ciblage
-        flickeringBorder($('#bottomPlateau .carte').find('img'), 'off');    // réinitialisation de la bordure
+        flickeringBorder($('#bottomPlateau .carte').find('img'), 'off');    // effacement de la bordure clignotante
 
         reqAjaxCarteMain(att);
-        reqAjaxCartePlateau(jeton, att);
-        reqAjaxJoueur(jeton,att);
+        reqAjaxCartePlateau(jeton, att, abilite);
+        reqAjaxJoueur(jeton,att, abilite);
 
         /* si mode attaque activé: sélection désactivée au click sur le plateau ou sur cette même carte */
         if($.isNumeric(att)) {
             $('#plateau :not(.carte)').click(function(){
+                console.log($(this));
                 $('.message').remove();
                 gamePlay(jeton, '', '', abilite, eog);
             });
@@ -187,7 +188,7 @@ function reqAjaxCarteMain(att){
 /*
  * Gestion des cartes du plateau en ajax
  */
-function reqAjaxCartePlateau(jet,att){
+function reqAjaxCartePlateau(jet,att,abilite){
     var jeton = jet;
     var att = att;
     var cartePlateau = $('.carte');
@@ -196,7 +197,6 @@ function reqAjaxCartePlateau(jet,att){
         // $(this).removeAttr('href');
         // console.log(href);
         let regex = new RegExp('&att=(\\d{2,3})(?:&cible=(\\d{2,3}))*&abilite=(\\d)$', 'i');
-
         if(typeof(href) != 'undefined'){
             var attCarte = href.match(regex)[1];
             var cibleCarte = href.match(regex)[2];
@@ -210,13 +210,15 @@ function reqAjaxCartePlateau(jet,att){
             $(this).off('click');
             $(this).click(function(e){
                 e.preventDefault();
+                // console.log('click');
                 // console.log($._data( $(this)[0], 'events' ));
                 // console.log($(this));
                 // $(this).off('mouseenter mouseleave');
                 // $('[class^=zoom]').remove();
                 // console.log($._data( $(this)[0], 'events' ));
                 ajax("play", "&att="+attCarte+"&abilite="+abiliteCarte, function(result) {
-                    // console.log('click');
+                // ajax("play", "&att="+att+"&abilite="+abilite, function(result) {
+                    
                     if(result['error'] != null){
                         $('.error').remove();
                         $('.message').remove();
@@ -224,17 +226,22 @@ function reqAjaxCartePlateau(jet,att){
                         $('main').append(message);
                         gamePlay(jeton,attCarte,cible,abiliteCarte,eog);
                     }else{
-                        let contenu = $('#contenu');
-                        contenu.html(result['view']);
-                         gamePlay(result['jeton'],result['att'],result['cible'],result['abilite'],result['eog']);
+                        console.log('ligne 229');
+                        // let contenu = $('#contenu');
+                        // contenu.html(result['view']);
+                        //  gamePlay(result['jeton'],result['att'],result['cible'],result['abilite'],result['eog']);
                     }
                     
                 });
             });
         }else if(parentId == 'topPlateau' && currentPlayer == jeton && att != '' ){
-            $(this).css('cursor',"pointer");
+            // $(this).css('cursor',"pointer");
             $(this).click(function(){
-                ajax("play", "&att="+att+"&cible="+cibleCarte+"&abilite="+abiliteCarte, function(result) {
+                // console.log(cibleCarte);
+                let id = $(this).attr('data_id');
+                let index = $(this).find('.indice span').text();
+                // ajax("play", "&att="+att+"&cible="+cibleCarte+"&abilite="+abiliteCarte, function(result) {
+                ajax("play", "&att="+att+"&cible="+id+index+"&abilite="+abilite, function(result) {
                     let contenu = $('#contenu');
                     contenu.html(result['view']);
                     gamePlay(result['jeton'],result['att'],result['cible'],result['abilite'],result['eog']);
@@ -244,7 +251,7 @@ function reqAjaxCartePlateau(jet,att){
     });
 }
 
-function reqAjaxJoueur(jet, att){
+function reqAjaxJoueur(jet, att, abilite){
     let jeton = jet;
     let joueurAdverse = $('#topHeros');
     joueurAdverse.css('cursor','auto'); // réinitialisation du curseur
@@ -261,9 +268,10 @@ function reqAjaxJoueur(jet, att){
         // let abilite = href.match(regex)[3];
 
         // joueurAdverse.css('cursor','url(assets/img/cursor/cursorTarget.png), auto');
-        ciblage(joueurAdverse);
+        ciblage(joueurAdverse.find('img'));
         if(currentPlayer == jeton && att != '' ){
             // joueurAdverse.css('cursor',"pointer");
+            let cible = joueurAdverse.attr('data_cible');
             joueurAdverse.click(function(e){
                 e.preventDefault();
                 ajax("play", "&att="+att+"&cible="+cible+"&abilite="+abilite, function(result) {
@@ -338,7 +346,7 @@ function flickeringBorder(element, swtch){
     let cpt = 0;
     if(swtch == 'on'){
         timerFB = setInterval(function () {
-            console.log(cpt);
+            // console.log(cpt);
             if(cpt % 2 == 0){
                 $(element).css('outline', '1px solid white');
             }else{
@@ -497,7 +505,7 @@ function sommeil(target){
     $('main').append(span);
 }
 
-/************************* Animation des éléments ciblées (avec le css) *********************************/
+/************************* Animation des éléments ciblées *********************************/
 
 function ciblage(target){
     let div = $('<div>');
@@ -508,12 +516,13 @@ function ciblage(target){
     let targetZ = target.css('z-index');
 
     div.addClass('ciblage');
-    div.css('position', 'absolute').css('top', targetTop).css('left', targetLeft).css('width', targetWidth).css('height',targetHeight);
+    // div.css('position', 'absolute').css('top', targetTop).css('left', targetLeft).css('width', targetWidth).css('height',targetHeight);
+    div.css('position', 'absolute').css('top', '0').css('left', '0').css('width', targetWidth).css('height',targetHeight);
     div.css('z-index', parseInt(targetZ+1)).css('cursor','url(assets/img/cursor/cursorTarget.png), auto');
-    if(target.attr('id') == 'topHeros'){
+    if(target.parent().attr('id') == 'topHeros'){
         div.css('border-radius', '50% 50% 40% 40%');
     }else{
-        div.css('border-radius', '5px');
+        div.css('border-radius', '10px');
     }
     let gradient = 0;
     let timer;
@@ -522,7 +531,7 @@ function ciblage(target){
         div.css('background-image', 'repeating-linear-gradient(45deg,transparent '+gradient+'%, rgba(250,250,250,0.6) '+parseInt(gradient+50)+'%, transparent '+
             parseInt(gradient+70)+'%)');
         gradient++;
-        console.log(gradient);
+        // console.log(gradient);
     },20);
     },function(){
         clearInterval(timer);
@@ -530,4 +539,5 @@ function ciblage(target){
     });
     
     $('main').append(div);
+    target.parent().append(div);
 }
