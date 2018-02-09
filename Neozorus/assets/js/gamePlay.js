@@ -37,6 +37,7 @@ function gamePlay(jet, att, cible, abilite, eog){
   
         $('#plateau :not(.carte)').off('click'); // réinitialisation de l'event click
         $('main').css('cursor','auto'); // réinitialisation du curseur
+        $('.ciblage').remove(); // effacement des animations de ciblage
 
         reqAjaxCarteMain(att);
         reqAjaxCartePlateau(jeton, att);
@@ -101,12 +102,13 @@ function gamePlay(jet, att, cible, abilite, eog){
                     $('[class^=zoom]').remove();
                     clearTimeout(timer);
                 });
-            /* Si mode attaque activé: curseur custom pour les cibles + bordure clignotante pour la carte attaquante */
+            /* Si mode attaque activé: animation pour les cibles + bordure clignotante pour la carte attaquante */
             }else{ 
                 if (att != id+index){
                     $('main').css('cursor','url(assets/img/cursor/cursorCross.png), auto');
                     if(target.parent().attr('id') == 'topPlateau' && target.attr('data_visable') == '1'){
-                        target.css('cursor','url(assets/img/cursor/cursorTarget.png), auto');
+                        // target.css('cursor','url(assets/img/cursor/cursorTarget.png), auto');
+                        ciblage(target.find('img'));
                     }else{
                         target.css('cursor','url(assets/img/cursor/cursorCross.png), auto');
                     }
@@ -247,7 +249,7 @@ function reqAjaxJoueur(jet, att){
     joueurAdverse.css('cursor','auto'); // réinitialisation du curseur
     joueurAdverse.off('click'); // désactivation de l'event
     if($.isNumeric(att) && joueurAdverse.attr('data_visable') == 1){
-        console.log('att'+att);
+        // console.log('att'+att);
         // let href = joueurAdverse.find('a').attr('href');
         // joueurAdverse.removeAttr('href');
         // console.log(href);
@@ -257,7 +259,8 @@ function reqAjaxJoueur(jet, att){
         // let cible = href.match(regex)[2];
         // let abilite = href.match(regex)[3];
 
-        joueurAdverse.css('cursor','url(assets/img/cursor/cursorTarget.png), auto');
+        // joueurAdverse.css('cursor','url(assets/img/cursor/cursorTarget.png), auto');
+        ciblage(joueurAdverse);
         if(currentPlayer == jeton && att != '' ){
             // joueurAdverse.css('cursor',"pointer");
             joueurAdverse.click(function(e){
@@ -476,6 +479,8 @@ function zoom(target){
     }
 }
 
+/************************* Animation des cartes inactives (avec le css) *********************************/
+
 function sommeil(target){
     let span = $('<span>');
     let targetTop = target.offset().top;
@@ -488,4 +493,35 @@ function sommeil(target){
     span.css('position','absolute').css('top',parseInt(targetTop+targetHeight/4)+'px').css('left',parseInt(targetLeft+targetWidth/2)+'px');
 
     $('main').append(span);
+}
+
+/************************* Animation des éléments ciblées (avec le css) *********************************/
+
+function ciblage(target){
+    let div = $('<div>');
+    let targetTop = target.offset().top;
+    let targetLeft = target.offset().left;
+    let targetWidth = target.width();
+    let targetHeight = target.height();
+    let targetZ = target.css('z-index');
+
+    div.addClass('ciblage');
+    div.css('position', 'absolute').css('top', targetTop).css('left', targetLeft).css('width', targetWidth).css('height',targetHeight);
+    div.css('z-index', parseInt(targetZ+1)).css('cursor','url(assets/img/cursor/cursorTarget.png), auto');
+
+    let gradient = 0;
+    let timer;
+    div.hover(function(){
+         timer = setInterval(function(){
+        div.css('background-image', 'repeating-linear-gradient(45deg,transparent '+gradient+'%, rgba(250,250,250,0.6) '+parseInt(gradient+50)+'%, transparent '+
+            parseInt(gradient+70)+'%)');
+        gradient++;
+        console.log(gradient);
+    },20);
+    },function(){
+        clearInterval(timer);
+        div.css('background-image', 'none');
+    });
+    
+    $('main').append(div);
 }

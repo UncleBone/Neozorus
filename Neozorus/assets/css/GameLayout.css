@@ -583,7 +583,17 @@ a
 	height: 75px;
 	z-index: 100;
 }*/
-
+.ciblage/*
+{
+	background-color: transparent;
+	cursor:url(../img/cursor/cursorCross.png), auto;
+}
+.ciblage:hover
+{
+	animation: ciblage;
+	animation-duration: 1s;
+	animation-iteration-count: infinite;
+}*/
 /**************************** Animation *****************************/
 
 @keyframes oscillate_5
@@ -622,6 +632,22 @@ a
 	{
 		font-size: 2em;
 		transform: translate(20px,-30px);
+	}
+}
+
+@keyframes ciblage
+{
+	0%
+	{
+		background-image: repeating-linear-gradient(45deg,transparent 25%, white 50%, transparent 75%);
+	}
+	50%
+	{
+		background-image: repeating-linear-gradient(45deg,transparent  0%, white 25%, transparent 50%);
+	}
+	100%
+	{
+		background-image: repeating-linear-gradient(45deg,transparent 25%, white 50%, transparent 75%);
 	}
 }
 
