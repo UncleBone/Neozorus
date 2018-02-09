@@ -38,6 +38,7 @@ function gamePlay(jet, att, cible, abilite, eog){
         $('#plateau :not(.carte)').off('click'); // réinitialisation de l'event click
         $('main').css('cursor','auto'); // réinitialisation du curseur
         $('.ciblage').remove(); // effacement des animations de ciblage
+        flickeringBorder($('#bottomPlateau .carte').find('img'), 'off');    // réinitialisation de la bordure
 
         reqAjaxCarteMain(att);
         reqAjaxCartePlateau(jeton, att);
@@ -85,7 +86,6 @@ function gamePlay(jet, att, cible, abilite, eog){
             }
             
             // console.log('att:'+att+', id+index:'+id+index);
-            flickeringBorder(target.find('img'), 'off');    // réinitialisation de la bordure
             target.css('cursor','auto');    // réinitialisation du curseur
             $(this).off('mouseenter mouseleave');   // désactiation du hover
             /* Si aucune carte n'est sélectionnée pour attaquer: border au hover + zoom */
@@ -115,6 +115,7 @@ function gamePlay(jet, att, cible, abilite, eog){
                 }else{
                 // let width = target.width(); 
                 // target.find('img').css('outline', 'none');
+
                 flickeringBorder(target.find('img'), 'on');
                 // target.css('width', parseInt(width+5)+'px');
                 // target.find('img').css('box-shadow', '5px 5px 5px');
@@ -337,6 +338,7 @@ function flickeringBorder(element, swtch){
     let cpt = 0;
     if(swtch == 'on'){
         timerFB = setInterval(function () {
+            console.log(cpt);
             if(cpt % 2 == 0){
                 $(element).css('outline', '1px solid white');
             }else{
@@ -508,7 +510,11 @@ function ciblage(target){
     div.addClass('ciblage');
     div.css('position', 'absolute').css('top', targetTop).css('left', targetLeft).css('width', targetWidth).css('height',targetHeight);
     div.css('z-index', parseInt(targetZ+1)).css('cursor','url(assets/img/cursor/cursorTarget.png), auto');
-
+    if(target.attr('id') == 'topHeros'){
+        div.css('border-radius', '50% 50% 40% 40%');
+    }else{
+        div.css('border-radius', '5px');
+    }
     let gradient = 0;
     let timer;
     div.hover(function(){
