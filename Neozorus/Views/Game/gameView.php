@@ -18,18 +18,20 @@
 
     <!--DIV QUI COMPRENDS LES INFORMATIONS DU HERO PASSIF-->
     <?php
-    if(!empty($att) && $visable[$joueurPassif] == 1 && $currentPlayer == $jeton && !$eog){
-        echo '<div id="topHero">';
-        echo '<a href="?controller=game&action=play&jeton='.$joueurActif.'&att='.$att.'&cible=J'.$joueurPassif.'&abilite='.$abilite.'"><img src="./assets/img/plateau/portrait/'.$heros[$joueurPassif].'.png"></a>';
-        echo '<span class="vitaHeros">'.$pv[$joueurPassif].'</span>';
-        echo '</div>';
-    }
-    else{
-        echo '<div id="topHero">';
+    // if(!empty($att) && $visable[$joueurPassif] == 1 && $currentPlayer == $jeton && !$eog){
+        echo '<div id="topHeros" data_visable='.$visable[$joueurPassif].'>';
+        // echo '<a href="?controller=game&action=play&jeton='.$joueurActif.'&att='.$att.'&cible=J'.$joueurPassif.'&abilite='.$abilite.'">'
         echo '<img src="./assets/img/plateau/portrait/'.$heros[$joueurPassif].'.png">';
+        // echo '</a>';
         echo '<span class="vitaHeros">'.$pv[$joueurPassif].'</span>';
         echo '</div>';
-    }
+    // }
+    // else{
+    //     echo '<div id="topHeros">';
+    //     echo '<img src="./assets/img/plateau/portrait/'.$heros[$joueurPassif].'.png">';
+    //     echo '<span class="vitaHeros">'.$pv[$joueurPassif].'</span>';
+    //     echo '</div>';
+    // }
     ?>
     <!--DIV QUI COMPRENDS LES 2 JAUGES DE MANA ET LES CARTES INVOQUEES-->
     <!-- <div id="blocCentral"> -->

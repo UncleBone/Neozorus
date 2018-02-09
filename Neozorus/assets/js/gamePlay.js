@@ -32,19 +32,23 @@ function gamePlay(jet, att, cible, abilite, eog){
 
         if($('.error').length != 0) fade($('.error'));
         $('.sommeil').remove();
-        
-        reqAjaxCarteMain(att);
-        reqAjaxCartePlateau(jeton, att);
-        reqAjaxJoueur(jeton);
 
         var carteMain = $('.carteMain');
-        $('#plateau :not(.carte)').off('click');
+  
+        $('#plateau :not(.carte)').off('click'); // réinitialisation de l'event click
+        $('main').css('cursor','auto'); // réinitialisation du curseur
+
+        reqAjaxCarteMain(att);
+        reqAjaxCartePlateau(jeton, att);
+        reqAjaxJoueur(jeton,att);
+
+        /* si mode attaque activé: sélection désactivée au click sur le plateau ou sur cette même carte */
         if($.isNumeric(att)) {
             $('#plateau :not(.carte)').click(function(){
                 $('.message').remove();
                 gamePlay(jeton, '', '', abilite, eog);
             });
-            $('#plateau :not(.carte)').css('cursor','url(assets/img/cursor/cursorCross.png), auto');
+            // $('#plateau :not(.carte)').css('cursor','url(assets/img/cursor/cursorCross.png), auto');
         }
         // var cartePlateau = $('#bottomPlateau a.carte');
 
@@ -78,15 +82,13 @@ function gamePlay(jet, att, cible, abilite, eog){
             if(target.attr('data_active') == 0 ){
                 sommeil(target);
             }
+            
             // console.log('att:'+att+', id+index:'+id+index);
-            /* Si la carte n'est pas sélectionnée pour attaquer: border au hover */
-            if(att != id+index){ 
-                flickeringBorder(target.find('img'), 'off');
-                if(target.parent().attr('id') == 'topPlateau' && target.attr('data_visable') == '1'){
-                    target.css('cursor','url(assets/img/cursor/cursorTarget.png), auto');
-                }else{
-                    target.css('cursor','url(assets/img/cursor/cursorCross.png), auto');
-                }
+            flickeringBorder(target.find('img'), 'off');    // réinitialisation de la bordure
+            target.css('cursor','auto');    // réinitialisation du curseur
+            $(this).off('mouseenter mouseleave');   // désactiation du hover
+            /* Si aucune carte n'est sélectionnée pour attaquer: border au hover + zoom */
+            if(!$.isNumeric(att)){ 
                 $(this).hover(function(e){     
                     target.find('img').css('outline', '1px solid white');
                     timer = setTimeout(zoom, 1000, target);
@@ -99,19 +101,28 @@ function gamePlay(jet, att, cible, abilite, eog){
                     $('[class^=zoom]').remove();
                     clearTimeout(timer);
                 });
-            }else{
-                let width = target.width();
-                $(this).off('mouseenter mouseleave');
-                target.find('img').css('outline', 'none');
+            /* Si mode attaque activé: curseur custom pour les cibles + bordure clignotante pour la carte attaquante */
+            }else{ 
+                if (att != id+index){
+                    $('main').css('cursor','url(assets/img/cursor/cursorCross.png), auto');
+                    if(target.parent().attr('id') == 'topPlateau' && target.attr('data_visable') == '1'){
+                        target.css('cursor','url(assets/img/cursor/cursorTarget.png), auto');
+                    }else{
+                        target.css('cursor','url(assets/img/cursor/cursorCross.png), auto');
+                    }
+                }else{
+                // let width = target.width(); 
+                // target.find('img').css('outline', 'none');
                 flickeringBorder(target.find('img'), 'on');
                 // target.css('width', parseInt(width+5)+'px');
                 // target.find('img').css('box-shadow', '5px 5px 5px');
 
+                }
             }
         });
 
 
-        /*****************Changement de jeton au click sur le bouton 'fin de tour'******************/
+        /***************** Changement de jeton au click sur le bouton 'fin de tour' ******************/
 
         $('#end img').click(function(){
             ajax("play", "&jeton="+(1-jeton), function(result) {
@@ -230,21 +241,27 @@ function reqAjaxCartePlateau(jet,att){
     });
 }
 
-function reqAjaxJoueur(jet){
+function reqAjaxJoueur(jet, att){
     let jeton = jet;
-    let joueurAdverse = $('#topHero a');
-    if(joueurAdverse.length != 0){
-        let href = joueurAdverse.attr('href');
-        joueurAdverse.removeAttr('href');
+    let joueurAdverse = $('#topHeros');
+    joueurAdverse.css('cursor','auto'); // réinitialisation du curseur
+    joueurAdverse.off('click'); // désactivation de l'event
+    if($.isNumeric(att) && joueurAdverse.attr('data_visable') == 1){
+        console.log('att'+att);
+        // let href = joueurAdverse.find('a').attr('href');
+        // joueurAdverse.removeAttr('href');
+        // console.log(href);
+        // let regex = new RegExp('&att=(\\d{2,3})&cible=(J[01])&abilite=(\\d)$', 'i');
 
-        let regex = new RegExp('&att=(\\d{2,3})&cible=(J[01])&abilite=(\\d)$', 'i');
+        // let att = href.match(regex)[1];
+        // let cible = href.match(regex)[2];
+        // let abilite = href.match(regex)[3];
 
-        let att = href.match(regex)[1];
-        let cible = href.match(regex)[2];
-        let abilite = href.match(regex)[3];
+        joueurAdverse.css('cursor','url(assets/img/cursor/cursorTarget.png), auto');
         if(currentPlayer == jeton && att != '' ){
-            joueurAdverse.css('cursor',"pointer");
-            joueurAdverse.click(function(){
+            // joueurAdverse.css('cursor',"pointer");
+            joueurAdverse.click(function(e){
+                e.preventDefault();
                 ajax("play", "&att="+att+"&cible="+cible+"&abilite="+abilite, function(result) {
                     let contenu = $('#contenu');
                     contenu.html(result['view']);
@@ -252,6 +269,8 @@ function reqAjaxJoueur(jet){
                 });
             });
         }
+    }else if ($.isNumeric(att) && joueurAdverse.attr('data_visable') == 0) {
+        joueurAdverse.css('cursor','url(assets/img/cursor/cursorCross.png), auto');
     }
 }
 
@@ -323,7 +342,7 @@ function flickeringBorder(element, swtch){
             cpt++;
         }, 500);
     }else{
-        console.log('clearInterval');
+        // console.log('clearInterval');
         if(typeof(timerFB) != 'undefined')  clearInterval(timerFB);
         $(element).css('outline', 'none');
     }

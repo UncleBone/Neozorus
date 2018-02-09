@@ -85,7 +85,7 @@ a
 
 /*********** Héros ***********/
 
-#topHero,#bottomHero
+#topHeros,#bottomHero
 {
 	/*width: 8%;*/
 	/*height: 17.9%;*/
@@ -95,7 +95,7 @@ a
 	left: 50%;
 	transform: translateX(-50%);
 }
-#topHero
+#topHeros
 {
 	/*position: absolute;*/
 	top: 1%;
@@ -103,7 +103,7 @@ a
 	transform: translateX(-50%);*/
 	
 }
-#topHero img, #bottomHero img
+#topHeros img, #bottomHero img
 {
 	width: 100%
 }
@@ -630,7 +630,7 @@ a
 
 @media (max-width: 1400px), (max-height: 900px)
 {
-	#topHero,#bottomHero{
+	#topHeros,#bottomHero{
 		width:120px;
 		/*height: 150px;*/
 		/*overflow: hidden;*/
