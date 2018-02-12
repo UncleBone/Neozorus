@@ -321,14 +321,14 @@ function bottomPlateau(carte,attCarte,abiliteCarte,jeton,cible,eog){
     });
 }
 
-/********************* Gestion des cartes du joueur passif *********************/
+/********************* Gestion des cartes du joueur adverse *********************/
 
 function topPlateau(carte,att,abilite,jeton,cible,eog){
     carte.off('click');
     console.log('topPlateau');
     carte.click(function(e){
         e.stopPropagation();
-        console.log('click');
+        // console.log('click');
         e.preventDefault();
         
         let id = $(this).attr('data_id');
@@ -356,6 +356,8 @@ function topPlateau(carte,att,abilite,jeton,cible,eog){
     });
 }
 
+/********************* Gestion du héros du joueur adverse *********************/
+
 function reqAjaxJoueur(jet, att, abilite){
     let jeton = jet;
     let joueurAdverse = $('#topHeros');
@@ -374,18 +376,21 @@ function reqAjaxJoueur(jet, att, abilite){
 
         // joueurAdverse.css('cursor','url(assets/img/cursor/cursorTarget.png), auto');
         ciblage(joueurAdverse.find('img'));
-        if(currentPlayer == jeton && att != '' ){
+        // if(currentPlayer == jeton){
             // joueurAdverse.css('cursor',"pointer");
-            let cible = joueurAdverse.attr('data_cible');
-            joueurAdverse.click(function(e){
-                e.preventDefault();
-                ajax("play", "&att="+att+"&cible="+cible+"&abilite="+abilite, function(result) {
-                    let contenu = $('#contenu');
-                    contenu.html(result['view']);
-                    gamePlay(result['jeton'],result['att'],result['cible'],result['abilite'],result['eog']);
-                });
-            });
-        }
+        let cible = joueurAdverse.attr('data_cible');
+        joueurAdverse.click(function(e){
+            e.preventDefault();
+            hitAnimation($(this));
+            // setTimeout(function(){
+            //     ajax("play", "&att="+att+"&cible="+cible+"&abilite="+abilite, function(result) {
+            //         let contenu = $('#contenu');
+            //         contenu.html(result['view']);
+            //         gamePlay(result['jeton'],result['att'],result['cible'],result['abilite'],result['eog']);
+            //     });
+            // },500);
+        });
+        // }
     }else if ($.isNumeric(att) && joueurAdverse.attr('data_visable') == 0) {
         joueurAdverse.css('cursor','url(assets/img/cursor/cursorCross.png), auto');
     }
@@ -651,11 +656,17 @@ function hitAnimation(element){
     // console.log('hit');
     let mask = element.find('.ciblage').off('hover').css('background-image', 'none').css('background-color','red');
     let cpt = 0;
+    let topPosition = element.position().top;
     let timer = setInterval(function(){
         if(cpt < 100 ){
             // console.log(Math.sin(cpt*Math.PI/100)*200/cpt);
             // mask.css('opacity', parseInt(1-cpt/100));
-            element.css('top',-Math.sin(cpt*Math.PI/25)*200/cpt+'px');
+            if(element.attr('id') != 'topHeros'){
+                element.css('top',-Math.sin(cpt*Math.PI/25)*200/cpt+'px');
+            }else{
+                element.css('top',parseInt(-Math.sin(cpt*Math.PI/25)*200/cpt+topPosition)+'px');
+            }
+            // element.css('transform','translateY('-Math.sin(cpt*Math.PI/25)*200/cpt+'px)');
             cpt++;
         }else{
             // console.log('hitAnimation stop');
