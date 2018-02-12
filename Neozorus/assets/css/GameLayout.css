@@ -60,6 +60,7 @@ a
 	position: absolute;
 	right: 25vw;
 	top: 0;
+	z-index: 50;
 	transform: translateX(50%);
 	padding: 10px;
 	font-family: 'godzilla';
@@ -346,12 +347,12 @@ a
 	font-size: 20px;
 }
 
-.zoom.creature span.pv, .zoom.sort span.puissance
+.zoom.creature span.puissance, .zoom.sort span.puissance
 {
 	top: 40px;
 	left: 65px;
 }
-.zoom.creature span.puissance, .zoom.sort span.manaCost
+.zoom.creature span.pv, .zoom.sort span.manaCost
 {
 	top: 72px;
 	left: 41px;

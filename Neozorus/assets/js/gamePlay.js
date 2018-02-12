@@ -109,7 +109,7 @@ function gamePlay(jet, att, cible, abilite, eog){
                 $(this).hover(function(e){     
                     target.find('img').css('outline', '1px solid white');
                     timer = setTimeout(zoom, 1000, target);
-                    console.log('hover');
+                    // console.log('hover');
                 }, function(){
                     $(this).find('img').css('outline',"none");
                     $('[class^=zoom]').remove();
@@ -342,6 +342,7 @@ function topPlateau(carte,att,abilite,jeton,cible,eog){
         // let id = $(this).attr('data_id');
         // let index = $(this).find('.indice span').text();
         hitAnimation($(this));
+        // console.log(cible);
         setTimeout(function(){
             // ajax("play", "&att="+att+"&cible="+id+index+"&abilite="+abilite, function(result) {
             ajax("play", "&att="+att+"&cible="+cible+"&abilite="+abilite, function(result) {
@@ -500,8 +501,7 @@ function chgTurnMssg(t){
     messageBox.css('color','white');
     messageBox.css('background-color','rgba(0,0,0,0.7)');
     messageBox.css('position','absolute');
-    messageBox.css('top','50vh');
-    messageBox.css('left','50vw');
+    messageBox.css('top','50vh').css('left','50vw').css('z-index',50);
     messageBox.css('transform','translate(-50%,-60%)');
     messageBox.css('border-radius','5px');
 
