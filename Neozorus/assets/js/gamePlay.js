@@ -225,6 +225,7 @@ function reqAjaxCartePlateau(jet,att,abilite){
     var att = att;
     var cartePlateau = $('.carte');
     cartePlateau.each(function(){
+        // cartePlateau.off('click');
         let href = $(this).attr('href');
         // $(this).removeAttr('href');
         // console.log(href);
@@ -238,45 +239,47 @@ function reqAjaxCartePlateau(jet,att,abilite){
         let parentId = $(this).parent().attr('id');
 
         if(parentId == 'bottomPlateau' && currentPlayer == jeton && $(this).attr('data_active') == 1){
-            $(this).css('cursor',"pointer");
-            $(this).off('click');
-            $(this).click(function(e){
-                e.preventDefault();
-                e.stopPropagation();
+            bottomPlateau($(this),attCarte,abiliteCarte,jeton,cible,eog)
+            // $(this).css('cursor',"pointer");
+            // $(this).off('click');
+            // $(this).click(function(e){
+            //     e.preventDefault();
+            //     e.stopPropagation();
                 // console.log('click');
                 // console.log($._data( $(this)[0], 'events' ));
                 // console.log($(this));
                 // $(this).off('mouseenter mouseleave');
                 // $('[class^=zoom]').remove();
                 // console.log($._data( $(this)[0], 'events' ));
-                ajax("play", "&att="+attCarte+"&abilite="+abiliteCarte, function(result) {
+                // ajax("play", "&att="+attCarte+"&abilite="+abiliteCarte, function(result) {
                 // ajax("play", "&att="+att+"&abilite="+abilite, function(result) {
                     
-                    if(result['error'] != null){
-                        $('.error').remove();
-                        $('.message').remove();
-                        let message = $('<p>').addClass('message').text(result['error']);
-                        $('main').append(message);
-                        gamePlay(jeton,attCarte,cible,abiliteCarte,eog);
-                    }else{
-                        console.log('ligne 229');
+                    // if(result['error'] != null){
+                    //     $('.error').remove();
+                    //     $('.message').remove();
+                    //     let message = $('<p>').addClass('message').text(result['error']);
+                    //     $('main').append(message);
+                    //     gamePlay(jeton,attCarte,cible,abiliteCarte,eog);
+                    // }else{
+                    //     console.log('ligne 229');
                         // let contenu = $('#contenu');
                         // contenu.html(result['view']);
                         //  gamePlay(result['jeton'],result['att'],result['cible'],result['abilite'],result['eog']);
-                    }
+                    // }
                     
-                });
-            });
+                // });
+            // });
         }else if(parentId == 'topPlateau' && currentPlayer == jeton && att != '' ){
+            topPlateau($(this),att,abilite,jeton,cible,eog)
             // $(this).css('cursor',"pointer");
-            $(this).click(function(e){
-                e.preventDefault();
-                e.stopPropagation();
+            // $(this).click(function(e){
+            //     e.preventDefault();
+            //     e.stopPropagation();
                 // console.log(cibleCarte);
-                let id = $(this).attr('data_id');
-                let index = $(this).find('.indice span').text();
-                // let anim = hitAnimation($(this));
-                hitAnimation($(this));
+                // let id = $(this).attr('data_id');
+                // let index = $(this).find('.indice span').text();
+                // // let anim = hitAnimation($(this));
+                // hitAnimation($(this));
                 // console.log('hit');
                 // ajax("play", "&att="+att+"&cible="+cibleCarte+"&abilite="+abiliteCarte, function(result) {
                 // if(anim == 'animationStop'){
@@ -289,8 +292,67 @@ function reqAjaxCartePlateau(jet,att,abilite){
                     //     gamePlay(result['jeton'],result['att'],result['cible'],result['abilite'],result['eog']);
                     // });
                 // }
-            });
+            // });
         }
+    });
+}
+
+/********************* Gestion des cartes du joueur actif *********************/
+
+function bottomPlateau(carte,attCarte,abiliteCarte,jeton,cible,eog){
+    carte.off('click');
+    carte.css('cursor',"pointer");
+    carte.click(function(e){
+        e.preventDefault();
+        e.stopPropagation();
+        ajax("play", "&att="+attCarte+"&abilite="+abiliteCarte, function(result) {
+          
+            if(result['error'] != null){
+                $('.error').remove();
+                $('.message').remove();
+                let message = $('<p>').addClass('message').text(result['error']);
+                $('main').append(message);
+                gamePlay(jeton,attCarte,cible,abiliteCarte,eog);
+            }else{
+                console.log('erreur bottomPlateau');
+            }
+            
+        });
+    });
+}
+
+/********************* Gestion des cartes du joueur passif *********************/
+
+function topPlateau(carte,att,abilite,jeton,cible,eog){
+    carte.off('click');
+    console.log('topPlateau');
+    carte.click(function(e){
+        e.stopPropagation();
+        console.log('click');
+        e.preventDefault();
+        
+        let id = $(this).attr('data_id');
+        let index = $(this).find('.indice span').text();
+        hitAnimation($(this));
+        setTimeout(function(){
+            ajax("play", "&att="+att+"&cible="+id+index+"&abilite="+abilite, function(result) {
+                let contenu = $('#contenu');
+                contenu.html(result['view']);             
+                gamePlay(result['jeton'],result['att'],result['cible'],result['abilite'],result['eog']);
+            });
+        }, 500);
+        // console.log('hit');
+        // ajax("play", "&att="+att+"&cible="+cibleCarte+"&abilite="+abiliteCarte, function(result) {
+        // if(anim == 'animationStop'){
+            // ajax("play", "&att="+att+"&cible="+id+index+"&abilite="+abilite, function(result) {
+            //     let contenu = $('#contenu');
+            //     hitAnimation($(this));
+
+            //     // contenu.html(result['view']);
+                
+            //     gamePlay(result['jeton'],result['att'],result['cible'],result['abilite'],result['eog']);
+            // });
+        // }
     });
 }
 
@@ -596,10 +658,10 @@ function hitAnimation(element){
             element.css('top',-Math.sin(cpt*Math.PI/25)*200/cpt+'px');
             cpt++;
         }else{
-            console.log('hitAnimation stop');
+            // console.log('hitAnimation stop');
             mask.remove();
             clearInterval(timer);
-            return 'animationStop';
+            // return 'animationStop';
         }
     },5);
     mask.animate({opacity:0},300);
