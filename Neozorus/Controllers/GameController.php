@@ -476,7 +476,12 @@ class GameController extends CoreController{
         $this->checkVisable();
         if($winner = $this->checkEog()){
             $this->setEog(true);
-            $message = 'Partie terminée<br>Vainqueur: '.$winner->getPseudo();
+            if($winner->getId() == $_SESSION['neozorus']['u_id']){
+                // $message = 'Partie terminée<br>Vainqueur: '.$winner->getPseudo();
+                $message = 'Vous avez gagné!';
+            }else{
+                $message = 'Vous avez perdu!';
+            }
         }
         ob_start();
         require(VIEWS_PATH . DS . 'Game' . DS . 'gameView.php');
@@ -513,7 +518,13 @@ class GameController extends CoreController{
 	    if(!$winner){
             $this->tour($this->jeton);
         }else{
-            $message = 'Partie terminée<br>Vainqueur: '.$winner->getPseudo();
+            if($winner->getId() == $_SESSION['neozorus']['u_id']){
+                // $message = 'Partie terminée<br>Vainqueur: '.$winner->getPseudo();
+                $message = 'Vous avez gagné!';
+            }else{
+                $message = 'Vous avez perdu!';
+            }
+            
             $this->saveAndRefreshView($message);
         }
 	}

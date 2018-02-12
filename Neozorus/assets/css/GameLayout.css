@@ -73,7 +73,23 @@ a
 	/*border: 1px solid white;*/
 	border-radius: 5px;
 }
-
+.endGame
+{
+	display: block;
+	position: absolute;
+	top: 50vh;
+	left: 0;
+	z-index: 50;
+	transform: translateY(-100%);
+	font-family: 'godzilla';
+	font-size: 3em;
+	padding: 50px;
+	width: 100vw;
+	text-align: center;
+	animation: endGame;
+	animation-duration: 1s;
+	animation-iteration-count: 1;
+}
 
 
 /*#plateau{
@@ -635,19 +651,15 @@ a
 	}
 }
 
-@keyframes ciblage
+@keyframes endGame
 {
 	0%
 	{
-		background-image: repeating-linear-gradient(45deg,transparent 25%, white 50%, transparent 75%);
-	}
-	50%
-	{
-		background-image: repeating-linear-gradient(45deg,transparent  0%, white 25%, transparent 50%);
+		transform: translate(-100%,-100%);
 	}
 	100%
 	{
-		background-image: repeating-linear-gradient(45deg,transparent 25%, white 50%, transparent 75%);
+		transform: translate(0,-100%);
 	}
 }
 

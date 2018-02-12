@@ -149,6 +149,8 @@ function gamePlay(jet, att, cible, abilite, eog){
                 gameWaitingTurn();
             });
         });
+    }else{
+        $(.carteMain).off('click hover');
     }
 }
 /*
@@ -382,13 +384,13 @@ function reqAjaxJoueur(jet, att, abilite){
         joueurAdverse.click(function(e){
             e.preventDefault();
             hitAnimation($(this));
-            // setTimeout(function(){
-            //     ajax("play", "&att="+att+"&cible="+cible+"&abilite="+abilite, function(result) {
-            //         let contenu = $('#contenu');
-            //         contenu.html(result['view']);
-            //         gamePlay(result['jeton'],result['att'],result['cible'],result['abilite'],result['eog']);
-            //     });
-            // },500);
+            setTimeout(function(){
+                ajax("play", "&att="+att+"&cible="+cible+"&abilite="+abilite, function(result) {
+                    let contenu = $('#contenu');
+                    contenu.html(result['view']);
+                    gamePlay(result['jeton'],result['att'],result['cible'],result['abilite'],result['eog']);
+                });
+            },500);
         });
         // }
     }else if ($.isNumeric(att) && joueurAdverse.attr('data_visable') == 0) {
@@ -422,11 +424,15 @@ function gameWaitingTurn(){
         ajax("refreshViewAjax", "", function(result) {
             var contenu = $('#contenu');
             var j = result['jeton'];
-            contenu.html(result['view']);
-            if(j==currentPlayer){
-                chgTurnMssg(0);
-                gamePlay(j,result['att'],result['cible'],result['abilite'],result['eog']);
-                clearInterval(interval);     
+            if(!result['eog']){
+                contenu.html(result['view']);
+                if(j==currentPlayer){
+                    chgTurnMssg(0);
+                    gamePlay(j,result['att'],result['cible'],result['abilite'],result['eog']);
+                    clearInterval(interval);     
+                }
+            }else{
+                clearInterval(interval);  
             }
         })
     },1000);

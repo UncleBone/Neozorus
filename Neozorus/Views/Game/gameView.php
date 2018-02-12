@@ -12,7 +12,7 @@
     }
     //On affiche le message si il y en a un
     if(!empty($message)){
-        echo '<p class="message">'.$message.'</p>';
+        echo '<p class="message'.($eog == true ? ' endGame' : '').'">'.$message.'</p>';
     }
     ?>
 
