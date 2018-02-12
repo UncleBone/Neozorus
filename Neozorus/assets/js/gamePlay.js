@@ -155,6 +155,8 @@ function gamePlay(jet, att, cible, abilite, eog){
         });
     }else{
         $('.carteMain').off('click hover');
+        $('.carteMain').css('cursor','auto');
+        $('.carteMain').removeAttr('href');
     }
 }
 /*
@@ -432,14 +434,14 @@ function gameWaitingTurn(){
         ajax("refreshViewAjax", "", function(result) {
             var contenu = $('#contenu');
             var j = result['jeton'];
+            contenu.html(result['view']);
             if(!result['eog']){
-                contenu.html(result['view']);
                 if(j==currentPlayer){
                     chgTurnMssg(0);
                     gamePlay(j,result['att'],result['cible'],result['abilite'],result['eog']);
                     clearInterval(interval);     
                 }
-            }else{
+            }else{       
                 clearInterval(interval);  
             }
         })
