@@ -93,7 +93,8 @@ class Joueur{
     }
 
     public function addMain($carte){
-        $this->main[$carte->getId().$carte->getIndice()] = $carte;
+        // $this->main[$carte->getId().$carte->getIndice()] = $carte;
+        $this->main[$carte->getGameId()] = $carte;
     }
 
     public function getPioche(){
@@ -109,7 +110,8 @@ class Joueur{
     }
 
     public function addPlateau($carte){
-        $this->plateau[$carte->getId().$carte->getIndice()] = $carte;
+        // $this->plateau[$carte->getId().$carte->getIndice()] = $carte;
+        $this->plateau[$carte->getGameId()] = $carte;
     }
 
     public function getDefausse(){
@@ -133,7 +135,8 @@ class Joueur{
         $carte = array_shift($this->pioche);
         if(!is_null($carte)){
             $carte->setLocalisation(GameCard::LOC_MAIN);
-            $this->main[$carte->getId().$carte->getIndice()] = $carte;
+            // $this->main[$carte->getId().$carte->getIndice()] = $carte;
+            $this->main[$carte->getGameId()] = $carte;
             return 1;
         }else{
             return 0;

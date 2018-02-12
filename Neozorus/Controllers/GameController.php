@@ -397,7 +397,7 @@ class GameController extends CoreController{
                 $pv[$i] = $this->getPlayer($i)->getPv();
                 $mana[$i] = $this->getPlayer($i)->getMana();
                 $pioche[$i]= $this->getPlayer($i)->getPioche();
-                $main[$i] = array_reverse($this->getPlayer($i)->getMain());
+                $main[$i] = array_reverse($this->getPlayer($i)->getMain(),true);
                 $plateau[$i] = $this->getPlayer($i)->getPlateau();
                 $defausse[$i] = $this->getPlayer($i)->getDefausse();
                 $visable[$i] = $this->getPlayer($i)->getVisable();
@@ -410,7 +410,7 @@ class GameController extends CoreController{
             $currentPlayer = $this->getCurrentPlayerJeton();
             $eog = $this->getEog();
             $cible = !empty($this->parameters['cible']) ? $this->parameters['cible'] : '';
-
+// var_dump($this->parameters);
             $att = !empty($this->parameters['att']) ? $this->parameters['att'] : '';
             $abilite = (!empty($this->parameters['abilite']) ? $this->parameters['abilite'] : 0);
 
@@ -459,7 +459,7 @@ class GameController extends CoreController{
             $pv[$i] = $this->getPlayer($i)->getPv();
             $mana[$i] = $this->getPlayer($i)->getMana();
             $pioche[$i]= $this->getPlayer($i)->getPioche();
-            $main[$i] = array_reverse($this->getPlayer($i)->getMain());
+            $main[$i] = array_reverse($this->getPlayer($i)->getMain(),true);
             $plateau[$i] = $this->getPlayer($i)->getPlateau();
             $defausse[$i] = $this->getPlayer($i)->getDefausse();
             $visable[$i] = $this->getPlayer($i)->getVisable();

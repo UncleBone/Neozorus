@@ -52,15 +52,18 @@
         <div id="plateau">
             <div id="topPlateau">
                 <?php
-                foreach ($plateau[$joueurPassif] as $value){
+                foreach ($plateau[$joueurPassif] as $key => $value){
                     //la carte est selectionnable si le joueur actif
                     
-                    echo '<a class="carte '.$value->getType().'" data_visable="'.$value->getVisable().'" data_id="'.$value->getId().'"';
-                    if(!empty($att) && $att != $value->getId().$value->getIndice() && $value->getVisable() == 1 && $currentPlayer == $jeton && !$eog){
-                        echo 'href="?controller=game&action=play&jeton='.$jeton.'&att='.$att.'&cible='.$value->getId().$value->getIndice().'&abilite='.$abilite.'">';
-                    }else{
+                    echo '<a class="carte '.$value->getType().'" data_visable="'.$value->getVisable().'" data_id="'.$value->getId().'"  data_gameId="'.$value->getGameId().'" data="'.$att.'"';
+                    // if(!empty($att) && $att != $value->getId().$value->getIndice() && $value->getVisable() == 1 && $currentPlayer == $jeton && !$eog){
+
+                    // if($value->getVisable() == 1 && $currentPlayer == $jeton && !$eog){
+                        // echo 'href="?controller=game&action=play&jeton='.$jeton.'&att='.$att.'&cible='.$value->getId().$value->getIndice().'&abilite='.$abilite.'">';
+                        // echo 'href="?controller=game&action=play&jeton='.$jeton.'&att='.$att.'&cible='.$key.'&abilite='.$abilite.'">';
+                    // }else{
                         echo '>';
-                    }
+                    // }
                     echo '<img src="'.$value->getPath().'">';
                     echo '<span class="puissance">'.$value->getPuissance().'</span>';
                     echo '<span class="pv">'.$value->getPv().'</span>';
@@ -73,9 +76,10 @@
             <div id="bottomPlateau">
                 <?php
                 foreach ($plateau[$joueurActif] as $key => $value){  
-                    echo '<a class="carte '.$value->getType().'" data_active="'.$value->getActive().'" data_id="'.$value->getId().'"';
+                    echo '<a class="carte '.$value->getType().'" data_active="'.$value->getActive().'" data_id="'.$value->getId().'" data_gameId="'.$value->getGameId().'"';
                     if($value->getActive() == 1 && $currentPlayer == $jeton && !$eog){
-                        echo 'href="?controller=game&action=play&jeton='.$jeton.'&att='.$value->getId().$value->getIndice().'&abilite='.$abilite.'">';
+                        // echo 'href="?controller=game&action=play&jeton='.$jeton.'&att='.$value->getId().$value->getIndice().'&abilite='.$abilite.'">';
+                        echo 'href="?controller=game&action=play&jeton='.$jeton.'&att='.$key.'&abilite='.$abilite.'">';
                     }else{
                         echo '>';
                     }    
@@ -133,9 +137,10 @@ if(count($defausse[$currentPlayer]) > 0){ ?>
 
         <div id="main">
             <?php
-            foreach($main[$joueurActif] AS $value){
+            foreach($main[$joueurActif] AS $key => $value){
                 if ($currentPlayer == $jeton){
-                    echo '<a class="carteMain '.$value->getType().'" href="?controller=game&action=play&jeton='.$jeton.'&jouer='.$value->getId().$value->getIndice().'">';
+                    // echo '<a class="carteMain '.$value->getType().'" href="?controller=game&action=play&jeton='.$jeton.'&jouer='.$value->getId().$value->getIndice().'">';
+                    echo '<a class="carteMain '.$value->getType().'" href="?controller=game&action=play&jeton='.$jeton.'&jouer='.$key.'">';
                 }else{
                     echo '<a class="carteMain '.$value->getType().'">';
                 }

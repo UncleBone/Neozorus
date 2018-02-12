@@ -60,6 +60,7 @@ function gamePlay(jet, att, cible, abilite, eog){
         carteMain.each(function(){
             let id = $(this).find('img').attr('data_id');
             let indice = $(this).find('img').attr('data_indice');
+            let gameId = $(this).find('img').attr('data_gameId');
             // console.log(att+' '+id+indice);
             $(this).off('mouseenter mouseleave');
             $(this).find('img').css('outline','none');
@@ -80,7 +81,8 @@ function gamePlay(jet, att, cible, abilite, eog){
                     $('[class^=zoom]').remove();
                     clearTimeout(timer);
                 });
-            }else if(att == id+indice){
+            // }else if(att == id+indice){
+            }else if(att == gameId){
                 flickeringBorder($(this).find('img'), 'on');
             }
         });
@@ -92,6 +94,7 @@ function gamePlay(jet, att, cible, abilite, eog){
             let target = $(this);
             let id = $(this).attr('data_id');
             let index = $(this).find('.indice span').text();
+            let gameId = $(this).find('img').attr('data_gameId');
 
             if(target.attr('data_active') == 0 ){
                 sommeil(target);
@@ -118,7 +121,8 @@ function gamePlay(jet, att, cible, abilite, eog){
                 });
             /* Si mode attaque activé: animation pour les cibles + bordure clignotante pour la carte attaquante */
             }else{ 
-                if (att != id+index){
+                // if (att != id+index){
+                if (att != gameId){
                     $('main').css('cursor','url(assets/img/cursor/cursorCross.png), auto');
                     if(target.parent().attr('id') == 'topPlateau' && target.attr('data_visable') == '1'){
                         // target.css('cursor','url(assets/img/cursor/cursorTarget.png), auto');
@@ -184,9 +188,10 @@ function reqAjaxCarteMain(att){
                         carte.addClass('att');
                         let message = $('<p>').addClass('message').text(result['error']);
                         $('main').append(message);
-                        let id = carte.find('img').attr('data_id');
-                        let indice = carte.find('img').attr('data_indice');
-                        let attCarte = id+indice;
+                        // let id = carte.find('img').attr('data_id');
+                        // let indice = carte.find('img').attr('data_indice');
+                        // let attCarte = id+indice;
+                        let attCarte = id;
                         let abilite = [];
                         let abiliteCarte = 0;
                         abilite.push(carte.find('img').attr('data_abilite'));
@@ -229,6 +234,7 @@ function reqAjaxCartePlateau(jet,att,abilite){
     cartePlateau.each(function(){
         // cartePlateau.off('click');
         let href = $(this).attr('href');
+        // console.log(href);
         // $(this).removeAttr('href');
         // console.log(href);
         let regex = new RegExp('&att=(\\d{2,3})(?:&cible=(\\d{2,3}))*&abilite=(\\d)$', 'i');
@@ -272,7 +278,7 @@ function reqAjaxCartePlateau(jet,att,abilite){
                 // });
             // });
         }else if(parentId == 'topPlateau' && currentPlayer == jeton && att != '' ){
-            topPlateau($(this),att,abilite,jeton,cible,eog)
+            topPlateau($(this),att,abilite,jeton,cibleCarte,eog)
             // $(this).css('cursor',"pointer");
             // $(this).click(function(e){
             //     e.preventDefault();
@@ -327,17 +333,18 @@ function bottomPlateau(carte,attCarte,abiliteCarte,jeton,cible,eog){
 
 function topPlateau(carte,att,abilite,jeton,cible,eog){
     carte.off('click');
-    console.log('topPlateau');
+    cible = carte.attr('data_gameId');
     carte.click(function(e){
         e.stopPropagation();
         // console.log('click');
         e.preventDefault();
         
-        let id = $(this).attr('data_id');
-        let index = $(this).find('.indice span').text();
+        // let id = $(this).attr('data_id');
+        // let index = $(this).find('.indice span').text();
         hitAnimation($(this));
         setTimeout(function(){
-            ajax("play", "&att="+att+"&cible="+id+index+"&abilite="+abilite, function(result) {
+            // ajax("play", "&att="+att+"&cible="+id+index+"&abilite="+abilite, function(result) {
+            ajax("play", "&att="+att+"&cible="+cible+"&abilite="+abilite, function(result) {
                 let contenu = $('#contenu');
                 contenu.html(result['view']);             
                 gamePlay(result['jeton'],result['att'],result['cible'],result['abilite'],result['eog']);
