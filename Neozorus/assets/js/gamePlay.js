@@ -275,13 +275,20 @@ function reqAjaxCartePlateau(jet,att,abilite){
                 // console.log(cibleCarte);
                 let id = $(this).attr('data_id');
                 let index = $(this).find('.indice span').text();
+                // let anim = hitAnimation($(this));
+                hitAnimation($(this));
+                // console.log('hit');
                 // ajax("play", "&att="+att+"&cible="+cibleCarte+"&abilite="+abiliteCarte, function(result) {
-                ajax("play", "&att="+att+"&cible="+id+index+"&abilite="+abilite, function(result) {
-                    let contenu = $('#contenu');
-                    contenu.html(result['view']);
-                    
-                    gamePlay(result['jeton'],result['att'],result['cible'],result['abilite'],result['eog']);
-                });
+                // if(anim == 'animationStop'){
+                    // ajax("play", "&att="+att+"&cible="+id+index+"&abilite="+abilite, function(result) {
+                    //     let contenu = $('#contenu');
+                    //     hitAnimation($(this));
+
+                    //     // contenu.html(result['view']);
+                        
+                    //     gamePlay(result['jeton'],result['att'],result['cible'],result['abilite'],result['eog']);
+                    // });
+                // }
             });
         }
     });
@@ -563,7 +570,7 @@ function ciblage(target){
     let gradient = 0;
     let timer;
     div.hover(function(){
-         timer = setInterval(function(){
+        timer = setInterval(function(){
         div.css('background-image', 'repeating-linear-gradient(45deg,transparent '+gradient+'%, rgba(250,250,250,0.6) '+parseInt(gradient+50)+'%, transparent '+
             parseInt(gradient+70)+'%)');
         gradient++;
@@ -576,4 +583,26 @@ function ciblage(target){
     
     $('main').append(div);
     target.parent().append(div);
+}
+
+function hitAnimation(element){
+    // console.log('hit');
+    let mask = element.find('.ciblage').off('hover').css('background-image', 'none').css('background-color','red');
+    let cpt = 0;
+    let timer = setInterval(function(){
+        if(cpt < 100 ){
+            // console.log(Math.sin(cpt*Math.PI/100)*200/cpt);
+            // mask.css('opacity', parseInt(1-cpt/100));
+            element.css('top',-Math.sin(cpt*Math.PI/25)*200/cpt+'px');
+            cpt++;
+        }else{
+            console.log('hitAnimation stop');
+            mask.remove();
+            clearInterval(timer);
+            return 'animationStop';
+        }
+    },5);
+    mask.animate({opacity:0},300);
+
+    // $(window).delay(5000);
 }
