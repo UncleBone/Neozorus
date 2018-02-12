@@ -150,7 +150,7 @@ function gamePlay(jet, att, cible, abilite, eog){
             });
         });
     }else{
-        $(.carteMain).off('click hover');
+        $('.carteMain').off('click hover');
     }
 }
 /*

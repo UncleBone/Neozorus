@@ -9,6 +9,7 @@ class GameCard
     private $mana;
     private $abilite = array();
 
+    private $gameId;                // identifiant dans la partie
     private $pv;                    // pv actuels de la carte
     private $localisation;          // localisation (pioche, main, plateau ou défausse)
     private $indice;                // indice pour les cartes en plusieurs exemplaires
@@ -52,6 +53,10 @@ class GameCard
 
     function getId(){
         return $this->id;
+    }
+
+    function getGameId(){
+        return $this->gameId;
     }
 
     function getLibelle(){
@@ -130,5 +135,9 @@ class GameCard
 
     function setVisable($a = int){
         $this->visable = $a;
+    }
+
+    function setGameId($gId){
+        $this->gameId = $gId;
     }
 }

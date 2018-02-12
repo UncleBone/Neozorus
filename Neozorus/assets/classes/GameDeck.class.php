@@ -56,6 +56,7 @@ class GameDeck{
             $gameCard->setLocalisation($carte['pc_lieu']);
             $gameCard->setVisable($carte['pc_visable']);
             $gameCard->setActive($carte['pc_active']);
+            $gameCard->setGameId($carte['pc_id']);
             $this->cartes[] = $gameCard;
         }
     }

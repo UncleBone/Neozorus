@@ -219,6 +219,7 @@ class GameController extends CoreController{
                     $tabCarte[$i]['user'] = $this->getPlayer($i)->getId();
                     $tabCarte[$i]['partie'] = $gameId;
                     $model->saveNewCarte($tabCarte[$i]);
+                    // $carte->setGameId($model->getCardGameId($gameId, $this->getPlayer($i)->getId(), $carte->getId(), $carte->getIndice())[0]);
                 }
             }
         }

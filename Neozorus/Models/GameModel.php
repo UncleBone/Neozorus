@@ -1,16 +1,16 @@
 <?php
 class GameModel extends CoreModel{
 
-    public function saveNewGame($game = GameController){
+    // public function saveNewGame($game = GameController){
 
-        $player1 = $game->getPlayer(0)->getId();
-        $player2 = $game->getPlayer(1)->getId();
+    //     $player1 = $game->getPlayer(0)->getId();
+    //     $player2 = $game->getPlayer(1)->getId();
 
-        $req = 'INSERT INTO game (g_data,g_player1,g_player2,g_running) VALUES (:data,:p1,:p2,1)';
-        $param = [ 'data' => serialize($game), 'p1' => $player1, 'p2' => $player2 ];
+    //     $req = 'INSERT INTO game (g_data,g_player1,g_player2,g_running) VALUES (:data,:p1,:p2,1)';
+    //     $param = [ 'data' => serialize($game), 'p1' => $player1, 'p2' => $player2 ];
 
-        $this->makeStatement($req,$param);
-    }
+    //     $this->makeStatement($req,$param);
+    // }
 
     public function saveNewGame_v2($tabGame){
         $req = 'INSERT INTO partie (p_tour, p_jeton, p_etat, p_joueur1, p_joueur2, p_piocheEtMana) 
@@ -69,13 +69,21 @@ class GameModel extends CoreModel{
         return $this->makeStatement($req,$param);
     }
 
+    public function getCardGameId($gameId,$playerId,$cardId,$cardIndex){
+        $req = 'SELECT pc_id FROM partie_carte 
+                WHERE pc_partie_fk = :gameId AND pc_user_fk = :playerId AND pc_cid_fk = :cardId AND pc_indice = :cardIndex';
+        $param = [ 'gameId' => $gameId, 'playerId' => $playerId, 'cardId' => $cardId, 'cardIndex' => $cardIndex ];
+
+        return $this->makeSelect($req,$param);
+    }
+
     public function saveCarte($tabCarte){
         $req = 'UPDATE partie_carte 
                 SET pc_pv = :pv, 
                     pc_lieu = :lieu, 
                     pc_visable = :visable,
                     pc_active = :active
-                WHERE pc_cid_fk = :id AND pc_indice = :indice AND pc_user_fk =  :userId AND pc_partie_fk = :partie';
+                WHERE pc_cid_fk = :id AND pc_indice = :indice AND pc_user_fk = :userId AND pc_partie_fk = :partie';
         $param = [ 'id' => $tabCarte['id'],
             'indice' => $tabCarte['indice'],
             'pv' => $tabCarte['pv'],
