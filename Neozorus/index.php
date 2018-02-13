@@ -62,6 +62,10 @@ try
 catch(Exception $e)
 {
 	$controller = new ErrorController();
-	$controller -> error($e->getMessage());
+	$errorMssg = $e->getMessage().'<br><br>Fichier:'.$e->getFile().'<br><br>Ligne:'.$e->getLine().'<br><br>'.$e->getTraceAsString();
+	// foreach ($e->getTrace() as $key => $value) {
+	// 	$errorMssg .= $value.'<br>';
+	// }
+	$controller -> error($errorMssg);
 }
 

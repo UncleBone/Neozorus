@@ -221,8 +221,9 @@ class Joueur{
         }else {
             $carteAtt = $this->plateau[$att];
         }
-        if($type == 'j'){
+        if($type == 'j'){            
            $cible->subPv($carteAtt->getPuissance());
+           // throw new Exception("Error Processing Request".$cible->getPv());
         }elseif ($type == 'c'){
             if (!empty($oPlayer->getPlateau()[$cible])){
                 $carteCible = $oPlayer->getPlateau()[$cible];
@@ -255,7 +256,13 @@ class Joueur{
         header('Location:?controller=game&action=play&jeton='.$jeton.'&ajax=1');
     }
 
-//     function public getCard($cardGameId){
-//         for
-//     }
+    public function findCard($cardGameId){
+        if (array_key_exists($cardGameId, $this->main)) {
+            return $this->main[$cardGameId];
+        }elseif(array_key_exists($cardGameId, $this->plateau)){
+            return $this->plateau[$cardGameId];
+        }else{
+            return false;
+        }
+    }
 }

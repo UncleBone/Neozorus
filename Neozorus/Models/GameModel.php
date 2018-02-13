@@ -164,7 +164,7 @@ class GameModel extends CoreModel{
         $req = 'INSERT INTO historique (h_tour, h_partie, h_joueur, h_event)
                 VALUES (:tour, :gameId, :player, :eventId)';
         $param = [ 'tour' => $tour,
-                    'gameId' => $partie,
+                    'gameId' => $gameId,
                     'player' => $player,
                     'eventId' => $eventId ];
 
@@ -206,9 +206,9 @@ class GameModel extends CoreModel{
     public function getIdHistorique($tour, $gameId, $player, $eventId){
         $req = 'SELECT h_id FROM historique
                 WHERE h_tour = :tour AND h_partie = :gameId AND h_joueur = :player AND h_event = :eventId
-                ORDER BY ID DESC LIMIT 1';
+                ORDER BY h_id DESC LIMIT 1';
         $param = [ 'tour' => $tour,
-                    'gameId' => $partie,
+                    'gameId' => $gameId,
                     'player' => $player,
                     'eventId' => $eventId ];
 
@@ -232,31 +232,38 @@ class GameModel extends CoreModel{
                 WHERE h_id = :histId';
         $param = [ 'histId' => $historiqueId ];
 
-        return $this->makeSelect($req,$param);
+        return $this->makeSelect($req,$param)[0]['h_event'];
     }
 
-/* Retourne l'identifiant de l'évènement dans le tableau correspondant à sont type */
+/* Retourne l'identifiant de l'évènement dans le tableau correspondant à son type */
     public function getEventId($historiqueId, $eventType){
         switch ($eventType) {
             case 1:
-                $req = 'SELECT ep_id FROM event_play WHERE ep_hist = :histId';
+                $table = 'event_play';
+                $id = 'ep_id';
+                $hist = 'ep_hist';
                 break;
             case 2:
-                $req = 'SELECT eac_id FROM event_att_card WHERE eac_hist = :histId';
+                $table = 'event_att_card';
+                $id = 'eac_id';
+                $hist = 'eac_hist';
                 break;
             case 3:
-                $req = 'SELECT eap_id FROM event_att_player WHERE eap_hist = :histId';
+                $table = 'event_att_player';
+                $id = 'eap_id';
+                $hist = 'eap_hist';
                 break;
         }
+        $req = 'SELECT '.$id.' FROM '.$table.' WHERE '.$hist.' = :histId ORDER BY '.$id.' DESC LIMIT 1';
         $param = [ 'histId' => $historiqueId ];
 
-        return $this->makeSelect($req, $param);
+        return $this->makeSelect($req, $param)[0][$id];
     }
 
 /* Enregistre l'id de clé étrangère d'un évènement d'après son id d'historique */
     public function setEventIdInHistorique($historiqueId){
-        $eventType = $this->getEventType($historiqueId)[0];
-        $eventId = $this->getEventId($historiqueId, $eventType)[0];
+        $eventType = $this->getEventType($historiqueId);
+        $eventId = $this->getEventId($historiqueId, $eventType);
         switch ($eventType) {
             case 1:
                 $req = 'UPDATE historique SET h_ep_id = :eventId WHERE h_id = :histId';
@@ -268,7 +275,8 @@ class GameModel extends CoreModel{
                 $req = 'UPDATE historique SET h_eap_id = :eventId WHERE h_id = :histId';
                 break;
         }
-        $param = [ 'histId' => $historiqueId ];
+        $param = [ 'eventId' => $eventId,
+        'histId' => $historiqueId ];
 
         return $this->makeStatement($req, $param);
     }

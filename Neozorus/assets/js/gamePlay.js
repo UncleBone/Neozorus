@@ -175,10 +175,10 @@ function reqAjaxCarteMain(att){
             let carte = $(this);
             carte.off('hover');
             $('[class^=zoom]').remove();
-            let regex = new RegExp('.*jouer=(\\d{2,3})$', 'i');
+            let regex = new RegExp('.*jouer=(\\d+)$', 'i');
             let id = href.match(regex)[1];
             ajax("play", "&jouer="+id, function(result) {
-                // console.log(id);
+                console.log(id);
                 if(result['error'] != null){
                     $('.error').remove();
                     $('.message').remove();
@@ -204,6 +204,7 @@ function reqAjaxCarteMain(att){
                         gamePlay(jeton,attCarte,cible,abiliteCarte,eog);
                     }
                 }else{
+                    
                     var contenu = $('#contenu');
                     contenu.html(result['view']);
                     var infoBox = $('#infoBox');
