@@ -96,12 +96,12 @@ class GameModel extends CoreModel{
         return $this->makeStatement($req,$param);
     }
 
-    public function saveGame($game = GameController){
-        $id = $game->getId();
-        $req = 'UPDATE game SET g_data = :data WHERE g_id = :id';
-        $param = [ 'id' => $id, 'data' =>serialize($game) ];
-        $this->makeStatement($req,$param);
-    }
+    // public function saveGame($game = GameController){
+    //     $id = $game->getId();
+    //     $req = 'UPDATE game SET g_data = :data WHERE g_id = :id';
+    //     $param = [ 'id' => $id, 'data' =>serialize($game) ];
+    //     $this->makeStatement($req,$param);
+    // }
 
     public function saveGame_v2($tabGame){
         $req = 'UPDATE partie 
@@ -121,11 +121,11 @@ class GameModel extends CoreModel{
         return $this->makeStatement($req,$param);
     }
 
-    public function load($gameId){
-        $req = 'SELECT g_data FROM game WHERE g_id = :id';
-        $param = [ 'id' => $gameId ];
-        return $this->makeSelect($req,$param);
-    }
+    // public function load($gameId){
+    //     $req = 'SELECT g_data FROM game WHERE g_id = :id';
+    //     $param = [ 'id' => $gameId ];
+    //     return $this->makeSelect($req,$param);
+    // }
 
     public function loadGame($gameId){
         $req = 'SELECT * FROM partie WHERE p_id = :id';
@@ -146,17 +146,133 @@ class GameModel extends CoreModel{
         return $this->makeSelect($req,$param);
     }
 
-    public function getGameId($userId){
-        $req = 'SELECT g_id FROM game WHERE g_running = 1 AND (g_player1 = :uid OR g_player2 = :uid)';
-        $param = [ 'uid' => $userId];
-        return $this->makeSelect($req,$param);
-    }
+    // public function getGameId($userId){
+    //     $req = 'SELECT g_id FROM game WHERE g_running = 1 AND (g_player1 = :uid OR g_player2 = :uid)';
+    //     $param = [ 'uid' => $userId];
+    //     return $this->makeSelect($req,$param);
+    // }
 
     public function getGameId_v2($userId){
         $req = 'SELECT p_id FROM partie WHERE p_etat = 1 AND (p_joueur1 = :uid OR p_joueur2 = :uid)';
         $param = [ 'uid' => $userId];
         return $this->makeSelect($req,$param);
     }
+
+/****************************** Gestion de l'historique *********************************/
+
+    public function addEvent($tour, $gameId, $player, $eventId){
+        $req = 'INSERT INTO historique (h_tour, h_partie, h_joueur, h_event)
+                VALUES (:tour, :gameId, :player, :eventId)';
+        $param = [ 'tour' => $tour,
+                    'gameId' => $partie,
+                    'player' => $player,
+                    'eventId' => $eventId ];
+
+        return $this->makeStatement($req,$param);
+    }
+
+    public function addEventPlay($carte, $historique){
+        $req = 'INSERT INTO event_play (ep_carte, ep_hist)
+                VALUES (:carte, :historique)';
+        $param = [ 'carte' => $carte, 'historique' => $historique ];
+
+        return $this->makeStatement($req,$param);
+    }
+
+    public function addEventAttCard($att, $cible, $mortAtt, $mortCible, $hist){
+        $req = 'INSERT INTO event_att_card (eac_att, eac_cible, eac_mort_att, eac_mort_cible, eac_hist)
+                VALUES (:att, :cible, :mortAtt, :mortCible, :hist)';
+        $param = [ 'att' => $att, 
+                    'cible' => $cible, 
+                    'mortAtt' => $mortAtt,
+                    'mortCible' => $mortCible,
+                    'hist' => $hist ];
+
+        return $this->makeStatement($req,$param);
+    }
+
+    public function addEventAttPlayer($att, $cible, $mortCible, $hist){
+        $req = 'INSERT INTO event_att_player (eap_att, eap_cible, eap_mort_cible, eap_hist)
+                VALUES (:att, :cible, :mortCible, :hist)';
+        $param = [ 'att' => $att, 
+                    'cible' => $cible, 
+                    'mortCible' => $mortCible,
+                    'hist' => $hist ];
+
+        return $this->makeStatement($req,$param);
+    }
+   
+/* Retourne l'id de la dernière entrée du tableau historique ayant les paramètres donnés */
+    public function getIdHistorique($tour, $gameId, $player, $eventId){
+        $req = 'SELECT h_id FROM historique
+                WHERE h_tour = :tour AND h_partie = :gameId AND h_joueur = :player AND h_event = :eventId
+                ORDER BY ID DESC LIMIT 1';
+        $param = [ 'tour' => $tour,
+                    'gameId' => $partie,
+                    'player' => $player,
+                    'eventId' => $eventId ];
+
+        return $this->makeSelect($req, $param);
+    }
+
+    // public function getEventTableName($historiqueId){
+    //     $req = 'SELECT e_nom FROM event
+    //             INNER JOIN historique ON h_event = e_id
+    //             WHERE h_id = :histId';
+    //     $param = [ 'histId' => $historiqueId ];
+    //     $event = $this->makeSelect($req,$param)[0];
+    //     $tableName = 'event_'.$event;
+        
+    //     return $tableName; 
+    // }
+
+/* Retourne le type de l'évènement */
+    public function getEventType($historiqueId){
+        $req = 'SELECT h_event FROM historique
+                WHERE h_id = :histId';
+        $param = [ 'histId' => $historiqueId ];
+
+        return $this->makeSelect($req,$param);
+    }
+
+/* Retourne l'identifiant de l'évènement dans le tableau correspondant à sont type */
+    public function getEventId($historiqueId, $eventType){
+        switch ($eventType) {
+            case 1:
+                $req = 'SELECT ep_id FROM event_play WHERE ep_hist = :histId';
+                break;
+            case 2:
+                $req = 'SELECT eac_id FROM event_att_card WHERE eac_hist = :histId';
+                break;
+            case 3:
+                $req = 'SELECT eap_id FROM event_att_player WHERE eap_hist = :histId';
+                break;
+        }
+        $param = [ 'histId' => $historiqueId ];
+
+        return $this->makeSelect($req, $param);
+    }
+
+/* Enregistre l'id de clé étrangère d'un évènement d'après son id d'historique */
+    public function setEventIdInHistorique($historiqueId){
+        $eventType = $this->getEventType($historiqueId)[0];
+        $eventId = $this->getEventId($historiqueId, $eventType)[0];
+        switch ($eventType) {
+            case 1:
+                $req = 'UPDATE historique SET h_ep_id = :eventId WHERE h_id = :histId';
+                break;
+            case 2:
+                $req = 'UPDATE historique SET h_eac_id = :eventId WHERE h_id = :histId';
+                break;
+            case 3:
+                $req = 'UPDATE historique SET h_eap_id = :eventId WHERE h_id = :histId';
+                break;
+        }
+        $param = [ 'histId' => $historiqueId ];
+
+        return $this->makeStatement($req, $param);
+    }
+
 
     // public function setRunning($gid,$val){
     //     $req = 'UPDATE game SET g_running = :val WHERE g_id = :id';

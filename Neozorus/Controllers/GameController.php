@@ -566,6 +566,9 @@ class GameController extends CoreController{
                 $carte = $player->getMain()[$this->parameters['jouer']];
                 if($carte->getMana() <= $player->getMana()) {
                     $player->jouerCarte($this->parameters['jouer'],$jeton);
+                    if($carte->getType() != 'sort'){
+                        $this->addEvent($this->getTour(), $this->getId(), $player->getId(), 1, $carte);
+                    }
                 }else{
                     $error = 'not_enough_mana';
                     $this->error($error);
@@ -581,8 +584,14 @@ class GameController extends CoreController{
                 if(strpos($cible = $this->parameters['cible'],'J')!==false){    // si la cible est un joueur
                     $p = substr($cible,-1);
                     $player->attaquer('j',$this->parameters['att'],$this->getPlayer($p),$otherPlayer,$jeton);
+                    $carte = $player->getDeck()->findCard($this->parameters['att']);
+                    $cible = $otherPlayer;
+                    $this->addEvent($this->getTour(), $this->getId(), $player->getId(), 3, $carte, $cible);
                 }else {     // sinon, la cible est une carte
                     $player->attaquer('c', $this->parameters['att'], $this->parameters['cible'],$otherPlayer,$jeton);
+                    $carte = $player->getDeck()->findCard($this->parameters['att']);
+                    $cible = $player->getDeck()->findCard($this->parameters['cible']);
+                    $this->addEvent($this->getTour(), $this->getId(), $player->getId(), 2, $carte, $cible);
                 }
                 // si la carte jouée dispose d'une capacité de pioche -> pioche x cartes
                 if(!empty($this->parameters['abilite']) && $this->parameters['abilite']>=2){
@@ -606,6 +615,28 @@ class GameController extends CoreController{
         $data = [ 'error' => $this->message($e) ];
         echo json_encode($data);
         exit();
+    }
+
+    public function addEvent($tour, $gameId, $player, $type, $carte, $cible = null){
+        $model = new GameModel();
+        $model->addEvent($tour, $gameId, $player, $type);
+        $historiqueId = $model->getIdHistorique($tour, $gameId, $player, $type);
+        switch ($type) {
+            case 1:
+                $model->addEventPlay($carte->getGameId(), $historiqueId);
+                break;
+            case 2:
+                $mortAtt = ($carte->getPv()-$cible->getPuissance()) > 0 ? false : true;
+                $mortCible = ($cible->getPv()-$carte->getPuissance()) > 0 ? false : true;
+                $model->addEventAttCard($carte->getGameId(), $cible, $mortAtt, $mortCible, $historiqueId);
+                break;
+            case 3:
+                $mortCible = ($cible->getPv()-$carte->getPuissance()) > 0 ? false : true;
+                $model->addEventAttPlayer($carte->getGameId(), $cible, $mortCible, $historiqueId);
+                break;
+        }
+        
+        $model->setEventIdInHistorique($historiqueId);
     }
 
     /*

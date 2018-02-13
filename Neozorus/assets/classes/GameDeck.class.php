@@ -67,4 +67,13 @@ class GameDeck{
     function shuffle(){
         shuffle($this->cartes);
     }
+
+    function findCard($cardGameId){
+        foreach ($this->cartes as $carte) {
+            if($carte->getGameId() == $cardGameId){
+                return $carte;
+            }
+        }
+        return false;
+    }
 }
