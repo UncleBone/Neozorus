@@ -240,7 +240,7 @@ function reqAjaxCartePlateau(jet,att,abilite){
         // console.log(href);
         // $(this).removeAttr('href');
         // console.log(href);
-        let regex = new RegExp('&att=(\\d{2,3})(?:&cible=(\\d{2,3}))*&abilite=(\\d)$', 'i');
+        let regex = new RegExp('&att=(\\d+)(?:&cible=(\\d+))*&abilite=(\\d)$', 'i');
         if(typeof(href) != 'undefined'){
             var attCarte = href.match(regex)[1];
             var cibleCarte = href.match(regex)[2];

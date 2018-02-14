@@ -639,7 +639,7 @@ class GameController extends CoreController{
                 break;
             case 3:
                 $mortCible = ($cible->getPv()-$carte->getPuissance()) > 0 ? false : true;
-                $model->addEventAttPlayer($carte->getGameId(), $cible->getGameId(), $mortCible, $historiqueId);
+                $model->addEventAttPlayer($carte->getGameId(), $cible->getId(), $mortCible, $historiqueId);
                 break;
         }
         
