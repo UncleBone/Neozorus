@@ -146,6 +146,18 @@ class GameModel extends CoreModel{
         return $this->makeSelect($req,$param);
     }
 
+    public function getGameCard($id){
+        $req = 'SELECT c_id as id, c_libelle as libelle, c_type as type, c_puissance as puissance, c_pvMax as pvMax, c_mana as mana, pc_indice as indice, GROUP_CONCAT(c_a_abilite_fk) as abilite 
+                FROM `partie_carte` 
+                INNER JOIN carte ON pc_cid_fk = c_id 
+                LEFT JOIN c_a_inclure ON c_a_carte_fk = c_id
+                WHERE pc_id = :id
+                GROUP BY c_id';
+        $param = [ 'id' => $id ];
+
+        return $this->makeSelect($req,$param);
+    }
+
     // public function getGameId($userId){
     //     $req = 'SELECT g_id FROM game WHERE g_running = 1 AND (g_player1 = :uid OR g_player2 = :uid)';
     //     $param = [ 'uid' => $userId];
@@ -215,17 +227,6 @@ class GameModel extends CoreModel{
         return $this->makeSelect($req, $param);
     }
 
-    // public function getEventTableName($historiqueId){
-    //     $req = 'SELECT e_nom FROM event
-    //             INNER JOIN historique ON h_event = e_id
-    //             WHERE h_id = :histId';
-    //     $param = [ 'histId' => $historiqueId ];
-    //     $event = $this->makeSelect($req,$param)[0];
-    //     $tableName = 'event_'.$event;
-        
-    //     return $tableName; 
-    // }
-
 /* Retourne le type de l'évènement */
     public function getEventType($historiqueId){
         $req = 'SELECT h_event FROM historique
@@ -281,7 +282,35 @@ class GameModel extends CoreModel{
         return $this->makeStatement($req, $param);
     }
 
+    public function getHistorique($gameId){
+        $req = 'SELECT * FROM historique WHERE h_partie = :gameId ORDER BY h_id ASC';
+        $param = [ 'gameId' => $gameId ];
 
+        return $this->makeSelect($req,$param);
+    }
+
+    public function getEventPlay($histId){
+        $req = 'SELECT * FROM event_play WHERE ep_hist = :histId';
+        $param = [ 'histId' => $histId ];
+
+        return $this->makeSelect($req,$param);
+    }
+
+    public function getEventAttCard($histId){
+        $req = 'SELECT * FROM event_att_card WHERE eac_hist = :histId';
+        $param = [ 'histId' => $histId ];
+
+        return $this->makeSelect($req,$param);
+    }
+
+    public function getEventAttPlayer($histId){
+        $req = 'SELECT * FROM event_att_player WHERE eap_hist = :histId';
+        $param = [ 'histId' => $histId ];
+
+        return $this->makeSelect($req,$param);
+    }
+
+/***************************************************************************************/
     // public function setRunning($gid,$val){
     //     $req = 'UPDATE game SET g_running = :val WHERE g_id = :id';
     //     $param = [ 'id' => $gid, 'val' => $val ];

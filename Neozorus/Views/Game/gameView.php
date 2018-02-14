@@ -14,6 +14,11 @@
     if(!empty($message)){
         echo '<p class="message'.($eog == true ? ' endGame' : '').'">'.$message.'</p>';
     }
+    if(!empty($historique)){
+        foreach ($historique as $key => $value) {
+            echo $value->getId();
+        };
+    }
     ?>
 
     <!--DIV QUI COMPRENDS LES INFORMATIONS DU HERO PASSIF-->

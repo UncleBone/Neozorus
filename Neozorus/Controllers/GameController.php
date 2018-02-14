@@ -393,6 +393,7 @@ class GameController extends CoreController{
             $this->saveGame();
             $this->loadGame();
             $tour = $this->getTour();
+            $historique = $this->fetchHistorique();
             for ($i = 0; $i < 2; $i++) {
                 $pv[$i] = $this->getPlayer($i)->getPv();
                 $mana[$i] = $this->getPlayer($i)->getMana();
@@ -455,6 +456,7 @@ class GameController extends CoreController{
     public function refreshViewAjax(){
         $this->loadGame();
         $tour = $this->getTour();
+        $historique = $this->fetchHistorique();
         for($i=0;$i<2;$i++){
             $pv[$i] = $this->getPlayer($i)->getPv();
             $mana[$i] = $this->getPlayer($i)->getMana();
@@ -494,6 +496,47 @@ class GameController extends CoreController{
         echo json_encode($data, JSON_UNESCAPED_UNICODE );
 //        echo json_last_error_msg();
         exit();
+    }
+
+    function fetchHistorique(){
+        $historique = array();
+        $model = new GameModel();
+        $tab = $model->getHistorique($this->id);
+        foreach ($tab as $key => $event) {
+            switch ($event['h_event']) {
+                case Event::PLAY:
+                    $e = new Event_play($event['h_id'],$event['h_tour'],$event['h_joueur']);
+                    $evData = $model->getEventPlay($event['h_id'])[0];
+                    $carteData = $model->getGameCard($evData['ep_carte'])[0];
+                    $carte = new GameCard($carteData['id'],$carteData['libelle'],$carteData['type'],$carteData['puissance'],$carteData['pvMax'],$carteData['mana'],$carteData['indice'],$carteData['abilite']);
+                    $e->setCarte($carte);
+                    break;
+                case Event::ATT_CARD:
+                    $e = new Event_att_card($event['h_id'],$event['h_tour'],$event['h_joueur']);
+                    $evData = $model->getEventAttCard($event['h_id'])[0];
+                    $attData = $model->getGameCard($evData['eac_att'])[0];
+                    $att = new GameCard($attData['id'],$attData['libelle'],$attData['type'],$attData['puissance'],$attData['pvMax'],$attData['mana'],$attData['indice'],$attData['abilite']);
+                    $e->setAtt($att);
+                    $cibleData = $model->getGameCard($evData['eac_cible'])[0];
+                    $cible = new GameCard($cibleData['id'],$cibleData['libelle'],$cibleData['type'],$cibleData['puissance'],$cibleData['pvMax'],$cibleData['mana'],$cibleData['indice'],$cibleData['abilite']);
+                    $e->setCible($cible);
+                    $e->setMortAtt($evData['eac_mort_att']);
+                    $e->setMortCible($evData['eac_mort_cible']);
+                    break;
+                case Event::ATT_PLAYER:
+                    $e = new Event_att_card($event['h_id'],$event['h_tour'],$event['h_joueur']);
+                    $evData = $model->getEventAttPlayer($event['h_id'])[0];
+                    $attData = $model->getGameCard($evData['eap_att'])[0];
+                    $att = new GameCard($attData['id'],$attData['libelle'],$attData['type'],$attData['puissance'],$attData['pvMax'],$attData['mana'],$attData['indice'],$attData['abilite']);
+                    $e->setAtt($att);
+                    $cible = new Joueur($event['h_joueur']);
+                    $e->setCible($cible);
+                    $e->setMortCible($evData['eap_mort_cible']);
+                    break;
+            }
+            $historique[] = $e;
+        }
+        return $historique;
     }
 
     /*

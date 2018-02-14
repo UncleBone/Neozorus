@@ -15,10 +15,12 @@ class Joueur{
 
 	const MANA_MAX = 10;
 
-	public function __construct($id,$deckId){
+	public function __construct($id,$deckId = null){
 		$this->setId($id);
-		$this->deck = new GameDeck($deckId);
-		$this->setPv(20);
+        if(!is_null($deckId)){
+            $this->deck = new GameDeck($deckId);
+        }
+        $this->setPv(20);
         $this->setMana(0);
         $this->setVisable(1);
         $user = new UserModel();
