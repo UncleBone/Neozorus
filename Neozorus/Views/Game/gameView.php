@@ -55,7 +55,7 @@
                 foreach ($plateau[$joueurPassif] as $key => $value){
                     //la carte est selectionnable si le joueur actif
                     
-                    echo '<a class="carte '.$value->getType().'" data_visable="'.$value->getVisable().'" data_id="'.$value->getId().'"  data_gameId="'.$value->getGameId().'" data="'.$att.'"';
+                    echo '<a class="carte '.$value->getType().'" data_visable="'.$value->getVisable().'" data_id="'.$value->getId().'"  data_gameid="'.$value->getGameId().'" data="'.$att.'"';
                     // if(!empty($att) && $att != $value->getId().$value->getIndice() && $value->getVisable() == 1 && $currentPlayer == $jeton && !$eog){
 
                     // if($value->getVisable() == 1 && $currentPlayer == $jeton && !$eog){
@@ -76,7 +76,7 @@
             <div id="bottomPlateau">
                 <?php
                 foreach ($plateau[$joueurActif] as $key => $value){  
-                    echo '<a class="carte '.$value->getType().'" data_active="'.$value->getActive().'" data_id="'.$value->getId().'" data_gameId="'.$value->getGameId().'"';
+                    echo '<a class="carte '.$value->getType().'" data_active="'.$value->getActive().'" data_id="'.$value->getId().'" data_gameid="'.$value->getGameId().'"';
                     if($value->getActive() == 1 && $currentPlayer == $jeton && !$eog){
                         // echo 'href="?controller=game&action=play&jeton='.$jeton.'&att='.$value->getId().$value->getIndice().'&abilite='.$abilite.'">';
                         echo 'href="?controller=game&action=play&jeton='.$jeton.'&att='.$key.'&abilite='.$abilite.'">';
@@ -145,7 +145,7 @@ if(count($defausse[$currentPlayer]) > 0){ ?>
                     echo '<a class="carteMain '.$value->getType().'">';
                 }
                 echo '<img src="'.$value->getPath().'" data_libelle="'.ucfirst(mb_strtolower($value->getLibelle())).'" data_abilite="'.
-                    $value->getAbilite()[0].'" data_abilite_2="'.(count($value->getAbilite())==2 ? $value->getAbilite()[1] : '0').'" data_id="'.$value->getId().'" data_indice="'.$value->getIndice().'" data_gameId="'.$value->getGameId().'">';
+                    $value->getAbilite()[0].'" data_abilite_2="'.(count($value->getAbilite())==2 ? $value->getAbilite()[1] : '0').'" data_id="'.$value->getId().'" data_indice="'.$value->getIndice().'" data_gameid="'.$value->getGameId().'">';
                 switch($value->getType()){
                     case 'creature':
                     case 'speciale':

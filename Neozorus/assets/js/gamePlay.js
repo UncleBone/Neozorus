@@ -60,7 +60,7 @@ function gamePlay(jet, att, cible, abilite, eog){
         carteMain.each(function(){
             let id = $(this).find('img').attr('data_id');
             let indice = $(this).find('img').attr('data_indice');
-            let gameId = $(this).find('img').attr('data_gameId');
+            let gameId = $(this).find('img').attr('data_gameid');
             // console.log(att+' '+id+indice);
             $(this).off('mouseenter mouseleave');
             $(this).find('img').css('outline','none');
@@ -94,8 +94,8 @@ function gamePlay(jet, att, cible, abilite, eog){
             let target = $(this);
             let id = $(this).attr('data_id');
             let index = $(this).find('.indice span').text();
-            let gameId = $(this).find('img').attr('data_gameId');
-
+            let gameId = $(this).attr('data_gameid');
+// console.log(att+' '+gameId);
             if(target.attr('data_active') == 0 ){
                 sommeil(target);
             }
@@ -121,6 +121,7 @@ function gamePlay(jet, att, cible, abilite, eog){
                 });
             /* Si mode attaque activé: animation pour les cibles + bordure clignotante pour la carte attaquante */
             }else{ 
+
                 // if (att != id+index){
                 if (att != gameId){
                     $('main').css('cursor','url(assets/img/cursor/cursorCross.png), auto');
@@ -131,6 +132,7 @@ function gamePlay(jet, att, cible, abilite, eog){
                         target.css('cursor','url(assets/img/cursor/cursorCross.png), auto');
                     }
                 }else{
+
                 // let width = target.width(); 
                 // target.find('img').css('outline', 'none');
 
@@ -336,7 +338,7 @@ function bottomPlateau(carte,attCarte,abiliteCarte,jeton,cible,eog){
 
 function topPlateau(carte,att,abilite,jeton,cible,eog){
     carte.off('click');
-    cible = carte.attr('data_gameId');
+    cible = carte.attr('data_gameid');
     carte.click(function(e){
         e.stopPropagation();
         // console.log('click');
