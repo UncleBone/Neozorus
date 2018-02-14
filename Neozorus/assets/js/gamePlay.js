@@ -43,6 +43,7 @@ function gamePlay(jet, att, cible, abilite, eog){
         reqAjaxCarteMain(att);
         reqAjaxCartePlateau(jeton, att, abilite);
         reqAjaxJoueur(jeton,att, abilite);
+        historique();
 
         /* si mode attaque activé: sélection désactivée au click sur le plateau ou sur cette même carte */
         if($.isNumeric(att)) {
@@ -696,4 +697,14 @@ function hitAnimation(element){
     mask.animate({opacity:0},300);
 
     // $(window).delay(5000);
+}
+
+function historique(){
+    $('#historique #events .event').each(function(){
+        if($(this).attr('data_joueur') == jeton){
+            $(this).css('border','3px solid #005b7f');
+        }else{
+            $(this).css('border','3px solid #d80c0f');
+        }
+    });
 }

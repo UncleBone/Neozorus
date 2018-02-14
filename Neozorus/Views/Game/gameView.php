@@ -14,11 +14,15 @@
     if(!empty($message)){
         echo '<p class="message'.($eog == true ? ' endGame' : '').'">'.$message.'</p>';
     }
+    echo '<div id="historique">';
+    echo '<div id="events">';
     if(!empty($historique)){
-        foreach ($historique as $key => $value) {
-            echo $value->getId();
+        foreach ($historique as $event) {
+            echo '<div class="event" data_joueur="'.($event->getJoueur() == $_SESSION['neozorus']['u_id'] ? 0 : 1).'">'.$event->getId().'</div>';
         };
     }
+    echo '</div>';
+    echo '</div>';
     ?>
 
     <!--DIV QUI COMPRENDS LES INFORMATIONS DU HERO PASSIF-->

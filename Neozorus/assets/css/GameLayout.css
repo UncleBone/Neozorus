@@ -92,13 +92,42 @@ a
 	animation-iteration-count: 1;
 }
 
+/****************** Historique ********************/
 
-/*#plateau{
-	position: fixed;
-	width: 100%;
-	height: 100%;
-	z-index: -10;
-}*/
+#historique
+{
+	position: absolute;
+	top: 1vh;
+	left: 2vw;
+	width: 40vw;
+	height: 10vh;
+	/*padding: 1vh;*/
+	background-color: rgba(0, 0, 0, 0.7);
+	overflow: hidden;
+	
+	/*white-space: nowrap;*/
+}
+#events
+{
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 5000vw;
+	height: 10vh;
+	padding: 1vh;
+	text-align: right;
+	overflow: hidden;
+	white-space: nowrap;
+}
+.event
+{
+	display: inline-block;
+	height: 8vh;
+	width: 8vh;
+	border-radius: 5px;
+	background-color: white;
+	margin: 0 2px;
+}
 
 /*********** Héros ***********/
 
