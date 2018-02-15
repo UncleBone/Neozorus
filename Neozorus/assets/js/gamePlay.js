@@ -706,7 +706,8 @@ function hitAnimation(element){
 function historique(){
     $('#historique #events .event').each(function(){
         let img = $(this).attr('data_img');
-        let type = $(this).attr('data_type');
+        let event = $(this).attr('data_event');
+        let type = $(this).attr('data_type_carte');
         img = img.replace(/\\/g, '\\\\');
         // console.log(img);
         if($(this).attr('data_joueur') == jeton){
@@ -715,9 +716,13 @@ function historique(){
             $(this).css('border','2px solid rgb(195,10,48)').css('color','rgb(195,10,48)');
         }
         $(this).css('background-image','url('+img+')').css('background-size','110%').css('background-position','center 20%');
-        if(type != 1){
+        if(event != 1 && type != 'sort'){
             let span = $('<span></span>').text('Vs');
             $(this).append(span);
+        }else if(event != 1 && type == 'sort'){
+            let imgPath = 'assets/img/hist/sort_'+($(this).attr('data_joueur') == jeton ? '1' : '2')+'_alt.png';
+            let imgSort = $('<img>').attr('src',imgPath);
+            $(this).append(imgSort);
         }
     });
 }
