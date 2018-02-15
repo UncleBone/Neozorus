@@ -4,16 +4,17 @@
 	private $tour;		// tour auquel l'évènement est survenu
 	private $partie;	// id de la partie associée
 	private $joueur;	// id du joueur à l'origine de l'évènement
-	// private $type;		// type d'évènement
+	private $type;		// type d'évènement
 
 	const PLAY = 1;
 	const ATT_CARD = 2;
 	const ATT_PLAYER = 3;
 
-	public function __construct($id,$tour,$joueur){
+	public function __construct($id,$tour,$joueur,$type){
 		$this->setId($id);
 		$this->setTour($tour);
 		$this->setJoueur($joueur);
+		$this->setType($type);
 	}
 
 	public function getId(){

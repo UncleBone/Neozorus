@@ -18,7 +18,11 @@
     echo '<div id="events">';
     if(!empty($historique)){
         foreach ($historique as $event) {
-            echo '<div class="event" data_joueur="'.($event->getJoueur() == $_SESSION['neozorus']['u_id'] ? 0 : 1).'">'.$event->getId().'</div>';
+            echo '<div class="event" 
+                    data_joueur="'.($event->getJoueur() == $_SESSION['neozorus']['u_id'] ? 0 : 1).'" 
+                    data_img="'.($event->getType() == Event::PLAY ? $event->getCarte()->getPath() : $event->getAtt()->getPath()).'" 
+                    data_type="'.$event->getType().'"
+                    ></div>';
         };
     }
     echo '</div>';

@@ -505,14 +505,14 @@ class GameController extends CoreController{
         foreach ($tab as $key => $event) {
             switch ($event['h_event']) {
                 case Event::PLAY:
-                    $e = new Event_play($event['h_id'],$event['h_tour'],$event['h_joueur']);
+                    $e = new Event_play($event['h_id'],$event['h_tour'],$event['h_joueur'],$event['h_event']);
                     $evData = $model->getEventPlay($event['h_id'])[0];
                     $carteData = $model->getGameCard($evData['ep_carte'])[0];
                     $carte = new GameCard($carteData['id'],$carteData['libelle'],$carteData['type'],$carteData['puissance'],$carteData['pvMax'],$carteData['mana'],$carteData['indice'],$carteData['abilite']);
                     $e->setCarte($carte);
                     break;
                 case Event::ATT_CARD:
-                    $e = new Event_att_card($event['h_id'],$event['h_tour'],$event['h_joueur']);
+                    $e = new Event_att_card($event['h_id'],$event['h_tour'],$event['h_joueur'],$event['h_event']);
                     $evData = $model->getEventAttCard($event['h_id'])[0];
                     $attData = $model->getGameCard($evData['eac_att'])[0];
                     $att = new GameCard($attData['id'],$attData['libelle'],$attData['type'],$attData['puissance'],$attData['pvMax'],$attData['mana'],$attData['indice'],$attData['abilite']);
@@ -524,7 +524,7 @@ class GameController extends CoreController{
                     $e->setMortCible($evData['eac_mort_cible']);
                     break;
                 case Event::ATT_PLAYER:
-                    $e = new Event_att_card($event['h_id'],$event['h_tour'],$event['h_joueur']);
+                    $e = new Event_att_card($event['h_id'],$event['h_tour'],$event['h_joueur'],$event['h_event']);
                     $evData = $model->getEventAttPlayer($event['h_id'])[0];
                     $attData = $model->getGameCard($evData['eap_att'])[0];
                     $att = new GameCard($attData['id'],$attData['libelle'],$attData['type'],$attData['puissance'],$attData['pvMax'],$attData['mana'],$attData['indice'],$attData['abilite']);

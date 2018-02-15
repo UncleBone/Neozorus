@@ -433,12 +433,14 @@ function abiliteTexte(ab){
 
 function gameWaitingTurn(){
     var interval;
+    historique();
     interval = window.setInterval(function(){
         console.log('waiting');
         ajax("refreshViewAjax", "", function(result) {
             var contenu = $('#contenu');
             var j = result['jeton'];
             contenu.html(result['view']);
+            historique();
             if(!result['eog']){
                 if(j==currentPlayer){
                     chgTurnMssg(0);
@@ -499,6 +501,7 @@ function chgTurnMssg(t){
     }else{
         message = 'Tour du joueur adverse';
     }
+    $('.messageBox').remove();
     var messageBox = $('<div></div>');
     messageBox.html('<p>'+message+'</p>');
     messageBox.css('padding','20px');
@@ -510,6 +513,7 @@ function chgTurnMssg(t){
     messageBox.css('top','50vh').css('left','50vw').css('z-index',50);
     messageBox.css('transform','translate(-50%,-60%)');
     messageBox.css('border-radius','5px');
+    messageBox.addClass('messageBox');
 
     $('body').append(messageBox);
     fade(messageBox);
@@ -701,10 +705,19 @@ function hitAnimation(element){
 
 function historique(){
     $('#historique #events .event').each(function(){
+        let img = $(this).attr('data_img');
+        let type = $(this).attr('data_type');
+        img = img.replace(/\\/g, '\\\\');
+        // console.log(img);
         if($(this).attr('data_joueur') == jeton){
-            $(this).css('border','3px solid #005b7f');
+            $(this).css('border','2px solid rgb(120,189,222)').css('color','rgb(120,189,222)');
         }else{
-            $(this).css('border','3px solid #d80c0f');
+            $(this).css('border','2px solid rgb(195,10,48)').css('color','rgb(195,10,48)');
+        }
+        $(this).css('background-image','url('+img+')').css('background-size','110%').css('background-position','center 20%');
+        if(type != 1){
+            let span = $('<span></span>').text('Vs');
+            $(this).append(span);
         }
     });
 }
