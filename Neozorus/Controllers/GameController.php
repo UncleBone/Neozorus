@@ -717,9 +717,10 @@ class GameController extends CoreController{
         $gameId = $this->getId();
         $playerId = $this->getCurrentPlayer()->getId();
 
-        $game->deletePlayerFromGame($playerId, $gameId);
+        // $game->deletePlayerFromGame($playerId, $gameId);
 
         if(empty($game->playerStillInGame($gameId))){
+            // $game->deletePlayerFromGame($playerId, $gameId);
             $game->deleteGame($_SESSION['neozorus']['game']);
         }
         

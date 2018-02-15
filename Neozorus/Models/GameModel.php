@@ -347,7 +347,10 @@ class GameModel extends CoreModel{
     }
 
     public function playerStillInGame($gameId){
-        $req = 'SELECT * FROM partie_joueur WHERE pj_partie_fk = :gid';
+        // $req = 'SELECT * FROM partie_joueur WHERE pj_partie_fk = :gid';
+        $req = 'SELECT * FROM partie_joueur
+                INNER JOIN deck ON pj_deck_fk = d_id
+                WHERE d_waiting = 1 AND pj_partie_fk = :gid';
         $param = [ 'gid' => $gameId ];
         return $this->makeSelect($req,$param);
     }
