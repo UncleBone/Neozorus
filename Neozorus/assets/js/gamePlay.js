@@ -26,7 +26,7 @@ function gamePlay(jet, att, cible, abilite, eog){
     var abilite = abilite;
     var timerFB;
     console.log('jet:'+jet+', att:'+att+', cible:'+cible+', abilite:'+abilite+' eog:'+eog);
-
+    historique();
     if(eog != '1'){
         $('#end').css('cursor','pointer').attr('title','Fin de tour');
 
@@ -43,7 +43,7 @@ function gamePlay(jet, att, cible, abilite, eog){
         reqAjaxCarteMain(att);
         reqAjaxCartePlateau(jeton, att, abilite);
         reqAjaxJoueur(jeton,att, abilite);
-        historique();
+        
 
         /* si mode attaque activé: sélection désactivée au click sur le plateau ou sur cette même carte */
         if($.isNumeric(att)) {
@@ -721,8 +721,13 @@ function historique(){
             $(this).append(span);
         }else if(event != 1 && type == 'sort'){
             let imgPath = 'assets/img/hist/sort_'+($(this).attr('data_joueur') == jeton ? '1' : '2')+'_alt.png';
-            let imgSort = $('<img>').attr('src',imgPath);
+            let imgSort = $('<img>').attr('src',imgPath).addClass('sort');
             $(this).append(imgSort);
+        }
+        if(event == 2 && type != 'sort'){
+            let imgPath = 'assets/img/hist/skull_bis.png';
+            let imgSkull = $('<img>').attr('src',imgPath).addClass('skull');
+            $(this).append(imgSkull);
         }
     });
 }

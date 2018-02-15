@@ -25,6 +25,7 @@
                     echo 'data_img="'.$event->getCarte()->getPath().'" >';
                     break;
                 case Event::ATT_CARD:
+                    echo 'data_mort_att="'.$event->getMortAtt().'" ';
                 case Event::ATT_PLAYER:
                     echo 'data_img="'.$event->getAtt()->getPath().'" data_type_carte="'.$event->getAtt()->getType().'">';
                     break;
