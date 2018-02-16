@@ -138,6 +138,11 @@ class GameModel extends CoreModel{
         $param = [ 'game' => $game ];
         return $this->makeSelect($req,$param);
     }
+    public function loadPlayer($game,$player){
+        $req = 'SELECT * FROM partie_joueur WHERE pj_partie_fk = :game AND pj_user_fk = :player';
+        $param = [ 'game' => $game, 'player' => $player ];
+        return $this->makeSelect($req,$param);
+    }
 
     public function loadCartes($game,$user){
         $req = 'SELECT * FROM partie_carte WHERE pc_partie_fk = :game AND pc_user_fk = :user 

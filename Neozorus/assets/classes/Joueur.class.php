@@ -12,6 +12,7 @@ class Joueur{
 	private $pv;                    // pv du joueur
 	private $mana;                  // mana du joueur
 	private $visable;               // 0 : ne peut pas être visé, 1 : peut être visé
+    private $heros;
 
 	const MANA_MAX = 10;
 

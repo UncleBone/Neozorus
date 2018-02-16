@@ -114,8 +114,6 @@ a
 	width: 5000vw;
 	height: 10vh;
 	padding: 1vh;
-	/*border: 1vh solid rgba(0, 0, 0, 0.7);*/
-	/*border-radius: 5px;*/
 	text-align: right;
 	overflow: hidden;
 	white-space: nowrap;
@@ -156,42 +154,93 @@ a
 	width: 4vh;
 	margin: 1px;
 }
+.eventBox
+{
+	display: none;
+	position: absolute;
+	z-index: 5;
+	background-color: rgba(0, 0, 0, 0.7);
+	padding: 20px;
+	border-radius: 5px;
+	color: white;
+	text-align: center;
+	white-space: nowrap;
+}
+.eventBox:after
+{
+	bottom: 100%;
+	left: 50%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+	border-color: rgba(0, 0, 0, 0);
+	border-bottom-color: rgba(0, 0, 0, 0.7);
+	border-width: 30px;
+	margin-left: -30px;
+}
+.eventBox p
+{
+	font-family: 'fira-code',Verdana;
+}
+.eventBox .carte, .eventBox .carte + p, .eventBox .Heros
+{
+	display: inline-block;
+	vertical-align: middle;
+	position: relative;
+	top: 0;
+	left: 0;
+	transform: none;
+}
+.eventBox .carte + p
+{
+	
+	font-family: godzilla, Verdana;
+	font-size: 2em;
+	margin: 0 10px;
+}
+.eventBox img.skull
+{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 75%;
+	/*margin: 1px;*/
+	transform: translate(-50%,-50%);
+	z-index: 5;
+}
 /*********** Héros ***********/
 
-#topHeros,#bottomHeros
+.Heros
 {
-	/*width: 8%;*/
-	/*height: 17.9%;*/
 	width:155px;
-	/*height: 180px;*/
 	position: absolute;
 	left: 50%;
 	transform: translateX(-50%);
 }
+.Heros img
+{
+	width: 100%
+}
+.Heros .pv
+{
+	z-index: 10;
+	position: absolute;
+	color: white;
+	font-family: 'Godzilla';
+	font-size: 21px;
+	top:45px;
+	left:29px;
+}
 #topHeros
 {
-	/*position: absolute;*/
-	top: 1%;
-/*	left: 50%;
-	transform: translateX(-50%);*/
-	
+	top: 1%;	
 }
-#topHeros img, #bottomHeros img
-{
-	width: 100%
-}
-
 #bottomHeros{
-	/*position: fixed;*/
-/*	left: 50%;
-	transform: translateX(-50%);*/
 	bottom: 9%;
 }
-
-/*#bottomHero img{
-	width: 100%
-}*/
-
 #bottomHeros p
 {
 	position: absolute;
@@ -205,16 +254,6 @@ a
 	background-color: rgb(0,10,0);
 	padding: 5px;
 	border-radius: 5px;
-}
-
-#topHeros .pv, #bottomHeros .pv{
-	z-index: 10;
-	position: absolute;
-	color: white;
-	font-family: 'Godzilla';
-	font-size: 21px;
-	top:45px;
-	left:29px;
 }
 
 /*DIV MANA+CREATURE */
@@ -320,7 +359,7 @@ a
 
 /************************* Cartes du plateau *****************************/
 
-.carte  
+.carte
 {
 	position: relative;	/* pour positionner les stats */
 	display: block;
@@ -371,7 +410,7 @@ a
 	top:23px;
 	left:39px;
 }
-.carte.creature .pv, .carteMain.sort .mana
+.carte.creature .pv, .carteMain.sort .mana ,.carte.sort .mana
 {
 	top:43px;
 	left: 25px;
@@ -473,9 +512,6 @@ a
 	color: red;
 	text-shadow: black 0px 0px 2px, black 0px 0px 2px, black 0px 0px 2px, black 0px 0px 2px;
 	font-size: 1.2em;
-	/*animation: sleep;
-	animation-duration: 0.5s;
-	animation-timing-function: linear;*/
 }
 
 /*************************** Pioche et défausse ****************************/

@@ -728,8 +728,10 @@ function historique(){
         let img = $(this).attr('data_img');
         let event = $(this).attr('data_event');
         let type = $(this).attr('data_type_carte');
+        let eventId = $(this).attr('data_event_id');
+        let top = $(this).offset().top;
+        let left = $(this).offset().left;
         img = img.replace(/\\/g, '\\\\');
-        // console.log(img);
         if($(this).attr('data_joueur') == jeton){
             $(this).css('border','2px solid rgb(120,189,222)').css('color','rgb(120,189,222)');
         }else{
@@ -744,10 +746,21 @@ function historique(){
             let imgSort = $('<img>').attr('src',imgPath).addClass('sort');
             $(this).append(imgSort);
         }
-        if(event == 2 && type != 'sort'){
+        if(event == 2 && type != 'sort' && $(this).attr('data_mort_att') == 0){
             let imgPath = 'assets/img/hist/skull_bis.png';
             let imgSkull = $('<img>').attr('src',imgPath).addClass('skull');
             $(this).append(imgSkull);
         }
+
+        /* eventBox */
+        let eventBox = $('.eventBox[data_event_id='+eventId+']');
+        $(this).hover(function(){
+            eventBox.css('display','inline-block');
+            eventBox.css('top',top+$('#historique').height()+30+'px');
+            eventBox.css('left',left+$(this).width()/2+'px');
+            eventBox.css('transform','translateX(-50%)');
+        },function(){
+            eventBox.css('display','none');
+        });
     });
 }

@@ -529,7 +529,8 @@ class GameController extends CoreController{
                     $attData = $model->getGameCard($evData['eap_att'])[0];
                     $att = new GameCard($attData['id'],$attData['libelle'],$attData['type'],$attData['puissance'],$attData['pvMax'],$attData['mana'],$attData['indice'],$attData['abilite']);
                     $e->setAtt($att);
-                    $cible = new Joueur($event['h_joueur']);
+                    $cibleData = $model->loadPlayer($this->id, $evData['eap_cible'])[0];
+                    $cible = new Joueur($evData['eap_cible'],$cibleData['pj_deck_fk']);
                     $e->setCible($cible);
                     $e->setMortCible($evData['eap_mort_cible']);
                     break;
