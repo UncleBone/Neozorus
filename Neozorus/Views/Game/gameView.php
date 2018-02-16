@@ -44,13 +44,13 @@
         // echo '<a href="?controller=game&action=play&jeton='.$joueurActif.'&att='.$att.'&cible=J'.$joueurPassif.'&abilite='.$abilite.'">'
         echo '<img src="./assets/img/plateau/portrait/'.$heros[$joueurPassif].'.png">';
         // echo '</a>';
-        echo '<span class="vitaHeros">'.$pv[$joueurPassif].'</span>';
+        echo '<span class="pv">'.$pv[$joueurPassif].'</span>';
         echo '</div>';
     // }
     // else{
     //     echo '<div id="topHeros">';
     //     echo '<img src="./assets/img/plateau/portrait/'.$heros[$joueurPassif].'.png">';
-    //     echo '<span class="vitaHeros">'.$pv[$joueurPassif].'</span>';
+    //     echo '<span class="pv">'.$pv[$joueurPassif].'</span>';
     //     echo '</div>';
     // }
     ?>
@@ -129,9 +129,9 @@
 
 <!--************************ zone du joueur actif ***************************-->
 
-    <div id="bottomHero">
+    <div id="bottomHeros">
         <img src="<?= IMG_PATH . DS . 'plateau' . DS . 'portrait' . DS . $heros[$joueurActif] . '.png' ?>">
-        <span class="vitaHeros"><?=$pv[$joueurActif]?></span>
+        <span class="pv"><?=$pv[$joueurActif]?></span>
         <p>Tour <?= $tour ?></p>
     </div>
 

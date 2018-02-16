@@ -158,7 +158,7 @@ a
 }
 /*********** Héros ***********/
 
-#topHeros,#bottomHero
+#topHeros,#bottomHeros
 {
 	/*width: 8%;*/
 	/*height: 17.9%;*/
@@ -176,12 +176,12 @@ a
 	transform: translateX(-50%);*/
 	
 }
-#topHeros img, #bottomHero img
+#topHeros img, #bottomHeros img
 {
 	width: 100%
 }
 
-#bottomHero{
+#bottomHeros{
 	/*position: fixed;*/
 /*	left: 50%;
 	transform: translateX(-50%);*/
@@ -192,7 +192,7 @@ a
 	width: 100%
 }*/
 
-#bottomHero p
+#bottomHeros p
 {
 	position: absolute;
 	bottom: -5px;
@@ -207,7 +207,7 @@ a
 	border-radius: 5px;
 }
 
-.vitaHeros{
+#topHeros .pv, #bottomHeros .pv{
 	z-index: 10;
 	position: absolute;
 	color: white;
@@ -342,7 +342,7 @@ a
 	position: absolute;
 	z-index:1;
 	color:white;
-	font-family: 'Godzilla';
+	font-family: 'godzilla', Verdana;
 	font-size: 0.9em;
 }
 
@@ -454,21 +454,29 @@ a
 	font-family: 'fira-code';
 }
 
+/*********************** animations cartes *************************/
+
 .sommeil
 {
 	font-family: godzilla, Verdana;
 	color: rgb(50,50,50);
-	/*color: black;*/
 	text-shadow: white 0px 0px 1px, white 0px 0px 1px, white 0px 0px 1px, white 0px 0px 1px;
 	animation: sleep;
 	animation-duration: 1s;
 	animation-iteration-count: infinite;
 	animation-timing-function: linear;
 }
-/*.sommeil:nth-child(even)
+.carte span.damage, #topHeros span.damage
 {
-	animation-delay: 0.5s;
-}*/
+	position: absolute;
+	font-family: godzilla, Verdana;
+	color: red;
+	text-shadow: black 0px 0px 2px, black 0px 0px 2px, black 0px 0px 2px, black 0px 0px 2px;
+	font-size: 1.2em;
+	/*animation: sleep;
+	animation-duration: 0.5s;
+	animation-timing-function: linear;*/
+}
 
 /*************************** Pioche et défausse ****************************/
 
@@ -515,11 +523,7 @@ a
 }
 
 #quitter{
-/*	position: fixed;
-	bottom: 30px;*/
 	flex: 1;
-	/*position: relative;*/
-	/*left:25px;*/
 	text-align: center;
 	
 }
@@ -527,9 +531,7 @@ a
 #quitter a
 {
 	color: #8cbe22;
-  	/*font-size: 1em;*/
 	font-family: 'fira-code', Verdana;
-	/*text-decoration: none;*/
   	background-color: rgba(0, 0, 0, 0.6);
   	padding: 10px 15px;
   	border: solid #8cbe22 2px;
@@ -543,9 +545,6 @@ a
 
 #end
 {
-/*	position: fixed;
-	right: 2.2%;
-	bottom: 3.3%;*/
 	flex: 1;
 	text-align: center;
 }
@@ -579,20 +578,13 @@ a
 	display: block;
 	width: 100px;
 	margin: 0 1%;
-	/*overflow: hidden;*/
 }
 
 .carteMain img
 {
 	width: 100%;
-	/*max-width: 80%;*/
-	/*text-align: center; */
 }
-/*.carteJouable{
-	border-radius: 17px;
-	box-shadow: -1px 1px 19px 7px rgba(255,30,5,0.9);
-}
-*/
+
 .carteMain span
 {
 	position: absolute;
@@ -647,26 +639,7 @@ a
 	font-style: italic;
 	color: lightgreen;
 }
-/*#mask{
-	position: relative;
-	background-color: #01222C;
-	top:15px;
-	left:15px;
-	width: 75px;
-	height: 75px;
-	z-index: 100;
-}*/
-.ciblage/*
-{
-	background-color: transparent;
-	cursor:url(../img/cursor/cursorCross.png), auto;
-}
-.ciblage:hover
-{
-	animation: ciblage;
-	animation-duration: 1s;
-	animation-iteration-count: infinite;
-}*/
+
 /**************************** Animation *****************************/
 
 @keyframes oscillate_5
@@ -725,16 +698,16 @@ a
 
 @media (max-width: 1400px), (max-height: 900px)
 {
-	#topHeros,#bottomHero{
+	#topHeros,#bottomHeros{
 		width:120px;
 		/*height: 150px;*/
 		/*overflow: hidden;*/
 	}
-	#bottomHero p{
+	#bottomHeros p{
 		font-size: 13px;
 		width: 110px;
 	}
-	.vitaHeros{
+	#topHeros .pv, #bottomHeros .pv{
 		font-size: 1.1em;
 		top:33px;
 		left:21px;

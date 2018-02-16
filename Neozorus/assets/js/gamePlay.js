@@ -20,10 +20,10 @@ function ajax(nom,data,fct){
 
 function gamePlay(jet, att, cible, abilite, eog){
     var jeton = jet;
-    var eog = eog;
-    var att = att;
-    var cible = cible;
-    var abilite = abilite;
+    // var eog = eog;
+    // var att = att;
+    // var cible = cible;
+    // var abilite = abilite;
     var timerFB;
     console.log('jet:'+jet+', att:'+att+', cible:'+cible+', abilite:'+abilite+' eog:'+eog);
     historique();
@@ -347,16 +347,15 @@ function topPlateau(carte,att,abilite,jeton,cible,eog){
         
         // let id = $(this).attr('data_id');
         // let index = $(this).find('.indice span').text();
-        hitAnimation($(this));
+        hitAnimation($(this),att);
         // console.log(cible);
         setTimeout(function(){
-            // ajax("play", "&att="+att+"&cible="+id+index+"&abilite="+abilite, function(result) {
             ajax("play", "&att="+att+"&cible="+cible+"&abilite="+abilite, function(result) {
                 let contenu = $('#contenu');
                 contenu.html(result['view']);             
                 gamePlay(result['jeton'],result['att'],result['cible'],result['abilite'],result['eog']);
             });
-        }, 500);
+        }, 1000);
         // console.log('hit');
         // ajax("play", "&att="+att+"&cible="+cibleCarte+"&abilite="+abiliteCarte, function(result) {
         // if(anim == 'animationStop'){
@@ -397,14 +396,14 @@ function reqAjaxJoueur(jet, att, abilite){
         let cible = joueurAdverse.attr('data_cible');
         joueurAdverse.click(function(e){
             e.preventDefault();
-            hitAnimation($(this));
+            hitAnimation($(this),att);
             setTimeout(function(){
                 ajax("play", "&att="+att+"&cible="+cible+"&abilite="+abilite, function(result) {
                     let contenu = $('#contenu');
                     contenu.html(result['view']);
                     gamePlay(result['jeton'],result['att'],result['cible'],result['abilite'],result['eog']);
                 });
-            },500);
+            },1000);
         });
         // }
     }else if ($.isNumeric(att) && joueurAdverse.attr('data_visable') == 0) {
@@ -649,7 +648,6 @@ function ciblage(target){
     let targetZ = target.css('z-index');
 
     div.addClass('ciblage');
-    // div.css('position', 'absolute').css('top', targetTop).css('left', targetLeft).css('width', targetWidth).css('height',targetHeight);
     div.css('position', 'absolute').css('top', '0').css('left', '0').css('width', targetWidth).css('height',targetHeight);
     div.css('z-index', parseInt(targetZ+1)).css('cursor','url(assets/img/cursor/cursorTarget.png), auto');
     if(target.parent().attr('id') == 'topHeros'){
@@ -675,30 +673,50 @@ function ciblage(target){
     target.parent().append(div);
 }
 
-function hitAnimation(element){
-    // console.log('hit');
+/******************* animation des éléments touchés par une attaque *********************/
+
+function hitAnimation(element,att){
     let mask = element.find('.ciblage').off('hover').css('background-image', 'none').css('background-color','red');
     let cpt = 0;
     let topPosition = element.position().top;
     let timer = setInterval(function(){
         if(cpt < 100 ){
-            // console.log(Math.sin(cpt*Math.PI/100)*200/cpt);
-            // mask.css('opacity', parseInt(1-cpt/100));
             if(element.attr('id') != 'topHeros'){
                 element.css('top',-Math.sin(cpt*Math.PI/25)*200/cpt+'px');
             }else{
                 element.css('top',parseInt(-Math.sin(cpt*Math.PI/25)*200/cpt+topPosition)+'px');
             }
-            // element.css('transform','translateY('-Math.sin(cpt*Math.PI/25)*200/cpt+'px)');
             cpt++;
         }else{
-            // console.log('hitAnimation stop');
             mask.remove();
             clearInterval(timer);
-            // return 'animationStop';
         }
     },5);
     mask.animate({opacity:0},300);
+    setTimeout(function(){
+        let carteAtt = $('[data_gameid='+att+']');
+        let puissanceAtt = carteAtt.find('.puissance').text();
+        let leftPvAtt = carteAtt.find('.pv').position().left;
+        let topPvAtt = carteAtt.find('.pv').position().top;
+        let leftPvCible = element.find('.pv').position().left;
+        let topPvCible = element.find('.pv').position().top;
+        let heightAtt = carteAtt.find('.puissance').height();
+        let damageCible = $('<span></span>').text('-'+puissanceAtt).addClass('damage');
+
+        if(element.hasClass('carte')){
+            let puissanceCible = element.find('.puissance').text();
+            let damageAtt = $('<span></span>').text('-'+puissanceCible).addClass('damage');
+            damageAtt.css('top',topPvAtt).css('left',leftPvAtt+heightAtt);
+            carteAtt.append(damageAtt);
+        }
+        
+        damageCible.css('top',topPvCible).css('left',leftPvCible+heightAtt);
+        // console.log(damageCible);
+        element.append(damageCible);
+        $('.damage').animate({left:'+=5'},500,'linear').animate({left:'+=5', opacity:'0'},500,function(){
+            // $(this).remove();
+        });
+    },500);
 
     // $(window).delay(5000);
 }
