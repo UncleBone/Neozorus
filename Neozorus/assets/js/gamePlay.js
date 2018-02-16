@@ -59,9 +59,9 @@ function gamePlay(jet, att, cible, abilite, eog){
         /****************** animation et zoom sur les cartes de la main *******************/
 
         carteMain.each(function(){
-            let id = $(this).find('img').attr('data_id');
-            let indice = $(this).find('img').attr('data_indice');
-            let gameId = $(this).find('img').attr('data_gameid');
+            let id = $(this).attr('data_id');
+            let indice = $(this).attr('data_indice');
+            let gameId = $(this).attr('data_gameid');
             // console.log(att+' '+id+indice);
             $(this).off('mouseenter mouseleave');
             $(this).find('img').css('outline','none');
@@ -199,8 +199,8 @@ function reqAjaxCarteMain(att){
                         let attCarte = id;
                         let abilite = [];
                         let abiliteCarte = 0;
-                        abilite.push(carte.find('img').attr('data_abilite'));
-                        abilite.push(carte.find('img').attr('data_abilite_2'));
+                        abilite.push(carte.attr('data_abilite'));
+                        abilite.push(carte.attr('data_abilite_2'));
                         for(ab of abilite){
                             if(ab != 0) abiliteCarte = ab;
                         }
@@ -693,28 +693,30 @@ function hitAnimation(element,att){
         }
     },5);
     mask.animate({opacity:0},300);
+
+    /* indicateur de dommage */
     setTimeout(function(){
         let carteAtt = $('[data_gameid='+att+']');
         let puissanceAtt = carteAtt.find('.puissance').text();
-        let leftPvAtt = carteAtt.find('.pv').position().left;
-        let topPvAtt = carteAtt.find('.pv').position().top;
         let leftPvCible = element.find('.pv').position().left;
         let topPvCible = element.find('.pv').position().top;
         let heightAtt = carteAtt.find('.puissance').height();
         let damageCible = $('<span></span>').text('-'+puissanceAtt).addClass('damage');
 
-        if(element.hasClass('carte')){
+        if(element.hasClass('carte') && !carteAtt.hasClass('sort')){
+            let leftPvAtt = carteAtt.find('.pv').position().left;
+            let topPvAtt = carteAtt.find('.pv').position().top;
             let puissanceCible = element.find('.puissance').text();
             let damageAtt = $('<span></span>').text('-'+puissanceCible).addClass('damage');
             damageAtt.css('top',topPvAtt).css('left',leftPvAtt+heightAtt);
             carteAtt.append(damageAtt);
         }
-        
+
         damageCible.css('top',topPvCible).css('left',leftPvCible+heightAtt);
-        // console.log(damageCible);
+
         element.append(damageCible);
         $('.damage').animate({left:'+=5'},500,'linear').animate({left:'+=5', opacity:'0'},500,function(){
-            // $(this).remove();
+            $(this).remove();
         });
     },500);
 

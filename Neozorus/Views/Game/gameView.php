@@ -159,14 +159,20 @@ if(count($defausse[$currentPlayer]) > 0){ ?>
         <div id="main">
             <?php
             foreach($main[$joueurActif] AS $key => $value){
+                echo '<a class="carteMain '.$value->getType().'"  
+                        data_libelle="'.ucfirst(mb_strtolower($value->getLibelle())).'" 
+                        data_abilite="'.$value->getAbilite()[0].'" 
+                        data_abilite_2="'.(count($value->getAbilite())==2 ? $value->getAbilite()[1] : '0').'" 
+                        data_id="'.$value->getId().'" 
+                        data_indice="'.$value->getIndice().'" 
+                        data_gameid="'.$value->getGameId().'"';
                 if ($currentPlayer == $jeton){
                     // echo '<a class="carteMain '.$value->getType().'" href="?controller=game&action=play&jeton='.$jeton.'&jouer='.$value->getId().$value->getIndice().'">';
-                    echo '<a class="carteMain '.$value->getType().'" href="?controller=game&action=play&jeton='.$jeton.'&jouer='.$key.'">';
-                }else{
-                    echo '<a class="carteMain '.$value->getType().'">';
+                    echo ' href="?controller=game&action=play&jeton='.$jeton.'&jouer='.$key.'"';
                 }
-                echo '<img src="'.$value->getPath().'" data_libelle="'.ucfirst(mb_strtolower($value->getLibelle())).'" data_abilite="'.
-                    $value->getAbilite()[0].'" data_abilite_2="'.(count($value->getAbilite())==2 ? $value->getAbilite()[1] : '0').'" data_id="'.$value->getId().'" data_indice="'.$value->getIndice().'" data_gameid="'.$value->getGameId().'">';
+                echo '>';
+                
+                echo '<img src="'.$value->getPath().'">';
                 switch($value->getType()){
                     case 'creature':
                     case 'speciale':
