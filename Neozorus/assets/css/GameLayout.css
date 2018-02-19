@@ -272,37 +272,45 @@ a
 
 /*MANA*/
 
+#manaLeft, #manaRight
+{
+	position: absolute;
+	top: 21vh;
+	height: 50vh;
+	width: 5vw;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	align-items: center;
+	padding: 1vh;
+}
 #manaLeft{
-	position: fixed;
-	top:22%;
-	left:2%;
-	height: 47%;
-	display: flex;
-	flex-direction: column;
-	justify-content: space-around;
+	left:0;	
 }
-
-.pilluleBleu{
-	position: relative;
-	width: 25px;
-	height: 37px;
-	/*margin-top: 25%;*/
-}
-
 #manaRight{
-	position: fixed;
-	top:22%;
-	right:2%;
-	height: 47%;
-	display: flex;
-	flex-direction: column;
-	justify-content: space-around;
+	right:0;
 }
+
+.pillule
+{
+	height: 10%;
+/*	position: relative;*/
+	/*width: 25px;*/
+	/*height: 37px;*/
+	/*margin-top: 25%;*/
+	/*height: 10%;*/
+}
+.pillule img
+{
+	height: 100%;
+}
+
+
 
 .pilluleRouge{
-	position: relative;
+/*	position: relative;
 	width: 25px;
-	height: 37px;
+	height: 37px;*/
 	/*margin-bottom: 25%;*/
 }
 
@@ -349,7 +357,6 @@ a
 	left: 5vw;
 	height: 50vh;
 	width: 90vw;
-	/*cursor: url(../img/cursor/cursorTarget.png), auto;*/
 }
 #topPlateau, #bottomPlateau
 {

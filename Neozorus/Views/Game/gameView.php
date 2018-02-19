@@ -44,10 +44,10 @@
         <div id="manaLeft">
             <?php
             for ($i=0; $i < 10-$mana[$joueurActif]; $i++) {
-                echo '<div class="pilluleBleu"><img src="'. IMG_PATH . DS. 'plateau' . DS . 'pilluleBleueVide.png"></div>';
+                echo '<div class="pillule"><img src="'. IMG_PATH . DS. 'plateau' . DS . 'pilluleBleueVide.png"></div>';
             }
             for ($i=0; $i < $mana[$joueurActif]; $i++) {
-                echo '<div class="pilluleBleu"><img src="'. IMG_PATH . DS. 'plateau' . DS . 'pilluleBleue.png"></div>';
+                echo '<div class="pillule"><img src="'. IMG_PATH . DS. 'plateau' . DS . 'pilluleBleue.png"></div>';
             }
             ?>
         </div>
@@ -102,10 +102,10 @@
         <div id="manaRight">
             <?php
             for ($i=0; $i < 10-$mana[$joueurPassif]; $i++) {
-                echo '<div class="pilluleBleu"><img src="'. IMG_PATH . DS . 'plateau' . DS . 'pilluleRougeVide.png"></div>';
+                echo '<div class="pillule"><img src="'. IMG_PATH . DS . 'plateau' . DS . 'pilluleRougeVide.png"></div>';
             }
             for ($i=0; $i < $mana[$joueurPassif]; $i++) {
-                echo '<div class="pilluleBleu"><img src="'. IMG_PATH . DS . 'plateau' . DS . 'pilluleRouge.png"></div>';
+                echo '<div class="pillule"><img src="'. IMG_PATH . DS . 'plateau' . DS . 'pilluleRouge.png"></div>';
             }
             ?>
         </div>
