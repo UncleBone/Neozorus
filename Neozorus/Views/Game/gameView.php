@@ -16,73 +16,9 @@
     }
 
 /************************* Historique **************************/
-
-    echo '<div id="historique">';
-    echo '<div id="events">';
-    if(!empty($historique)){
-        foreach ($historique as $event) {
-            echo '<div class="event" data_event_id="'.$event->getId().'" data_event="'.$event->getType().'" 
-                    data_joueur="'.($event->getJoueur() == $_SESSION['neozorus']['u_id'] ? 0 : 1).'" ';
-            switch($event->getType()){
-                case Event::PLAY:
-                    echo 'data_img="'.$event->getCarte()->getPath().'" >';
-                    break;
-                case Event::ATT_CARD:
-                    echo 'data_mort_att="'.$event->getMortAtt().'" ';
-                case Event::ATT_PLAYER:
-                    echo 'data_img="'.$event->getAtt()->getPath().'" data_type_carte="'.$event->getAtt()->getType().'">';
-                    break;
-            }
-            echo '</div>';
-        };
-    }
-    echo '</div>';
-    echo '</div>';
-
-    /* event box */
-    if(!empty($historique)){
-        foreach ($historique as $event){
-            echo '<div class="eventBox" data_event_id="'.$event->getId().'">';
-            echo '<p>Tour '.$event->getTour().'</p>';
-            if($event->getType() == Event::PLAY){
-                echo '<div class="carte '.$event->getCarte()->getType().'">';
-                echo '<img src="'.$event->getCarte()->getPath().'">';
-                echo '<span class="puissance">'.$event->getCarte()->getPuissance().'</span>';
-                echo '<span class="pv">'.$event->getCarte()->getPv().'</span>';
-                echo '<span class="mana">'.$event->getCarte()->getMana().'</span>';
-                echo '<div class="indice"><span>'.$event->getCarte()->getIndice().'</span></div>';
-                echo '</div>';
-            }else{
-                echo '<div class="carte '.$event->getAtt()->getType().'">';
-                echo '<img src="'.$event->getAtt()->getPath().'">';
-                echo '<span class="puissance">'.$event->getAtt()->getPuissance().'</span>';
-                echo '<span class="pv">'.$event->getAtt()->getPv().'</span>';
-                echo '<span class="mana">'.$event->getAtt()->getMana().'</span>';
-                echo '<div class="indice"><span>'.$event->getAtt()->getIndice().'</span></div>';
-                if($event->getMortAtt() == true && $event->getAtt()->getType() != 'sort'){
-                    echo '<img class="skull" src="' . IMG_PATH . DS . 'hist' . DS . 'skull_bis.png">';
-                }
-                echo '</div>';
-                echo '<p>VS</p>';
-                if($event->getType() == Event::ATT_CARD){
-                    echo '<div class="carte '.$event->getCible()->getType().'">';
-                    echo '<img src="'.$event->getCible()->getPath().'">';
-                    echo '<span class="puissance">'.$event->getCible()->getPuissance().'</span>';
-                    echo '<span class="pv">'.$event->getCible()->getPv().'</span>';
-                    echo '<span class="mana">'.$event->getCible()->getMana().'</span>';
-                    echo '<div class="indice"><span>'.$event->getCible()->getIndice().'</span></div>';
-                    echo '</div>';
-                }else{
-                    echo '<div class="Heros">';
-                    echo '<img src="'.IMG_PATH . DS . 'plateau' . DS . 'portrait' . DS . $event->getCible()->getDeck()->getHeros().'.png">';
-                    echo '<span class="pv">'.$event->getCible()->getPv().'</span>';
-                    // echo $event->getCible()->getId();
-                    echo '</div>';
-                }
-            }
-            echo '</div>';
-        }
-    }
+    
+    displayHistorique($historique);
+    
     ?>
 
     <!--DIV QUI COMPRENDS LES INFORMATIONS DU HERO PASSIF-->
@@ -248,7 +184,86 @@ if(count($defausse[$currentPlayer]) > 0){ ?>
 
     </div>
 
-    
+<?php
+
+/************ Affiche l'historique *************/
+
+function displayHistorique($historique){
+    $skull = IMG_PATH . DS . 'hist' . DS . 'skull_ter.png';
+    echo '<div id="historique">';
+    echo '<div id="events">';
+    if(!empty($historique)){
+        foreach ($historique as $event) {
+            echo '<div class="event" data_event_id="'.$event->getId().'" data_event="'.$event->getType().'" 
+                    data_joueur="'.($event->getJoueur() == $_SESSION['neozorus']['u_id'] ? 0 : 1).'" ';
+            switch($event->getType()){
+                case Event::PLAY:
+                    echo 'data_img="'.$event->getCarte()->getPath().'" >';
+                    break;
+                case Event::ATT_CARD:
+                    echo 'data_mort_att="'.$event->getMortAtt().'" ';
+                    if($event->getAtt()->getType() != 'sort' && $event->getMortAtt() == true){
+                        echo '<img class= "skull" src="'.$skull.'">';
+                    }
+                case Event::ATT_PLAYER:
+                    echo 'data_img="'.$event->getAtt()->getPath().'" data_type_carte="'.$event->getAtt()->getType().'">';
+                    break;
+            }
+            echo '</div>';
+        };
+    }
+    echo '</div>';
+    echo '</div>';
+
+    /* event box */
+    if(!empty($historique)){
+        foreach ($historique as $event){
+            echo '<div class="eventBox" data_event_id="'.$event->getId().'">';
+            echo '<p>Tour '.$event->getTour().'</p>';
+            if($event->getType() == Event::PLAY){
+                echo '<div class="carte '.$event->getCarte()->getType().'">';
+                echo '<img src="'.$event->getCarte()->getPath().'">';
+                echo '<span class="puissance">'.$event->getCarte()->getPuissance().'</span>';
+                echo '<span class="pv">'.$event->getCarte()->getPv().'</span>';
+                echo '<span class="mana">'.$event->getCarte()->getMana().'</span>';
+                echo '<div class="indice"><span>'.$event->getCarte()->getIndice().'</span></div>';
+                echo '</div>';
+            }else{
+                echo '<div class="carte '.$event->getAtt()->getType().'">';
+                echo '<img src="'.$event->getAtt()->getPath().'">';
+                echo '<span class="puissance">'.$event->getAtt()->getPuissance().'</span>';
+                echo '<span class="pv">'.$event->getAtt()->getPv().'</span>';
+                echo '<span class="mana">'.$event->getAtt()->getMana().'</span>';
+                echo '<div class="indice"><span>'.$event->getAtt()->getIndice().'</span></div>';
+                if($event->getMortAtt() == true && $event->getAtt()->getType() != 'sort'){
+                    echo '<img class="skull" src="' . IMG_PATH . DS . 'hist' . DS . 'skull_ter.png">';
+                }
+                echo '</div>';
+                if($event->getAtt()->getType() == 'sort'){
+                    echo '<img src="' . IMG_PATH . DS . 'hist' . DS . 'sort_3.png">';
+                }else{
+                    echo '<p>VS</p>';
+                }
+                if($event->getType() == Event::ATT_CARD){
+                    echo '<div class="carte '.$event->getCible()->getType().'">';
+                    echo '<img src="'.$event->getCible()->getPath().'">';
+                    echo '<span class="puissance">'.$event->getCible()->getPuissance().'</span>';
+                    echo '<span class="pv">'.$event->getCible()->getPv().'</span>';
+                    echo '<span class="mana">'.$event->getCible()->getMana().'</span>';
+                    echo '<div class="indice"><span>'.$event->getCible()->getIndice().'</span></div>';
+                    echo '</div>';
+                }else{
+                    echo '<div class="Heros">';
+                    echo '<img src="'.IMG_PATH . DS . 'plateau' . DS . 'portrait' . DS . $event->getCible()->getDeck()->getHeros().'.png">';
+                    echo '<span class="pv">'.$event->getCible()->getPv().'</span>';
+                    // echo $event->getCible()->getId();
+                    echo '</div>';
+                }
+            }
+            echo '</div>';
+        }
+    }
+}    
     
 
    

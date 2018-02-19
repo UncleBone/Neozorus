@@ -723,6 +723,8 @@ function hitAnimation(element,att){
     // $(window).delay(5000);
 }
 
+/**************** Mise en forme de l'historique ************/
+
 function historique(){
     $('#historique #events .event').each(function(){
         let img = $(this).attr('data_img');
@@ -738,6 +740,7 @@ function historique(){
             $(this).css('border','2px solid rgb(195,10,48)').css('color','rgb(195,10,48)');
         }
         $(this).css('background-image','url('+img+')').css('background-size','110%').css('background-position','center 20%');
+        
         if(event != 1 && type != 'sort'){
             let span = $('<span></span>').text('Vs');
             $(this).append(span);
@@ -746,11 +749,11 @@ function historique(){
             let imgSort = $('<img>').attr('src',imgPath).addClass('sort');
             $(this).append(imgSort);
         }
-        if(event == 2 && type != 'sort' && $(this).attr('data_mort_att') == 0){
-            let imgPath = 'assets/img/hist/skull_bis.png';
-            let imgSkull = $('<img>').attr('src',imgPath).addClass('skull');
-            $(this).append(imgSkull);
-        }
+        // if(event == 2 && type != 'sort' && $(this).attr('data_mort_att') == 0){
+        //     let imgPath = 'assets/img/hist/skull_bis.png';
+        //     let imgSkull = $('<img>').attr('src',imgPath).addClass('skull');
+        //     $(this).append(imgSkull);
+        // }
 
         /* eventBox */
         let eventBox = $('.eventBox[data_event_id='+eventId+']');
