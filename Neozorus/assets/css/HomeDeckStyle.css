@@ -210,7 +210,7 @@ header
 #logoNeozorus
 {
   width: 30vw;
-  min-width: 390px;
+  min-width: 300px;
 }
 #logo *
 {
@@ -374,6 +374,31 @@ footer
 
 /****************************** Responsive ******************************/
 
+@media (max-width: 800px)
+{
+  body
+  {
+    font-size: 13px;
+  }
+  #deckHeader h1
+  {
+    right: 0;
+  }
+  #deckHeader nav
+  {
+    left: 0;
+  }
+  #deckHeader nav, #deckHeader h1
+  {
+    min-width: 200px;
+  }
+  #logoNeozorus
+  {
+    width: 20vw;
+    min-width: 250px;
+  }
+}
+
 @media (max-width: 600px)
 {
   body
@@ -382,8 +407,8 @@ footer
   }
   #logoNeozorus
   {
-    width: 70%;
-    min-width: 250px;
+/*    width: 70%;
+    min-width: 250px;*/
   }
   .welcome, #bloc_menu
   {
@@ -391,6 +416,19 @@ footer
   }
 }
 
+@media (max-height: 600px)
+{
+  #teamCard
+  {
+    width: 150px;
+  }
+  #teamCard .pvMax
+  {
+    top: 44px;
+    left: 30px;
+    font-size: 1.1rem;
+  }
+}
 @media (max-height: 500px)
 {
   body
@@ -411,8 +449,14 @@ footer
     width: 200px;
     min-width: 200px;
   }
-  header
+  #deck
   {
-    /*font-size: 0.9em;*/
+    width: 100vw;
+  }
+  #teamCard, #deck form
+  {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 20px;
   }
 }

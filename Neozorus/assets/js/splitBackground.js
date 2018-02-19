@@ -41,6 +41,10 @@ function splitBackground(){
 			$('body').children().css('display', 'block');	
 		}
 
+		if(width < 550 && (page == 'matrix' || page == 'dinos')){
+			logoNeozorus.fadeOut(600);	
+		}
+
 	/**********************Mise en place du background***************************/
 
 	styleAdjust(typeof page !== 'undefined' ? page : '');
@@ -241,6 +245,9 @@ function splitBackground(){
 		{
 			if(y <= -80){
 				clearInterval(I);
+				if((page == 'matrix' || page == 'dinos') && width < 550){
+					logoNeozorus.fadeIn(400);
+				}
 				// si on est sur une page deck, on lance le glissement de background et de logo à la fin
 				if(page == 'matrix'){
 					backgroundSlideReverse('U');
