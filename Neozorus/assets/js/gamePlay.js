@@ -591,10 +591,10 @@ function zoom(target){
     $('main').append(newDiv);
 
     if(localisation == 'main'){
-        let img = target.find('img');
-        let libelle = img.attr('data_libelle');
-        let abilite1 = img.attr('data_abilite');
-        let abilite2 = img.attr('data_abilite_2');
+        // let img = target.find('img');
+        let libelle = target.attr('data_libelle');
+        let abilite1 = target.attr('data_abilite');
+        let abilite2 = target.attr('data_abilite_2');
         let infoBox = $('<div></div>');
         let oldInfoBox = $('#infoBox');
         if(oldInfoBox.length != 0)  oldInfoBox.remove();
