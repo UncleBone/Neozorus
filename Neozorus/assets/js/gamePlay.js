@@ -190,7 +190,7 @@ function reqAjaxCarteMain(att){
                         $('main').append(error);
                         fade(error);
                     }else if(result['error'] == "Choisissez la cible" ){
-                        carte.addClass('att');
+                        // carte.addClass('att');
                         let message = $('<p>').addClass('message').text(result['error']);
                         $('main').append(message);
                         // let id = carte.find('img').attr('data_id');
@@ -702,7 +702,7 @@ function hitAnimation(element,att){
         let topPvCible = element.find('.pv').position().top;
         let heightAtt = carteAtt.find('.puissance').height();
         let damageCible = $('<span></span>').text('-'+puissanceAtt).addClass('damage');
-
+        console.log(carteAtt.attr('class'));
         if(element.hasClass('carte') && !carteAtt.hasClass('sort')){
             let leftPvAtt = carteAtt.find('.pv').position().left;
             let topPvAtt = carteAtt.find('.pv').position().top;
