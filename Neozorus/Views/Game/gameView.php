@@ -242,6 +242,8 @@ function displayHistorique($historique, $currentPlayer, $jeton){
                 echo '<div class="indice"><span>'.$event->getAtt()->getIndice().'</span></div>';
                 if($event->getMortAtt() == true && $event->getAtt()->getType() != 'sort'){
                     echo '<img class="skull" src="' . IMG_PATH . DS . 'hist' . DS . 'skull_ter.png">';
+                }elseif($event->getType() == Event::ATT_CARD && $event->getAtt()->getType() != 'sort'){
+                    echo '<span class="damage">-'.$event->getCible()->getPuissance().'</span>';
                 }
                 echo '</div>';
                 if($event->getAtt()->getType() == 'sort'){
@@ -256,12 +258,21 @@ function displayHistorique($historique, $currentPlayer, $jeton){
                     echo '<span class="pv">'.$event->getCible()->getPv().'</span>';
                     echo '<span class="mana">'.$event->getCible()->getMana().'</span>';
                     echo '<div class="indice"><span>'.$event->getCible()->getIndice().'</span></div>';
+                    if($event->getMortCible() == true){
+                        echo '<img class="skull" src="' . IMG_PATH . DS . 'hist' . DS . 'skull_ter.png">';
+                    }else{
+                        echo '<span class="damage">-'.$event->getAtt()->getPuissance().'</span>';
+                    }
                     echo '</div>';
                 }else{
                     echo '<div class="Heros">';
                     echo '<img src="'.IMG_PATH . DS . 'plateau' . DS . 'portrait' . DS . $event->getCible()->getDeck()->getHeros().'.png">';
                     echo '<span class="pv">'.$event->getCible()->getPv().'</span>';
-                    // echo $event->getCible()->getId();
+                    if($event->getMortCible() == true){
+                        echo '<img class="skull" src="' . IMG_PATH . DS . 'hist' . DS . 'skull_ter.png">';
+                    }else{
+                        echo '<span class="damage">-'.$event->getAtt()->getPuissance().'</span>';
+                    }
                     echo '</div>';
                 }
             }

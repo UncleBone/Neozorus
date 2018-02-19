@@ -728,32 +728,14 @@ function hitAnimation(element,att){
 function historique(){
     $('#historique #events .event').each(function(){
         let img = $(this).attr('data_img');
-        let event = $(this).attr('data_event');
-        let type = $(this).attr('data_type_carte');
+        // let event = $(this).attr('data_event');
+        // let type = $(this).attr('data_type_carte');
         let eventId = $(this).attr('data_event_id');
         let top = $(this).offset().top;
         let left = $(this).offset().left;
         img = img.replace(/\\/g, '\\\\');
-        // if($(this).attr('data_joueur') == jeton){
-        //     $(this).css('border','2px solid rgb(120,189,222)').css('color','rgb(120,189,222)');
-        // }else{
-        //     $(this).css('border','2px solid rgb(195,10,48)').css('color','rgb(195,10,48)');
-        // }
+
         $(this).css('background-image','url('+img+')').css('background-size','110%').css('background-position','center 20%');
-        
-        // if(event != 1 && type != 'sort'){
-        //     let span = $('<span></span>').text('Vs');
-        //     $(this).append(span);
-        // }else if(event != 1 && type == 'sort'){
-        //     let imgPath = 'assets/img/hist/sort_'+($(this).attr('data_joueur') == jeton ? '1' : '2')+'_alt.png';
-        //     let imgSort = $('<img>').attr('src',imgPath).addClass('sort');
-        //     $(this).append(imgSort);
-        // }
-        // if(event == 2 && type != 'sort' && $(this).attr('data_mort_att') == 0){
-        //     let imgPath = 'assets/img/hist/skull_bis.png';
-        //     let imgSkull = $('<img>').attr('src',imgPath).addClass('skull');
-        //     $(this).append(imgSkull);
-        // }
 
         /* eventBox */
         let eventBox = $('.eventBox[data_event_id='+eventId+']');
@@ -765,5 +747,18 @@ function historique(){
         },function(){
             eventBox.css('display','none');
         });
+        // eventBox.find('.carte, .Heros').each(function(){
+        //     let pv = $(this).find('span.pv');
+        //     let damage = $(this).find('span.damage');
+        //     if(pv.length > 0){
+        //         let left = pv.offset().left;
+        //         let top = pv.offset().top;
+        //         let height = pv.height();
+        //         console.log(pv);
+        //         damage.css('top', top+'px');
+        //         damage.css('left', left+height+5+'px');
+        //     }
+
+        // });
     });
 }

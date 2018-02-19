@@ -226,6 +226,14 @@ a
 	transform: translate(-50%,-50%);
 	z-index: 5;
 }
+.eventBox .Heros .damage
+{
+	transform: translateX(30px);
+}
+.eventBox .carte .damage
+{
+	transform: translateX(15px);
+}
 /*********** Héros ***********/
 
 .Heros
@@ -239,15 +247,18 @@ a
 {
 	width: 100%
 }
-.Heros .pv
+.Heros .pv, .eventBox .Heros .damage
 {
 	z-index: 10;
+	top:45px;
+	left:29px;
+}
+.Heros .pv
+{
+	font-size: 21px;
 	position: absolute;
 	color: white;
 	font-family: 'Godzilla';
-	font-size: 21px;
-	top:45px;
-	left:29px;
 }
 #topHeros
 {
@@ -425,7 +436,7 @@ a
 	top:23px;
 	left:39px;
 }
-.carte.creature .pv, .carteMain.sort .mana ,.carte.sort .mana
+.carte.creature .pv, .carteMain.sort .mana ,.carte.sort .mana, .eventBox .carte .damage
 {
 	top:43px;
 	left: 25px;
@@ -520,7 +531,7 @@ a
 	animation-iteration-count: infinite;
 	animation-timing-function: linear;
 }
-.carte span.damage, #topHeros span.damage
+.carte span.damage, #Heros span.damage, .Heros span.damage
 {
 	position: absolute;
 	font-family: godzilla, Verdana;
