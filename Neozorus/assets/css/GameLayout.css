@@ -154,6 +154,16 @@ a
 	width: 4vh;
 	margin: 1px;
 }
+.eActif
+{
+	border: 2px solid rgb(120,189,222);
+	color: rgb(120,189,222);
+}
+.ePassif
+{
+	border: 2px solid rgb(195,10,48);
+	color: rgb(195,10,48);
+}
 .eventBox
 {
 	display: none;

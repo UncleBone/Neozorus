@@ -17,7 +17,7 @@
 
 /************************* Historique **************************/
     
-    displayHistorique($historique);
+    displayHistorique($historique, $currentPlayer, $jeton);
     
     ?>
 
@@ -188,25 +188,30 @@ if(count($defausse[$currentPlayer]) > 0){ ?>
 
 /************ Affiche l'historique *************/
 
-function displayHistorique($historique){
+function displayHistorique($historique, $currentPlayer, $jeton){
     $skull = IMG_PATH . DS . 'hist' . DS . 'skull_ter.png';
     echo '<div id="historique">';
     echo '<div id="events">';
     if(!empty($historique)){
         foreach ($historique as $event) {
-            echo '<div class="event" data_event_id="'.$event->getId().'" data_event="'.$event->getType().'" 
+            echo '<div class="event '.($event->getJoueur() == $_SESSION['neozorus']['u_id'] ? 'eActif' : 'ePassif').'" data_event_id="'.$event->getId().'" data_event="'.$event->getType().'" 
                     data_joueur="'.($event->getJoueur() == $_SESSION['neozorus']['u_id'] ? 0 : 1).'" ';
             switch($event->getType()){
                 case Event::PLAY:
                     echo 'data_img="'.$event->getCarte()->getPath().'" >';
                     break;
                 case Event::ATT_CARD:
-                    echo 'data_mort_att="'.$event->getMortAtt().'" ';
-                    if($event->getAtt()->getType() != 'sort' && $event->getMortAtt() == true){
-                        echo '<img class= "skull" src="'.$skull.'">';
-                    }
+                    echo 'data_mort_att="'.$event->getMortAtt().'" ';                
                 case Event::ATT_PLAYER:
                     echo 'data_img="'.$event->getAtt()->getPath().'" data_type_carte="'.$event->getAtt()->getType().'">';
+                    if($event->getAtt()->getType() == 'sort'){
+                        echo '<img class="sort" src="'. IMG_PATH . DS . 'hist' . DS . 'sort_' . ($event->getJoueur() == $_SESSION['neozorus']['u_id'] ? '1' : '2').'_alt.png">';
+                    }else{
+                        echo '<span>VS</span>';
+                        if($event->getMortAtt() == true){
+                            echo '<img class= "skull" src="'.$skull.'">';
+                        }
+                    }
                     break;
             }
             echo '</div>';
