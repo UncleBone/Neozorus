@@ -554,10 +554,11 @@ a
 	align-items: center;
 }
 
-#quitter{
+#quitter
+{
 	flex: 1;
 	text-align: center;
-	
+	margin-left: 1%;
 }
 
 #quitter a
@@ -770,6 +771,11 @@ a
 	{
 		font-size: 0.7em;
 	}
+	#quitter a
+	{
+		font-size: 0.9em;
+		padding: 5px 15px;
+	}
 }
 @media (max-height: 450px)
 {
@@ -782,6 +788,12 @@ a
 		font-size: 3vh;
 		top: 22%;
 		left: 16%;
+	}
+	#quitter a
+	{
+		font-size: 0.7em;
+		padding: 3px 10px;
+		border-width: 1px;
 	}
 }
 
