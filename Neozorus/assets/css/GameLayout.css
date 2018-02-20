@@ -803,6 +803,10 @@ a
 	{
 		font-size: 0.8em;
 	}
+	#piocheBottom p
+	{
+		font-size: 2em;
+	}
 }
 @media (max-height: 450px)
 {
@@ -821,6 +825,10 @@ a
 		font-size: 0.7em;
 		padding: 3px 10px;
 		border-width: 1px;
+	}
+	#piocheBottom p
+	{
+		font-size: 1.5em;
 	}
 }
 
