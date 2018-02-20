@@ -7,6 +7,7 @@
     <link rel="stylesheet" type="text/css" href="./assets/css/GameLayout.css">
     <?php include(FAVICON) ?>
     <script src="<?= JS_PATH . DS . 'jquery-3.2.1.min.js' ?>"></script>
+     <script src="<?= JS_PATH . DS . 'checkOrientation.js' ?>"></script>
     <script type="application/javascript">
             var tour = '<?=$tour?>';
             var pv = ['<?=$pv[0]?>', '<?=$pv[1]?>'];

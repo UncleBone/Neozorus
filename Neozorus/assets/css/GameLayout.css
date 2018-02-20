@@ -2,7 +2,7 @@
 
 @font-face
 {
-	font-family: 'fira-code';
+	font-family: 'fira_code';
 	src:url('../font/fira-code/FiraCode-Medium.otf');
 }
 @font-face
@@ -23,6 +23,7 @@ body
 	background-size: 100vw 100vh;
 	font-size: 15px;
 	overflow: hidden;
+	/*font-family: 'fira_code', Verdana;*/
 }
 
 body *
@@ -52,7 +53,7 @@ a
 }
 .message
 {
-	font-family: 'fira-code';
+	font-family: 'fira_code';
 	border-radius: 5px;
 }
 .endGame
@@ -174,7 +175,7 @@ a
 }
 .eventBox p
 {
-	font-family: 'fira-code',Verdana;
+	font-family: 'fira_code',Verdana;
 }
 .eventBox .carte, .eventBox .carte + p, .eventBox .Heros, .eventBox .carte + img
 {
@@ -262,7 +263,7 @@ a
 	width: 80%;
 	min-width: 100px;
 	text-align: center;
-	font-family: "fira-code", Verdana;
+	font-family: "fira_code", Verdana;
 	font-size: 1.5vh;
 	color: #8cbe22;
 	background-color: rgb(0,10,0);
@@ -398,7 +399,7 @@ a
 	left: 1px;
 	color: black;
 	font-size: 8px;
-	font-family: 'fira-code';
+	font-family: 'fira_code';
 }
 
 .carte .puissance
@@ -435,39 +436,49 @@ a
 .zoom span
 {
 	/*font-size: 1.3rem;*/
-	font-size: 20px;
+	font-size: 1.3em;
 }
 
 .zoom.creature span.puissance, .zoom.sort span.puissance
 {
-	top: 40px;
-	left: 65px;
+	/*top: 40px;
+	left: 65px;*/
+	top: 14.5%;
+	left: 32.5%;
 }
 .zoom.creature span.pv, .zoom.sort span.manaCost
 {
-	top: 72px;
-	left: 41px;
+/*	top: 72px;
+	left: 41px;*/
+	top: 25.5%;
+	left: 20.5%;
 }
 .zoom.creature span.manaCost
 {
-	top: 112px;
-	left: 32px;
+/*	top: 112px;
+	left: 32px;*/
+	top: 39.5%;
+	left: 15.5%;
 }
 .zoom.speciale span
 {
-	left: 30px;
+	/*left: 30px;*/
+	left: 15%;
 }
 .zoom.speciale span.pv
 {
-	top: 22px;
+	/*top: 22px;*/
+	top: 8%;
 }
 .zoom.speciale span.puissance
 {
-	top: 54px;
+	/*top: 54px;*/
+	top: 20%;
 }
 .zoom.speciale span.manaCost
 {
-	top: 86px;
+	/*top: 86px;*/
+	top: 31%;
 }
 .zoom .indice{
 	position: absolute;
@@ -476,17 +487,19 @@ a
   	height:10px;
 	border-radius: 50%;
 	z-index: 1;
-	right: 10px;
-	top: 35px;	
+	/*right: 10px;*/
+	/*top: 35px;	*/
+	right: 3.5%;
+	top: 13%;	
 }
 
 .zoom .indice span{
 	position: relative;
 	top: -6px;
-	left: 1px;
+	left: 1.5px;
 	color: black;
 	font-size: 10px;
-	font-family: 'fira-code';
+	font-family: 'fira_code';
 }
 
 /*********************** animations cartes *************************/
@@ -564,7 +577,7 @@ a
 #quitter a
 {
 	color: #8cbe22;
-	font-family: 'fira-code', Verdana;
+	font-family: 'fira_code', Verdana;
   	background-color: rgba(0, 0, 0, 0.6);
   	padding: 10px 15px;
   	border: solid #8cbe22 2px;
@@ -775,6 +788,20 @@ a
 	{
 		font-size: 0.9em;
 		padding: 5px 15px;
+	}
+	.zoom span
+	{
+		font-size: 1.2em;
+		transform: translateY(-3px);
+	}
+	.zoom .indice
+	{
+		right: 2.5%;
+		top: 12%;	
+	}
+	#infoBox
+	{
+		font-size: 0.8em;
 	}
 }
 @media (max-height: 450px)

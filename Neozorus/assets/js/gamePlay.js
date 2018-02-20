@@ -549,7 +549,7 @@ function zoom(target){
         var newIndice = $('<div>').html('<span>'+indice+'</span>');
         newIndice.addClass('indice');
     }
-    let zoomWidth = 200;
+    let zoomWidth = ($(window).height() > 600 ? 200 : 150);
 
     newImg.attr('src', src);
     newImg.css('max-width', '100%');
@@ -606,7 +606,7 @@ function zoom(target){
         infoBox.css('top','0');
         infoBox.css('left', parseInt(zoomWidth+2)+'px');
         // infoBox.css('transform','translate(-100%,-100%)');
-        infoBox.css('font-family','fira-code');
+        infoBox.css('font-family','fira_code');
         infoBox.css('padding','0 10px');
         infoBox.css('border-radius','5px');
         // infoBox.css('width', zoomWidth);
