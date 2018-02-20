@@ -598,7 +598,8 @@ a
 	flex-direction: row;
 	justify-content: center;
 	flex-wrap: nowrap;
-
+	align-self: flex-start;
+	align-items: flex-start;
 }
 
 /**************************** Main *****************************/
@@ -606,10 +607,12 @@ a
 .carteMain  
 {
 	position: relative;	/* pour positionner les stats */
-	top: 40px;
+	/*top: 40px;*/
 	display: block;
-	width: 100px;
-	margin: 0 1%;
+	/*width: 100px;*/
+	width: 8vw;
+	margin: 0 0.5%;
+	/*align-self: flex-start;*/
 }
 
 .carteMain img
@@ -623,23 +626,30 @@ a
 	z-index:10;
 	color:white;
 	font-family: 'Godzilla';
-	font-size: 0.8em;
+	/*font-size: 0.8em;*/
+	font-size: 1vw;
 }
 
 .carteMain .puissance
 {
-	top:19px;
-	left:32px;
+	/*top:19px;*/
+	top: 12.5%;
+	/*left:32px;*/
+	left: 32%;
 }
 .carteMain.creature .pv, .carteMain.sort .mana
 {
-	top:35px;
-	left: 20px;
+/*	top:35px;
+	left: 20px;*/
+	top: 24%;
+	left: 20%;
 }
 .carteMain.creature .mana
 {
-	top:56px;
-	left:15px;
+/*	top:56px;
+	left:15px;*/
+	top: 38%;
+	left: 15%;
 }
 .carteMain.speciale span
 {
@@ -725,7 +735,7 @@ a
 	}
 }
 
-/* Responsive */
+/**************************** Responsive ********************************/
 
 
 @media (max-width: 1400px), (max-height: 900px)

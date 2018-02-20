@@ -67,14 +67,14 @@ function gamePlay(jet, att, cible, abilite, eog){
             $(this).find('img').css('outline','none');
             // $(this).off('click');
             if(!$.isNumeric(att)){
-                $(this).css('top',"40px");
+                $(this).css('top',"0");
                 let timer;
                 $(this).hover(function(e){
-                    $(this).css('top','10px');
+                    $(this).css('top','-20px');
                     var target = $(this);
                     timer = setTimeout(zoom, 1000, target);
                 }, function(){
-                    $(this).css('top',"40px");
+                    $(this).css('top',"0");
                     $('[class^=zoom]').remove();
                     clearTimeout(timer);
                 });
