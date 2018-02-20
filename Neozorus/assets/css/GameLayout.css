@@ -35,6 +35,8 @@ a
 	text-decoration: none;
 }
 
+/******************* Erreurs & Messages *********************/
+
 .error, .message
 {
 	position: absolute;
@@ -212,29 +214,34 @@ a
 {
 	transform: translateX(15px);
 }
+
 /*********** Héros ***********/
 
 .Heros
 {
-	width:155px;
+	/*width:155px;*/
+	height: 20vh;
 	position: absolute;
 	left: 50%;
 	transform: translateX(-50%);
 }
 .Heros img
 {
-	width: 100%
+	height: 100%;
 }
 .Heros .pv, .eventBox .Heros .damage
 {
+	position: absolute;
 	z-index: 10;
-	top:45px;
-	left:29px;
+	/*top:45px;*/
+	/*left:29px;*/
+	top: 24%;
+	left: 17%;
 }
 .Heros .pv
 {
-	font-size: 21px;
-	position: absolute;
+	/*font-size: 21px;*/
+	font-size: 2.5vh;
 	color: white;
 	font-family: 'Godzilla';
 }
@@ -251,24 +258,18 @@ a
 	bottom: -5px;
 	left:50%;
 	transform: translateX(-50%);
-	width: 130px;
+	/*width: 130px;*/
+	width: 80%;
+	min-width: 100px;
 	text-align: center;
 	font-family: "fira-code", Verdana;
+	font-size: 1.5vh;
 	color: #8cbe22;
 	background-color: rgb(0,10,0);
 	padding: 5px;
 	border-radius: 5px;
 }
 
-/*DIV MANA+CREATURE */
-
-/*#blocCentral{
-	position: fixed;
-	top: 21.2%;
-	left: 0.6%;
-	width: 98.5%;
-	height: 49%;
-}*/
 
 /*MANA*/
 
@@ -294,11 +295,6 @@ a
 .pillule
 {
 	height: 10%;
-/*	position: relative;*/
-	/*width: 25px;*/
-	/*height: 37px;*/
-	/*margin-top: 25%;*/
-	/*height: 10%;*/
 }
 .pillule img
 {
@@ -306,13 +302,6 @@ a
 }
 
 
-
-.pilluleRouge{
-/*	position: relative;
-	width: 25px;
-	height: 37px;*/
-	/*margin-bottom: 25%;*/
-}
 
 /*DIV DES CREATURES*/
 
@@ -741,68 +730,45 @@ a
 
 @media (max-width: 1400px), (max-height: 900px)
 {
+	#bottomHeros p
+	{
+		font-size: 0.85em;
+	}
 	#topHeros,#bottomHeros{
-		width:120px;
+		/*width:120px;*/
 		/*height: 150px;*/
 		/*overflow: hidden;*/
 	}
 	#bottomHeros p{
-		font-size: 13px;
-		width: 110px;
+		/*font-size: 13px;*/
+		/*width: 110px;*/
 	}
 	#topHeros .pv, #bottomHeros .pv{
-		font-size: 1.1em;
-		top:33px;
-		left:21px;
-	}
-	.carte img{
-		/*width: 120px;*/
-		}
-	.stat1,.stat2,.stat3,.stat1Speciale,.stat2Speciale,.stat3Speciale{
-		font-size: 16px;
-	}
-	.stat1{
-		top:22px;
-		left: 38px;
-	}
-	.stat2{
-		top:42px;
-		left:24px;
-	}
-	.stat3{
-		top:65px;
-		left: 18px;
-	}
-
-	.stat1Speciale{
-		top:11px;
-		left: 17px;
-	}
-	.stat2Speciale{
-		top:31px;
-		left: 17px;
-	}
-	.stat3Speciale{
-		top:50px;
-		left: 17px;
-	}
-	/*.indice{
-		top: 22px;
-		left: 108px;
-	}
-	.indice span{
-		position: absolute;
-		font-size: 8px;
-		font-family: 'fira-code';
-		top: 1px;
-		left:2px;*/
+		/*font-size: 1.1em;*/
+		/*top:33px;*/
+		/*left:21px;*/
 	}
 }
 
-@media (max-height: 700px){
-	.pilluleBleu img, .pilluleRouge img{
-		height: 25px;
-		}
+@media (max-height: 600px)
+{
+	#bottomHeros p
+	{
+		font-size: 0.7em;
+	}
+}
+@media (max-height: 450px)
+{
+	#bottomHeros p
+	{
+		font-size: 0.6em;
+	}
+	.Heros .pv
+	{
+		font-size: 3vh;
+		top: 22%;
+		left: 16%;
+	}
 }
 
 
