@@ -653,19 +653,23 @@ a
 }
 .carteMain.speciale span
 {
-	left:14px;
+	/*left:14px;*/
+	left: 14%;
 }
 .carteMain.speciale .puissance
 {
-	top:10px;
+	/*top:10px;*/
+	top: 6.5%;
 }
 .carteMain.speciale .pv
 {
-	top:27px;
+	/*top:27px;*/
+	top: 18%;
 }
 .carteMain.speciale .mana
 {
-	top:44px;
+	/*top:44px;*/
+	top: 29%;
 }
 
 #infoBox{
