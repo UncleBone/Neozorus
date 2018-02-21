@@ -253,7 +253,7 @@ class Joueur{
             $this->subMana($this->main[$att]->getMana());
             unset($this->main[$att]);
             $this->defausse[$att]->setLocalisation(GameCard::LOC_DEFAUSSE);
-        }elseif ($carteAtt->getType()=='creature'){
+        }else{
             $carteAtt->setActive(0);
         }
         header('Location:?controller=game&action=play&jeton='.$jeton.'&ajax=1');
