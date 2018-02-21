@@ -533,7 +533,7 @@ function zoom(target){
     let puissance =  target.find('.puissance').text();
     let mana =  target.find('.mana').text();
     // if(localisation != 'main'){
-        var indice = target.find('.indice').text();
+    let indice = target.find('.indice').text();
     // }
     let leftOrigin = target.offset().left;
     let topOrigin = target.offset().top;
@@ -547,8 +547,8 @@ function zoom(target){
     let newSpanMana = $('<span>');
     // if(localisation != 'main'){
         // var newIndice = $('<div>').html('<span>'+indice+'</span>');
-        var newIndice = $('<span>').text(indice);
-        newIndice.addClass('indice');
+    let newIndice = $('<span>').text(indice);
+    newIndice.addClass('indice');
     // }
     let zoomWidth = ($(window).height() > 600 ? 200 : 150);
 
@@ -566,7 +566,7 @@ function zoom(target){
     newDiv.append(newSpanPuissance);
     newDiv.append(newSpanMana);
     // if(localisation != 'main'){
-        newDiv.append(newIndice);
+    newDiv.append(newIndice);
     // }
 
     newDiv.css('position', 'absolute');
