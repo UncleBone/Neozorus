@@ -532,9 +532,9 @@ function zoom(target){
     let pv =  target.find('.pv').text();
     let puissance =  target.find('.puissance').text();
     let mana =  target.find('.mana').text();
-    if(localisation != 'main'){
-        var indice = target.find('.indice span').text();
-    }
+    // if(localisation != 'main'){
+        var indice = target.find('.indice').text();
+    // }
     let leftOrigin = target.offset().left;
     let topOrigin = target.offset().top;
     let width = target.width();
@@ -545,10 +545,11 @@ function zoom(target){
     let newSpanPv = $('<span>');
     let newSpanPuissance = $('<span>');
     let newSpanMana = $('<span>');
-    if(localisation != 'main'){
-        var newIndice = $('<div>').html('<span>'+indice+'</span>');
+    // if(localisation != 'main'){
+        // var newIndice = $('<div>').html('<span>'+indice+'</span>');
+        var newIndice = $('<span>').text(indice);
         newIndice.addClass('indice');
-    }
+    // }
     let zoomWidth = ($(window).height() > 600 ? 200 : 150);
 
     newImg.attr('src', src);
@@ -564,9 +565,9 @@ function zoom(target){
     newDiv.append(newSpanPv);
     newDiv.append(newSpanPuissance);
     newDiv.append(newSpanMana);
-    if(localisation != 'main'){
+    // if(localisation != 'main'){
         newDiv.append(newIndice);
-    }
+    // }
 
     newDiv.css('position', 'absolute');
     if(parseInt(leftOrigin+target.width()/2) < $(window).width()/2){

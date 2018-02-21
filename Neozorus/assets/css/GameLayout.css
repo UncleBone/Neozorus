@@ -274,7 +274,7 @@ a
 }
 
 
-/*MANA*/
+/*************** Mana *****************/
 
 #manaLeft, #manaRight
 {
@@ -303,42 +303,6 @@ a
 {
 	height: 100%;
 }
-
-
-
-/*DIV DES CREATURES*/
-
-/*#creatureBox{
-	position: fixed;
-	top: 21.2%;
-	right: 5%;
-	width: 90%;
-	height: 49%;
-}
-#topCreature,#bottomCreature{
-	width: 100%;
-	height: 49%;
-}*/
-
-/*DIV DES CREATURES ADVERSES*/
-
- /*#topCreature{
-	position: absolute;
-	display: flex;
-	flex-direction: row;
-	justify-content: center;
-}*/
-
-/*DIV DES CREATURES DU JOUEUR*/
-
-/*#bottomCreature{
-	position: absolute;
-	bottom:0;
-	display: flex;
-	flex-direction: row;
-	justify-content: center;
-} */
-
 
 /************************************ Plateau *****************************************/
 
@@ -388,42 +352,7 @@ a
 	font-size: 2vh;
 }
 
-.carte .indice{
-	/*display: none;*/
-	/*position: absolute;*/
-	/*background-color: white;*/
-	/*width:8px;*/
-  	/*height:8px;*/
-  	/*width: 1.1vh;*/
-  	/*height: 1.1vh;*/
-	/*border-radius: 50%;*/
-	/*z-index: 1;*/
-	/*right: 3px;*/
-	/*right: 2.5%;*/
-	/*top: 20px;	*/
-	/*top: 10%;*/
-}
-
-.carte .indice span{
-	position: absolute;
-	right: 2.5%;
-	top: 10%;
-	display: block;
-	width: 1vh;
-	/*top: -8px;*/
-	/*top: -100%;*/
-	/*top: -0.4vh;*/
-	/*left: 1px;*/
-	/*left: 15%;*/
-	color: black;
-	background-color: white;
-	border-radius: 0.5vh;
-	/*padding: 0 50%;*/
-	/*font-size: 8px;*/
-	font-size: 1vh;
-	font-family: 'fira_code';
-}
-.carte .indice
+.carte .indice, .carteMain .indice
 {
 	right: 2.5%;
 	top: 12.5%;
@@ -522,27 +451,37 @@ a
 	top: 31%;
 }
 .zoom .indice{
-	position: absolute;
+/*	position: absolute;
 	background-color: white;
 	width:10px;
   	height:10px;
 	border-radius: 50%;
-	z-index: 1;
+	z-index: 1;*/
 	/*right: 10px;*/
 	/*top: 35px;	*/
-	right: 3.5%;
-	top: 13%;	
+/*	right: 3.5%;
+	top: 13%;	*/
 }
 
-.zoom .indice span{
+/*.zoom .indice span{
 	position: relative;
 	top: -6px;
 	left: 1.5px;
 	color: black;
 	font-size: 10px;
 	font-family: 'fira_code';
+}*/
+.zoom .indice
+{
+	right: 2.5%;
+	top: 12.5%;
+	color: black;
+	background-color: white;
+	border-radius: 50%;
+	padding: 0 1.5%;
+	font-size: 10px;
+	font-family: 'fira_code';
 }
-
 /*********************** animations cartes *************************/
 
 .sommeil
@@ -848,8 +787,10 @@ a
 	}
 	.zoom .indice
 	{
+		font-size: 10px;
 		right: 2.5%;
 		top: 12%;	
+		transform: none;
 	}
 	#infoBox
 	{

@@ -166,6 +166,7 @@ if(count($defausse[$currentPlayer]) > 0){ ?>
                     case 'sort':                        
                         echo '<span class="puissance">'.$value->getPuissance().'</span>';
                         echo '<span class="mana">'.$value->getMana().'</span>';
+                        echo '<span class="indice">'.$value->getIndice().'</span>';
                         break;
                 }
                 echo'</a>';
