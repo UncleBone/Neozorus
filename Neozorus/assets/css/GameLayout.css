@@ -389,29 +389,49 @@ a
 }
 
 .carte .indice{
-	position: absolute;
-	background-color: white;
+	/*display: none;*/
+	/*position: absolute;*/
+	/*background-color: white;*/
 	/*width:8px;*/
   	/*height:8px;*/
-  	width: 1.1vh;
-  	height: 1.1vh;
-	border-radius: 50%;
-	z-index: 1;
+  	/*width: 1.1vh;*/
+  	/*height: 1.1vh;*/
+	/*border-radius: 50%;*/
+	/*z-index: 1;*/
 	/*right: 3px;*/
-	right: 2.5%;
+	/*right: 2.5%;*/
 	/*top: 20px;	*/
-	top: 12%;
+	/*top: 10%;*/
 }
 
 .carte .indice span{
-	position: relative;
+	position: absolute;
+	right: 2.5%;
+	top: 10%;
+	display: block;
+	width: 1vh;
 	/*top: -8px;*/
-	top: -100%;
+	/*top: -100%;*/
+	/*top: -0.4vh;*/
 	/*left: 1px;*/
-	left: 15%;
+	/*left: 15%;*/
 	color: black;
+	background-color: white;
+	border-radius: 0.5vh;
+	/*padding: 0 50%;*/
 	/*font-size: 8px;*/
-	font-size: 1.1vh;
+	font-size: 1vh;
+	font-family: 'fira_code';
+}
+.carte .indice
+{
+	right: 2.5%;
+	top: 12.5%;
+	color: black;
+	background-color: white;
+	border-radius: 50%;
+	padding: 0 1.5%;
+	font-size: 1vh;
 	font-family: 'fira_code';
 }
 

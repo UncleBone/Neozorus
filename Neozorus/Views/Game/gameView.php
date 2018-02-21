@@ -73,7 +73,8 @@
                     echo '<span class="puissance">'.$value->getPuissance().'</span>';
                     echo '<span class="pv">'.$value->getPv().'</span>';
                     echo '<span class="mana">'.$value->getMana().'</span>';
-                    echo '<div class="indice"><span>'.$value->getIndice().'</span></div>';
+                    // echo '<div class="indice"><span>'.$value->getIndice().'</span></div>';
+                    echo '<span class="indice">'.$value->getIndice().'</span>';
                     echo '</a>';
                 }
                 ?>
@@ -92,7 +93,8 @@
                     echo '<span class="puissance">'.$value->getPuissance().'</span>';
                     echo '<span class="pv">'.$value->getPv().'</span>';
                     echo '<span class="mana">'.$value->getMana().'</span>';
-                    echo '<div class="indice"><span>'.$value->getIndice().'</span></div>';
+                    // echo '<div class="indice"><span>'.$value->getIndice().'</span></div>';
+                    echo '<span class="indice">'.$value->getIndice().'</span>';
                     echo '</a>';
                 }
                 ?>
@@ -231,7 +233,8 @@ function displayHistorique($historique, $currentPlayer, $jeton){
                 echo '<span class="puissance">'.$event->getCarte()->getPuissance().'</span>';
                 echo '<span class="pv">'.$event->getCarte()->getPv().'</span>';
                 echo '<span class="mana">'.$event->getCarte()->getMana().'</span>';
-                echo '<div class="indice"><span>'.$event->getCarte()->getIndice().'</span></div>';
+                // echo '<div class="indice"><span>'.$event->getCarte()->getIndice().'</span></div>';
+                echo '<span class="indice">'.$event->getCarte()->getIndice().'</span>';
                 echo '</div>';
             }else{
                 echo '<div class="carte '.$event->getAtt()->getType().'">';
@@ -239,7 +242,8 @@ function displayHistorique($historique, $currentPlayer, $jeton){
                 echo '<span class="puissance">'.$event->getAtt()->getPuissance().'</span>';
                 echo '<span class="pv">'.$event->getAtt()->getPv().'</span>';
                 echo '<span class="mana">'.$event->getAtt()->getMana().'</span>';
-                echo '<div class="indice"><span>'.$event->getAtt()->getIndice().'</span></div>';
+                // echo '<div class="indice"><span>'.$event->getAtt()->getIndice().'</span></div>';
+                echo '<span class="indice">'.$event->getAtt()->getIndice().'</span>';
                 if($event->getMortAtt() == true && $event->getAtt()->getType() != 'sort'){
                     echo '<img class="skull" src="' . IMG_PATH . DS . 'hist' . DS . 'skull_ter.png">';
                 }elseif($event->getType() == Event::ATT_CARD && $event->getAtt()->getType() != 'sort'){
@@ -257,7 +261,8 @@ function displayHistorique($historique, $currentPlayer, $jeton){
                     echo '<span class="puissance">'.$event->getCible()->getPuissance().'</span>';
                     echo '<span class="pv">'.$event->getCible()->getPv().'</span>';
                     echo '<span class="mana">'.$event->getCible()->getMana().'</span>';
-                    echo '<div class="indice"><span>'.$event->getCible()->getIndice().'</span></div>';
+                    // echo '<div class="indice"><span>'.$event->getCible()->getIndice().'</span></div>';
+                    echo '<span class="indice">'.$event->getCible()->getIndice().'</span>';
                     if($event->getMortCible() == true){
                         echo '<img class="skull" src="' . IMG_PATH . DS . 'hist' . DS . 'skull_ter.png">';
                     }else{
