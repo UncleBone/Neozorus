@@ -383,7 +383,7 @@ a
 	top: 39%;
 	left: 15.5%;
 }
-.carte.speciale > span
+.carte.speciale > span:not(.indice)
 {
 	/*left:18px;*/
 	left: 14.5%;
@@ -430,7 +430,7 @@ a
 	top: 39.5%;
 	left: 15.5%;
 }
-.zoom.speciale span
+.zoom.speciale span:not(.indice)
 {
 	/*left: 30px;*/
 	left: 15%;
@@ -645,7 +645,7 @@ a
 	top: 38%;
 	left: 15%;
 }
-.carteMain.speciale span
+.carteMain.speciale span:not(.indice)
 {
 	/*left:14px;*/
 	left: 14%;
