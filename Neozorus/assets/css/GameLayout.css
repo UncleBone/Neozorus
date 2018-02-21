@@ -771,6 +771,15 @@ a
 
 @media (max-height: 600px)
 {
+	.eventBox
+	{
+		font-size: 0.9em;
+	}
+	.eventBox .carte + img
+	{
+		width: 50px;
+		margin: 0 9px;
+	}
 	#bottomHeros p
 	{
 		font-size: 0.7em;
@@ -803,6 +812,10 @@ a
 }
 @media (max-height: 450px)
 {
+	.eventBox
+	{
+		font-size: 0.8em;
+	}
 	#bottomHeros p
 	{
 		font-size: 0.6em;
