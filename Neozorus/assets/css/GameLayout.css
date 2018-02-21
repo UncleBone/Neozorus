@@ -47,13 +47,14 @@ a
 	transform: translateX(50%);
 	padding: 10px;
 	font-family: 'godzilla';
-	font-size: 25px;
+	/*font-size: 25px;*/
+	font-size: 2em;
 	color: white;
 	background-color: rgba(0, 0, 0, 0.7);
 }
 .message
 {
-	font-family: 'fira_code';
+	font-family: 'fira_code', Verdana;
 	border-radius: 5px;
 }
 .endGame
@@ -782,19 +783,30 @@ a
 	{
 		font-size: 0.85em;
 	}
-	#topHeros,#bottomHeros{
-		/*width:120px;*/
-		/*height: 150px;*/
-		/*overflow: hidden;*/
+	.error, .message
+	{
+		font-size: 1.7em;
 	}
-	#bottomHeros p{
-		/*font-size: 13px;*/
-		/*width: 110px;*/
+}
+@media (max-width: 1000px)
+{
+	.error, .message
+	{
+		font-size: 1.3em;
 	}
-	#topHeros .pv, #bottomHeros .pv{
-		/*font-size: 1.1em;*/
-		/*top:33px;*/
-		/*left:21px;*/
+}
+@media (max-width: 750px)
+{
+	.error, .message
+	{
+		font-size: 1em;
+	}
+}
+@media (max-width: 600px)
+{
+	.error, .message
+	{
+		font-size: 0.8em;
 	}
 }
 

@@ -505,7 +505,7 @@ function chgTurnMssg(t){
     messageBox.html('<p>'+message+'</p>');
     messageBox.css('padding','20px');
     messageBox.css('font-family','godzilla');
-    messageBox.css('font-size','4vh');
+    messageBox.css('font-size','5vh');
     messageBox.css('color','white');
     messageBox.css('background-color','rgba(0,0,0,0.7)');
     messageBox.css('position','absolute');
