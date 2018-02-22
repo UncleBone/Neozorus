@@ -110,7 +110,9 @@ class GameModel extends CoreModel{
     }
 
     public function loadPlayers($game){
-        $req = 'SELECT * FROM partie_joueur WHERE pj_partie_fk = :game';
+        $req = 'SELECT * FROM partie_joueur 
+                INNER JOIN partie ON pj_partie_fk = p_id
+                WHERE pj_partie_fk = :game';
         $param = [ 'game' => $game ];
         return $this->makeSelect($req,$param);
     }

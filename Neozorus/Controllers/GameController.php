@@ -145,14 +145,11 @@ class GameController extends CoreController{
      */
     public function startGame($deck1,$deck2){
         $deckModel = new gameDeckModel();
-        $user1 = $deckModel->getUser($deck1);
-        if($user1 == $_SESSION['neozorus']['u_id']){
+        $user1 = $deckModel->getUser($deck1);  // $user1 = $_SESSION['neozorus']['u_id'] (utilisateur actif)
+        $user2 = $deckModel->getUser($deck2);
 
-            $user2 = $deckModel->getUser($deck2);
-            $this->init($user1,$deck1,$user2,$deck2);
-            $this->saveNewGame();
-        }
-//        $this->play();
+        $this->init($user1,$deck1,$user2,$deck2);
+        $this->saveNewGame();
         header('Location:?controller=game&action=play');
     }
 
@@ -168,10 +165,10 @@ class GameController extends CoreController{
         $this->setPlayer($p1);
         $this->setPlayer($p2);
         for($i = 0; $i < 2; $i++){
-                $this->getPlayer($i)->getDeck()->fillDeck();
-                $this->getPlayer($i)->getDeck()->shuffle();
-                $this->getPlayer($i)->initPioche();
-            }
+            $this->getPlayer($i)->getDeck()->fillDeck();
+            $this->getPlayer($i)->getDeck()->shuffle();
+            $this->getPlayer($i)->initPioche();
+        }
     }
 
         /*
@@ -332,14 +329,15 @@ class GameController extends CoreController{
         $model = new GameModel();
         $remote_players = $model->loadPlayers($this->getId());
         for ($i = 0; $i < 2; $i++) {
-            $this->players[$i] = new Joueur($remote_players[$i]['pj_user_fk'], $remote_players[$i]['pj_deck_fk']);
-            $this->players[$i]->setPv($remote_players[$i]['pj_pvPersonnage']);
-            $this->players[$i]->setMana($remote_players[$i]['pj_manaPersonnage']);
-            $this->players[$i]->setVisable($remote_players[$i]['pj_visable']);
+            $j = $remote_players[0]['pj_user_fk'] == $remote_players[0]['p_joueur1'] ? $i : 1-$i;
+            $this->players[$j] = new Joueur($remote_players[$i]['pj_user_fk'], $remote_players[$i]['pj_deck_fk']);
+            $this->players[$j]->setPv($remote_players[$i]['pj_pvPersonnage']);
+            $this->players[$j]->setMana($remote_players[$i]['pj_manaPersonnage']);
+            $this->players[$j]->setVisable($remote_players[$i]['pj_visable']);
             // $this->players[$i]->setGameId($this->id);
             $cartes = $model->loadCartes($this->getId(), $remote_players[$i]['pj_user_fk']);
-            $this->players[$i]->getDeck()->fillDeckWith($cartes);
-            $this->players[$i]->updateCardArrays();
+            $this->players[$j]->getDeck()->fillDeckWith($cartes);
+            $this->players[$j]->updateCardArrays();
         }
     }
 
@@ -556,14 +554,23 @@ class GameController extends CoreController{
         */
         if($this->getTour() == 1){      // Lors du premier tour de jeu, on pioche 3 cartes
             if($this->piocheEtMana == 0){
-                for($i=0;$i<3;$i++){$player->pioche();}
+                // for($i=0;$i<3;$i++){
+                //     $player->pioche();
+                // }
+                $i = 0;
+                do{ //boucle while pour éviter les bugs de pioche
+                    if($player->pioche())   $i++;
+                }while($i<3);
                 $this->increaseMana($player);
                 $this->piocheEtMana = 1;
                 $this->saveAndRefreshView();
             }
         }else{
             if($this->piocheEtMana == 0){
-                $player->pioche();
+                $i = 0;
+                do{ //boucle while pour éviter les bugs de pioche
+                    if($player->pioche())   $i++;
+                }while($i<1);
                 $this->increaseMana($player);
                 $this->piocheEtMana = 1;
                 $this->saveAndRefreshView();
@@ -662,20 +669,7 @@ class GameController extends CoreController{
     /*
      * Pour quitter la partie, efface la variable de session, met à jour la bdd et redirige vers l'accueil
      */
-/*/
-    public function quitter(){
-        $this->loadGame();
-        $deck = new GameDeckModel();
-        $deckId = $this->getCurrentPlayer()->getDeck()->getId();
-        $deck->setWaitingLine($deckId,0);
 
-        $game = new GameModel();
-        $game->setRunning($_SESSION['neozorus']['GAME'],0);
-        unset($_SESSION['neozorus']['GAME']);
-
-	    header('Location:?controller=home&action=affichagePageAccueil');
-    }
-/*/
     public function quitter(){
         $this->loadGame();
         // Mise à jour de la table deck -> le deck utilisé pour la partie redevient libre 
