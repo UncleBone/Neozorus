@@ -229,17 +229,11 @@ class GameController extends CoreController{
             $controller -> error($e->getMessage().'<br>File:'.$e->getFile().'<br>Line:'.$e->getLine().'<br>Trace:'.$e->getTraceAsString());
         }
     }
-//*/
 
     /*
      * Sauvegarde d'une partie existante
      */
-/*/
-    public function saveGame(){
-        $gameModel = new GameModel();
-        $gameModel->saveGame($this);
-    }
-/*/
+
     public function saveGame(){
 
         try {
@@ -279,47 +273,12 @@ class GameController extends CoreController{
             $controller -> error($e->getMessage().'<br>File:'.$e->getFile().'<br>Line:'.$e->getLine().'<br>Trace:'.$e->getTraceAsString());
         }
     }
-//*/
+
 
     /*
      * Chargement d'une partie existante ou lancement de l'initialisation d'une nouvelle partie
      */
-/*/
-    public function loadGame(){
-        try {
-            $gameModel = new GameModel();
-            if (!empty($_SESSION['neozorus']['GAME'])) {
-                $load = $gameModel->load($_SESSION['neozorus']['GAME'])[0]['g_data'];
-                $clone = unserialize($load);
-                $this->setId($_SESSION['neozorus']['GAME']);
-                $this->setPlayer($clone->getPlayer(0));
-                $this->setPlayer($clone->getPlayer(1));
-                $this->setTour($clone->getTour());
-                $this->setEog($clone->getEog());
-                if (isset($this->parameters['jeton'])) {
-                    $this->setJeton($this->parameters['jeton']);
-                } else {
-                    $this->setJeton($clone->getJeton());
-                }
-                if ($this->getJeton() != $clone->getJeton()) {
-                    $this->setPiocheEtMana(0);
-                    $this->activateCards($this->getPlayer($this->getJeton()));
-                    if ($this->getJeton() == 0) {
-                        $this->tourPlus();
-                    }
-                } else {
-                    $this->setPiocheEtMana($clone->piocheEtMana);
-                }
-            } else {
-                $gameId = $gameModel->getGameId($_SESSION['neozorus']['u_id'])[0]['g_id'];
-                if (!empty($gameId)) $_SESSION['neozorus']['GAME'] = $gameId;
-                $this->loadGame();
-            }
-        }catch (Exception $e){
-            echo $e;
-        }
-    }
-/*/
+
     public function loadGame(){
         try{
             $model = new GameModel();
@@ -377,6 +336,7 @@ class GameController extends CoreController{
             $this->players[$i]->setPv($remote_players[$i]['pj_pvPersonnage']);
             $this->players[$i]->setMana($remote_players[$i]['pj_manaPersonnage']);
             $this->players[$i]->setVisable($remote_players[$i]['pj_visable']);
+            // $this->players[$i]->setGameId($this->id);
             $cartes = $model->loadCartes($this->getId(), $remote_players[$i]['pj_user_fk']);
             $this->players[$i]->getDeck()->fillDeckWith($cartes);
             $this->players[$i]->updateCardArrays();
@@ -403,6 +363,7 @@ class GameController extends CoreController{
                 $defausse[$i] = $this->getPlayer($i)->getDefausse();
                 $visable[$i] = $this->getPlayer($i)->getVisable();
                 $heros[$i] = $this->getPlayer($i)->getDeck()->getHeros();
+                $lastDead[$i] = $this->getLastDead($this->getPlayer($i)->getId());
             }
             $jMain = json_encode($main);
             $jPlateau = json_encode($plateau);
@@ -466,6 +427,7 @@ class GameController extends CoreController{
             $defausse[$i] = $this->getPlayer($i)->getDefausse();
             $visable[$i] = $this->getPlayer($i)->getVisable();
             $heros[$i] = $this->getPlayer($i)->getDeck()->getHeros();
+            $lastDead[$i] = $this->getLastDead($this->getPlayer($i)->getId());
         }
         $jMain = json_encode($main);
         $jPlateau = json_encode($plateau);
@@ -538,6 +500,13 @@ class GameController extends CoreController{
             $historique[] = $e;
         }
         return $historique;
+    }
+
+    /********************* retourne l'id de la dernière carte de la défausse ******************/
+
+    public function getLastDead($playerId){
+        $model = new GameModel();
+        return $model->getLastDead($playerId, $this->id);
     }
 
     /*

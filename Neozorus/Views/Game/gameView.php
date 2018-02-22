@@ -128,11 +128,21 @@
     </div>
 
 <?php  }
-if(count($defausse[$currentPlayer]) > 0){ ?>
-    <div id="defausseBottom">
-        <img src="<?= end($defausse[$currentPlayer]) ? end($defausse[$currentPlayer])->getPath() : ''?>">
-    </div>
-<?php  } ?>
+if(!empty($defausse[$currentPlayer])){ 
+    // var_dump($lastDead[$currentPlayer]);
+    echo '<div id="defausseBottom" data="'.$lastDead[$currentPlayer][0]['pc_id'].'">';
+    foreach ($defausse[$currentPlayer] as $value) {
+        if($value->getGameId() == $lastDead[$currentPlayer][0]['pc_id']){
+            echo '<img src="'.$value->getPath().'">';
+        }
+    }
+    echo '</div>';
+    ?>
+<!--     <div id="defausseBottom">
+        <img src="<?= end($defausse[$currentPlayer]) ? end($defausse[$currentPlayer])->getPath() : ''?>" data="<?= $lastDead[$currentPlayer][0]['pc_id'] ?>">
+    </div> -->
+<?php 
+ } ?>
 
 <!--************************ zone de contrôle (bande inférieure du plateau) ***************************-->
 
@@ -272,7 +282,7 @@ function displayHistorique($historique, $currentPlayer, $jeton){
                     echo '</div>';
                 }else{
                     echo '<div class="Heros">';
-                    echo '<img src="'.IMG_PATH . DS . 'plateau' . DS . 'portrait' . DS . $event->getCible()->getDeck()->getHeros().'.png">';
+                    echo '<img src="'.IMG_PATH . DS . 'plateau' . DS . 'portrait' . DS . $event->getCible()->getDeck()->getHeros().'_bis.png">';
                     echo '<span class="pv">'.$event->getCible()->getPv().'</span>';
                     if($event->getMortCible() == true){
                         echo '<img class="skull" src="' . IMG_PATH . DS . 'hist' . DS . 'skull_ter.png">';

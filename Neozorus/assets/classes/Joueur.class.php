@@ -2,7 +2,7 @@
 
 class Joueur{
 	private $id;                    // ID du joueur
-    // private $gameId;                // ID du joueur dans le tableau partie_joueur
+    private $gameId;                // ID de la partie
     private $pseudo;
 	private $deck;                  // deck du joueur pour la partie (objet de type GameDeck)
 	private $main = array();        // Tableau d'objet de type GameCard représentant la main du joueur
@@ -34,12 +34,12 @@ class Joueur{
     public function getId(){
         return $this->id;
     }
-    // public function setGameId($id){
-    //     $this->gameId = $id;
-    // }
-    // public function getGameId(){
-    //     return $this->gameId;
-    // }
+    public function setGameId($id){
+        $this->gameId = $id;
+    }
+    public function getGameId(){
+        return $this->gameId;
+    }
 
     public function getPseudo(){
         return $this->pseudo;

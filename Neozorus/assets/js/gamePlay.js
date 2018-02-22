@@ -235,7 +235,7 @@ function reqAjaxCarteMain(att){
  */
 function reqAjaxCartePlateau(jet,att,abilite){
     var jeton = jet;
-    var att = att;
+    // var att = att;
     var cartePlateau = $('.carte');
     cartePlateau.each(function(){
         // cartePlateau.off('click');
@@ -297,6 +297,7 @@ function topPlateau(carte,att,abilite,jeton,cible,eog){
         
         // let id = $(this).attr('data_id');
         // let index = $(this).find('.indice span').text();
+        console.log('prehit att'+att);
         hitAnimation($(this),att);
         // console.log(cible);
         setTimeout(function(){
@@ -653,8 +654,9 @@ function hitAnimation(element,att){
         let topPvCible = element.find('.pv').position().top;
         let heightAtt = carteAtt.find('.puissance').height();
         let damageCible = $('<span></span>').text('-'+puissanceAtt).addClass('damage');
-        console.log(carteAtt.attr('class'));
+        console.log('hit'+element.attr('class'));
         if(element.hasClass('carte') && !carteAtt.hasClass('sort')){
+            console.log('hit not sort'+element.attr('class'));
             let leftPvAtt = carteAtt.find('.pv').position().left;
             let topPvAtt = carteAtt.find('.pv').position().top;
             let puissanceCible = element.find('.puissance').text();
