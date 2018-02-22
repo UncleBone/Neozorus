@@ -293,6 +293,7 @@ class GameModel extends CoreModel{
         return $this->makeSelect($req,$param);
     }
 
+    /* retourne l'id de la dernière carte défaussée */
     public function getLastDead($player, $game)
     {
         $req = 'SELECT pc_id FROM historique
@@ -302,6 +303,18 @@ class GameModel extends CoreModel{
                 WHERE h_partie = :game AND pc_user_fk = :player
                 ORDER BY h_id DESC
                 LIMIT 1';
+        $param = [ 'game' => $game, 'player' => $player ];
+
+        return $this->makeSelect($req,$param);
+    }
+
+    /* retourne l'id des cartes du plateau dans l'ordre dans lequel elles ont été jouées */
+    public function getOrderedPlateau($player, $game){
+        $req = 'SELECT ep_carte FROM `historique` 
+                INNER JOIN event_play ON ep_hist = h_id
+                INNER JOIN partie_carte ON pc_id = ep_carte
+                WHERE h_partie = :game AND h_joueur = :player AND pc_lieu = 3
+                ORDER BY h_id ASC';
         $param = [ 'game' => $game, 'player' => $player ];
 
         return $this->makeSelect($req,$param);

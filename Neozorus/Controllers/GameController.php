@@ -357,7 +357,8 @@ class GameController extends CoreController{
                 $mana[$i] = $this->getPlayer($i)->getMana();
                 $pioche[$i]= $this->getPlayer($i)->getPioche();
                 $main[$i] = array_reverse($this->getPlayer($i)->getMain(),true);
-                $plateau[$i] = $this->getPlayer($i)->getPlateau();
+                // $plateau[$i] = $this->getPlayer($i)->getPlateau();
+                $plateau[$i] = $this->getOrderedPlateau($this->getPlayer($i));
                 $defausse[$i] = $this->getPlayer($i)->getDefausse();
                 $visable[$i] = $this->getPlayer($i)->getVisable();
                 $heros[$i] = $this->getPlayer($i)->getDeck()->getHeros();
@@ -421,7 +422,8 @@ class GameController extends CoreController{
             $mana[$i] = $this->getPlayer($i)->getMana();
             $pioche[$i]= $this->getPlayer($i)->getPioche();
             $main[$i] = array_reverse($this->getPlayer($i)->getMain(),true);
-            $plateau[$i] = $this->getPlayer($i)->getPlateau();
+            // $plateau[$i] = $this->getPlayer($i)->getPlateau();
+            $plateau[$i] = $this->getOrderedPlateau($this->getPlayer($i));
             $defausse[$i] = $this->getPlayer($i)->getDefausse();
             $visable[$i] = $this->getPlayer($i)->getVisable();
             $heros[$i] = $this->getPlayer($i)->getDeck()->getHeros();
@@ -505,6 +507,16 @@ class GameController extends CoreController{
     public function getLastDead($playerId){
         $model = new GameModel();
         return $model->getLastDead($playerId, $this->id);
+    }
+
+    public function getOrderedPlateau($player){
+        $dPlateau = $player->getPlateau();
+        $model = new GameModel();
+        $oPlateau = $model->getOrderedPlateau($player->getId(),$this->getId());
+        foreach ($oPlateau as $value) {
+            $plateau[] = $dPlateau[$value['ep_carte']];
+        }
+        return $plateau;
     }
 
     /*

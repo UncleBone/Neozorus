@@ -82,10 +82,10 @@
             <div id="bottomPlateau">
                 <?php
                 foreach ($plateau[$joueurActif] as $key => $value){  
-                    echo '<a class="carte '.$value->getType().'" data_active="'.$value->getActive().'" data_id="'.$value->getId().'" data_gameid="'.$value->getGameId().'"';
+                    echo '<a class="carte '.$value->getType().'" data_active="'.$value->getActive().'" data_id="'.$value->getId().'" data_gameid="'.$value->getGameId().'" data="'.$key.'"';
                     if($value->getActive() == 1 && $currentPlayer == $jeton && !$eog){
                         // echo 'href="?controller=game&action=play&jeton='.$jeton.'&att='.$value->getId().$value->getIndice().'&abilite='.$abilite.'">';
-                        echo 'href="?controller=game&action=play&jeton='.$jeton.'&att='.$key.'&abilite='.$abilite.'">';
+                        echo 'href="?controller=game&action=play&jeton='.$jeton.'&att='.$value->getGameId().'&abilite='.$abilite.'">';
                     }else{
                         echo '>';
                     }    

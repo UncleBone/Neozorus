@@ -323,6 +323,8 @@ a
 	justify-content: center;
 	align-items: center;
 	/*flex-wrap: wrap;*/
+	/*overflow-x: hidden;*/
+	/*overflow-y: visible;*/
 }
 
 /************************* Cartes du plateau *****************************/
