@@ -333,15 +333,21 @@ a
 {
 	position: relative;	/* pour positionner les stats */
 	display: block;
+	/*display: flex;*/
 	/*width: 120px;*/
-	height: 24vh;
+	/*height: 24vh;*/
+	/*min-height: 100%;*/
+	/*max-height: min-content;*/
 	margin: 0 0.5%;
+	/*flex-basis: min-content;*/
 }
 
 .carte img
 {
 	/*width: 100%;*/
-	height: 100%;
+	/*height: 100%;*/
+	max-height: 24vh;
+	max-width: 100%;
 }
 
 .carte span, .zoom span
