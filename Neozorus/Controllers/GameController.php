@@ -511,12 +511,16 @@ class GameController extends CoreController{
 
     public function getOrderedPlateau($player){
         $dPlateau = $player->getPlateau();
-        $model = new GameModel();
-        $oPlateau = $model->getOrderedPlateau($player->getId(),$this->getId());
-        foreach ($oPlateau as $value) {
-            $plateau[] = $dPlateau[$value['ep_carte']];
+        if(!empty($dPlateau)){
+            $model = new GameModel();
+            $oPlateau = $model->getOrderedPlateau($player->getId(),$this->getId());
+            foreach ($oPlateau as $value) {
+                $plateau[] = $dPlateau[$value['ep_carte']];
+            }
+            return $plateau;
+        }else{
+            return $dPlateau;
         }
-        return $plateau;
     }
 
     /*
