@@ -10,8 +10,8 @@
 	const ATT_CARD = 2;
 	const ATT_PLAYER = 3;
 
-	public function __construct($id,$tour,$joueur,$type){
-		$this->setId($id);
+	public function __construct($tour,$joueur,$type){
+		// $this->setId($id);
 		$this->setTour($tour);
 		$this->setJoueur($joueur);
 		$this->setType($type);

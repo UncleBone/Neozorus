@@ -165,6 +165,16 @@ class GameModel extends CoreModel{
 
         return $this->makeStatement($req,$param);
     }
+    public function addNewEvent($tour, $gameId, $player, $event){
+        $req = 'INSERT INTO historique (h_tour, h_partie, h_joueur, h_event)
+                VALUES (:tour, :gameId, :player, :event)';
+        $param = [ 'tour' => $tour,
+                    'gameId' => $gameId,
+                    'player' => $player,
+                    'event' => $event ];
+
+        return $this->makeStatement($req,$param);
+    }
 
     public function addEventPlay($carte, $historique){
         $req = 'INSERT INTO event_play (ep_carte, ep_hist)
