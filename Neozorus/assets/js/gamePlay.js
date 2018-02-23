@@ -20,10 +20,6 @@ function ajax(nom,data,fct){
 
 function gamePlay(jet, att, cible, abilite, eog){
     var jeton = jet;
-    // var eog = eog;
-    // var att = att;
-    // var cible = cible;
-    // var abilite = abilite;
     var timerFB;
     console.log('jet:'+jet+', att:'+att+', cible:'+cible+', abilite:'+abilite+' eog:'+eog);
     historique();
@@ -178,8 +174,9 @@ function reqAjaxCarteMain(att){
             let carte = $(this);
             carte.off('hover');
             $('[class^=zoom]').remove();
-            let regex = new RegExp('.*jouer=(\\d+)$', 'i');
-            let id = href.match(regex)[1];
+            // let regex = new RegExp('.*jouer=(\\d+)$', 'i');
+            // let id = href.match(regex)[1];
+            let id = $(this).attr('data_gameid');
             ajax("play", "&jouer="+id, function(result) {
                 console.log(id);
                 if(result['error'] != null){
@@ -189,8 +186,7 @@ function reqAjaxCarteMain(att){
                         let error = $('<p>').addClass('error').text(result['error']);
                         $('main').append(error);
                         fade(error);
-                    }else if(result['error'] == "Choisissez la cible" ){
-                        // carte.addClass('att');
+                    }else if(result['error'] == "Choisissez la cible" ){    // si c'est une carte sort
                         let message = $('<p>').addClass('message').text(result['error']);
                         $('main').append(message);
                         // let id = carte.find('img').attr('data_id');
@@ -204,7 +200,7 @@ function reqAjaxCarteMain(att){
                         for(ab of abilite){
                             if(ab != 0) abiliteCarte = ab;
                         }
-                        gamePlay(jeton,attCarte,cible,abiliteCarte,eog);
+                        gamePlay(jeton,attCarte,'',abiliteCarte,eog);
                     }
                 }else{
                     
@@ -233,49 +229,49 @@ function reqAjaxCarteMain(att){
 /*
  * Gestion des cartes du plateau en ajax
  */
-function reqAjaxCartePlateau(jet,att,abilite){
-    var jeton = jet;
+function reqAjaxCartePlateau(jeton,att,abilite){
+    // var jeton = jet;
     // var att = att;
     var cartePlateau = $('.carte');
     cartePlateau.each(function(){
         // cartePlateau.off('click');
-        let href = $(this).attr('href');
-        // console.log(href);
-        // $(this).removeAttr('href');
-        // console.log(href);
-        let regex = new RegExp('&att=(\\d+)(?:&cible=(\\d+))*&abilite=(\\d)$', 'i');
-        if(typeof(href) != 'undefined'){
-            var attCarte = href.match(regex)[1];
-            var cibleCarte = href.match(regex)[2];
-            var abiliteCarte = href.match(regex)[3];
-        }
+        // let href = $(this).attr('href');
+        // let regex = new RegExp('&att=(\\d+)(?:&cible=(\\d+))*&abilite=(\\d)$', 'i');
+        // if(typeof(href) != 'undefined'){
+        //     var attCarte = href.match(regex)[1];
+        //     var cibleCarte = href.match(regex)[2];
+        //     var abiliteCarte = href.match(regex)[3];
+        // }
 
         let parentId = $(this).parent().attr('id');
 
         if(parentId == 'bottomPlateau' && currentPlayer == jeton && $(this).attr('data_active') == 1){
-            bottomPlateau($(this),attCarte,abiliteCarte,jeton,cible,eog)
-        }else if(parentId == 'topPlateau' && currentPlayer == jeton && att != '' ){
-            topPlateau($(this),att,abilite,jeton,cibleCarte,eog)
+            let attCarte = $(this).attr('data_gameid');
+            bottomPlateau($(this),attCarte,abilite,jeton,cible,eog);
+        }else if(parentId == 'topPlateau' && currentPlayer == jeton && $.type(att) != 'undefined' && att != '' ){
+            let cibleCarte = $(this).attr('data_gameid');
+            console.log('cible'+cibleCarte);
+            topPlateau($(this),att,abilite,jeton,cibleCarte,eog);
         }
     });
 }
 
 /********************* Gestion des cartes du joueur actif *********************/
 
-function bottomPlateau(carte,attCarte,abiliteCarte,jeton,cible,eog){
+function bottomPlateau(carte,attCarte,abilite,jeton,cible,eog){
     carte.off('click');
     carte.css('cursor',"pointer");
     carte.click(function(e){
         e.preventDefault();
         e.stopPropagation();
-        ajax("play", "&att="+attCarte+"&abilite="+abiliteCarte, function(result) {
+        ajax("play", "&att="+attCarte+"&abilite="+abilite, function(result) {
           
             if(result['error'] != null){
                 $('.error').remove();
                 $('.message').remove();
                 let message = $('<p>').addClass('message').text(result['error']);
                 $('main').append(message);
-                gamePlay(jeton,attCarte,cible,abiliteCarte,eog);
+                gamePlay(jeton,attCarte,cible,abilite,eog);
             }else{
                 console.log('erreur bottomPlateau');
             }

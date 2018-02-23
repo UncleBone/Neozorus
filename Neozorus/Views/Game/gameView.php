@@ -60,14 +60,14 @@
                 foreach ($plateau[$joueurPassif] as $key => $value){
                     //la carte est selectionnable si le joueur actif
                     
-                    echo '<a class="carte '.$value->getType().'" data_visable="'.$value->getVisable().'" data_id="'.$value->getId().'"  data_gameid="'.$value->getGameId().'" data="'.$att.'"';
+                    echo '<a class="carte '.$value->getType().'" data_visable="'.$value->getVisable().'" data_id="'.$value->getId().'"  data_gameid="'.$value->getGameId().'" data="'.$att.'">';
                     // if(!empty($att) && $att != $value->getId().$value->getIndice() && $value->getVisable() == 1 && $currentPlayer == $jeton && !$eog){
 
                     // if($value->getVisable() == 1 && $currentPlayer == $jeton && !$eog){
                         // echo 'href="?controller=game&action=play&jeton='.$jeton.'&att='.$att.'&cible='.$value->getId().$value->getIndice().'&abilite='.$abilite.'">';
                         // echo 'href="?controller=game&action=play&jeton='.$jeton.'&att='.$att.'&cible='.$key.'&abilite='.$abilite.'">';
                     // }else{
-                        echo '>';
+                        // echo '>';
                     // }
                     echo '<img src="'.$value->getPath().'">';
                     echo '<span class="puissance">'.$value->getPuissance().'</span>';
@@ -82,12 +82,12 @@
             <div id="bottomPlateau">
                 <?php
                 foreach ($plateau[$joueurActif] as $key => $value){  
-                    echo '<a class="carte '.$value->getType().'" data_active="'.$value->getActive().'" data_id="'.$value->getId().'" data_gameid="'.$value->getGameId().'" data="'.$key.'"';
+                    echo '<a class="carte '.$value->getType().'" data_active="'.$value->getActive().'" data_id="'.$value->getId().'" data_gameid="'.$value->getGameId().'" data="'.$key.'">';
                     if($value->getActive() == 1 && $currentPlayer == $jeton && !$eog){
                         // echo 'href="?controller=game&action=play&jeton='.$jeton.'&att='.$value->getId().$value->getIndice().'&abilite='.$abilite.'">';
-                        echo 'href="?controller=game&action=play&jeton='.$jeton.'&att='.$value->getGameId().'&abilite='.$abilite.'">';
+                        // echo 'href="?controller=game&action=play&jeton='.$jeton.'&att='.$value->getGameId().'&abilite='.$abilite.'">';
                     }else{
-                        echo '>';
+                        // echo '>';
                     }    
                     echo '<img src="'.$value->getPath().'">';
                     echo '<span class="puissance">'.$value->getPuissance().'</span>';
@@ -164,7 +164,7 @@ if(!empty($defausse[$currentPlayer])){
                         data_gameid="'.$value->getGameId().'"';
                 if ($currentPlayer == $jeton){
                     // echo '<a class="carteMain '.$value->getType().'" href="?controller=game&action=play&jeton='.$jeton.'&jouer='.$value->getId().$value->getIndice().'">';
-                    echo ' href="?controller=game&action=play&jeton='.$jeton.'&jouer='.$key.'"';
+                    // echo ' href="?controller=game&action=play&jeton='.$jeton.'&jouer='.$key.'"';
                 }
                 echo '>';
                 
