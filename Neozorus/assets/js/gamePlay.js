@@ -381,12 +381,16 @@ function gameWaitingTurn(){
     var interval;
     historique();
     interval = window.setInterval(function(){
-        console.log('waiting');
         ajax("refreshViewAjax", "", function(result) {
-            var contenu = $('#contenu');
-            var j = result['jeton'];
-            contenu.html(result['view']);
-            historique();
+            let contenu = $('#contenu');
+            let j = result['jeton'];
+            let lastEvent = result['lastEvent'];
+            let oldLastEvent = $('.event').last().attr('data_event_id');
+            console.log('waiting, lastEvent:'+lastEvent+', oldLastEvent:'+oldLastEvent);
+            if(lastEvent != oldLastEvent || j == currentPlayer){
+                contenu.html(result['view']);
+                historique();
+            }
             if(!result['eog']){
                 if(j==currentPlayer){
                     chgTurnMssg(0);

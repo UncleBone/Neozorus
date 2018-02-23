@@ -453,7 +453,7 @@ class GameController extends CoreController{
         $gameView = ob_get_contents();
         ob_clean();
         header('Content-Type: application/json; charset=utf-8');
-        $data = [ 'view' => $gameView, 'jeton' => $jeton, 'eog' => $eog ];
+        $data = [ 'view' => $gameView, 'jeton' => $jeton, 'lastEvent' => end($historique)->getId(), 'eog' => $eog ];
 
         echo json_encode($data, JSON_UNESCAPED_UNICODE );
 //        echo json_last_error_msg();
