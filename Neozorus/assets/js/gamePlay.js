@@ -388,11 +388,18 @@ function gameWaitingTurn(){
             let oldLastEvent = $('.event').last().attr('data_event_id');
             console.log('waiting, lastEvent:'+lastEvent+', oldLastEvent:'+oldLastEvent);
             if(lastEvent != oldLastEvent || j == currentPlayer){
-                contenu.html(result['view']);
+                if(result['lastEventType'] == 2 || result['lastEventType'] == 3){    
+                    hitAnimationJoueurPassif(result);
+                    setTimeout(function(){
+                        contenu.html(result['view']);
+                    }, 1000);
+                }else{
+                    contenu.html(result['view']);
+                }
                 historique();
             }
             if(!result['eog']){
-                if(j==currentPlayer){
+                if(j == currentPlayer && result['PeM'] == 1){
                     chgTurnMssg(0);
                     gamePlay(j,result['att'],result['cible'],result['abilite'],result['eog']);
                     clearInterval(interval);     
@@ -633,7 +640,7 @@ function hitAnimation(element,att){
     let topPosition = element.position().top;
     let timer = setInterval(function(){
         if(cpt < 100 ){
-            if(element.attr('id') != 'topHeros'){
+            if(element.attr('class') != 'Heros'){
                 element.css('top',-Math.sin(cpt*Math.PI/25)*200/cpt+'px');
             }else{
                 element.css('top',parseInt(-Math.sin(cpt*Math.PI/25)*200/cpt+topPosition)+'px');
@@ -650,13 +657,13 @@ function hitAnimation(element,att){
     setTimeout(function(){
         let carteAtt = $('[data_gameid='+att+']');
         let puissanceAtt = carteAtt.find('.puissance').text();
+        console.log('att:'+att+', puissanceAtt:'+puissanceAtt);
         let leftPvCible = element.find('.pv').position().left;
         let topPvCible = element.find('.pv').position().top;
         let heightAtt = carteAtt.find('.puissance').height();
         let damageCible = $('<span></span>').text('-'+puissanceAtt).addClass('damage');
         console.log('hit'+element.attr('class'));
         if(element.hasClass('carte') && !carteAtt.hasClass('sort')){
-            console.log('hit not sort'+element.attr('class'));
             let leftPvAtt = carteAtt.find('.pv').position().left;
             let topPvAtt = carteAtt.find('.pv').position().top;
             let puissanceCible = element.find('.puissance').text();
@@ -676,6 +683,16 @@ function hitAnimation(element,att){
     // $(window).delay(5000);
 }
 
+function hitAnimationJoueurPassif(result){
+    let type = result['lastEventType'];
+    let att = result['lastEventAtt'];
+    let cible = type == 2 ? $('[data_gameid='+result['lastEventCible']+']') : $('#bottomHeros');
+    // console.log(result);
+    console.log('type: '+type+', att: '+att+'cible: '+cible);
+    ciblage(cible);
+    hitAnimation(cible,att);
+
+}
 /**************** Mise en forme de l'historique ************/
 
 function historique(){

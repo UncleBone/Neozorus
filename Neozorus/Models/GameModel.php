@@ -130,7 +130,7 @@ class GameModel extends CoreModel{
     }
 
     public function getGameCard($id){
-        $req = 'SELECT c_id as id, c_libelle as libelle, c_type as type, c_puissance as puissance, c_pvMax as pvMax, c_mana as mana, pc_indice as indice, GROUP_CONCAT(c_a_abilite_fk) as abilite 
+        $req = 'SELECT c_id as id, c_libelle as libelle, c_type as type, c_puissance as puissance, c_pvMax as pvMax, c_mana as mana, pc_indice as indice, GROUP_CONCAT(c_a_abilite_fk) as abilite, pc_id as game_id
                 FROM `partie_carte` 
                 INNER JOIN carte ON pc_cid_fk = c_id 
                 LEFT JOIN c_a_inclure ON c_a_carte_fk = c_id
