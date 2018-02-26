@@ -464,6 +464,8 @@ class GameController extends CoreController{
                 'lastEventType' => !empty($historique) ? end($historique)->getType() : '',
                 'lastEventAtt' => (!empty($historique) && end($historique)->getType() != 1) ? end($historique)->getAtt()->getGameId() : '',
                 'lastEventCible' => (!empty($historique) && end($historique)->getType() == 2) ? end($historique)->getCible()->getGameId() : '',
+                'lastEventAttPuiss' => (!empty($historique) && end($historique)->getType() != 1) ? end($historique)->getAtt()->getPuissance() : '',
+                'lastEventAttType' => (!empty($historique) && end($historique)->getType() != 1) ? end($historique)->getAtt()->getType() : '',
                 'PeM' => $this->getPiocheEtMana(), 
                 'eog' => $eog ];
 

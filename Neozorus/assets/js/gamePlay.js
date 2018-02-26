@@ -36,7 +36,7 @@ function gamePlay(jet, att, cible, abilite, eog){
         $('.ciblage').remove(); // effacement des animations de ciblage
         flickeringBorder($('#bottomPlateau .carte').find('img'), 'off');    // effacement de la bordure clignotante
 
-        reqAjaxCarteMain(att);
+        reqAjaxCarteMain(jeton, att);
         reqAjaxCartePlateau(jeton, att, abilite);
         reqAjaxJoueur(jeton,att, abilite);
         
@@ -161,7 +161,7 @@ function gamePlay(jet, att, cible, abilite, eog){
 /*
  * Gestion des cartes de la main en ajax
  */
-function reqAjaxCarteMain(att){
+function reqAjaxCarteMain(jeton, att){
     var att = att;
     var carteMain = $('.carteMain');
     carteMain.each(function(){
@@ -648,7 +648,7 @@ function ciblage(target){
 
 /******************* animation des éléments touchés par une attaque *********************/
 
-function hitAnimation(element,att){
+function hitAnimation(element,att,puissSort = null){
     let mask = element.find('.ciblage').off('hover').css('background-image', 'none').css('background-color','red');
     let cpt = 0;
     let topPosition = element.position().top;
@@ -671,14 +671,14 @@ function hitAnimation(element,att){
     /* indicateur de dommage */
     setTimeout(function(){
         let carteAtt = $('[data_gameid='+att+']');
-        let puissanceAtt = carteAtt.find('.puissance').text();
+        let puissanceAtt = $.type(puissSort) === 'null' ? carteAtt.find('.puissance').text() : puissSort;
         console.log('att:'+att+', puissanceAtt:'+puissanceAtt);
         let leftPvCible = element.find('.pv').position().left;
         let topPvCible = element.find('.pv').position().top;
         let heightAtt = carteAtt.find('.puissance').height();
         let damageCible = $('<span></span>').text('-'+puissanceAtt).addClass('damage');
         console.log('hit'+element.attr('class'));
-        if(element.hasClass('carte') && !carteAtt.hasClass('sort')){
+        if(element.hasClass('carte') && !carteAtt.hasClass('sort') && $.type(puissSort) === 'null'){
             let leftPvAtt = carteAtt.find('.pv').position().left;
             let topPvAtt = carteAtt.find('.pv').position().top;
             let puissanceCible = element.find('.puissance').text();
@@ -687,7 +687,7 @@ function hitAnimation(element,att){
             carteAtt.append(damageAtt);
         }
 
-        damageCible.css('top',topPvCible).css('left',leftPvCible+heightAtt);
+        damageCible.css('top',topPvCible).css('left',leftPvCible+($.type(puissSort) === 'null' ? heightAtt : 20));
 
         element.append(damageCible);
         $('.damage').animate({left:'+=5'},500,'linear').animate({left:'+=5', opacity:'0'},500,function(){
@@ -701,11 +701,15 @@ function hitAnimationJoueurPassif(result){
     let att = result['lastEventAtt'];
     let cible = type == 2 ? $('[data_gameid='+result['lastEventCible']+']') : $('#bottomHeros');
     // flickeringBorder($('[data_gameid='+att+']').find('img'),'on');
-    console.log('animation j passif');
-    $('[data_gameid='+att+']').find('img').css('outline','white 1px solid');
+    // console.log('animation j passif');
+    if(result['lastEventAttType'] != 'sort')    $('[data_gameid='+att+']').find('img').css('outline','white 1px solid');
     ciblage(cible.find('img'));
     setTimeout(function(){
-        hitAnimation(cible,att);
+        if(result['lastEventAttType'] != 'sort'){
+            hitAnimation(cible,att);
+        }else{
+            hitAnimation(cible,att, result['lastEventAttPuiss']);
+        }
     },100);
     // flickeringBorder($('[data_gameid='+att+']').find('img'),'off');
     // $('[data_gameid='+att+']').css('outline','none');
