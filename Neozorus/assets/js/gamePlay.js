@@ -393,7 +393,7 @@ function gameWaitingTurn(){
                     setTimeout(function(){
                         contenu.html(result['view']);
                         historique();
-                    }, 1000);
+                    }, 1100);
                 }else{
                     contenu.html(result['view']);
                     historique();
@@ -608,11 +608,11 @@ function ciblage(target){
     let targetWidth = target.width();
     let targetHeight = target.height();
     let targetZ = target.css('z-index');
-
+// console.log('coblage');
     div.addClass('ciblage');
     div.css('position', 'absolute').css('top', '0').css('left', '0').css('width', targetWidth).css('height',targetHeight);
     div.css('z-index', parseInt(targetZ+1)).css('cursor','url(assets/img/cursor/cursorTarget.png), auto');
-    if(target.parent().attr('id') == 'topHeros'){
+    if(target.parent().hasClass('Heros')){
         div.css('border-radius', '50% 50% 40% 40%');
     }else{
         div.css('border-radius', '10px');
@@ -683,8 +683,6 @@ function hitAnimation(element,att){
             $(this).remove();
         });
     },500);
-
-    // $(window).delay(5000);
 }
 
 function hitAnimationJoueurPassif(result){
@@ -692,9 +690,12 @@ function hitAnimationJoueurPassif(result){
     let att = result['lastEventAtt'];
     let cible = type == 2 ? $('[data_gameid='+result['lastEventCible']+']') : $('#bottomHeros');
     // console.log(result);
-    console.log('type: '+type+', att: '+att+'cible: '+cible);
-    ciblage(cible);
-    hitAnimation(cible,att);
+    // console.log('type: '+type+', att: '+att+'cible: '+cible);
+    ciblage(cible.find('img'));
+    setTimeout(function(){
+        hitAnimation(cible,att);
+    },100);
+    
 
 }
 /**************** Mise en forme de l'historique ************/
