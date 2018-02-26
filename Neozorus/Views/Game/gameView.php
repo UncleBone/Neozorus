@@ -17,30 +17,19 @@
 
 /************************* Historique **************************/
     
-    displayHistorique($historique, $currentPlayer, $jeton);
+    displayHistorique($historique, $currentPlayer);
     
-    ?>
+/************************* Héros adverse **************************/
 
-    <!--DIV QUI COMPRENDS LES INFORMATIONS DU HERO PASSIF-->
-    <?php
-    // if(!empty($att) && $visable[$joueurPassif] == 1 && $currentPlayer == $jeton && !$eog){
         echo '<div id="topHeros" class="Heros" data_visable='.$visable[$joueurPassif].' data_cible=J'.$joueurPassif.'>';
-        // echo '<a href="?controller=game&action=play&jeton='.$joueurActif.'&att='.$att.'&cible=J'.$joueurPassif.'&abilite='.$abilite.'">'
         echo '<img src="./assets/img/plateau/portrait/'.$heros[$joueurPassif].'.png">';
-        // echo '</a>';
         echo '<span class="pv">'.$pv[$joueurPassif].'</span>';
         echo '</div>';
-    // }
-    // else{
-    //     echo '<div id="topHeros">';
-    //     echo '<img src="./assets/img/plateau/portrait/'.$heros[$joueurPassif].'.png">';
-    //     echo '<span class="pv">'.$pv[$joueurPassif].'</span>';
-    //     echo '</div>';
-    // }
+
     ?>
-    <!--DIV QUI COMPRENDS LES 2 JAUGES DE MANA ET LES CARTES INVOQUEES-->
-    <!-- <div id="blocCentral"> -->
-        <!--DIV QUI COMPRENDS LA JAUGE DE MANA DU JOUEUR 1 (PILLULE BLEU)-->
+
+<!--************************** Jauge de mana du joueur actif **************************-->
+
         <div id="manaLeft">
             <?php
             for ($i=0; $i < 10-$mana[$joueurActif]; $i++) {
@@ -55,52 +44,43 @@
 <!--*********************************** Plateau (bloc central) *****************************************-->
 
         <div id="plateau">
+
+            <!-- ********** zone du joueur adverse *********** -->
             <div id="topPlateau">
                 <?php
-                foreach ($plateau[$joueurPassif] as $key => $value){
-                    //la carte est selectionnable si le joueur actif
-                    
+                foreach ($plateau[$joueurPassif] as $key => $value){                    
                     echo '<a class="carte '.$value->getType().'" data_visable="'.$value->getVisable().'" data_id="'.$value->getId().'"  data_gameid="'.$value->getGameId().'" data="'.$att.'">';
-                    // if(!empty($att) && $att != $value->getId().$value->getIndice() && $value->getVisable() == 1 && $currentPlayer == $jeton && !$eog){
-
-                    // if($value->getVisable() == 1 && $currentPlayer == $jeton && !$eog){
-                        // echo 'href="?controller=game&action=play&jeton='.$jeton.'&att='.$att.'&cible='.$value->getId().$value->getIndice().'&abilite='.$abilite.'">';
-                        // echo 'href="?controller=game&action=play&jeton='.$jeton.'&att='.$att.'&cible='.$key.'&abilite='.$abilite.'">';
-                    // }else{
-                        // echo '>';
-                    // }
                     echo '<img src="'.$value->getPath().'">';
                     echo '<span class="puissance">'.$value->getPuissance().'</span>';
                     echo '<span class="pv">'.$value->getPv().'</span>';
                     echo '<span class="mana">'.$value->getMana().'</span>';
-                    // echo '<div class="indice"><span>'.$value->getIndice().'</span></div>';
                     echo '<span class="indice">'.$value->getIndice().'</span>';
                     echo '</a>';
                 }
                 ?>
             </div>
+
+            <!-- ********** zone du joueur actif *********** -->
             <div id="bottomPlateau">
                 <?php
                 foreach ($plateau[$joueurActif] as $key => $value){  
-                    echo '<a class="carte '.$value->getType().'" data_active="'.$value->getActive().'" data_id="'.$value->getId().'" data_gameid="'.$value->getGameId().'" data="'.$key.'">';
-                    if($value->getActive() == 1 && $currentPlayer == $jeton && !$eog){
-                        // echo 'href="?controller=game&action=play&jeton='.$jeton.'&att='.$value->getId().$value->getIndice().'&abilite='.$abilite.'">';
-                        // echo 'href="?controller=game&action=play&jeton='.$jeton.'&att='.$value->getGameId().'&abilite='.$abilite.'">';
-                    }else{
-                        // echo '>';
-                    }    
+                    echo '<a class="carte '.$value->getType().'" data_active="'.$value->getActive().'" 
+                                                                data_id="'.$value->getId().'" 
+                                                                data_gameid="'.$value->getGameId().'" 
+                                                                data="'.$key.'">';
                     echo '<img src="'.$value->getPath().'">';
                     echo '<span class="puissance">'.$value->getPuissance().'</span>';
                     echo '<span class="pv">'.$value->getPv().'</span>';
                     echo '<span class="mana">'.$value->getMana().'</span>';
-                    // echo '<div class="indice"><span>'.$value->getIndice().'</span></div>';
                     echo '<span class="indice">'.$value->getIndice().'</span>';
                     echo '</a>';
                 }
                 ?>
             </div>
         </div>
-       
+
+<!--************************** Jauge de mana du joueur adverse **************************-->    
+
         <div id="manaRight">
             <?php
             for ($i=0; $i < 10-$mana[$joueurPassif]; $i++) {
@@ -113,13 +93,15 @@
         </div>
     <!-- </div> -->
 
-<!--************************ zone du joueur actif ***************************-->
+<!--************************ Héros du joueur actif ***************************-->
 
     <div id="bottomHeros" class="Heros">
         <img src="<?= IMG_PATH . DS . 'plateau' . DS . 'portrait' . DS . $heros[$joueurActif] . '.png' ?>">
         <span class="pv"><?=$pv[$joueurActif]?></span>
         <p>Tour <?= $tour ?></p>
     </div>
+
+<!--************************ Pioche et défausse ***************************-->
 
 <?php if(count($pioche) > 0){ ?>
     <div id="piocheBottom">
@@ -129,7 +111,6 @@
 
 <?php  }
 if(!empty($defausse[$currentPlayer])){ 
-    // var_dump($lastDead[$currentPlayer]);
     echo '<div id="defausseBottom" data="'.$lastDead[$currentPlayer][0]['pc_id'].'">';
     foreach ($defausse[$currentPlayer] as $value) {
         if($value->getGameId() == $lastDead[$currentPlayer][0]['pc_id']){
@@ -137,21 +118,18 @@ if(!empty($defausse[$currentPlayer])){
         }
     }
     echo '</div>';
-    ?>
-<!--     <div id="defausseBottom">
-        <img src="<?= end($defausse[$currentPlayer]) ? end($defausse[$currentPlayer])->getPath() : ''?>" data="<?= $lastDead[$currentPlayer][0]['pc_id'] ?>">
-    </div> -->
-<?php 
  } ?>
 
 <!--************************ zone de contrôle (bande inférieure du plateau) ***************************-->
 
     <div id="actionBar"> 
 
+        <!-- ************ bouton quitter ************* -->
         <nav id="quitter">
             <a href="?controller=game&action=quitter">Quitter</a>
         </nav>
 
+        <!-- ************ Main du joueur ************* -->
         <div id="main">
             <?php
             foreach($main[$joueurActif] AS $key => $value){
@@ -162,10 +140,6 @@ if(!empty($defausse[$currentPlayer])){
                         data_id="'.$value->getId().'" 
                         data_indice="'.$value->getIndice().'" 
                         data_gameid="'.$value->getGameId().'"';
-                if ($currentPlayer == $jeton){
-                    // echo '<a class="carteMain '.$value->getType().'" href="?controller=game&action=play&jeton='.$jeton.'&jouer='.$value->getId().$value->getIndice().'">';
-                    // echo ' href="?controller=game&action=play&jeton='.$jeton.'&jouer='.$key.'"';
-                }
                 echo '>';
                 
                 echo '<img src="'.$value->getPath().'">';
@@ -184,6 +158,7 @@ if(!empty($defausse[$currentPlayer])){
             ?>
         </div>
 
+        <!-- ************ bouton fin de tour ************* -->
         <nav id="end">
         <?php
             if($jeton == $joueurActif){
@@ -199,9 +174,9 @@ if(!empty($defausse[$currentPlayer])){
 
 <?php
 
-/************ Affiche l'historique *************/
+/************ Fonction d'affichage de l'historique *************/
 
-function displayHistorique($historique, $currentPlayer, $jeton){
+function displayHistorique($historique, $currentPlayer){
     $skull = IMG_PATH . DS . 'hist' . DS . 'skull_ter.png';
     echo '<div id="historique">';
     echo '<div id="events">';
@@ -233,7 +208,7 @@ function displayHistorique($historique, $currentPlayer, $jeton){
     echo '</div>';
     echo '</div>';
 
-    /* event box */
+    /*** event box ***/
     if(!empty($historique)){
         foreach ($historique as $event){
             echo '<div class="eventBox" data_event_id="'.$event->getId().'">';
@@ -244,7 +219,6 @@ function displayHistorique($historique, $currentPlayer, $jeton){
                 echo '<span class="puissance">'.$event->getCarte()->getPuissance().'</span>';
                 echo '<span class="pv">'.$event->getCarte()->getPv().'</span>';
                 echo '<span class="mana">'.$event->getCarte()->getMana().'</span>';
-                // echo '<div class="indice"><span>'.$event->getCarte()->getIndice().'</span></div>';
                 echo '<span class="indice">'.$event->getCarte()->getIndice().'</span>';
                 echo '</div>';
             }else{
@@ -253,7 +227,6 @@ function displayHistorique($historique, $currentPlayer, $jeton){
                 echo '<span class="puissance">'.$event->getAtt()->getPuissance().'</span>';
                 echo '<span class="pv">'.$event->getAtt()->getPv().'</span>';
                 echo '<span class="mana">'.$event->getAtt()->getMana().'</span>';
-                // echo '<div class="indice"><span>'.$event->getAtt()->getIndice().'</span></div>';
                 echo '<span class="indice">'.$event->getAtt()->getIndice().'</span>';
                 if($event->getMortAtt() == true && $event->getAtt()->getType() != 'sort'){
                     echo '<img class="skull" src="' . IMG_PATH . DS . 'hist' . DS . 'skull_ter.png">';
@@ -272,7 +245,6 @@ function displayHistorique($historique, $currentPlayer, $jeton){
                     echo '<span class="puissance">'.$event->getCible()->getPuissance().'</span>';
                     echo '<span class="pv">'.$event->getCible()->getPv().'</span>';
                     echo '<span class="mana">'.$event->getCible()->getMana().'</span>';
-                    // echo '<div class="indice"><span>'.$event->getCible()->getIndice().'</span></div>';
                     echo '<span class="indice">'.$event->getCible()->getIndice().'</span>';
                     if($event->getMortCible() == true){
                         echo '<img class="skull" src="' . IMG_PATH . DS . 'hist' . DS . 'skull_ter.png">';
