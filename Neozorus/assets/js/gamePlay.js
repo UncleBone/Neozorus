@@ -15,22 +15,19 @@ function ajax(nom,data,fct){
 }
 
 /************Fonction active pendant le tour du joueur actif**************/
-/*  Déclenche le changement de jeton au click sur le bouton fin de tour
- */
 
 function gamePlay(jet, att, cible, abilite, eog){
     var jeton = jet;
     var timerFB;
-    console.log('jet:'+jet+', att:'+att+', cible:'+cible+', abilite:'+abilite+' eog:'+eog);
-    historique();
+    // console.log('jet:'+jet+', att:'+att+', cible:'+cible+', abilite:'+abilite+' eog:'+eog);
+    historique();   // mise en forme de l'historique
+
+    /*** si la partie n'est pas terminée ***/
     if(eog != '1'){
-        $('#end').css('cursor','pointer').attr('title','Fin de tour');
-
-        if($('.error').length != 0) fade($('.error'));
-        $('.sommeil').remove();
-
         var carteMain = $('.carteMain');
-  
+
+        if($('.error').length != 0) fade($('.error'));  // fade sur message d'erreur
+        $('.sommeil').remove(); // retrait des animations de sommeil sur les cartes inactives
         $('#plateau :not(.carte)').off('click'); // réinitialisation de l'event click
         $('main').css('cursor','auto'); // réinitialisation du curseur
         $('.ciblage').remove(); // effacement des animations de ciblage
@@ -48,9 +45,8 @@ function gamePlay(jet, att, cible, abilite, eog){
                 $('.message').remove();
                 gamePlay(jeton, '', '', abilite, eog);
             });
-            // $('#plateau :not(.carte)').css('cursor','url(assets/img/cursor/cursorCross.png), auto');
         }
-        // var cartePlateau = $('#bottomPlateau a.carte');
+
 
         /****************** animation et zoom sur les cartes de la main *******************/
 
@@ -58,13 +54,14 @@ function gamePlay(jet, att, cible, abilite, eog){
             let id = $(this).attr('data_id');
             let indice = $(this).attr('data_indice');
             let gameId = $(this).attr('data_gameid');
-            // console.log(att+' '+id+indice);
-            $(this).off('mouseenter mouseleave');
-            $(this).find('img').css('outline','none');
-            // $(this).off('click');
+            $(this).off('mouseenter mouseleave');   // désactivation du hover
+            $(this).find('img').css('outline','none');  // effacement des bordures
+            
+            /*** si le mode attaque n'est pas activé ***/
             if(!$.isNumeric(att)){
-                $(this).css('top',"0");
+                $(this).css('top',"0"); // remise à niveau des cartes
                 let timer;
+                /** surélévation et zoom au survol **/
                 $(this).hover(function(e){
                     $(this).css('top','-20px');
                     var target = $(this);
@@ -74,13 +71,14 @@ function gamePlay(jet, att, cible, abilite, eog){
                     $('[class^=zoom]').remove();
                     clearTimeout(timer);
                 });
+                /** effacement du zoom au click **/
                 $(this).click(function(){
                     $('[class^=zoom]').remove();
                     clearTimeout(timer);
                 });
-            // }else if(att == id+indice){
+            /*** si le mode attaque est activé par une carte sort de la main ***/
             }else if(att == gameId){
-                flickeringBorder($(this).find('img'), 'on');
+                flickeringBorder($(this).find('img'), 'on');    // activation de la bordure clignotante
             }
         });
 
@@ -92,106 +90,96 @@ function gamePlay(jet, att, cible, abilite, eog){
             let id = $(this).attr('data_id');
             let index = $(this).find('.indice span').text();
             let gameId = $(this).attr('data_gameid');
-// console.log(att+' '+gameId);
+
             if(target.attr('data_active') == 0 ){
-                sommeil(target);
+                sommeil(target);    // animation sommeil sur les cartes inactives du plateau
             }
             
-            // console.log('att:'+att+', id+index:'+id+index);
             target.css('cursor','auto');    // réinitialisation du curseur
             $(this).off('mouseenter mouseleave');   // désactivation du hover
 
-            /* Si aucune carte n'est sélectionnée pour attaquer: border au hover + zoom */
+            /*** Si aucune carte n'est sélectionnée pour attaquer: border au survol + zoom ***/
             if(!$.isNumeric(att)){ 
                 $(this).hover(function(e){     
                     target.find('img').css('outline', '1px solid white');
                     timer = setTimeout(zoom, 1000, target);
-                    // console.log('hover');
                 }, function(){
                     $(this).find('img').css('outline',"none");
                     $('[class^=zoom]').remove();
                     clearTimeout(timer);
                 });
+                /** effacement du zoom au click **/
                 $(this).click(function(){
                     $('[class^=zoom]').remove();
                     clearTimeout(timer);
                 });
-            /* Si mode attaque activé: animation pour les cibles + bordure clignotante pour la carte attaquante */
+
+            /*** Si mode attaque activé: animation pour les cibles + bordure clignotante pour la carte attaquante ***/
             }else{ 
 
-                // if (att != id+index){
                 if (att != gameId){
-                    $('main').css('cursor','url(assets/img/cursor/cursorCross.png), auto');
+                    $('main').css('cursor','url(assets/img/cursor/cursorCross.png), auto'); // curseur croix par défaut
                     if(target.parent().attr('id') == 'topPlateau' && target.attr('data_visable') == '1'){
-                        // target.css('cursor','url(assets/img/cursor/cursorTarget.png), auto');
-                        ciblage(target.find('img'));
+                        ciblage(target.find('img'));    // animation de ciblage pour les cibles potentielles
                     }else{
                         target.css('cursor','url(assets/img/cursor/cursorCross.png), auto');
                     }
                 }else{
-
-                // let width = target.width(); 
-                // target.find('img').css('outline', 'none');
-
-                flickeringBorder(target.find('img'), 'on');
-                // target.css('width', parseInt(width+5)+'px');
-                // target.find('img').css('box-shadow', '5px 5px 5px');
-
+                    flickeringBorder(target.find('img'), 'on');
                 }
             }
         });
 
-
         /***************** Changement de jeton au click sur le bouton 'fin de tour' ******************/
 
+        $('#end').css('cursor','pointer').attr('title','Fin de tour');
         $('#end img').click(function(){
             ajax("play", "&jeton="+(1-jeton), function(result) {
                 var contenu = $('#contenu');
                 contenu.html(result['view']);
-                chgTurnMssg(1);
-                gameWaitingTurn();
+                chgTurnMssg(1); // message de chgt de tour
+                gameWaitingTurn();  // passage en mode attente
             });
         });
+    /*** si la partie est terminée ***/
     }else{
         $('.carteMain').off('click hover');
         $('.carteMain').css('cursor','auto');
         $('.carteMain').removeAttr('href');
     }
 }
+
 /*
  * Gestion des cartes de la main en ajax
  */
 function reqAjaxCarteMain(jeton, att){
-    var att = att;
     var carteMain = $('.carteMain');
     carteMain.each(function(){
-        let href = $(this).attr('href');
-        // $(this).removeAttr('href');
         $(this).css('cursor',"pointer");
-        $(this).off('click');
+        $(this).off('click');   // désactivation des évenements click
         $(this).click(function(e){
             e.preventDefault();
             let carte = $(this);
-            carte.off('hover');
-            $('[class^=zoom]').remove();
-            // let regex = new RegExp('.*jouer=(\\d+)$', 'i');
-            // let id = href.match(regex)[1];
+            carte.off('hover'); // désactivation du hover
+            $('[class^=zoom]').remove();    // effacement du zoom
             let id = $(this).attr('data_gameid');
             ajax("play", "&jouer="+id, function(result) {
                 console.log(id);
+                /*** si le serveur renvoie un message d'erreur ***/
                 if(result['error'] != null){
-                    $('.error').remove();
+                    $('.error').remove();   // effacement des messages antérieurs
                     $('.message').remove();
+
+                    /** si mana insuffisant **/
                     if(result['error'] == "Vous n'avez pas assez de mana!" ){
                         let error = $('<p>').addClass('error').text(result['error']);
                         $('main').append(error);
                         fade(error);
-                    }else if(result['error'] == "Choisissez la cible" ){    // si c'est une carte sort
+
+                    /** si c'est une carte sort **/
+                    }else if(result['error'] == "Choisissez la cible" ){    
                         let message = $('<p>').addClass('message').text(result['error']);
                         $('main').append(message);
-                        // let id = carte.find('img').attr('data_id');
-                        // let indice = carte.find('img').attr('data_indice');
-                        // let attCarte = id+indice;
                         let attCarte = id;
                         let abilite = [];
                         let abiliteCarte = 0;
@@ -200,10 +188,11 @@ function reqAjaxCarteMain(jeton, att){
                         for(ab of abilite){
                             if(ab != 0) abiliteCarte = ab;
                         }
-                        gamePlay(jeton,attCarte,'',abiliteCarte,eog);
+                        gamePlay(jeton,attCarte,'',abiliteCarte,eog);   // on relance le script en mode attaque
                     }
-                }else{
-                    
+
+                /*** si pas de message d'erreur, rafraîchit la page et relance le script ***/
+                }else{                   
                     var contenu = $('#contenu');
                     contenu.html(result['view']);
                     var infoBox = $('#infoBox');
@@ -230,25 +219,15 @@ function reqAjaxCarteMain(jeton, att){
  * Gestion des cartes du plateau en ajax
  */
 function reqAjaxCartePlateau(jeton,att,abilite){
-    // var jeton = jet;
-    // var att = att;
     var cartePlateau = $('.carte');
-    cartePlateau.each(function(){
-        // cartePlateau.off('click');
-        // let href = $(this).attr('href');
-        // let regex = new RegExp('&att=(\\d+)(?:&cible=(\\d+))*&abilite=(\\d)$', 'i');
-        // if(typeof(href) != 'undefined'){
-        //     var attCarte = href.match(regex)[1];
-        //     var cibleCarte = href.match(regex)[2];
-        //     var abiliteCarte = href.match(regex)[3];
-        // }
 
+    cartePlateau.each(function(){
         let parentId = $(this).parent().attr('id');
 
         if(parentId == 'bottomPlateau' && currentPlayer == jeton && $(this).attr('data_active') == 1){
             let attCarte = $(this).attr('data_gameid');
             bottomPlateau($(this),attCarte,abilite,jeton,cible,eog);
-        }else if(parentId == 'topPlateau' && currentPlayer == jeton && $.type(att) != 'undefined' && att != '' ){
+        }else if(parentId == 'topPlateau' && currentPlayer == jeton && $.type(att) != 'undefined' && att != '' && $(this).attr('data_visable') == 1){
             let cibleCarte = $(this).attr('data_gameid');
             console.log('cible'+cibleCarte);
             topPlateau($(this),att,abilite,jeton,cibleCarte,eog);
@@ -265,7 +244,7 @@ function bottomPlateau(carte,attCarte,abilite,jeton,cible,eog){
         e.preventDefault();
         e.stopPropagation();
         ajax("play", "&att="+attCarte+"&abilite="+abilite, function(result) {
-          
+            /** si le serveur renvoie un message (ciblage) **/        
             if(result['error'] != null){
                 $('.error').remove();
                 $('.message').remove();
@@ -286,35 +265,17 @@ function topPlateau(carte,att,abilite,jeton,cible,eog){
     carte.off('click');
     cible = carte.attr('data_gameid');
     carte.click(function(e){
-        // console.log(att);
         e.stopPropagation();
-        // console.log('click');
         e.preventDefault();
-        
-        // let id = $(this).attr('data_id');
-        // let index = $(this).find('.indice span').text();
-        console.log('prehit att'+att);
-        hitAnimation($(this),att);
-        // console.log(cible);
-        setTimeout(function(){
+        // console.log('prehit att'+att);
+        hitAnimation($(this),att);  // animation de coup
+        setTimeout(function(){  // fct de délais pour laisser à l'animation le temps de se dérouler
             ajax("play", "&att="+att+"&cible="+cible+"&abilite="+abilite, function(result) {
                 let contenu = $('#contenu');
                 contenu.html(result['view']);             
                 gamePlay(result['jeton'],result['att'],result['cible'],result['abilite'],result['eog']);
             });
         }, 1000);
-        // console.log('hit');
-        // ajax("play", "&att="+att+"&cible="+cibleCarte+"&abilite="+abiliteCarte, function(result) {
-        // if(anim == 'animationStop'){
-            // ajax("play", "&att="+att+"&cible="+id+index+"&abilite="+abilite, function(result) {
-            //     let contenu = $('#contenu');
-            //     hitAnimation($(this));
-
-            //     // contenu.html(result['view']);
-                
-            //     gamePlay(result['jeton'],result['att'],result['cible'],result['abilite'],result['eog']);
-            // });
-        // }
     });
 }
 
@@ -326,25 +287,12 @@ function reqAjaxJoueur(jet, att, abilite){
     joueurAdverse.css('cursor','auto'); // réinitialisation du curseur
     joueurAdverse.off('click'); // désactivation de l'event
     if($.isNumeric(att) && joueurAdverse.attr('data_visable') == 1){
-        // console.log('att'+att);
-        // let href = joueurAdverse.find('a').attr('href');
-        // joueurAdverse.removeAttr('href');
-        // console.log(href);
-        // let regex = new RegExp('&att=(\\d{2,3})&cible=(J[01])&abilite=(\\d)$', 'i');
-
-        // let att = href.match(regex)[1];
-        // let cible = href.match(regex)[2];
-        // let abilite = href.match(regex)[3];
-
-        // joueurAdverse.css('cursor','url(assets/img/cursor/cursorTarget.png), auto');
         ciblage(joueurAdverse.find('img'));
-        // if(currentPlayer == jeton){
-            // joueurAdverse.css('cursor',"pointer");
         let cible = joueurAdverse.attr('data_cible');
         joueurAdverse.click(function(e){
             e.preventDefault();
-            hitAnimation($(this),att);
-            setTimeout(function(){
+            hitAnimation($(this),att);  // animation de coup
+            setTimeout(function(){  // fct de délais pour laisser à l'animation le temps de se dérouler
                 ajax("play", "&att="+att+"&cible="+cible+"&abilite="+abilite, function(result) {
                     let contenu = $('#contenu');
                     contenu.html(result['view']);
@@ -352,7 +300,7 @@ function reqAjaxJoueur(jet, att, abilite){
                 });
             },1000);
         });
-        // }
+
     }else if ($.isNumeric(att) && joueurAdverse.attr('data_visable') == 0) {
         joueurAdverse.css('cursor','url(assets/img/cursor/cursorCross.png), auto');
     }
