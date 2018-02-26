@@ -401,6 +401,8 @@ function gameWaitingTurn(){
             }
             if(!result['eog']){
                 if(j == currentPlayer && result['PeM'] == 1){
+                    contenu.html(result['view']);
+                    historique();
                     chgTurnMssg(0);
                     gamePlay(j,result['att'],result['cible'],result['abilite'],result['eog']);
                     clearInterval(interval);     
