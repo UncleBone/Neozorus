@@ -387,7 +387,7 @@ function gameWaitingTurn(){
             let lastEvent = result['lastEvent'];
             let oldLastEvent = $('.event').last().attr('data_event_id');
             console.log('waiting, lastEvent:'+lastEvent+', oldLastEvent:'+oldLastEvent);
-            if(lastEvent != oldLastEvent || j == currentPlayer){
+            if(lastEvent != oldLastEvent){
                 if(result['lastEventType'] == 2 || result['lastEventType'] == 3){    
                     hitAnimationJoueurPassif(result);
                     setTimeout(function(){
@@ -397,8 +397,7 @@ function gameWaitingTurn(){
                 }else{
                     contenu.html(result['view']);
                     historique();
-                }
-                
+                }               
             }
             if(!result['eog']){
                 if(j == currentPlayer && result['PeM'] == 1){
@@ -642,10 +641,11 @@ function hitAnimation(element,att){
     let topPosition = element.position().top;
     let timer = setInterval(function(){
         if(cpt < 100 ){
+            let direction = (element.parent().attr('id') == 'bottomPlateau' || element.attr('id') == 'bottomHeros') ? 1 : -1;
             if(element.attr('class') != 'Heros'){
-                element.css('top',-Math.sin(cpt*Math.PI/25)*200/cpt+'px');
+                element.css('top',direction*Math.sin(cpt*Math.PI/25)*200/cpt+'px');
             }else{
-                element.css('top',parseInt(-Math.sin(cpt*Math.PI/25)*200/cpt+topPosition)+'px');
+                element.css('top',parseInt(direction*Math.sin(cpt*Math.PI/25)*200/cpt+topPosition)+'px');
             }
             cpt++;
         }else{
