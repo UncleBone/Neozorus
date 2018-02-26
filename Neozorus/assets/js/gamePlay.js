@@ -411,7 +411,7 @@ function gameWaitingTurn(){
                 }               
             }
             if(!result['eog']){
-                if(j == currentPlayer && result['PeM'] == 1){
+                if(j == currentPlayer && result['PeM'] == 1 && result['mana'] > 0){
                     contenu.html(result['view']);
                     historique();
                     chgTurnMssg(0);
@@ -687,7 +687,7 @@ function hitAnimation(element,att,puissSort = null){
             carteAtt.append(damageAtt);
         }
 
-        damageCible.css('top',topPvCible).css('left',leftPvCible+($.type(puissSort) === 'null' ? heightAtt : 20));
+        damageCible.css('top',topPvCible).css('left',leftPvCible+($.type(puissSort) === 'null' ? heightAtt : 10));
 
         element.append(damageCible);
         $('.damage').animate({left:'+=5'},500,'linear').animate({left:'+=5', opacity:'0'},500,function(){
