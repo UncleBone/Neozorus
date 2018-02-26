@@ -98,10 +98,18 @@ class GameController extends CoreController{
         }else{
             $id = $this->parameters['id'];
             $deck = new GameDeckModel();
+            $gameModel = new GameModel();
             if(empty($deck->checkId($id))){
                 $this->redirect404();
             }else{
                 $deck->setWaitingLine($id,1);
+                $DIRG = $gameModel->checkDeckInRunningGame($id);
+                if(!empty($DIRG)){ 
+                    $_SESSION['neozorus']['game'] = $DIRG[0]['p_id'];
+                    header('Location:?controller=game&action=play');
+                }else{
+                    unset($_SESSION['neozorus']['game']);
+                }
                 $waitingLine = $deck->checkWaitingLine($id);
                 if(!empty($waitingLine)){
                     $deck1 = $id;
@@ -127,7 +135,7 @@ class GameController extends CoreController{
                 if(!empty($waitingLine)) {
                     $gameModel = new GameModel();
                     $DIRG = $gameModel->checkDeckInRunningGame($id);
-                    $res = !empty($DIRG) == 2 ? 'ok' : null;
+                    $res = !empty($DIRG) ? 'ok' : null;
                 }else{
                     $res = null;
                 }
