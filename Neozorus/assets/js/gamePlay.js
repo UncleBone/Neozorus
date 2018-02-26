@@ -392,11 +392,13 @@ function gameWaitingTurn(){
                     hitAnimationJoueurPassif(result);
                     setTimeout(function(){
                         contenu.html(result['view']);
+                        historique();
                     }, 1000);
                 }else{
                     contenu.html(result['view']);
+                    historique();
                 }
-                historique();
+                
             }
             if(!result['eog']){
                 if(j == currentPlayer && result['PeM'] == 1){
