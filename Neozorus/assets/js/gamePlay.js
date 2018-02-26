@@ -433,7 +433,7 @@ function fade(element) {
     }, 50);
 }
 
-/***************************** border clignotante **********************************/
+/***************************** active ou désactive une bordure clignotante **********************************/
 function flickeringBorder(element, swtch){
     let cpt = 0;
     if(swtch == 'on'){
@@ -689,14 +689,14 @@ function hitAnimationJoueurPassif(result){
     let type = result['lastEventType'];
     let att = result['lastEventAtt'];
     let cible = type == 2 ? $('[data_gameid='+result['lastEventCible']+']') : $('#bottomHeros');
-    // console.log(result);
-    // console.log('type: '+type+', att: '+att+'cible: '+cible);
+    // flickeringBorder($('[data_gameid='+att+']').find('img'),'on');
+    $('[data_gameid='+att+']').find('img').css('outline','white 1px solid');
     ciblage(cible.find('img'));
     setTimeout(function(){
         hitAnimation(cible,att);
     },100);
-    
-
+    // flickeringBorder($('[data_gameid='+att+']').find('img'),'off');
+    // $('[data_gameid='+att+']').css('outline','none');
 }
 /**************** Mise en forme de l'historique ************/
 
