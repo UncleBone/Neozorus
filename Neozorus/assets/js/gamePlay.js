@@ -388,11 +388,22 @@ function gameWaitingTurn(){
             let oldLastEvent = $('.event').last().attr('data_event_id');
             console.log('waiting, lastEvent:'+lastEvent+', oldLastEvent:'+oldLastEvent);
             if(lastEvent != oldLastEvent){
-                if(result['lastEventType'] == 2 || result['lastEventType'] == 3){    
+                if(result['lastEventType'] == 2 || result['lastEventType'] == 3){ 
+                    clearInterval(interval); 
                     hitAnimationJoueurPassif(result);
                     setTimeout(function(){
                         contenu.html(result['view']);
                         historique();
+                        gameWaitingTurn();
+                        // if(!result['eog']){
+                        //     if(j == currentPlayer && result['PeM'] == 1){
+                        //         chgTurnMssg(0);
+                        //         gamePlay(j,result['att'],result['cible'],result['abilite'],result['eog']);
+                        //         clearInterval(interval);     
+                        //     }
+                        // }else{       
+                        //     clearInterval(interval);  
+                        // }
                     }, 1100);
                 }else{
                     contenu.html(result['view']);
@@ -690,6 +701,7 @@ function hitAnimationJoueurPassif(result){
     let att = result['lastEventAtt'];
     let cible = type == 2 ? $('[data_gameid='+result['lastEventCible']+']') : $('#bottomHeros');
     // flickeringBorder($('[data_gameid='+att+']').find('img'),'on');
+    console.log('animation j passif');
     $('[data_gameid='+att+']').find('img').css('outline','white 1px solid');
     ciblage(cible.find('img'));
     setTimeout(function(){
