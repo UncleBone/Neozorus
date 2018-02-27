@@ -23,7 +23,6 @@ body
 	background-size: 100vw 100vh;
 	font-size: 15px;
 	overflow: hidden;
-	/*font-family: 'fira_code', Verdana;*/
 }
 
 body *
@@ -47,7 +46,6 @@ a
 	transform: translateX(50%);
 	padding: 10px;
 	font-family: 'godzilla';
-	/*font-size: 25px;*/
 	font-size: 2em;
 	color: white;
 	background-color: rgba(0, 0, 0, 0.7);
@@ -222,7 +220,6 @@ a
 
 .Heros
 {
-	/*width:155px;*/
 	height: 20vh;
 	position: absolute;
 	left: 50%;
@@ -236,14 +233,11 @@ a
 {
 	position: absolute;
 	z-index: 10;
-	/*top:45px;*/
-	/*left:29px;*/
 	top: 24%;
 	left: 17%;
 }
 .Heros .pv
 {
-	/*font-size: 21px;*/
 	font-size: 2.5vh;
 	color: white;
 	font-family: 'Godzilla';
@@ -261,7 +255,6 @@ a
 	bottom: -5px;
 	left:50%;
 	transform: translateX(-50%);
-	/*width: 130px;*/
 	width: 80%;
 	min-width: 100px;
 	text-align: center;
@@ -322,9 +315,6 @@ a
 	flex-direction: row;
 	justify-content: center;
 	align-items: center;
-	/*flex-wrap: wrap;*/
-	/*overflow-x: hidden;*/
-	/*overflow-y: visible;*/
 }
 
 /************************* Cartes du plateau *****************************/
@@ -333,19 +323,11 @@ a
 {
 	position: relative;	/* pour positionner les stats */
 	display: block;
-	/*display: flex;*/
-	/*width: 120px;*/
-	/*height: 24vh;*/
-	/*min-height: 100%;*/
-	/*max-height: min-content;*/
 	margin: 0 0.5%;
-	/*flex-basis: min-content;*/
 }
 
 .carte img
 {
-	/*width: 100%;*/
-	/*height: 100%;*/
 	max-height: 24vh;
 	max-width: 100%;
 }
@@ -356,7 +338,6 @@ a
 	z-index:1;
 	color:white;
 	font-family: 'godzilla', Verdana;
-	/*font-size: 0.9em;*/
 	font-size: 2vh;
 }
 
@@ -374,8 +355,6 @@ a
 
 .carte .puissance
 {
-/*	top:23px;
-	left:39px;*/
 	top: 13.5%;
 	left: 32%;
 }
@@ -386,99 +365,61 @@ a
 }
 .carte.creature .mana
 {
-/*	top:67px;
-	left:20px;*/
 	top: 39%;
 	left: 15.5%;
 }
 .carte.speciale > span:not(.indice)
 {
-	/*left:18px;*/
 	left: 14.5%;
 }
 .carte.speciale .puissance
 {
-	/*top:12px;*/
 	top: 7%;
 }
 .carte.speciale .pv
 {
-	/*top:32px;*/
 	top: 19%;
 }
 .carte.speciale .mana
 {
-	/*top:51px;*/
 	top: 30%;
 }
 .zoom span
 {
-	/*font-size: 1.3rem;*/
 	font-size: 1.3em;
 }
 
 .zoom.creature span.puissance, .zoom.sort span.puissance
 {
-	/*top: 40px;
-	left: 65px;*/
 	top: 14.5%;
 	left: 32.5%;
 }
 .zoom.creature span.pv, .zoom.sort span.manaCost
 {
-/*	top: 72px;
-	left: 41px;*/
 	top: 25.5%;
 	left: 20.5%;
 }
 .zoom.creature span.manaCost
 {
-/*	top: 112px;
-	left: 32px;*/
 	top: 39.5%;
 	left: 15.5%;
 }
 .zoom.speciale span:not(.indice)
 {
-	/*left: 30px;*/
 	left: 15%;
 }
 .zoom.speciale span.pv
 {
-	/*top: 22px;*/
 	top: 8%;
 }
 .zoom.speciale span.puissance
 {
-	/*top: 54px;*/
 	top: 20%;
 }
 .zoom.speciale span.manaCost
 {
-	/*top: 86px;*/
 	top: 31%;
 }
-.zoom .indice{
-/*	position: absolute;
-	background-color: white;
-	width:10px;
-  	height:10px;
-	border-radius: 50%;
-	z-index: 1;*/
-	/*right: 10px;*/
-	/*top: 35px;	*/
-/*	right: 3.5%;
-	top: 13%;	*/
-}
-
-/*.zoom .indice span{
-	position: relative;
-	top: -6px;
-	left: 1.5px;
-	color: black;
-	font-size: 10px;
-	font-family: 'fira_code';
-}*/
 .zoom .indice
 {
 	right: 2.5%;
@@ -490,6 +431,7 @@ a
 	font-size: 10px;
 	font-family: 'fira_code';
 }
+
 /*********************** animations cartes *************************/
 
 .sommeil
@@ -609,12 +551,9 @@ a
 .carteMain  
 {
 	position: relative;	/* pour positionner les stats */
-	/*top: 40px;*/
 	display: block;
-	/*width: 100px;*/
 	width: 8vw;
 	margin: 0 0.5%;
-	/*align-self: flex-start;*/
 }
 
 .carteMain img
@@ -628,49 +567,38 @@ a
 	z-index:10;
 	color:white;
 	font-family: 'Godzilla';
-	/*font-size: 0.8em;*/
 	font-size: 1vw;
 }
 
 .carteMain .puissance
 {
-	/*top:19px;*/
 	top: 12.5%;
-	/*left:32px;*/
 	left: 32%;
 }
 .carteMain.creature .pv, .carteMain.sort .mana
 {
-/*	top:35px;
-	left: 20px;*/
 	top: 24%;
 	left: 20%;
 }
 .carteMain.creature .mana
 {
-/*	top:56px;
-	left:15px;*/
 	top: 38%;
 	left: 15%;
 }
 .carteMain.speciale span:not(.indice)
 {
-	/*left:14px;*/
 	left: 14%;
 }
 .carteMain.speciale .puissance
 {
-	/*top:10px;*/
 	top: 6.5%;
 }
 .carteMain.speciale .pv
 {
-	/*top:27px;*/
 	top: 18%;
 }
 .carteMain.speciale .mana
 {
-	/*top:44px;*/
 	top: 29%;
 }
 
