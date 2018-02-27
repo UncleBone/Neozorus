@@ -455,6 +455,7 @@ class GameController extends CoreController{
                 'lastEventAttType' => (!empty($historique) && end($historique)->getType() != 1) ? end($historique)->getAtt()->getType() : '',
                 'PeM' => $this->getPiocheEtMana(), 
                 'mana' => $mana[$currentPlayer],
+                'tour' => $tour,
                 'eog' => $eog ];
 
         echo json_encode($data, JSON_UNESCAPED_UNICODE );

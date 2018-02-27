@@ -360,7 +360,7 @@ function gameWaitingTurn(){
             if(!result['eog']){
 
                 /** si le tour du joueur est venu et que sa jauge de mana est chargée **/
-                if(j == currentPlayer && result['PeM'] == 1 && result['mana'] > 0){
+                if(j == currentPlayer && result['PeM'] == 1 && (result['mana'] == result['tour'] || result['mana'] == 10)){
                     contenu.html(result['view']);
                     historique();
                     chgTurnMssg(0);
