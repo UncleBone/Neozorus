@@ -30,7 +30,6 @@
      <script src="<?= JS_PATH . DS . 'gamePlay.js' ?>"></script>
 </head>
 <body>
-    <!-- <img id="plateau" src="<?= IMG_PATH . DS . 'plateau' . DS . 'plateau.png' ?>"> -->
     <main id="contenu">
         <?= $gameView ?>
     </main>

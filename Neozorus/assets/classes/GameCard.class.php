@@ -51,37 +51,75 @@ class GameCard
         $this->setVisable(1);
     }
 
+/************* Getters **************/
+
     function getId(){
         return $this->id;
     }
-
     function getGameId(){
         return $this->gameId;
     }
-
     function getLibelle(){
         return $this->libelle;
     }
-
     function getType(){
         return $this->type;
     }
-
     function getPuissance(){
         return $this->puissance;
     }
-
     function getPv(){
         return $this->pv;
     }
+    function getPvMax(){
+        return $this->pvMax;
+    }
+    function getLocalisation(){
+        return $this->localisation;
+    }
+    function getIndice() {
+        return $this->indice;
+    }
+    function getMana() {
+        return $this->mana;
+    }
+    function getAbilite(){
+        return $this->abilite;
+    }
+    function getPath(){
+        return $this->path;
+    }
+    function getActive(){
+        return $this->active;
+    }
+    function getVisable(){
+        return $this->visable;
+    }
+
+/************* Setters **************/
 
     function setPv($pv){
         $this->pv = $pv;
     }
+    function setLocalisation($loc){
+        $this->localisation = $loc;
+    }
+    function setPath(){
+        $this->path = GABARIT_PATH . DS . $this->getType() . DS . $this->getId() . '.png';
+    }
+    function setActive($a = int){
+        $this->active = $a;
+    } 
+    function setVisable($a = int){
+        $this->visable = $a;
+    }
+    function setGameId($gId){
+        $this->gameId = $gId;
+    }
 
-    /*
-     * diminue les pv d'une certaine valeur et retourne la nouvelle valeur
-     */
+/*
+ * diminue les pv d'une certaine valeur et retourne la nouvelle valeur
+ */
     function subPv($val){
         $a = $this->getPv() - $val;
         if($a <0 ){
@@ -89,55 +127,5 @@ class GameCard
         }
         $this->setPv($a);
         return $a;
-    }
-
-    function getPvMax(){
-        return $this->pvMax;
-    }
-
-    function setLocalisation($loc){
-        $this->localisation = $loc;
-    }
-
-    function getLocalisation(){
-        return $this->localisation;
-    }
-
-    function getIndice() {
-        return $this->indice;
-    }
-
-    function getMana() {
-        return $this->mana;
-    }
-
-    function getAbilite(){
-        return $this->abilite;
-    }
-
-    function getPath(){
-        return $this->path;
-    }
-    function setPath(){
-        $this->path = GABARIT_PATH . DS . $this->getType() . DS . $this->getId() . '.png';
-    }
-
-    function getActive(){
-        return $this->active;
-    }
-    function setActive($a = int){
-        $this->active = $a;
-    }
-
-    function getVisable(){
-        return $this->visable;
-    }
-
-    function setVisable($a = int){
-        $this->visable = $a;
-    }
-
-    function setGameId($gId){
-        $this->gameId = $gId;
-    }
+    }    
 }

@@ -6,7 +6,6 @@ class GameDeck{
 
 	public function __construct($id){
 		$this->setId($id);
-		// $this->fillDeck();
 		$this->setHeros();
 	}
 
