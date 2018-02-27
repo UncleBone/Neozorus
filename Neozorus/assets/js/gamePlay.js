@@ -328,37 +328,38 @@ function abiliteTexte(ab){
 function gameWaitingTurn(){
     var interval;
     historique();
-    interval = window.setInterval(function(){
+    interval = window.setInterval(function(){   // fct de répétition qui interroge le serveur toutes les secondes
         ajax("refreshViewAjax", "", function(result) {
             let contenu = $('#contenu');
             let j = result['jeton'];
             let lastEvent = result['lastEvent'];
             let oldLastEvent = $('.event').last().attr('data_event_id');
             console.log('waiting, lastEvent:'+lastEvent+', oldLastEvent:'+oldLastEvent);
+
+            /*** si il y a un nouvel évènement dans l'historique ***/
             if(lastEvent != oldLastEvent){
+
+                /** si l'évènement est de type attaque carte ou attaque joueur **/
                 if(result['lastEventType'] == 2 || result['lastEventType'] == 3){ 
-                    clearInterval(interval); 
-                    hitAnimationJoueurPassif(result);
-                    setTimeout(function(){
-                        contenu.html(result['view']);
-                        historique();
-                        gameWaitingTurn();
-                        // if(!result['eog']){
-                        //     if(j == currentPlayer && result['PeM'] == 1){
-                        //         chgTurnMssg(0);
-                        //         gamePlay(j,result['att'],result['cible'],result['abilite'],result['eog']);
-                        //         clearInterval(interval);     
-                        //     }
-                        // }else{       
-                        //     clearInterval(interval);  
-                        // }
+                    clearInterval(interval);    // arrêt de la fonction de répétition 
+                    hitAnimationJoueurPassif(result);   //  animation d'attaque pour le joueur passif
+                    setTimeout(function(){  // fonction de délais pour laisser le temps à l'animation de se dérouler
+                        contenu.html(result['view']);   // rafraîchissement de la vue
+                        historique();   // mise en forme de l'historique
+                        gameWaitingTurn();  // relance de la fonction 
                     }, 1100);
+
+                /** si l'évènement n'est pas de type attaque **/
                 }else{
                     contenu.html(result['view']);
                     historique();
                 }               
             }
+
+            /*** si la partie n'est pas terminée ***/
             if(!result['eog']){
+
+                /** si le tour du joueur est venu et que sa jauge de mana est chargée **/
                 if(j == currentPlayer && result['PeM'] == 1 && result['mana'] > 0){
                     contenu.html(result['view']);
                     historique();
@@ -366,6 +367,7 @@ function gameWaitingTurn(){
                     gamePlay(j,result['att'],result['cible'],result['abilite'],result['eog']);
                     clearInterval(interval);     
                 }
+            /*** si la partie est terminée, arrêt de la fct ***/   
             }else{       
                 clearInterval(interval);  
             }
@@ -406,7 +408,6 @@ function flickeringBorder(element, swtch){
             cpt++;
         }, 500);
     }else{
-        // console.log('clearInterval');
         if(typeof(timerFB) != 'undefined')  clearInterval(timerFB);
         $(element).css('outline', 'none');
     }
@@ -452,9 +453,8 @@ function zoom(target){
     let pv =  target.find('.pv').text();
     let puissance =  target.find('.puissance').text();
     let mana =  target.find('.mana').text();
-    // if(localisation != 'main'){
     let indice = target.find('.indice').text();
-    // }
+
     let leftOrigin = target.offset().left;
     let topOrigin = target.offset().top;
     let width = target.width();
@@ -465,11 +465,8 @@ function zoom(target){
     let newSpanPv = $('<span>');
     let newSpanPuissance = $('<span>');
     let newSpanMana = $('<span>');
-    // if(localisation != 'main'){
-        // var newIndice = $('<div>').html('<span>'+indice+'</span>');
     let newIndice = $('<span>').text(indice);
     newIndice.addClass('indice');
-    // }
     let zoomWidth = ($(window).height() > 600 ? 200 : 150);
 
     newImg.attr('src', src);
@@ -485,9 +482,7 @@ function zoom(target){
     newDiv.append(newSpanPv);
     newDiv.append(newSpanPuissance);
     newDiv.append(newSpanMana);
-    // if(localisation != 'main'){
     newDiv.append(newIndice);
-    // }
 
     newDiv.css('position', 'absolute');
     if(parseInt(leftOrigin+target.width()/2) < $(window).width()/2){
@@ -511,8 +506,8 @@ function zoom(target){
     
     $('main').append(newDiv);
 
+    /** si c'est une carte de la main, ajout d'une infobox précisant ses nom et abilités **/
     if(localisation == 'main'){
-        // let img = target.find('img');
         let libelle = target.attr('data_libelle');
         let abilite1 = target.attr('data_abilite');
         let abilite2 = target.attr('data_abilite_2');
@@ -526,11 +521,9 @@ function zoom(target){
         infoBox.css('position','absolute');
         infoBox.css('top','0');
         infoBox.css('left', parseInt(zoomWidth+2)+'px');
-        // infoBox.css('transform','translate(-100%,-100%)');
         infoBox.css('font-family','fira_code');
         infoBox.css('padding','0 10px');
         infoBox.css('border-radius','5px');
-        // infoBox.css('width', zoomWidth);
         infoBox.html('<p class="libelle">'+libelle+'</p>');
         if(abilite1 != '0'){
             infoBox.html(infoBox.html()+'<p class="abilite">'+abiliteTexte(abilite1)+'</p>');
@@ -567,7 +560,7 @@ function ciblage(target){
     let targetWidth = target.width();
     let targetHeight = target.height();
     let targetZ = target.css('z-index');
-// console.log('coblage');
+
     div.addClass('ciblage');
     div.css('position', 'absolute').css('top', '0').css('left', '0').css('width', targetWidth).css('height',targetHeight);
     div.css('z-index', parseInt(targetZ+1)).css('cursor','url(assets/img/cursor/cursorTarget.png), auto');
@@ -583,7 +576,6 @@ function ciblage(target){
         div.css('background-image', 'repeating-linear-gradient(45deg,transparent '+gradient+'%, rgba(250,250,250,0.6) '+parseInt(gradient+50)+'%, transparent '+
             parseInt(gradient+70)+'%)');
         gradient++;
-        // console.log(gradient);
     },20);
     },function(){
         clearInterval(timer);
@@ -648,8 +640,7 @@ function hitAnimationJoueurPassif(result){
     let type = result['lastEventType'];
     let att = result['lastEventAtt'];
     let cible = type == 2 ? $('[data_gameid='+result['lastEventCible']+']') : $('#bottomHeros');
-    // flickeringBorder($('[data_gameid='+att+']').find('img'),'on');
-    // console.log('animation j passif');
+
     if(result['lastEventAttType'] != 'sort')    $('[data_gameid='+att+']').find('img').css('outline','white 1px solid');
     ciblage(cible.find('img'));
     setTimeout(function(){
@@ -659,16 +650,13 @@ function hitAnimationJoueurPassif(result){
             hitAnimation(cible,att, result['lastEventAttPuiss']);
         }
     },100);
-    // flickeringBorder($('[data_gameid='+att+']').find('img'),'off');
-    // $('[data_gameid='+att+']').css('outline','none');
 }
+
 /**************** Mise en forme de l'historique ************/
 
 function historique(){
     $('#historique #events .event').each(function(){
         let img = $(this).attr('data_img');
-        // let event = $(this).attr('data_event');
-        // let type = $(this).attr('data_type_carte');
         let eventId = $(this).attr('data_event_id');
         let top = $(this).offset().top;
         let left = $(this).offset().left;
@@ -686,18 +674,5 @@ function historique(){
         },function(){
             eventBox.css('display','none');
         });
-        // eventBox.find('.carte, .Heros').each(function(){
-        //     let pv = $(this).find('span.pv');
-        //     let damage = $(this).find('span.damage');
-        //     if(pv.length > 0){
-        //         let left = pv.offset().left;
-        //         let top = pv.offset().top;
-        //         let height = pv.height();
-        //         console.log(pv);
-        //         damage.css('top', top+'px');
-        //         damage.css('left', left+height+5+'px');
-        //     }
-
-        // });
     });
 }
