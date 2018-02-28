@@ -27,6 +27,7 @@ class DeckController extends CoreController{
 		/* Si l'utilisateur n'a pas de deck, création d'un deck par defaut */
 		}else{		
 			$this->buildDefaultDeck($this->session['u_id'],$this->parameters['team'] == 'matrix' ? '1' : '2');
+			$this->display();
 		}
 
 		$team = $this->parameters['team'];	// variable passée au script pour l'affichage
@@ -46,17 +47,14 @@ class DeckController extends CoreController{
 	 * @param  [type] $user ID du l'utilisateur
 	 * @param  [type] $hero ID du héro
 	 */
-	private function buildDefaultDeck($user,$heros){
+	public function buildDefaultDeck($user,$heros){
 		$model = new DeckModel();
 		// On crée d'abord un deck à l'utilisateur en fonction du héros dans la BDD
 		$deckDefaultId = $model -> addDefaultDeck($user,$heros);
 		// Si l'ajout du deck a fonctionné, on rempli le deck avec des cartes,puis on rappele la fonction d'affichage des decks
 		if($deckDefaultId !== false){
 			$defaultDeck = new Deck($deckDefaultId, 'Default', $heros);
-			if($model -> fillDeckDefault($defaultDeck)){
-				$this->display();
-			}
-			else{
+			if(!$model -> fillDeckDefault($defaultDeck)){
 				throw new Exception("Erreur de remplissage du deck par défaut", 1);
 			}
 		}

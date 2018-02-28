@@ -601,6 +601,26 @@ class GameController extends CoreController{
         $this->saveAndRefreshView($message);
     }
 
+/*** initialisation d'une partie contre l'ia ***/
+
+    public function playVsIa(){
+        $gameDeckModel = new GameDeckModel();
+        $deckModel = new DeckModel();
+        if(empty($this->parameters['id']) || empty($gameDeckModel->checkId($this->parameters['id']))){
+            $this->error('Erreur');
+        }else{
+            $deckId = $this->parameters['id'];
+            $deckData = $deckModel->getDeckById($deckId)[0];
+            $iaDeck = $deckModel->GetAllDecks(1,3 - $deckData['d_personnage_fk']);
+            if(empty($iaDeck)){
+                $deckController = new DeckController();
+                $deckController->buildDefaultDeck(1,3 - $deckData['d_personnage_fk']);
+                $iaDeck = $deckModel->GetAllDecks(1,3 - $deckData['d_personnage_fk']);
+            }
+            $this->startGame($deckId,$iaDeck[0]['d_id']);
+        }
+    }
+
 /*** Renvoie un message d'erreur en JSON ***/
 
     public function error($e){
