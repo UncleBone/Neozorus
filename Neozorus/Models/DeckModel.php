@@ -31,10 +31,10 @@ class DeckModel extends CoreModel{
 	}
 
 	/**
-	 * Vérifie l'éxistence d'un deck dans la BDD et qu'il soit bien associé au bon utilisateur et au bon héro
+	 * Vérifie l'éxistence d'un deck dans la BDD et qu'il soit bien associé au bon utilisateur et au bon héros
 	 * @param [int] $d_ID ID du deck
 	 * @param [int] $u_ID ID de l'utilisateur
-	 * @param [int] $h_ID ID du héro
+	 * @param [int] $h_ID ID du héros
 	 * @return [bool] true si tout est Ok
 	 */
 	public function IssetDeck($d_ID,$u_ID,$h_ID){
