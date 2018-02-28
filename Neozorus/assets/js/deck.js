@@ -9,4 +9,9 @@ $(function(){
 		id = $('form select option').val();
 		window.location.replace('.?controller=game&action=wait&id='+id);
 	});
+	$('.bottomButtons input#IA').click(function(event){
+		event.preventDefault();
+		id = $('form select option').val();
+		window.location.replace('.?controller=game&action=playVsIA&id='+id);
+	});
 });

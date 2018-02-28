@@ -22,6 +22,7 @@
 		<div class="bottomButtons">
 			<input type="submit" value="Voir">
 			<input type="submit" value="Jouer">
+			<input type="submit" id="IA" value="Affronter la machine">
 		</div>
 	</form>
 </main>
