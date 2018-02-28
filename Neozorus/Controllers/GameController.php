@@ -549,6 +549,8 @@ class GameController extends CoreController{
             }
         }
 
+        if($player->getId() == 1) $this->tourIa($player, $jeton);
+
         /*  Si le joueur a cliqué sur une carte de sa main et qu'il a assez de mana pour la jouer,
          *  lance la fonction de la classe Joueur 'jouerCarte'
          *  renvoie un message d'erreur si pas assez de mana
@@ -619,6 +621,77 @@ class GameController extends CoreController{
             }
             $this->startGame($deckId,$iaDeck[0]['d_id']);
         }
+    }
+
+/*** tour de jeu de l'ia ***/
+
+    public function tourIa($player,$jeton){   
+        $main = $player->getMain();
+        if(!empty($main)){
+            foreach ($main as $carteMain) {
+                $mana = $player->getMana();
+                if($carteMain->getMana() <= $mana){
+                    sleep(3);
+                    if($carteMain->getType() != 'sort'){
+                        $player->jouerCarte($carteMain->getGameid(),$jeton); // lancement de la fct jouer
+                        $this->addNewEvent($player->getId(), 1, $carteMain);    // ajout de l'évènement à l'historique
+                        $this->saveGame();
+                    }else{
+                        $this->iaAttack($carteMain);
+                    }
+                }
+            }
+        }
+
+        $plateau = $player->getPlateau();
+        if(!empty($plateau)){
+            foreach ($plateau as $carte) {
+                if($carte->getActive() == 1) {
+                    sleep(3);
+                    $this->iaAttack($carte);
+                }
+            }
+        }
+        sleep(3);
+        $this->setJeton(1-$jeton);
+        return;
+    }
+
+
+/*** attaque de l'ia ***/
+
+    public function iaAttack($carteAtt){
+        $player = $this->getPlayer($jeton);
+        $otherPlayer = $this->getPlayer(1 - $jeton);
+
+        if($otherPlayer->getVisable() == 1){
+            $this->addNewEvent($player->getId(), 3, $carteAtt, $otherPlayer);
+            $cible->subPv($carteAtt->getPuissance());
+        }else{
+            foreach ($otherPlayer->getPlateau() as $carteAdverse) {
+                if($carteAdverse->getVisable() == 1){
+                    if($carteAtt->getType() == 'sort'){
+                        $newPvCible = $carteAdverse->subPv($carteAtt->getPuissance());
+                        $player->removeMain($carteAtt);
+                        $carteAtt->setLocalisation(GameCard::LOC_DEFAUSSE);
+                    }else{
+                        $newPvCible = $carteAdverse->subPv($carteAtt->getPuissance());
+                        $newPvAtt = $carteAtt->subPv($carteAdverse->getPuissance());
+                        if($newPvAtt == 0){
+                            $player->removePlateau($carteAtt);
+                            $carteAtt->setLocalisation(GameCard::LOC_DEFAUSSE);
+                        }
+                    }
+                    if($newPvCible == 0){
+                        $otherPlayer->removePlateau($carteAdverse);
+                        $carteAdverse->setLocalisation(GameCard::LOC_DEFAUSSE);
+                    }
+                    $this->addNewEvent($player->getId(), 2, $carteAtt, $carteAdverse);
+                    break;
+                }
+            }
+        }
+        $this->saveGame();
     }
 
 /*** Renvoie un message d'erreur en JSON ***/

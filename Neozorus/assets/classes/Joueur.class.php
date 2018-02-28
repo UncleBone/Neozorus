@@ -126,6 +126,14 @@ class Joueur{
         $this->defausse[] = $carte;
     }
 
+/*** retrait d'une carte aux tableaux Main, Plateau***/
+    public function removeMain($carte){
+        unset($this->main[$carte->getGameId()]);
+    }
+    public function removePlateau($carte){
+        unset($this->plateau[$carte->getGameId()]);
+    }
+    
 /*** Initialise la pioche avec les cartes du deck ***/
     public function initPioche(){
         $this->pioche = $this->getDeck()->getCartes();
