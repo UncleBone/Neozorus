@@ -5,12 +5,6 @@
 		</div>
 	</header>
 
-	<!-- <nav id="logo">
-		<div id="btnDinos" class="btn">Les Dinos</div>
-		<img src="<?= IMG_PATH . DS . 'logoNeozorus.png' ?>" id="logoNeozorus">
-		<div id="btnMatrix" class="btn">La Matrice</div>
-	</nav> -->
-
 	<footer>
 		<ul class="links">
 			<li><a href="#" alt="logo facebook" title="Facebook"><img src="<?= IMG_PATH . DS . 'logo_facebook_matrix.png' ?>"></a></li>
