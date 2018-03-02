@@ -21,7 +21,7 @@
     
 /************************* Héros adverse **************************/
 
-        echo '<div id="topHeros" class="Heros" data_visable='.$visable[$joueurPassif].' data_cible=J'.$joueurPassif.'>';
+        echo '<div id="topHeros" class="Heros" data_visable='.$visable[$joueurPassif].' data_cible=J'.$joueurPassif.' data_otherplayer="'.$this->getPlayer(1-$currentPlayer)->getId().'"">';
         echo '<img src="./assets/img/plateau/portrait/'.$heros[$joueurPassif].'.png">';
         echo '<span class="pv">'.$pv[$joueurPassif].'</span>';
         echo '</div>';

@@ -327,9 +327,16 @@ function abiliteTexte(ab){
 
 function gameWaitingTurn(){
     var interval;
+    let action;
     historique();
+    if($('#topHeros').attr('data_otherplayer') == 1){
+        gameWaitingTurnSoloMode();
+    }else{
+        action = 'refreshViewAjax';
+    }
+
     interval = window.setInterval(function(){   // fct de répétition qui interroge le serveur toutes les secondes
-        ajax("refreshViewAjax", "", function(result) {
+        ajax(action, "", function(result) {
             let contenu = $('#contenu');
             let j = result['jeton'];
             let lastEvent = result['lastEvent'];
@@ -373,7 +380,53 @@ function gameWaitingTurn(){
             }
         })
     },1000);
-    // $('#end img:hover').css('animation', 'none');
+}
+
+function gameWaitingTurnSoloMode(){
+    ajax('play', "", function(result) {
+            let contenu = $('#contenu');
+            let j = result['jeton'];
+            let lastEvent = result['lastEvent'];
+            let oldLastEvent = $('.event').last().attr('data_event_id');
+            console.log('waiting, lastEvent:'+lastEvent+', oldLastEvent:'+oldLastEvent);
+            /*** si il y a un nouvel évènement dans l'historique ***/
+            if(lastEvent != oldLastEvent){
+
+                /** si l'évènement est de type attaque carte ou attaque joueur **/
+                if(result['lastEventType'] == 2 || result['lastEventType'] == 3){ 
+                    // clearInterval(interval);    // arrêt de la fonction de répétition 
+                    hitAnimationJoueurPassif(result);   //  animation d'attaque pour le joueur passif
+                    setTimeout(function(){  // fonction de délais pour laisser le temps à l'animation de se dérouler
+                        contenu.html(result['view']);   // rafraîchissement de la vue
+                        historique();   // mise en forme de l'historique
+                        gameWaitingTurnSoloMode();  // relance de la fonction 
+                    }, 1100);
+
+                /** si l'évènement n'est pas de type attaque **/
+                }else{
+                    contenu.html(result['view']);
+                    historique();
+                }               
+            }
+
+            /*** si la partie n'est pas terminée ***/
+            if(!result['eog']){
+                console.log('jeton:'+j+', PeM:'+result['PeM']+', mana:'+result['mana']+', tour:'+result['tour']);
+                /** si le tour du joueur est venu et que sa jauge de mana est chargée **/
+                if(j == currentPlayer && result['PeM'] == 1 && (result['mana'] == result['tour'] || result['mana'] == 10)){
+                    contenu.html(result['view']);
+                    historique();
+                    chgTurnMssg(0);
+                    gamePlay(j,result['att'],result['cible'],result['abilite'],result['eog']);
+                    // clearInterval(interval);     
+                }else{
+                    gameWaitingTurnSoloMode();
+                }
+            /*** si la partie est terminée, arrêt de la fct ***/   
+            }else{       
+                // clearInterval(interval);  
+            }
+        })
 }
 
 /*****************Fonction de fade out**********************/

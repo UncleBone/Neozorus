@@ -394,7 +394,16 @@ class GameController extends CoreController{
                         'cible' => $cible,
                         'att' => $att,
                         'abilite' => $abilite,
-                        'errorJSON' => json_last_error_msg()];
+                        'errorJSON' => json_last_error_msg(),
+                        'lastEvent' => !empty($historique) ? end($historique)->getId() : '',
+                        'lastEventType' => !empty($historique) ? end($historique)->getType() : '',
+                        'lastEventAtt' => (!empty($historique) && end($historique)->getType() != 1) ? end($historique)->getAtt()->getGameId() : '',
+                        'lastEventCible' => (!empty($historique) && end($historique)->getType() == 2) ? end($historique)->getCible()->getGameId() : '',
+                        'lastEventAttPuiss' => (!empty($historique) && end($historique)->getType() != 1) ? end($historique)->getAtt()->getPuissance() : '',
+                        'lastEventAttType' => (!empty($historique) && end($historique)->getType() != 1) ? end($historique)->getAtt()->getType() : '',
+                        'PeM' => $this->getPiocheEtMana(), 
+                        'mana' => $mana[$currentPlayer],
+                        'tour' => $tour];
 
                 echo json_encode($data, JSON_UNESCAPED_UNICODE );
                 exit();
@@ -535,7 +544,11 @@ class GameController extends CoreController{
                 }while($i<3);
                 $this->increaseMana($player);
                 $this->piocheEtMana = 1;
-                $this->saveAndRefreshView();
+                // if($player->getId() == 1){
+                    // $this->saveGame();
+                // }else{
+                    $this->saveAndRefreshView();
+                // }
             }
         }else{
             if($this->piocheEtMana == 0){
@@ -545,7 +558,11 @@ class GameController extends CoreController{
                 }while($i<1);
                 $this->increaseMana($player);
                 $this->piocheEtMana = 1;
-                $this->saveAndRefreshView();
+                // if($player->getId() == 1){
+                    // $this->saveGame();
+                // }else{
+                    $this->saveAndRefreshView();
+                // }
             }
         }
 
@@ -626,6 +643,7 @@ class GameController extends CoreController{
 /*** tour de jeu de l'ia ***/
 
     public function tourIa($player,$jeton){   
+        // echo '<div class="message">tourIa</div>';
         $main = $player->getMain();
         if(!empty($main)){
             foreach ($main as $carteMain) {
@@ -635,26 +653,35 @@ class GameController extends CoreController{
                     if($carteMain->getType() != 'sort'){
                         $player->jouerCarte($carteMain->getGameid(),$jeton); // lancement de la fct jouer
                         $this->addNewEvent($player->getId(), 1, $carteMain);    // ajout de l'évènement à l'historique
-                        $this->saveGame();
+                        // $this->saveGame();
+                        $this->saveAndRefreshView();
                     }else{
-                        $this->iaAttack($carteMain);
+                        // $this->iaAttack($carteMain);
                     }
                 }
             }
         }
 
-        $plateau = $player->getPlateau();
-        if(!empty($plateau)){
-            foreach ($plateau as $carte) {
-                if($carte->getActive() == 1) {
-                    sleep(3);
-                    $this->iaAttack($carte);
-                }
-            }
-        }
+        // $plateau = $player->getPlateau();
+        // if(!empty($plateau)){
+        //     foreach ($plateau as $carte) {
+        //         if($carte->getActive() == 1) {
+        //             sleep(3);
+        //             $this->iaAttack($carte);
+        //         }
+        //     }
+        // }
         sleep(3);
         $this->setJeton(1-$jeton);
-        return;
+        $this->tourPlus();
+        $this->setPiocheEtMana(0); 
+        // $this->saveAndRefreshView();
+        // header('Location:.?controller=game&action=play&jeton='.1-$jeton);
+        // $this->setJeton(1-$jeton);
+        // $this->tourPlus();
+        $this->saveGame();
+        $this->play();
+        // return;
     }
 
 
@@ -691,7 +718,8 @@ class GameController extends CoreController{
                 }
             }
         }
-        $this->saveGame();
+        // $this->saveGame();
+        $this->saveAndRefreshView();
     }
 
 /*** Renvoie un message d'erreur en JSON ***/
