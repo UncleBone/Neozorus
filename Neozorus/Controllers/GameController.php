@@ -674,7 +674,8 @@ class GameController extends CoreController{
         sleep(3);
         $this->setJeton(1-$jeton);
         $this->tourPlus();
-        $this->setPiocheEtMana(0); 
+        $this->setPiocheEtMana(0);
+        $this->activateCards($this->getPlayer($this->getJeton())); 
         // $this->saveAndRefreshView();
         // header('Location:.?controller=game&action=play&jeton='.1-$jeton);
         // $this->setJeton(1-$jeton);
