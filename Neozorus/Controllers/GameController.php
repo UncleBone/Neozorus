@@ -654,21 +654,21 @@ class GameController extends CoreController{
                         $this->addNewEvent($player->getId(), 1, $carteMain);    // ajout de l'évènement à l'historique
                         $this->saveAndRefreshView();
                     }else{
-                        // $this->iaAttack($carteMain);
+                        // $this->iaAttack($jeton,$carteMain);
                     }
                 }
             }
         }
 
-        // $plateau = $player->getPlateau();
-        // if(!empty($plateau)){
-        //     foreach ($plateau as $carte) {
-        //         if($carte->getActive() == 1) {
-        //             sleep(3);
-        //             $this->iaAttack($carte);
-        //         }
-        //     }
-        // }
+        $plateau = $player->getPlateau();
+        if(!empty($plateau)){
+            foreach ($plateau as $carte) {
+                if($carte->getActive() == 1) {
+                    sleep(3);
+                    $this->iaAttack($jeton,$carte);
+                }
+            }
+        }
         sleep(3);
         $this->setJeton(1-$jeton);
         $this->tourPlus();
@@ -681,13 +681,14 @@ class GameController extends CoreController{
 
 /*** attaque de l'ia ***/
 
-    public function iaAttack($carteAtt){
+    public function iaAttack($jeton,$carteAtt){
         $player = $this->getPlayer($jeton);
         $otherPlayer = $this->getPlayer(1 - $jeton);
 
         if($otherPlayer->getVisable() == 1){
             $this->addNewEvent($player->getId(), 3, $carteAtt, $otherPlayer);
-            $cible->subPv($carteAtt->getPuissance());
+            $otherPlayer->subPv($carteAtt->getPuissance());
+            $carteAtt->setActive(0);
         }else{
             foreach ($otherPlayer->getPlateau() as $carteAdverse) {
                 if($carteAdverse->getVisable() == 1){
@@ -701,6 +702,8 @@ class GameController extends CoreController{
                         if($newPvAtt == 0){
                             $player->removePlateau($carteAtt);
                             $carteAtt->setLocalisation(GameCard::LOC_DEFAUSSE);
+                        }else{
+                            $carteAtt->setActive(0);
                         }
                     }
                     if($newPvCible == 0){
