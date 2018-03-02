@@ -21,8 +21,8 @@
 		</select>
 		<div class="bottomButtons">
 			<input type="submit" value="Voir">
-			<input type="submit" value="Jouer">
-			<input type="submit" id="IA" value="Affronter la machine">
+			<input type="submit" id="PvP" value="Jouer">
+			<input type="submit" id="solo" value="Mode solo">
 		</div>
 	</form>
 </main>

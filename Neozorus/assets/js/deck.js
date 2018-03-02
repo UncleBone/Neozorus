@@ -4,12 +4,12 @@ $(function(){
 		id = $('form select option').val();
 		window.location.replace('.?controller=carte&action=displayDeckCards&deckId='+id);
 	});
-	$('.bottomButtons input[value=Jouer]').click(function(event){
+	$('.bottomButtons input#PvP').click(function(event){
 		event.preventDefault();
 		id = $('form select option').val();
 		window.location.replace('.?controller=game&action=wait&id='+id);
 	});
-	$('.bottomButtons input#IA').click(function(event){
+	$('.bottomButtons input#solo').click(function(event){
 		event.preventDefault();
 		id = $('form select option').val();
 		window.location.replace('.?controller=game&action=playVsIA&id='+id);

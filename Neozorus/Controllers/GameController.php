@@ -643,7 +643,6 @@ class GameController extends CoreController{
 /*** tour de jeu de l'ia ***/
 
     public function tourIa($player,$jeton){   
-        // echo '<div class="message">tourIa</div>';
         $main = $player->getMain();
         if(!empty($main)){
             foreach ($main as $carteMain) {
@@ -653,7 +652,6 @@ class GameController extends CoreController{
                     if($carteMain->getType() != 'sort'){
                         $player->jouerCarte($carteMain->getGameid(),$jeton); // lancement de la fct jouer
                         $this->addNewEvent($player->getId(), 1, $carteMain);    // ajout de l'évènement à l'historique
-                        // $this->saveGame();
                         $this->saveAndRefreshView();
                     }else{
                         // $this->iaAttack($carteMain);
@@ -676,13 +674,8 @@ class GameController extends CoreController{
         $this->tourPlus();
         $this->setPiocheEtMana(0);
         $this->activateCards($this->getPlayer($this->getJeton())); 
-        // $this->saveAndRefreshView();
-        // header('Location:.?controller=game&action=play&jeton='.1-$jeton);
-        // $this->setJeton(1-$jeton);
-        // $this->tourPlus();
         $this->saveGame();
         $this->play();
-        // return;
     }
 
 
