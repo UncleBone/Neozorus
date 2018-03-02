@@ -654,7 +654,7 @@ class GameController extends CoreController{
                         $this->addNewEvent($player->getId(), 1, $carteMain);    // ajout de l'évènement à l'historique
                         $this->saveAndRefreshView();
                     }else{
-                        // $this->iaAttack($jeton,$carteMain);
+                        $this->iaAttack($jeton,$carteMain);
                     }
                 }
             }
@@ -689,6 +689,10 @@ class GameController extends CoreController{
             $this->addNewEvent($player->getId(), 3, $carteAtt, $otherPlayer);
             $otherPlayer->subPv($carteAtt->getPuissance());
             $carteAtt->setActive(0);
+            if($carteAtt->getType() == 'sort'){
+                $player->removeMain($carteAtt);
+                $carteAtt->setLocalisation(GameCard::LOC_DEFAUSSE);
+            }
         }else{
             foreach ($otherPlayer->getPlateau() as $carteAdverse) {
                 if($carteAdverse->getVisable() == 1){
