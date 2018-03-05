@@ -14,7 +14,9 @@
 <div class="message" data_id=<?= $id ?>>
     <p>En attente d'un autre joueur</p>
 </div>
-
+<nav id="annuler">
+    <a href="?controller=game&action=cancelWaiting">Annuler</a>
+</nav>
 </body>
 </html>
 

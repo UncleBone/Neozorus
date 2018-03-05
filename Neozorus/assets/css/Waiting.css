@@ -28,3 +28,54 @@ body
     background-color: rgba(0, 0, 0, 0.7);
     color: white;
 }
+
+/************ bouton annuler ************/
+
+#annuler
+{
+    position: absolute;
+    left: 1%;
+    bottom: 0;
+    text-align: center;
+    height: 10vh;
+    width: 10vw;
+    min-width: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+#annuler a
+{
+    display: block;
+    color: #8cbe22;
+    font-family: 'fira_code', Verdana;
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 10px 15px;
+    border: solid #8cbe22 2px;
+    border-radius: 6px;
+    text-decoration: none;
+}
+
+#annuler a:hover{
+    color: white;
+    border-color: white;
+}
+
+@media (max-height: 600px)
+{
+    #annuler a
+    {
+        font-size: 0.9em;
+        padding: 5px 15px;
+    }
+}
+@media (max-height: 450px)
+{
+    #annuler a
+    {
+        font-size: 0.7em;
+        padding: 3px 10px;
+        border-width: 1px;
+    }
+}

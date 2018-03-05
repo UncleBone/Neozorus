@@ -874,6 +874,17 @@ class GameController extends CoreController{
         header('Location:.?controller=home&action=display');
     }
 
+/*** Pour annuler une demande de partie en PvP ***/
+
+    public function cancelWaiting(){
+        $deck = new GameDeckModel();
+        $deckId = $this->parameters['id'];
+        if(!empty($deckId) && !empty($deck->checkId($deckId))){
+            $deck->setWaitingLine($deckId,0);
+        }
+        header('Location:.?controller=home&action=display');
+    }
+
 /*** augmente le mana du joueur courant en fonction du n° du tour ***/
 
     public function increaseMana($player){
