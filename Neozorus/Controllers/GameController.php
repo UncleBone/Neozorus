@@ -696,12 +696,12 @@ class GameController extends CoreController{
         }else{
             foreach ($otherPlayer->getPlateau() as $carteAdverse) {
                 if($carteAdverse->getVisable() == 1){
-                    if($carteAtt->getType() == 'sort'){
-                        $newPvCible = $carteAdverse->subPv($carteAtt->getPuissance());
+                    $this->addNewEvent($player->getId(), 2, $carteAtt, $carteAdverse);
+                    $newPvCible = $carteAdverse->subPv($carteAtt->getPuissance()); 
+                    if($carteAtt->getType() == 'sort'){  
                         $player->removeMain($carteAtt);
                         $carteAtt->setLocalisation(GameCard::LOC_DEFAUSSE);
                     }else{
-                        $newPvCible = $carteAdverse->subPv($carteAtt->getPuissance());
                         $newPvAtt = $carteAtt->subPv($carteAdverse->getPuissance());
                         if($newPvAtt == 0){
                             $player->removePlateau($carteAtt);
@@ -714,12 +714,10 @@ class GameController extends CoreController{
                         $otherPlayer->removePlateau($carteAdverse);
                         $carteAdverse->setLocalisation(GameCard::LOC_DEFAUSSE);
                     }
-                    $this->addNewEvent($player->getId(), 2, $carteAtt, $carteAdverse);
                     break;
                 }
             }
         }
-        // $this->saveGame();
         $this->saveAndRefreshView();
     }
 
@@ -758,6 +756,7 @@ class GameController extends CoreController{
                 break;
         }
         $this->historique[] = $e;
+        return 1;
     }
 
 /*** Sauvegarde l'historique ***/
@@ -788,14 +787,14 @@ class GameController extends CoreController{
             case 2:
                 $carte = $event->getAtt();
                 $cible = $event->getCible();
-                $mortAtt = ($carte->getPv()-$cible->getPuissance()) > 0 ? false : true;
-                $mortCible = ($cible->getPv()-$carte->getPuissance()) > 0 ? false : true;
+                $mortAtt = $event->getMortAtt();
+                $mortCible = $event->getMortCible();
                 $model->addEventAttCard($carte->getGameId(), $cible->getGameId(), $mortAtt, $mortCible, $historiqueId);
                 break;
             case 3:
                 $carte = $event->getAtt();
                 $cible = $event->getCible();
-                $mortCible = ($cible->getPv()-$carte->getPuissance()) > 0 ? false : true;
+                $mortCible = $event->getMortCible();
                 $model->addEventAttPlayer($carte->getGameId(), $cible->getId(), $mortCible, $historiqueId);
                 break;
         }
