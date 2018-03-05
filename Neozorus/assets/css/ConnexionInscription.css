@@ -160,6 +160,20 @@
 			padding: 2px 0;
 		}
 
+		#connexion span
+		{
+			font-size: 0.8em;
+		}
+		#connexion span a
+		{
+			color: rgb(1,194,210);
+			cursor: pointer;
+		}
+		#connexion span a:hover
+		{
+			color: rgb(210,1,194);
+		}
+
 		#inscription
 		{
 			margin-top: 55vh;

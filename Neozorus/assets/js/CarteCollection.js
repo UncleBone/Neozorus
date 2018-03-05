@@ -1,7 +1,7 @@
 $(function(){
 
 	zoom();
-	editDeckName();
+	if($('#deckName').attr('data_user') != 2)	editDeckName();
 
 	//  Ajoute la classe selected au filtre cliqué ou la retire si elle y est déjà 
 	$('.select').children().click(function(){

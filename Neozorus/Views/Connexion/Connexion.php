@@ -5,6 +5,7 @@
 		<a href="." title="retour"><div class="back"></div></a>
 		<input type="email" name="email" placeholder="E-mail" value=<?= !empty($email) ? "\"".$email."\"" : "";?>>
 		<input type="password" name="mdp" placeholder="Mot de passe" value=<?= !empty($mdp) ? "\"".$mdp."\"" : "";?>>
+		<span>[<a href=".?controller=user&action=connectAsGuest">Se connecter en tant qu'invité</a>]</span>
 		<input type="submit" name="Connexion" value="Se connecter">
 	</form>
 

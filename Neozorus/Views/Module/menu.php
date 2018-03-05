@@ -5,7 +5,7 @@
 	}
 	$linkHomeTrad = $lang == 1 ? 'Accueil' : 'Home';
 	$linkCardsTrad = $lang == 1 ? 'Les cartes' : 'Cards';
-	$linkRulesTrad = $lang == 1 ? 'Règles du jeu' : 'Game\'s rules';
+	$linkRulesTrad = $lang == 1 ? 'Règles du jeu' : 'Rules';
 	$linkParametersTrad = $lang == 1 ? 'Paramètres' : 'Parameters';
 	$linkDecoTrad = $lang == 1 ? 'Se déconnecter' : 'Deconnexion';
 ?>
@@ -17,7 +17,7 @@
 			<a href=".?controller=home&action=rules"><li><?=$linkRulesTrad?></li></a>
 			<?php
 			if(isset($_SESSION['neozorus']['u_id'])){			
-				echo '<a href=".?controller=parameters&action=display"><li>'.$linkParametersTrad.'</li></a>';
+				if($_SESSION['neozorus']['u_id'] != 2) echo '<a href=".?controller=parameters&action=display"><li>'.$linkParametersTrad.'</li></a>';
 				echo '<a href=".?controller=home&action=deconnexion"><li>'.$linkDecoTrad.'</li></a>';
 			}
 			?>

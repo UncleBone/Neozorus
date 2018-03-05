@@ -52,6 +52,15 @@ class UserController extends CoreController
 		}
 	}
 
+/*** connexion en tant qu'invité ***/
+
+	public function connectAsGuest(){
+		$_SESSION['neozorus']['u_id'] = 2;
+		unset($_SESSION['neozorus']['connexion']);
+		header("Location:.?controller=home&action=display");
+		exit();
+	}
+
 	public function checkLogin($email,$mdp){
 		$Log=false;
 		$MdP=false;	

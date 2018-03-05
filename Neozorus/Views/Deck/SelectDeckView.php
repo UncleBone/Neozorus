@@ -21,7 +21,13 @@
 		</select>
 		<div class="bottomButtons">
 			<input type="submit" value="Voir">
+			<?php
+			if($_SESSION['neozorus']['u_id'] != 2){
+			?>
 			<input type="submit" id="PvP" value="Jouer">
+			<?php
+			}
+			?>
 			<input type="submit" id="solo" value="Mode solo">
 		</div>
 	</form>

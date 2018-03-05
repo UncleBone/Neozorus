@@ -7,7 +7,9 @@ class ParametersController extends CoreController{
 	public function __construct(){
 		$this->isSessionNeozorus();	//On verifie qu'une session est en cours
 		$this->getUserData();
-		// $this->getLanguages();
+		if($_SESSION['neozorus']['u_id'] == 2){
+			header('Location:.?controller=home&action=display');
+		}
 	}
 
 /***************** Retourne les informations de l'utilisateur ***********************/

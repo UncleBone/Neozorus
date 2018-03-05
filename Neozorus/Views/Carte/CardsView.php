@@ -24,7 +24,7 @@
 		}else{
 		?>
 
-		<div id="deckName" data_id="<?= $deckId ?>">
+		<div id="deckName" data_id="<?= $deckId ?>" data_user="<?= $_SESSION['neozorus']['u_id'] ?>">
 			<p>Nom du Deck: </p>
 			<span><?= $deck->getLibelle() ?></span>
 			<button>[Modifier]</button>
