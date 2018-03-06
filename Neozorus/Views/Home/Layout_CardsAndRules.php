@@ -13,7 +13,7 @@
 	}elseif ($title == 'Paramètres') {
 		echo '<script type="text/javascript" src="' . JS_PATH . DS . 'Parameters.js"></script>';
 	}
-	include(FAVICON); 
+	include(FAVICON);
 	?>
 </head>
 <body>

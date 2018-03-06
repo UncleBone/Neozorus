@@ -29,7 +29,9 @@ class DeckController extends CoreController{
 			$this->buildDefaultDeck($this->session['u_id'],$this->parameters['team'] == 'matrix' ? '1' : '2');
 			$this->display();
 		}
-
+		if(empty($this->parameters['team']) || ($this->parameters['team'] != 'matrix' && $this->parameters['team'] != 'dinos')){
+			header('Location:.?controller=home&action=display');
+		}
 		$team = $this->parameters['team'];	// variable passée au script pour l'affichage
 		$title = $team == 'matrix' ? 'La matrice' : 'Les dinos';
 		$heros = $team == 'matrix' ? '1' : '2';
