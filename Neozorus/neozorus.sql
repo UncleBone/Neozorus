@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le :  mar. 13 fév. 2018 à 11:41
+-- Généré le :  mar. 06 mars 2018 à 13:40
 -- Version du serveur :  10.1.28-MariaDB
 -- Version de PHP :  7.1.10
 
@@ -136,14 +136,18 @@ CREATE TABLE `deck` (
 --
 
 INSERT INTO `deck` (`d_id`, `d_libelle`, `d_nbMaxCarte`, `d_personnage_fk`, `d_user_fk`, `d_waiting`) VALUES
-(30, 'Neo', 20, 1, 8, 0),
+(30, 'Neo+++', 20, 1, 8, 0),
 (43, 'Default', 20, 1, NULL, 0),
 (44, 'T-rex', 20, 2, 9, 0),
 (45, 'Default', 20, 2, 10, 0),
 (46, 'Default', 20, 1, 9, 0),
 (59, 'Default', 20, 2, 8, 0),
-(75, 'Deck dinozzz', 20, 2, 14, 0),
-(76, 'Matrix', 20, 1, 14, 0);
+(75, 'Deck dinozz', 20, 2, 14, 1),
+(76, 'Matrix', 20, 1, 14, 0),
+(77, 'Default', 20, 1, 1, 0),
+(78, 'Default', 20, 2, 1, 0),
+(79, 'Default', 20, 2, 2, 0),
+(80, 'Default', 20, 1, 2, 0);
 
 -- --------------------------------------------------------
 
@@ -245,7 +249,55 @@ INSERT INTO `d_c_inclure` (`d_c_nbExemplaire`, `d_c_deck_fk`, `d_c_carte_fk`) VA
 (2, 76, 9),
 (2, 76, 10),
 (2, 76, 11),
-(1, 76, 12);
+(1, 76, 12),
+(1, 77, 1),
+(1, 77, 2),
+(1, 77, 3),
+(2, 77, 4),
+(2, 77, 5),
+(2, 77, 6),
+(2, 77, 7),
+(2, 77, 8),
+(2, 77, 9),
+(2, 77, 10),
+(2, 77, 11),
+(1, 77, 12),
+(1, 78, 13),
+(1, 78, 14),
+(1, 78, 15),
+(2, 78, 16),
+(2, 78, 17),
+(2, 78, 18),
+(2, 78, 19),
+(2, 78, 20),
+(2, 78, 21),
+(2, 78, 22),
+(2, 78, 23),
+(1, 78, 24),
+(1, 79, 13),
+(1, 79, 14),
+(1, 79, 15),
+(2, 79, 16),
+(2, 79, 17),
+(2, 79, 18),
+(2, 79, 19),
+(2, 79, 20),
+(2, 79, 21),
+(2, 79, 22),
+(2, 79, 23),
+(1, 79, 24),
+(1, 80, 1),
+(1, 80, 2),
+(1, 80, 3),
+(2, 80, 4),
+(2, 80, 5),
+(2, 80, 6),
+(2, 80, 7),
+(2, 80, 8),
+(2, 80, 9),
+(2, 80, 10),
+(2, 80, 11),
+(1, 80, 12);
 
 -- --------------------------------------------------------
 
@@ -454,6 +506,8 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`u_id`, `u_mail`, `u_pseudo`, `u_mdp`, `u_nom`, `u_prenom`, `u_dateNaissance`, `u_langue_fk`, `u_offre`, `u_question`, `u_reponse`) VALUES
+(1, NULL, 'machine', NULL, NULL, NULL, '0000-00-00', 1, 0, '', ''),
+(2, NULL, 'Invité', NULL, NULL, NULL, '0000-00-00', 1, 0, '', ''),
 (3, 'ruffault.arnaud@gmail.com', '', '$2y$10$m9awnISVY8THZk9ZnAY9z..NiBhUQ9a58VDIPcWW.s9qz0aVskgXq', 'RUFFAULT', 'Arnaud', '1990-09-07', 1, 0, 'ma prenom?', 'Arnaud'),
 (4, 'jane.doe@gmail.com', '', '$2y$10$YbS4z/BOLXDHJPwF88NnDOg8p8QIA8nBV7ZMkSH5oYQzJc5RKlxiu', 'DOE', 'Jane', '1990-09-07', 1, 0, 'mon prenom?', 'Jane'),
 (5, 'user@mail.mail', 'user', '$2y$10$0WlGRtieSdwaC5asS8POR.fjKLbyTAmPHxzT/mahYJNbdQghfPRJK', 'user', 'user', '2011-11-11', 1, 0, 'Pourquoi?', 'Parce que'),
@@ -515,18 +569,18 @@ ALTER TABLE `event`
 --
 ALTER TABLE `event_att_card`
   ADD PRIMARY KEY (`eac_id`),
-  ADD KEY `FK_eac_cible` (`eac_cible`),
   ADD KEY `FK_eac_historique` (`eac_hist`),
-  ADD KEY `FK_eac_att` (`eac_att`);
+  ADD KEY `FK_eac_att` (`eac_att`),
+  ADD KEY `FK_eac_cible` (`eac_cible`);
 
 --
 -- Index pour la table `event_att_player`
 --
 ALTER TABLE `event_att_player`
   ADD PRIMARY KEY (`eap_id`),
-  ADD KEY `FK_eap_tt` (`eap_att`),
   ADD KEY `FK_eap_cible` (`eap_cible`),
-  ADD KEY `FK_eap_historique` (`eap_hist`);
+  ADD KEY `FK_eap_historique` (`eap_hist`),
+  ADD KEY `FK_eap_att` (`eap_att`);
 
 --
 -- Index pour la table `event_play`
@@ -543,10 +597,10 @@ ALTER TABLE `historique`
   ADD PRIMARY KEY (`h_id`),
   ADD KEY `FK_historique_p_id` (`h_eac_id`),
   ADD KEY `FK_historique_eap` (`h_eap_id`),
-  ADD KEY `FK_historique_ep` (`h_ep_id`),
   ADD KEY `FK_historique_event` (`h_event`),
   ADD KEY `FK_historique_joueur` (`h_joueur`),
-  ADD KEY `FK_historique_partie` (`h_partie`);
+  ADD KEY `FK_historique_partie` (`h_partie`),
+  ADD KEY `FK_historique_ep` (`h_ep_id`);
 
 --
 -- Index pour la table `langue`
@@ -616,7 +670,7 @@ ALTER TABLE `carte`
 -- AUTO_INCREMENT pour la table `deck`
 --
 ALTER TABLE `deck`
-  MODIFY `d_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=77;
+  MODIFY `d_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
 
 --
 -- AUTO_INCREMENT pour la table `event_att_card`
@@ -625,10 +679,22 @@ ALTER TABLE `event_att_card`
   MODIFY `eac_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT pour la table `event_att_player`
+--
+ALTER TABLE `event_att_player`
+  MODIFY `eap_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT pour la table `event_play`
+--
+ALTER TABLE `event_play`
+  MODIFY `ep_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT pour la table `historique`
 --
 ALTER TABLE `historique`
-  MODIFY `h_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `h_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT pour la table `langue`
@@ -646,13 +712,13 @@ ALTER TABLE `old_game`
 -- AUTO_INCREMENT pour la table `partie`
 --
 ALTER TABLE `partie`
-  MODIFY `p_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `p_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT pour la table `partie_carte`
 --
 ALTER TABLE `partie_carte`
-  MODIFY `pc_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `pc_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=121;
 
 --
 -- AUTO_INCREMENT pour la table `personnage`
@@ -701,17 +767,17 @@ ALTER TABLE `d_c_inclure`
 -- Contraintes pour la table `event_att_card`
 --
 ALTER TABLE `event_att_card`
-  ADD CONSTRAINT `FK_eac_att` FOREIGN KEY (`eac_att`) REFERENCES `partie_carte` (`pc_id`) ON DELETE CASCADE ON UPDATE NO ACTION,
-  ADD CONSTRAINT `FK_eac_cible` FOREIGN KEY (`eac_cible`) REFERENCES `partie_carte` (`pc_id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  ADD CONSTRAINT `FK_eac_att` FOREIGN KEY (`eac_att`) REFERENCES `partie_carte` (`pc_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `FK_eac_cible` FOREIGN KEY (`eac_cible`) REFERENCES `partie_carte` (`pc_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `FK_eac_historique` FOREIGN KEY (`eac_hist`) REFERENCES `historique` (`h_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `event_att_player`
 --
 ALTER TABLE `event_att_player`
-  ADD CONSTRAINT `FK_eap_cible` FOREIGN KEY (`eap_cible`) REFERENCES `partie_joueur` (`pj_user_fk`),
-  ADD CONSTRAINT `FK_eap_historique` FOREIGN KEY (`eap_hist`) REFERENCES `historique` (`h_id`),
-  ADD CONSTRAINT `FK_eap_tt` FOREIGN KEY (`eap_att`) REFERENCES `partie_carte` (`pc_id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+  ADD CONSTRAINT `FK_eap_att` FOREIGN KEY (`eap_att`) REFERENCES `partie_carte` (`pc_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `FK_eap_cible` FOREIGN KEY (`eap_cible`) REFERENCES `partie_joueur` (`pj_user_fk`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `FK_eap_historique` FOREIGN KEY (`eap_hist`) REFERENCES `historique` (`h_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `event_play`
@@ -725,7 +791,6 @@ ALTER TABLE `event_play`
 --
 ALTER TABLE `historique`
   ADD CONSTRAINT `FK_historique_eac` FOREIGN KEY (`h_eac_id`) REFERENCES `event_att_card` (`eac_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `FK_historique_eap` FOREIGN KEY (`h_eap_id`) REFERENCES `event_att_player` (`eap_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `FK_historique_ep` FOREIGN KEY (`h_ep_id`) REFERENCES `event_play` (`ep_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `FK_historique_event` FOREIGN KEY (`h_event`) REFERENCES `event` (`e_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `FK_historique_joueur` FOREIGN KEY (`h_joueur`) REFERENCES `partie_joueur` (`pj_user_fk`) ON DELETE CASCADE ON UPDATE CASCADE,
