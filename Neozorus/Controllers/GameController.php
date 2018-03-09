@@ -103,10 +103,10 @@ class GameController extends CoreController{
                     $_SESSION['neozorus']['game'] = $DIRG[0]['p_id'];
                     header('Location:?controller=game&action=play');
 
-                /* sinon, effacement de la variable de session éventuelle et d'autres parties utilisant éventuellement ce deck */
+                /* sinon, effacement de la variable de session éventuelle et d'autres parties précédentes non effacées */
                 }else{
                     unset($_SESSION['neozorus']['game']);
-                    $oldGames = $gameModel->checkDeckInRunningGame($id);
+                    $oldGames = $gameModel->getGameId_v2($_SESSION['neozorus']['u_id']);;
                     foreach ($oldGames as $oldGame) {
                     	$gameModel->deleteGame($oldGame['p_id']);
                     }
@@ -645,7 +645,7 @@ class GameController extends CoreController{
             /* sinon, effacement de la variable de session éventuelle et d'autres parties utilisant éventuellement ce deck */
             }else{
 	            unset($_SESSION['neozorus']['game']);	// effacement de sécurité
-	            $oldGames = $gameModel->checkDeckInRunningGame($deckId);
+	            $oldGames = $gameModel->getGameId_v2($_SESSION['neozorus']['u_id']);
 	            foreach ($oldGames as $oldGame) {
 	            	$gameModel->deleteGame($oldGame['p_id']);
 	            }
