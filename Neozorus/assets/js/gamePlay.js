@@ -399,7 +399,9 @@ function gameWaitingTurnSoloMode(){
                 setTimeout(function(){  // fonction de délais pour laisser le temps à l'animation de se dérouler
                     contenu.html(result['view']);   // rafraîchissement de la vue
                     historique();   // mise en forme de l'historique
-                    gameWaitingTurnSoloMode();  // relance de la fonction 
+                    if(!result['eog']){
+                        gameWaitingTurnSoloMode();  // relance de la fonction
+                    } 
                 }, 1100);
 
             /** si l'évènement n'est pas de type attaque **/
