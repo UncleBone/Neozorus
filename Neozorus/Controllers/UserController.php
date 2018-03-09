@@ -4,6 +4,10 @@ class UserController extends CoreController
 	/*Fonction d'affichage de la view dans le layout
 	**/
 	public function display($viewName,$param = array()){
+		if(!empty($_SESSION['neozorus']['u_id'])){
+			header('Location:.?controller=home&action=display');
+			exit();
+		}
 		extract($param);
 		ob_start();
 		require( VIEWS_PATH . DS . 'Connexion' . DS . $viewName );
