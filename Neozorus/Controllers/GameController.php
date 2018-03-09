@@ -81,7 +81,7 @@ class GameController extends CoreController{
         $this->jeton = $j;
     }
     
-/*** Fct d'attente si aucun autre joueur disponible ***/
+/*** Vérifie la file d'attente et lance la partie si un autre joueur est disponible ***/
 
     public function wait(){
         if(empty($this->parameters['id'])){
@@ -103,9 +103,13 @@ class GameController extends CoreController{
                     $_SESSION['neozorus']['game'] = $DIRG[0]['p_id'];
                     header('Location:?controller=game&action=play');
 
-                /* sinon, effacement de la variable de session éventuelle */
+                /* sinon, effacement de la variable de session éventuelle et d'autres parties utilisant éventuellement ce deck */
                 }else{
                     unset($_SESSION['neozorus']['game']);
+                    $oldGames = $gameModel->checkDeckInRunningGame($id);
+                    foreach ($oldGames as $oldGame) {
+                    	$gameModel->deleteGame($oldGame['p_id']);
+                    }
                 }
                 $waitingLine = $deck->checkWaitingLine($id); 
 
@@ -625,11 +629,28 @@ class GameController extends CoreController{
     public function playVsIa(){
         $gameDeckModel = new GameDeckModel();
         $deckModel = new DeckModel();
+        $gameModel = new GameModel();
+
         if(empty($this->parameters['id']) || empty($gameDeckModel->checkId($this->parameters['id']))){
             $this->error('Erreur');
         }else{
             $deckId = $this->parameters['id'];
-            $deckData = $deckModel->getDeckById($deckId)[0];
+            $DIRG = $gameModel->checkDeckInRunningGame($deckId);
+
+            /* si le deck est déjà enregistré dans une partie en cours, lancement de cette partie */
+            if(!empty($DIRG)){ 
+                $_SESSION['neozorus']['game'] = $DIRG[0]['p_id'];
+                header('Location:?controller=game&action=play');
+
+            /* sinon, effacement de la variable de session éventuelle et d'autres parties utilisant éventuellement ce deck */
+            }else{
+	            unset($_SESSION['neozorus']['game']);	// effacement de sécurité
+	            $oldGames = $gameModel->checkDeckInRunningGame($deckId);
+	            foreach ($oldGames as $oldGame) {
+	            	$gameModel->deleteGame($oldGame['p_id']);
+	            }
+	        }
+            $deckData = $deckModel->getDeckById($deckId)[0];	// pour obtenir l'id du héros associé au deck
             $iaDeck = $deckModel->GetAllDecks(1,3 - $deckData['d_personnage_fk']);
             if(empty($iaDeck)){
                 $deckController = new DeckController();
