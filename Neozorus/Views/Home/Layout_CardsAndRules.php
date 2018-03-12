@@ -19,7 +19,7 @@
 <body>
 
 	<header>
-		<a href="<?= empty($deckId) ? '.?controller=home&action=display' : '.?controller=deck&action=display&team='.$team ?>"><nav>Retour</nav></a>
+		<a href="<?= empty($deckId) ? '.?controller=home&action=display' : '.?controller=deck&action=display&team='.$team ?>"><nav><?= $lang == 1 ? 'Retour' : 'Back' ?></nav></a>
 		<img src="<?= IMG_PATH . DS . 'logoNeozorus.png' ?>" id="logoNeozorus">
 		<h1> - <?= $title ?> - </h1>
 	</header>

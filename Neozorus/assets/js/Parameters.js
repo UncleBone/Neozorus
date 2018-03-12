@@ -1,21 +1,9 @@
 $(function(){
-	$('.formChange input[value=Annuler]').click(function(event){
+	$('.formChange input[value=Annuler], .formChange input[value=Cancel]').click(function(event){
 		event.preventDefault();
 		window.location.replace('.?controller=parameters&action=display');
 	});
 });
-
-// $(function(){
-// 	$('#changeEmail').click(function(event){
-// 		$('#parameters').children().remove();
-// 		$.getJSON('?controller=parameters&action=changeEmail', function(result){
-// 			$('#parameters').html(result);
-// 			changeEmail();
-// 		});
-// 		event.preventDefault();	
-// 	});
-
-// });
 
 function changeEmail(){
 
