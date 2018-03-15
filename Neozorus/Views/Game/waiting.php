@@ -15,7 +15,7 @@
     <p>En attente d'un autre joueur</p>
 </div>
 <nav id="annuler">
-    <a href="?controller=game&action=cancelWaiting">Annuler</a>
+    <a href="?controller=game&action=cancelWaiting&id=<?= $id ?>">Annuler</a>
 </nav>
 </body>
 </html>

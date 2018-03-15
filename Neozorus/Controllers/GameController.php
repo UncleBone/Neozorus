@@ -157,6 +157,18 @@ class GameController extends CoreController{
         echo json_encode($res);
     }
 
+/*** Pour annuler une demande de partie en PvP ***/
+
+    public function cancelWaiting(){
+        $deck = new GameDeckModel();
+        $deckId = $this->parameters['id'];
+        var_dump($deckId);
+        if(!empty($deckId) && !empty($deck->checkId($deckId))){
+            $deck->setWaitingLine($deckId,0);
+        }
+        header('Location:.?controller=home&action=display');
+    }
+    
 /*** Démarrage de la partie et sauvegarde dans la bdd (fonction lancée par le 2ème joueur de la file d'attente) ***/
 
     public function startGame($deck1,$deck2){
@@ -892,17 +904,6 @@ class GameController extends CoreController{
         
         unset($_SESSION['neozorus']['game']);
 
-        header('Location:.?controller=home&action=display');
-    }
-
-/*** Pour annuler une demande de partie en PvP ***/
-
-    public function cancelWaiting(){
-        $deck = new GameDeckModel();
-        $deckId = $this->parameters['id'];
-        if(!empty($deckId) && !empty($deck->checkId($deckId))){
-            $deck->setWaitingLine($deckId,0);
-        }
         header('Location:.?controller=home&action=display');
     }
 
