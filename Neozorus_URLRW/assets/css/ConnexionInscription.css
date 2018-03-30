@@ -1,0 +1,313 @@
+		
+		@font-face
+		{
+			font-family: 'fira_code';
+			src:url('../font/fira-code/FiraCode-Medium.otf');
+		}
+
+		body
+		{
+			margin: 0;
+			overflow: hidden;
+			background-color: white;
+			font-size: 15px;
+			font-family: 'fira_code',Verdana;
+		}
+
+		body *
+		{
+			box-sizing: border-box;
+		}
+		
+		a
+		{
+			text-decoration: none;
+		}
+/****************************** Background ******************************/
+
+		.haut_bas
+		{
+			width: 10000px;
+			height: 10000px;
+			position: absolute;	
+			overflow: hidden;	
+			background-clip: padding-box;	
+			z-index: 0;
+		}
+		#haut
+		{
+			background-color: lightgreen;
+			transform-origin: 0 100%;
+			bottom: 0;		
+			left: 0;
+			border-bottom: 1vh solid white;
+		}
+		#bas
+		{
+			background-color: lightblue;
+			transform-origin: 100% 0;
+			top: 0;
+			right: 0;
+			border-top: 1vh solid white;
+			
+		}
+		#imageHaut
+		{
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			transform-origin: 0 100%;
+		}
+		#imageBas
+		{
+			position: absolute;
+			top: 0;
+			right: 0;
+			transform-origin: 100% 0;
+		}
+
+/****************************** Boutons et logo ******************************/
+		
+		header
+		{
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100vw;
+			z-index: 1;
+			text-align: center;
+		}
+
+		.btn
+		{
+			margin: 2vh auto;
+			color: white;
+			width: 10vw;
+			min-width: 200px;
+			border: solid 1px white;
+			padding: 1vh;
+			font-size: 20px;
+			cursor: pointer;
+			background-color: rgba(0,0,0,0.7);
+		}
+
+		.connexion-inscription .sous-menu
+		{
+			display: flex;
+			flex-direction: row;
+			justify-content: space-between;
+			width: 10vw;
+			min-width: 200px;
+			margin: auto;
+		}
+
+		.connexion-inscription .sous-menu .btn
+		{
+			font-size: 14px;
+			border-radius: 5px;
+			width: 5vw;
+			min-width: 90px;
+			margin-top: 1vh;
+		}
+
+		.confirmation .btn
+		{
+			font-size: 1em;
+			margin-bottom: 0;
+		}
+		
+		#logoNeozorus
+		{
+			width: 30vw;
+			min-width: 390px;
+		}
+
+/****************************** Cadres et Formulaires ******************************/
+
+		.connexion-inscription, form, .confirmation
+		{
+			margin: 50vh auto 0 auto;
+			width: 50vw;
+			min-width: 500px;
+			max-height: 70vh;
+			overflow: auto;
+			padding: 5vh;
+			transform: translateY(-50%);
+			text-align: center;
+			background-color: rgba(0,0,0,0.7);
+			color: white;
+		}
+
+		#connexion input
+		{
+			 width: 60%;
+		}
+
+		input
+		{	
+			display: block;
+			margin: 10px auto;
+			padding:5px 2px;
+			position: relative;
+			font-size: 15px;
+			text-align: center;
+		}
+
+		#connexion input[name="Connexion"]
+		{
+			width: 30%;
+			margin: 20px auto;
+			padding: 2px 0;
+		}
+
+		#connexion span
+		{
+			font-size: 0.8em;
+		}
+		#connexion span a
+		{
+			color: rgb(1,194,210);
+			cursor: pointer;
+		}
+		#connexion span a:hover
+		{
+			color: rgb(210,1,194);
+		}
+
+		#inscription
+		{
+			margin-top: 55vh;
+		}
+
+		#inscription input[name$="nom"], #inscription input[name$="mail"], #inscription input[name$="mdp"]
+		{
+			display: inline-block;
+			width: 30%;
+		}
+
+		#inscription input[name="date_naissance"], #inscription input[name="question"], #inscription input[name$="reponse"] 
+		{
+			width: 60%;
+		}
+	
+		#inscription label
+		{
+			color: white;
+			margin: 10px;
+		}
+		
+		#inscription input[type="checkbox"]
+		{
+			display: inline-block;
+		}
+
+		.back
+		{
+			height: 0px;
+			width: 0px;
+			border-left: 20px solid transparent;
+			border-right: 20px solid transparent;
+			border-bottom: 20px solid white;
+			transform: rotate(-90deg);
+		}
+		.error
+		{
+			width: 20vw;
+			min-width: 300px;
+			color: black;
+			background-color: rgb(200,100,100);
+			text-align: center;
+			position: absolute;
+			bottom: 10vh;
+			left: 50vw;
+			transform: translateX(-50%);
+			padding: 5px;
+		}
+		.error p
+		{
+			margin: 0;
+		}
+		.errorInscription
+		{
+			width: 100vw;
+			bottom: 0;
+		}
+
+
+/****************************** Responsive ******************************/
+
+		@media (max-width: 600px)
+		{
+			#logoNeozorus
+			{
+				width: 70%;
+				min-width: 250px;
+			}
+			.connexion-inscription, form, .confirmation
+			{
+				width: 100vw;
+				min-width: 0px;
+				padding: 5vh 0;
+			}
+			input
+			{
+				font-size: 13px;
+			}
+			#connexion input
+			{
+				width: 50%;
+			}
+			form label
+			{
+				font-size: 0.8em;
+			}
+			.back
+			{
+				position: relative;
+				top: 10px;
+				left: 10px;
+			}
+			.error
+			{
+				font-size: 13px;
+				color: black;
+			}
+		}
+
+		@media (max-height: 500px){
+			#logoNeozorus
+			{
+				width: 250px;
+				min-width: 250px; 
+			}
+			.btn
+			{
+				font-size: 16px;
+			}
+			.connexion-inscription .sous-menu .btn
+			{
+				font-size: 12px;
+			}
+			form#connexion
+			{
+				margin: 56vh auto 0 auto;
+			}
+			#inscription
+			{
+				max-height: 60vh;
+			}
+			.back
+			{
+				position: relative;
+				top: 10px;
+			}
+			.error
+			{
+				bottom: 5vh;
+				color: black;
+			}
+			.errorInscription
+			{
+				bottom: 0;
+			}
+		}

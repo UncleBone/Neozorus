@@ -1,0 +1,462 @@
+@font-face
+{
+  font-family: 'army_rangers';
+  src:url('../font/army_rangers/armyrangers.ttf');
+}
+
+@font-face
+{
+  font-family: 'fira_code';
+  src:url('../font/fira-code/FiraCode-Medium.otf');
+}
+
+@font-face
+{
+  font-family: 'godzilla';
+  src:url('../font/godzilla/Godzilla.ttf');
+}
+
+body
+{
+  margin: 0;
+  overflow: hidden;
+  background-color: white;
+  font-size: 15px;
+}
+
+body *
+{
+  box-sizing: border-box;
+}
+
+p
+{
+  margin: 0;
+}
+
+ul
+{
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+a
+{
+  text-decoration: none;
+}
+
+/****************************** Background ******************************/
+
+.haut_bas
+{
+  width: 5000px;
+  height: 5000px;
+  position: absolute; 
+  overflow: hidden; 
+  background-clip: padding-box; 
+}
+#haut
+{
+  background-color: lightgreen;
+  transform-origin: 0 100%;
+  bottom: 0;    
+  left: 0;
+  border-bottom: 1vh solid white;
+}
+#bas
+{
+  background-color: lightblue;
+  transform-origin: 100% 0;
+  top: 0;
+  right: 0;
+  border-top: 1vh solid white;
+  
+}
+#imageHaut
+{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  transform-origin: 0 100%;
+}
+#imageBas
+{
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform-origin: 100% 0;
+}
+
+/****************************** Header ******************************/
+
+header
+{
+  position: absolute;
+  top: 0;
+  width: 100%;
+  font-size: 1.2em;
+  font-family: "fira_code", Verdana;
+  text-align: center;
+}
+
+/****************************** Header Home ******************************/
+
+#homeHeader
+{
+  animation: slideDown;
+  animation-duration: 2s;
+}
+
+#homeHeader .welcome, #bloc_menu
+{
+  position: absolute;
+  top: 20px;
+  width: 20vw;
+  min-width: 200px;
+  z-index: 1;
+}
+#homeHeader .welcome
+{
+  right: 20px;
+}
+#homeHeader #bloc_menu
+{
+  left: 20px;
+  cursor: pointer;
+}
+
+#homeHeader #bloc_menu p, #bloc_menu li, .welcome
+{
+  padding: 10px;
+  background-color: rgba(0,0,0,0.7);
+  color: rgb(194,210,1); 
+}
+#homeHeader #bloc_menu li
+{
+  padding: 5px;
+  margin-top: 2px; 
+  text-align: left;
+  font-size: 0.9em;
+  transition: all 0.5s;
+}
+#homeHeader #bloc_menu li:hover
+{
+  transform: translateX(20px);
+  color: white;
+}
+#homeHeader #bloc_menu div ul
+{
+  max-height:0;
+  overflow: hidden;
+  transition: all 1s;
+}
+#homeHeader #bloc_menu div:hover ul
+{
+  max-height:100vh;
+}
+
+/****************************** Header Deck ******************************/
+
+#deckHeader
+{
+  animation: slideDown;
+  animation-duration: 2s;
+}
+
+#deckHeader h1, #deckHeader nav
+{
+  position: absolute;
+  top: 20px;
+  width: 20vw;
+  min-width: 250px;
+  z-index: 2;
+}
+#deckHeader h1
+{
+  right: 20px;
+  font-size: 1em;
+  margin: 0;
+}
+
+#deckHeader nav
+{
+  left: 20px;
+  cursor: pointer;
+}
+#deckHeader nav:hover
+{
+  color: white;
+}
+
+
+#deckHeader h1, #deckHeader nav
+{
+  padding: 10px;
+  background-color: rgba(0,0,0,0.7);
+  color: rgb(194,210,1); 
+}
+
+/****************************** Boutons et logo ******************************/
+
+#logo
+{
+  margin: 50vh auto 0 auto;
+  transform: translateY(-50%);
+  text-align: center;
+  animation: fadeIn;
+  animation-duration: 2s;
+}
+#logoNeozorus
+{
+  width: 30vw;
+  min-width: 300px;
+}
+#logo *
+{
+  margin: 2vh auto;
+}
+.btn
+{
+  color: white;
+  width: 10vw;
+  min-width: 140px;
+  border: solid 4px white;
+  border-radius: 10vh;
+  padding: 1vh;
+  font-family: 'army_rangers',Verdana;
+  font-size: 1.5em;
+  cursor: pointer;
+}
+.btn:hover
+{
+  animation: oscillate_3;
+  animation-duration: 0.5s; 
+}
+#btnDinos
+{
+  background-color: #d80c0f;
+}
+#btnMatrix
+{
+  background-color: #005b7f;
+}
+
+/****************************** Deck ******************************/
+
+#deck
+{
+  position: absolute;
+  top: 55vh;
+  left: 50vw;
+  transform: translate(-50%,-50%);
+  width: 50vw;
+  text-align: center;
+  animation: fadeIn;
+  animation-duration: 2s;
+}
+
+#teamCard
+{ 
+  width: 200px;
+  margin: auto;
+  position: relative;
+}
+#teamCard img
+{
+  width: 100%;
+}
+#teamCard .pvMax
+{
+  position: absolute;
+  top: 63px;
+  left: 43px;
+  font-family: godzilla, Verdana;
+  font-size: 1.3rem;
+  color: white;
+  z-index: 1;
+}
+#deck form
+{
+  padding: 20px;
+  width: 50%;
+  min-width: 250px;
+  margin: 30px auto;
+  font-family: "fira_code", Verdana;
+  background-color: rgba(0,0,0,0.7);
+  color: rgb(194,210,1); 
+}
+#deck form label, #deck form select, #deck form div
+{
+  margin: 5px;
+}
+
+/****************************** Footer ******************************/
+
+footer
+{
+  animation: fadeIn;
+  animation-duration: 2s;
+}
+
+.links
+{
+  font-size: 0;
+  position: absolute;
+  bottom: 3vh;
+  left: 50vw;
+  transform: translateX(-50%);
+  width: 25vw;
+  min-width: 275px;
+}
+.links li
+{
+  display: inline-block;
+  width: 33%;
+}
+.links li img
+{
+  display: block;
+  margin: auto;
+  width: 7vh;
+}
+
+/****************************** Animations ******************************/
+
+.noAnimation
+{
+  animation: none;
+}
+
+@keyframes fadeIn
+{
+  0%
+  {
+    opacity: 0;
+  }
+  100%
+  {
+    opacity: 1;
+  }
+}
+
+@keyframes slideDown
+{
+  0%
+  {
+    top: -100px;
+  }
+  100%
+  {
+    top: 0;
+  }
+}
+
+@keyframes oscillate_3
+{
+  0%
+  {
+    transform: rotate(0deg);
+  }
+  25%
+  {
+    transform: rotate(3deg);
+  }
+  75%
+  {
+    transform: rotate(-3deg);
+  }
+  100%
+  {
+     transform: rotate(0deg);
+  }
+}
+
+/****************************** Responsive ******************************/
+
+@media (max-width: 800px)
+{
+  body
+  {
+    font-size: 13px;
+  }
+  #deckHeader h1
+  {
+    right: 0;
+  }
+  #deckHeader nav
+  {
+    left: 0;
+  }
+  #deckHeader nav, #deckHeader h1
+  {
+    min-width: 200px;
+  }
+  #logoNeozorus
+  {
+    width: 20vw;
+    min-width: 250px;
+  }
+}
+
+@media (max-width: 600px)
+{
+  body
+  {
+    font-size: 12px;
+  }
+  #logoNeozorus
+  {
+/*    width: 70%;
+    min-width: 250px;*/
+  }
+  .welcome, #bloc_menu
+  {
+    min-width: 150px;
+  }
+}
+
+@media (max-height: 600px)
+{
+  #teamCard
+  {
+    width: 150px;
+  }
+  #teamCard .pvMax
+  {
+    top: 45px;
+    left: 30px;
+    font-size: 1.1rem;
+  }
+}
+@media (max-height: 500px)
+{
+  body
+  {
+    font-size: 12px;
+  }
+  .btn
+  {
+    /*font-size: 1.1em;*/
+    border-width : 3px;
+  }
+  .links li img
+  {
+    width: 30px;
+  } 
+  #logoNeozorus
+  {
+    width: 200px;
+    min-width: 200px;
+  }
+  #deck
+  {
+    width: 100vw;
+  }
+  #teamCard, #deck form
+  {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 20px;
+  }
+}

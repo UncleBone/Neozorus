@@ -1,0 +1,10 @@
+# .htaccess Neozorus_URLRW
+
+Options +FollowSymlinks
+RewriteEngine On
+#RewriteBase /localhost/GitHub/Neozorus/Neozorus_URLRW/
+RewriteRule ^cartes/$ ?controller=carte&action=displayCards
+#RewriteCond %{REQUEST_URI} (.*)\.css$ 
+#RewriteRule (.*)/cartes/(.*\.css)$ $1/$2
+#RewriteRule %1 /assets [L]
+#RewriteRule ^carte.html$ test.html [L] 

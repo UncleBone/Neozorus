@@ -47,7 +47,7 @@ class CoreController{
 	 * @return boolean [description]
 	 */
     protected function isSessionNeozorus(){
-		if(!isset($_SESSION['neozorus']['u_id'])){
+		if(!isset($_SESSION['neozorus'])){
 			$controller= new ErrorController();
 			$controller->noSession();
 		}  		

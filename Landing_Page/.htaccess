@@ -1,0 +1,5 @@
+# .htaccess Landing Page
+
+Options +FollowSymlinks
+RewriteEngine On
+RewriteRule ^(\w+).html$ .?team=$1 [L] 

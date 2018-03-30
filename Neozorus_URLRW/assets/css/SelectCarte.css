@@ -1,0 +1,320 @@
+/******************************DECLARATION DES POLICES******************************/
+@font-face
+{
+	font-family: 'army_rangers';
+	src:url('../font/army_rangers/armyrangers.ttf');
+}
+
+@font-face
+{
+	font-family: 'fira_code';
+	src:url('../font/fira-code/FiraCode-Medium.otf');
+}
+
+@font-face
+{
+	font-family: 'godzilla';
+	src:url('../font/godzilla/Godzilla.ttf');
+}
+/******************************ILLUSTRATION DE LA PAGE******************************/
+.dinotheme{
+	background-image: url("../img/background_jungle.jpg");
+}
+
+.matrixtheme{
+	background-image: url("../img/background_matrix.jpg");
+}
+/******************************GENERAL******************************/
+body, a, a:visited{
+	color:white;
+}
+
+a, a:visited{
+	text-decoration: none;
+}
+
+a:hover{
+	color:#D04F4F;
+}
+
+h1{
+	text-align: center;
+	font-family: 'godzilla';
+	font-size: 75px;
+	margin:20px 0px;
+	text-shadow: 3px 3px 3px #E41F2D ;
+}
+
+/******************************BLOC MENU******************************/
+#conteneur{
+	display: flex;
+	flex-direction: row;
+	width: 100%;
+}
+#menu{
+	padding-top: 15px;
+	text-align: center;
+	width: 30%;
+	height: 100%;
+	font-family: 'godzilla';
+	font-size: 30px;
+	background-color: rgba(0, 0, 0, 0.80);
+	margin-right: 20px;
+}
+
+#menu input{
+	position: relative;
+	top: -7px;
+	height: 35px;
+	background-color: black;
+	color:#16E62A;
+	font-family: 'fira_code';
+	font-size: 20px;
+	text-align: center;
+	outline: none;
+	border-radius: 10%;
+	background-color: black;
+}
+
+#nameButton{
+	position: relative;
+	left: 10px;
+	height: 35px;
+	width: 35px;
+	border-radius: 50%;
+	outline: none;
+	background-color: #16E62A;
+}
+/******************************BLOC CARTE******************************/
+.affichageCarte{
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: flex-start;
+	width: 70%;
+}
+
+.mesGabarits{
+	margin: 0.5px 10px;
+}
+
+.mesGabarits img{
+	width: 150px;
+}
+
+.hoverCard{
+	box-shadow:2px 2px 5px red;
+	cursor: pointer;
+	box-shadow: 2px 1px 26px 8px rgba(255,30,5,0.8);
+	background-color: black;
+
+}
+
+#zoomCard{
+	position: absolute;
+	top:0px;
+	left:0px;
+	z-index: 10;
+	width: 400px;
+	left:450px;
+	top:200px;
+}
+
+#zoomCard img{
+	width: 100%;
+}
+
+.stat1Zoom {
+	position: absolute;
+	top:70px;
+	left:126px;
+	font-family: 'army_rangers';
+	font-size: 50px;
+}
+.stat2Zoom {
+	position: absolute;
+	top:135px;
+	left:85px;
+	font-family: 'army_rangers';
+	font-size: 50px;
+}
+.stat3Zoom {
+	position: absolute;
+	top:215px;
+	left:65px;
+	font-family: 'army_rangers';
+	font-size: 50px;
+}
+
+.stat1SpecialeZoom{
+	position: absolute;
+	top:35px;
+	left:60px;
+	font-family: 'army_rangers';
+	font-size: 50px;
+}
+
+.stat2SpecialeZoom{
+	position: absolute;
+	top:99px;
+	left:60px;
+	font-family: 'army_rangers';
+	font-size: 50px;
+}
+
+.stat3SpecialeZoom{
+	position: absolute;
+	top:162px;
+	left:60px;
+	font-family: 'army_rangers';
+	font-size: 50px;
+}
+/******************************MISE EN PAGE DES STATISTIQUES DES CARTES******************************/
+.PuissanceCarteSortCreature{
+	position: relative;
+	z-index: 3;
+	font-family: 'army_rangers';
+	top: -167px;
+	left:-105px;
+}
+
+.PuissanceCarteSpeciale{
+	position: relative;
+	z-index: 3;
+	font-family: 'army_rangers';
+	top: -180px;
+	left:-132px;
+}
+
+.ManaSortOuVitaCreature{
+	position: relative;
+	z-index: 3;
+	font-family: 'army_rangers';
+	top: -142px;
+	left:-129px;
+}
+
+.VitaCarteSpeciale{
+	position: relative;
+	z-index: 3;
+	font-family: 'army_rangers';
+	top: -155px;
+	left:-139px;
+}
+
+.ManaCarteCreature{
+	position: relative;
+	z-index: 3;
+	font-family: 'army_rangers';
+	top: -112px;
+	left:-144px;
+}
+.ManaCarteSpeciale{
+	position: relative;
+	z-index: 3;
+	font-family: 'army_rangers';
+	top: -132px;
+	left:-144px;
+}
+
+.IndiceCarteCreature {
+	font-size: 12px;
+	position: relative;
+	font-family: 'army_rangers';
+	top: -189px;
+	left:135px;
+}
+
+.IndiceCarteCreature p {
+	margin:0;
+	padding:0.5px;
+	padding-left: 2px;
+	padding-bottom: 3px;
+	z-index: 3;
+	width: 10px;
+	height: 10px;
+	color:black;
+	background-color: white;
+	border-radius: 50%;
+}
+
+/*********************************************MENU DEROULANT************************************************/
+  #menu_jouer {
+  padding:0;
+  margin:0;
+  list-style:none;
+  text-align: center;
+  width: 180px;
+  }
+  #menu_jouer ul {
+    padding:0;
+    margin:0;
+    list-style:none;
+    text-align: center;
+    width: 100%;
+  }
+
+
+  /* VISUEL DE 'menu' */
+  #menu_jouer li {
+     background-color:black; 
+     border-radius: 6px;
+     margin-bottom:2px;
+     border:solid 1px #8cbe22;
+  }
+  #menu_jouer li li {
+     max-height:0;
+     overflow: hidden;
+     transition: all .5s;
+     border-radius:0;
+     background: #333;
+     box-shadow: none;
+     border:none;
+     margin:0
+  }
+  #menu_jouer a {
+    display:block;
+    text-decoration: none;
+    color: #8cbe22;
+    padding: 8px 0;
+    font-family: "fira_code", Verdana;
+    font-size:1.2em
+  }
+  #menu_jouer ul li a, #menu_jouer li:hover li a {
+    font-size:0.5em
+  }
+  #menu_jouer li:hover {
+     background: rgba(0,0,0,0.7);
+  }
+  #menu_jouer li li:hover {
+     background: rgba(0,0,0,0.7);
+  }
+  #menu_jouer ul li:last-child {
+     border-radius: 0 0 6px 6px;
+     border:none;
+  }
+  #menu_jouer li:hover li {
+    max-height: 15em;
+  }
+  .bloc_menu{
+      z-index:10;
+      position: fixed;
+      top: 10px;
+      left: 30px;
+      width: 11%;
+      margin: 10px 0 0 10px;
+  }
+/*******************************************************************************/
+.popMessage{
+  padding: 20px 20px;
+  z-index: 100;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background-color: black;
+  font-size: 45px;
+  color:#16E62A;
+  text-align: center;
+}

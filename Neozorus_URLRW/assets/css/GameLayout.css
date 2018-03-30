@@ -1,0 +1,785 @@
+/***************** Common *******************/
+
+@font-face
+{
+	font-family: 'fira_code';
+	src:url('../font/fira-code/FiraCode-Medium.otf');
+}
+@font-face
+{
+	font-family: 'army_rangers';
+	src:url('../font/army_rangers/armyrangers.ttf');
+}
+@font-face
+{
+	font-family: 'godzilla';
+	src:url('../font/godzilla/Godzilla.ttf');
+}
+
+body 
+{
+	margin: 0;
+	background-image: url('../img/plateau/plateau_alt.png');
+	background-size: 100vw 100vh;
+	font-size: 15px;
+	overflow: hidden;
+}
+
+body *
+{
+	box-sizing: border-box;
+}
+
+a
+{
+	text-decoration: none;
+}
+
+/******************* Erreurs & Messages *********************/
+
+.error, .message
+{
+	position: absolute;
+	right: 25vw;
+	top: 0;
+	z-index: 50;
+	transform: translateX(50%);
+	padding: 10px;
+	font-family: 'godzilla';
+	font-size: 2em;
+	color: white;
+	background-color: rgba(0, 0, 0, 0.7);
+}
+.message
+{
+	font-family: 'fira_code', Verdana;
+	border-radius: 5px;
+}
+.endGame
+{
+	display: block;
+	position: absolute;
+	top: 50vh;
+	left: 0;
+	z-index: 50;
+	transform: translateY(-100%);
+	font-family: 'godzilla';
+	font-size: 3rem !important;
+	padding: 50px;
+	width: 100vw;
+	text-align: center;
+	animation: endGame;
+	animation-duration: 1s;
+	animation-iteration-count: 1;
+}
+
+/****************** Historique ********************/
+
+#historique
+{
+	position: absolute;
+	top: 1vh;
+	left: 2vw;
+	width: 40vw;
+	height: 10vh;
+	background-color: rgba(0, 0, 0, 0.7);
+	overflow: hidden;
+	border: 1px solid white;
+	border-radius: 5px;
+}
+#events
+{
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 5000vw;
+	height: 10vh;
+	padding: 1vh;
+	text-align: right;
+	overflow: hidden;
+	white-space: nowrap;
+}
+.event
+{
+	position: relative;
+	display: inline-block;
+	height: 8vh;
+	width: 8vh;
+	border-radius: 5px;
+	background-color: white;
+	margin: 0 2px;
+}
+.event span
+{
+	font-family: godzilla, Verdana;
+	font-size: 4vh;
+	position: absolute;
+	bottom: 0%;
+	right: 0%;
+	line-height: 3vh;
+	text-shadow: 0px 0px 1px black, 0px 0px 1px black, 0px 0px 1px black;
+}
+.event img.sort
+{
+	position: absolute;
+	bottom: 0%;
+	right: 0%;
+	width: 4vh;
+	margin: 1px;
+}
+.event img.skull
+{
+	position: absolute;
+	top: 0%;
+	left: 0%;
+	width: 4vh;
+	margin: 1px;
+}
+.eActif
+{
+	border: 2px solid rgb(120,189,222);
+	color: rgb(120,189,222);
+}
+.ePassif
+{
+	border: 2px solid rgb(195,10,48);
+	color: rgb(195,10,48);
+}
+.eventBox
+{
+	display: none;
+	position: absolute;
+	z-index: 5;
+	background-color: rgba(0, 0, 0, 0.7);
+	padding: 20px;
+	border-radius: 5px;
+	color: white;
+	text-align: center;
+	white-space: nowrap;
+}
+.eventBox:after
+{
+	bottom: 100%;
+	left: 50%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+	border-color: rgba(0, 0, 0, 0);
+	border-bottom-color: rgba(0, 0, 0, 0.7);
+	border-width: 30px;
+	margin-left: -30px;
+}
+.eventBox p
+{
+	font-family: 'fira_code',Verdana;
+}
+.eventBox .carte, .eventBox .carte + p, .eventBox .Heros, .eventBox .carte + img
+{
+	display: inline-block;
+	vertical-align: middle;
+	position: relative;
+	top: 0;
+	left: 0;
+	transform: none;
+}
+.eventBox .carte + img
+{
+	width: 60px;
+	margin: 0 10px;
+}
+.eventBox .carte + p
+{
+	
+	font-family: godzilla, Verdana;
+	font-size: 2em;
+	margin: 0 10px;
+}
+.eventBox img.skull
+{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 75%;
+	height: auto;
+	transform: translate(-50%,-50%);
+	z-index: 5;
+}
+.eventBox .Heros .damage
+{
+	transform: translateX(30px);
+}
+.eventBox .carte .damage
+{
+	transform: translateX(15px);
+}
+
+/*********** Héros ***********/
+
+.Heros
+{
+	height: 20vh;
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
+}
+.Heros img
+{
+	height: 100%;
+}
+.Heros .pv, .eventBox .Heros .damage
+{
+	position: absolute;
+	z-index: 10;
+	top: 24%;
+	left: 17%;
+}
+.Heros .pv
+{
+	font-size: 2.5vh;
+	color: white;
+	font-family: 'Godzilla';
+}
+#topHeros
+{
+	top: 1%;	
+}
+#bottomHeros{
+	bottom: 9%;
+}
+#bottomHeros p
+{
+	position: absolute;
+	bottom: -5px;
+	left:50%;
+	transform: translateX(-50%);
+	width: 80%;
+	min-width: 100px;
+	text-align: center;
+	font-family: "fira_code", Verdana;
+	font-size: 1.5vh;
+	color: #8cbe22;
+	background-color: rgb(0,10,0);
+	padding: 5px;
+	border-radius: 5px;
+}
+
+
+/*************** Mana *****************/
+
+#manaLeft, #manaRight
+{
+	position: absolute;
+	top: 21vh;
+	height: 50vh;
+	width: 5vw;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	align-items: center;
+	padding: 1vh;
+}
+#manaLeft{
+	left:0;	
+}
+#manaRight{
+	right:0;
+}
+
+.pillule
+{
+	height: 10%;
+}
+.pillule img
+{
+	height: 100%;
+}
+
+/************************************ Plateau *****************************************/
+
+#plateau
+{
+	position: absolute;
+	top: 21vh;
+	left: 5vw;
+	height: 50vh;
+	width: 90vw;
+}
+#topPlateau, #bottomPlateau
+{
+	width: 100%;
+	height: 50%;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+}
+
+/************************* Cartes du plateau *****************************/
+
+.carte
+{
+	position: relative;	/* pour positionner les stats */
+	display: block;
+	margin: 0 0.5%;
+}
+
+.carte img
+{
+	max-height: 24vh;
+	max-width: 100%;
+}
+
+.carte span, .zoom span
+{
+	position: absolute;
+	z-index:1;
+	color:white;
+	font-family: 'godzilla', Verdana;
+	font-size: 2vh;
+}
+
+.carte .indice, .carteMain .indice
+{
+	right: 2.5%;
+	top: 12.5%;
+	color: black;
+	background-color: white;
+	border-radius: 50%;
+	padding: 0 1.5%;
+	font-size: 1vh;
+	font-family: 'fira_code';
+}
+
+.carte .puissance
+{
+	top: 13.5%;
+	left: 32%;
+}
+.carte.creature .pv, .carteMain.sort .mana ,.carte.sort .mana, .eventBox .carte .damage
+{
+	top: 25%;
+	left: 20%;
+}
+.carte.creature .mana
+{
+	top: 39%;
+	left: 15.5%;
+}
+.carte.speciale > span:not(.indice)
+{
+	left: 14.5%;
+}
+.carte.speciale .puissance
+{
+	top: 7%;
+}
+.carte.speciale .pv
+{
+	top: 19%;
+}
+.carte.speciale .mana
+{
+	top: 30%;
+}
+.zoom span
+{
+	font-size: 1.3em;
+}
+
+.zoom.creature span.puissance, .zoom.sort span.puissance
+{
+	top: 14.5%;
+	left: 32.5%;
+}
+.zoom.creature span.pv, .zoom.sort span.manaCost
+{
+	top: 25.5%;
+	left: 20.5%;
+}
+.zoom.creature span.manaCost
+{
+	top: 39.5%;
+	left: 15.5%;
+}
+.zoom.speciale span:not(.indice)
+{
+	left: 15%;
+}
+.zoom.speciale span.pv
+{
+	top: 8%;
+}
+.zoom.speciale span.puissance
+{
+	top: 20%;
+}
+.zoom.speciale span.manaCost
+{
+	top: 31%;
+}
+.zoom .indice
+{
+	right: 2.5%;
+	top: 12.5%;
+	color: black;
+	background-color: white;
+	border-radius: 50%;
+	padding: 0 1.5%;
+	font-size: 10px;
+	font-family: 'fira_code';
+}
+
+/*********************** animations cartes *************************/
+
+.sommeil
+{
+	font-family: godzilla, Verdana;
+	color: rgb(50,50,50);
+	text-shadow: white 0px 0px 1px, white 0px 0px 1px, white 0px 0px 1px, white 0px 0px 1px;
+	animation: sleep;
+	animation-duration: 1s;
+	animation-iteration-count: infinite;
+	animation-timing-function: linear;
+}
+.carte span.damage, #Heros span.damage, .Heros span.damage
+{
+	position: absolute;
+	font-family: godzilla, Verdana;
+	color: red;
+	text-shadow: black 0px 0px 2px, black 0px 0px 2px, black 0px 0px 2px, black 0px 0px 2px;
+	font-size: 1.2em;
+}
+
+/*************************** Pioche et défausse ****************************/
+
+#piocheBottom{
+	position: absolute;
+	left: 5vw;
+	bottom: 10%;
+}
+#piocheBottom img{
+	height: 19vh;
+}
+#piocheBottom p{
+	margin: 0;
+	position: absolute;
+	top:50%;
+	left:50%;
+	transform: translate(-50%,-50%);
+	font-family: 'army_rangers', Verdana;
+	font-size: 5vh;
+	color: #01222C;
+}
+
+#defausseBottom{
+	position: absolute;
+	right: 5vw;
+	bottom: 10%;
+}
+#defausseBottom img{
+	height: 19vh;
+}
+
+/**************************** Barre de contrôle *****************************/
+
+#actionBar
+{
+	position: absolute;
+	bottom: 0;
+	width: 100vw;
+	height: 10vh;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	align-items: center;
+}
+
+#quitter
+{
+	flex: 1;
+	text-align: center;
+	margin-left: 1%;
+}
+
+#quitter a
+{
+	color: #8cbe22;
+	font-family: 'fira_code', Verdana;
+  	background-color: rgba(0, 0, 0, 0.6);
+  	padding: 10px 15px;
+  	border: solid #8cbe22 2px;
+  	border-radius: 6px;
+}
+
+#quitter a:hover{
+	color: white;
+	border-color: white;
+}
+
+#end
+{
+	flex: 1;
+	text-align: center;
+}
+#end img
+{
+	height: 8vh;
+}
+
+#end .anim:hover
+{
+	animation: oscillate_5;
+	animation-duration: 0.5s;
+}
+
+#main
+{
+	flex: 8;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	flex-wrap: nowrap;
+	align-self: flex-start;
+	align-items: flex-start;
+}
+
+/**************************** Main *****************************/
+
+.carteMain  
+{
+	position: relative;	/* pour positionner les stats */
+	display: block;
+	width: 8vw;
+	margin: 0 0.5%;
+}
+
+.carteMain img
+{
+	width: 100%;
+}
+
+.carteMain span
+{
+	position: absolute;
+	z-index:10;
+	color:white;
+	font-family: 'Godzilla';
+	font-size: 1vw;
+}
+
+.carteMain .puissance
+{
+	top: 12.5%;
+	left: 32%;
+}
+.carteMain.creature .pv, .carteMain.sort .mana
+{
+	top: 24%;
+	left: 20%;
+}
+.carteMain.creature .mana
+{
+	top: 38%;
+	left: 15%;
+}
+.carteMain.speciale span:not(.indice)
+{
+	left: 14%;
+}
+.carteMain.speciale .puissance
+{
+	top: 6.5%;
+}
+.carteMain.speciale .pv
+{
+	top: 18%;
+}
+.carteMain.speciale .mana
+{
+	top: 29%;
+}
+
+#infoBox{
+	text-align: center;
+	z-index: 3;
+	white-space: nowrap;
+}
+.libelle{
+	font-weight: bold;
+}
+.abilite{
+	font-size: 80%;
+	font-style: italic;
+	color: lightgreen;
+}
+
+/**************************** Animation *****************************/
+
+@keyframes oscillate_5
+{
+  0%
+  {
+    transform: rotate(0deg);
+  }
+  25%
+  {
+    transform: rotate(5deg);
+  }
+  75%
+  {
+    transform: rotate(-5deg);
+  }
+  100%
+  {
+     transform: rotate(0deg);
+  }
+}
+
+@keyframes sleep
+{
+	0%
+	{
+		font-size: 1em;
+		transform: translate(0,0);
+	}
+	50%
+	{
+		font-size: 1.5em;
+		transform: translate(15px,-15px);
+	}
+	100%
+	{
+		font-size: 2em;
+		transform: translate(20px,-30px);
+	}
+}
+
+@keyframes endGame
+{
+	0%
+	{
+		transform: translate(-100%,-100%);
+	}
+	100%
+	{
+		transform: translate(0,-100%);
+	}
+}
+
+/**************************** Responsive ********************************/
+
+
+@media (max-width: 1400px), (max-height: 900px)
+{
+	#bottomHeros p
+	{
+		font-size: 0.85em;
+	}
+	.error, .message
+	{
+		font-size: 1.7em;
+	}
+}
+@media (max-width: 1000px)
+{
+	.error, .message
+	{
+		font-size: 1.3em;
+	}
+}
+@media (max-width: 750px)
+{
+	.error, .message
+	{
+		font-size: 1em;
+	}
+}
+@media (max-width: 600px)
+{
+	.error, .message
+	{
+		font-size: 0.8em;
+	}
+}
+
+@media (max-height: 600px)
+{
+	.eventBox
+	{
+		font-size: 0.9em;
+	}
+	.eventBox .carte + img
+	{
+		width: 50px;
+		margin: 0 9px;
+	}
+	#bottomHeros p
+	{
+		font-size: 0.7em;
+	}
+	#quitter a
+	{
+		font-size: 0.9em;
+		padding: 5px 15px;
+	}
+	.zoom span
+	{
+		font-size: 1.2em;
+		transform: translateY(-3px);
+	}
+	.zoom .indice
+	{
+		font-size: 10px;
+		right: 2.5%;
+		top: 12%;	
+		transform: none;
+	}
+	#infoBox
+	{
+		font-size: 0.8em;
+	}
+	#piocheBottom p
+	{
+		font-size: 2em;
+	}
+}
+@media (max-height: 450px)
+{
+	.eventBox
+	{
+		font-size: 0.8em;
+	}
+	#bottomHeros p
+	{
+		font-size: 0.6em;
+	}
+	.Heros .pv
+	{
+		font-size: 3vh;
+		top: 22%;
+		left: 16%;
+	}
+	#quitter a
+	{
+		font-size: 0.7em;
+		padding: 3px 10px;
+		border-width: 1px;
+	}
+	#piocheBottom p
+	{
+		font-size: 1.5em;
+	}
+	.endGame
+	{
+		font-size: 2rem !important;
+		padding: 20px;
+	}
+}
+
+
+
+
+
