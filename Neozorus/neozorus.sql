@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le :  mar. 06 mars 2018 à 13:40
+-- Généré le :  lun. 02 avr. 2018 à 11:50
 -- Version du serveur :  10.1.28-MariaDB
 -- Version de PHP :  7.1.10
 
@@ -142,12 +142,13 @@ INSERT INTO `deck` (`d_id`, `d_libelle`, `d_nbMaxCarte`, `d_personnage_fk`, `d_u
 (45, 'Default', 20, 2, 10, 0),
 (46, 'Default', 20, 1, 9, 0),
 (59, 'Default', 20, 2, 8, 0),
-(75, 'Deck dinozz', 20, 2, 14, 1),
-(76, 'Matrix', 20, 1, 14, 0),
+(75, 'Deck dinoz', 20, 2, 14, 0),
+(76, 'Matrixx', 20, 1, 14, 0),
 (77, 'Default', 20, 1, 1, 0),
 (78, 'Default', 20, 2, 1, 0),
 (79, 'Default', 20, 2, 2, 0),
-(80, 'Default', 20, 1, 2, 0);
+(80, 'Default', 20, 1, 2, 0),
+(81, 'Default', 20, 2, NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -363,6 +364,27 @@ CREATE TABLE `event_play` (
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `game`
+--
+
+CREATE TABLE `game` (
+  `g_id` int(20) NOT NULL,
+  `g_data` text NOT NULL,
+  `g_player1` int(11) NOT NULL,
+  `g_player2` int(11) NOT NULL,
+  `g_running` tinyint(1) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `game`
+--
+
+INSERT INTO `game` (`g_id`, `g_data`, `g_player1`, `g_player2`, `g_running`) VALUES
+(1, 'O:14:\"GameController\":9:{s:18:\"\0GameController\0id\";s:1:\"1\";s:23:\"\0GameController\0players\";a:2:{i:0;O:6:\"Joueur\":10:{s:10:\"\0Joueur\0id\";s:1:\"8\";s:14:\"\0Joueur\0pseudo\";s:5:\"User2\";s:12:\"\0Joueur\0deck\";O:8:\"GameDeck\":3:{s:12:\"\0GameDeck\0id\";s:2:\"59\";s:16:\"\0GameDeck\0cartes\";a:20:{i:0;O:8:\"GameCard\":13:{s:12:\"\0GameCard\0id\";s:2:\"19\";s:17:\"\0GameCard\0libelle\";s:12:\"DILOPHOSAURE\";s:14:\"\0GameCard\0type\";s:8:\"creature\";s:19:\"\0GameCard\0puissance\";s:1:\"2\";s:15:\"\0GameCard\0pvMax\";s:1:\"4\";s:14:\"\0GameCard\0mana\";s:1:\"4\";s:17:\"\0GameCard\0abilite\";a:1:{i:0;i:0;}s:12:\"\0GameCard\0pv\";s:1:\"4\";s:22:\"\0GameCard\0localisation\";i:2;s:16:\"\0GameCard\0indice\";i:1;s:14:\"\0GameCard\0path\";s:36:\".\\assets\\img\\gabarit\\creature\\19.png\";s:16:\"\0GameCard\0active\";i:0;s:17:\"\0GameCard\0visable\";i:1;}i:1;O:8:\"GameCard\":13:{s:12:\"\0GameCard\0id\";s:2:\"17\";s:17:\"\0GameCard\0libelle\";s:13:\"PROTOCERATOPS\";s:14:\"\0GameCard\0type\";s:8:\"creature\";s:19:\"\0GameCard\0puissance\";s:1:\"2\";s:15:\"\0GameCard\0pvMax\";s:1:\"3\";s:14:\"\0GameCard\0mana\";s:1:\"2\";s:17:\"\0GameCard\0abilite\";a:1:{i:0;i:0;}s:12:\"\0GameCard\0pv\";s:1:\"3\";s:22:\"\0GameCard\0localisation\";i:2;s:16:\"\0GameCard\0indice\";i:2;s:14:\"\0GameCard\0path\";s:36:\".\\assets\\img\\gabarit\\creature\\17.png\";s:16:\"\0GameCard\0active\";i:0;s:17:\"\0GameCard\0visable\";i:1;}i:2;O:8:\"GameCard\":13:{s:12:\"\0GameCard\0id\";s:2:\"22\";s:17:\"\0GameCard\0libelle\";s:11:\"ANKYLOSAURE\";s:14:\"\0GameCard\0type\";s:8:\"creature\";s:19:\"\0GameCard\0puissance\";s:1:\"1\";s:15:\"\0GameCard\0pvMax\";s:1:\"3\";s:14:\"\0GameCard\0mana\";s:1:\"1\";s:17:\"\0GameCard\0abilite\";a:1:{i:0;s:1:\"1\";}s:12:\"\0GameCard\0pv\";s:1:\"3\";s:22:\"\0GameCard\0localisation\";i:2;s:16:\"\0GameCard\0indice\";i:1;s:14:\"\0GameCard\0path\";s:36:\".\\assets\\img\\gabarit\\creature\\22.png\";s:16:\"\0GameCard\0active\";i:0;s:17:\"\0GameCard\0visable\";i:1;}i:3;O:8:\"GameCard\":13:{s:12:\"\0GameCard\0id\";s:2:\"15\";s:17:\"\0GameCard\0libelle\";s:11:\"PTERODACTYL\";s:14:\"\0GameCard\0type\";s:4:\"sort\";s:19:\"\0GameCard\0puissance\";s:1:\"7\";s:15:\"\0GameCard\0pvMax\";N;s:14:\"\0GameCard\0mana\";s:1:\"5\";s:17:\"\0GameCard\0abilite\";a:1:{i:0;i:0;}s:12:\"\0GameCard\0pv\";N;s:22:\"\0GameCard\0localisation\";i:1;s:16:\"\0GameCard\0indice\";i:1;s:14:\"\0GameCard\0path\";s:32:\".\\assets\\img\\gabarit\\sort\\15.png\";s:16:\"\0GameCard\0active\";i:0;s:17:\"\0GameCard\0visable\";i:1;}i:4;O:8:\"GameCard\":13:{s:12:\"\0GameCard\0id\";s:2:\"18\";s:17:\"\0GameCard\0libelle\";s:12:\"BRACHIOSAURE\";s:14:\"\0GameCard\0type\";s:8:\"creature\";s:19:\"\0GameCard\0puissance\";s:1:\"4\";s:15:\"\0GameCard\0pvMax\";s:1:\"3\";s:14:\"\0GameCard\0mana\";s:1:\"3\";s:17:\"\0GameCard\0abilite\";a:1:{i:0;s:1:\"2\";}s:12:\"\0GameCard\0pv\";s:1:\"3\";s:22:\"\0GameCard\0localisation\";i:1;s:16:\"\0GameCard\0indice\";i:2;s:14:\"\0GameCard\0path\";s:36:\".\\assets\\img\\gabarit\\creature\\18.png\";s:16:\"\0GameCard\0active\";i:0;s:17:\"\0GameCard\0visable\";i:1;}i:5;O:8:\"GameCard\":13:{s:12:\"\0GameCard\0id\";s:2:\"21\";s:17:\"\0GameCard\0libelle\";s:18:\"PACHYCEPHALOSAURUS\";s:14:\"\0GameCard\0type\";s:8:\"creature\";s:19:\"\0GameCard\0puissance\";s:1:\"8\";s:15:\"\0GameCard\0pvMax\";s:1:\"6\";s:14:\"\0GameCard\0mana\";s:1:\"7\";s:17:\"\0GameCard\0abilite\";a:1:{i:0;i:0;}s:12:\"\0GameCard\0pv\";s:1:\"6\";s:22:\"\0GameCard\0localisation\";i:1;s:16:\"\0GameCard\0indice\";i:1;s:14:\"\0GameCard\0path\";s:36:\".\\assets\\img\\gabarit\\creature\\21.png\";s:16:\"\0GameCard\0active\";i:0;s:17:\"\0GameCard\0visable\";i:1;}i:6;O:8:\"GameCard\":13:{s:12:\"\0GameCard\0id\";s:2:\"17\";s:17:\"\0GameCard\0libelle\";s:13:\"PROTOCERATOPS\";s:14:\"\0GameCard\0type\";s:8:\"creature\";s:19:\"\0GameCard\0puissance\";s:1:\"2\";s:15:\"\0GameCard\0pvMax\";s:1:\"3\";s:14:\"\0GameCard\0mana\";s:1:\"2\";s:17:\"\0GameCard\0abilite\";a:1:{i:0;i:0;}s:12:\"\0GameCard\0pv\";s:1:\"3\";s:22:\"\0GameCard\0localisation\";i:1;s:16:\"\0GameCard\0indice\";i:1;s:14:\"\0GameCard\0path\";s:36:\".\\assets\\img\\gabarit\\creature\\17.png\";s:16:\"\0GameCard\0active\";i:0;s:17:\"\0GameCard\0visable\";i:1;}i:7;O:8:\"GameCard\":13:{s:12:\"\0GameCard\0id\";s:2:\"23\";s:17:\"\0GameCard\0libelle\";s:12:\"ELASMASAURUS\";s:14:\"\0GameCard\0type\";s:8:\"creature\";s:19:\"\0GameCard\0puissance\";s:1:\"3\";s:15:\"\0GameCard\0pvMax\";s:1:\"6\";s:14:\"\0GameCard\0mana\";s:1:\"3\";s:17:\"\0GameCard\0abilite\";a:1:{i:0;s:1:\"1\";}s:12:\"\0GameCard\0pv\";s:1:\"6\";s:22:\"\0GameCard\0localisation\";i:1;s:16:\"\0GameCard\0indice\";i:2;s:14:\"\0GameCard\0path\";s:36:\".\\assets\\img\\gabarit\\creature\\23.png\";s:16:\"\0GameCard\0active\";i:0;s:17:\"\0GameCard\0visable\";i:1;}i:8;O:8:\"GameCard\":13:{s:12:\"\0GameCard\0id\";s:2:\"20\";s:17:\"\0GameCard\0libelle\";s:10:\"SPINOSAURE\";s:14:\"\0GameCard\0type\";s:8:\"creature\";s:19:\"\0GameCard\0puissance\";s:1:\"6\";s:15:\"\0GameCard\0pvMax\";s:1:\"5\";s:14:\"\0GameCard\0mana\";s:1:\"5\";s:17:\"\0GameCard\0abilite\";a:1:{i:0;s:1:\"3\";}s:12:\"\0GameCard\0pv\";s:1:\"5\";s:22:\"\0GameCard\0localisation\";i:1;s:16:\"\0GameCard\0indice\";i:1;s:14:\"\0GameCard\0path\";s:36:\".\\assets\\img\\gabarit\\creature\\20.png\";s:16:\"\0GameCard\0active\";i:0;s:17:\"\0GameCard\0visable\";i:1;}i:9;O:8:\"GameCard\":13:{s:12:\"\0GameCard\0id\";s:2:\"19\";s:17:\"\0GameCard\0libelle\";s:12:\"DILOPHOSAURE\";s:14:\"\0GameCard\0type\";s:8:\"creature\";s:19:\"\0GameCard\0puissance\";s:1:\"2\";s:15:\"\0GameCard\0pvMax\";s:1:\"4\";s:14:\"\0GameCard\0mana\";s:1:\"4\";s:17:\"\0GameCard\0abilite\";a:1:{i:0;i:0;}s:12:\"\0GameCard\0pv\";s:1:\"4\";s:22:\"\0GameCard\0localisation\";i:1;s:16:\"\0GameCard\0indice\";i:2;s:14:\"\0GameCard\0path\";s:36:\".\\assets\\img\\gabarit\\creature\\19.png\";s:16:\"\0GameCard\0active\";i:0;s:17:\"\0GameCard\0visable\";i:1;}i:10;O:8:\"GameCard\":13:{s:12:\"\0GameCard\0id\";s:2:\"20\";s:17:\"\0GameCard\0libelle\";s:10:\"SPINOSAURE\";s:14:\"\0GameCard\0type\";s:8:\"creature\";s:19:\"\0GameCard\0puissance\";s:1:\"6\";s:15:\"\0GameCard\0pvMax\";s:1:\"5\";s:14:\"\0GameCard\0mana\";s:1:\"5\";s:17:\"\0GameCard\0abilite\";a:1:{i:0;s:1:\"3\";}s:12:\"\0GameCard\0pv\";s:1:\"5\";s:22:\"\0GameCard\0localisation\";i:1;s:16:\"\0GameCard\0indice\";i:2;s:14:\"\0GameCard\0path\";s:36:\".\\assets\\img\\gabarit\\creature\\20.png\";s:16:\"\0GameCard\0active\";i:0;s:17:\"\0GameCard\0visable\";i:1;}i:11;O:8:\"GameCard\":13:{s:12:\"\0GameCard\0id\";s:2:\"13\";s:17:\"\0GameCard\0libelle\";s:15:\"PARASAUROLOPHUS\";s:14:\"\0GameCard\0type\";s:4:\"sort\";s:19:\"\0GameCard\0puissance\";s:1:\"2\";s:15:\"\0GameCard\0pvMax\";N;s:14:\"\0GameCard\0mana\";s:1:\"1\";s:17:\"\0GameCard\0abilite\";a:1:{i:0;i:0;}s:12:\"\0GameCard\0pv\";N;s:22:\"\0GameCard\0localisation\";i:1;s:16:\"\0GameCard\0indice\";i:1;s:14:\"\0GameCard\0path\";s:32:\".\\assets\\img\\gabarit\\sort\\13.png\";s:16:\"\0GameCard\0active\";i:0;s:17:\"\0GameCard\0visable\";i:1;}i:12;O:8:\"GameCard\":13:{s:12:\"\0GameCard\0id\";s:2:\"14\";s:17:\"\0GameCard\0libelle\";s:12:\"TRICÉRATOPS\";s:14:\"\0GameCard\0type\";s:4:\"sort\";s:19:\"\0GameCard\0puissance\";s:1:\"5\";s:15:\"\0GameCard\0pvMax\";N;s:14:\"\0GameCard\0mana\";s:1:\"3\";s:17:\"\0GameCard\0abilite\";a:1:{i:0;s:1:\"3\";}s:12:\"\0GameCard\0pv\";N;s:22:\"\0GameCard\0localisation\";i:1;s:16:\"\0GameCard\0indice\";i:1;s:14:\"\0GameCard\0path\";s:32:\".\\assets\\img\\gabarit\\sort\\14.png\";s:16:\"\0GameCard\0active\";i:0;s:17:\"\0GameCard\0visable\";i:1;}i:13;O:8:\"GameCard\":13:{s:12:\"\0GameCard\0id\";s:2:\"16\";s:17:\"\0GameCard\0libelle\";s:11:\"KRONOSAURUS\";s:14:\"\0GameCard\0type\";s:8:\"creature\";s:19:\"\0GameCard\0puissance\";s:1:\"1\";s:15:\"\0GameCard\0pvMax\";s:1:\"1\";s:14:\"\0GameCard\0mana\";s:1:\"1\";s:17:\"\0GameCard\0abilite\";a:1:{i:0;i:0;}s:12:\"\0GameCard\0pv\";s:1:\"1\";s:22:\"\0GameCard\0localisation\";i:1;s:16:\"\0GameCard\0indice\";i:1;s:14:\"\0GameCard\0path\";s:36:\".\\assets\\img\\gabarit\\creature\\16.png\";s:16:\"\0GameCard\0active\";i:0;s:17:\"\0GameCard\0visable\";i:1;}i:14;O:8:\"GameCard\":13:{s:12:\"\0GameCard\0id\";s:2:\"18\";s:17:\"\0GameCard\0libelle\";s:12:\"BRACHIOSAURE\";s:14:\"\0GameCard\0type\";s:8:\"creature\";s:19:\"\0GameCard\0puissance\";s:1:\"4\";s:15:\"\0GameCard\0pvMax\";s:1:\"3\";s:14:\"\0GameCard\0mana\";s:1:\"3\";s:17:\"\0GameCard\0abilite\";a:1:{i:0;s:1:\"2\";}s:12:\"\0GameCard\0pv\";s:1:\"3\";s:22:\"\0GameCard\0localisation\";i:1;s:16:\"\0GameCard\0indice\";i:1;s:14:\"\0GameCard\0path\";s:36:\".\\assets\\img\\gabarit\\creature\\18.png\";s:16:\"\0GameCard\0active\";i:0;s:17:\"\0GameCard\0visable\";i:1;}i:15;O:8:\"GameCard\":13:{s:12:\"\0GameCard\0id\";s:2:\"22\";s:17:\"\0GameCard\0libelle\";s:11:\"ANKYLOSAURE\";s:14:\"\0GameCard\0type\";s:8:\"creature\";s:19:\"\0GameCard\0puissance\";s:1:\"1\";s:15:\"\0GameCard\0pvMax\";s:1:\"3\";s:14:\"\0GameCard\0mana\";s:1:\"1\";s:17:\"\0GameCard\0abilite\";a:1:{i:0;s:1:\"1\";}s:12:\"\0GameCard\0pv\";s:1:\"3\";s:22:\"\0GameCard\0localisation\";i:1;s:16:\"\0GameCard\0indice\";i:2;s:14:\"\0GameCard\0path\";s:36:\".\\assets\\img\\gabarit\\creature\\22.png\";s:16:\"\0GameCard\0active\";i:0;s:17:\"\0GameCard\0visable\";i:1;}i:16;O:8:\"GameCard\":13:{s:12:\"\0GameCard\0id\";s:2:\"21\";s:17:\"\0GameCard\0libelle\";s:18:\"PACHYCEPHALOSAURUS\";s:14:\"\0GameCard\0type\";s:8:\"creature\";s:19:\"\0GameCard\0puissance\";s:1:\"8\";s:15:\"\0GameCard\0pvMax\";s:1:\"6\";s:14:\"\0GameCard\0mana\";s:1:\"7\";s:17:\"\0GameCard\0abilite\";a:1:{i:0;i:0;}s:12:\"\0GameCard\0pv\";s:1:\"6\";s:22:\"\0GameCard\0localisation\";i:1;s:16:\"\0GameCard\0indice\";i:2;s:14:\"\0GameCard\0path\";s:36:\".\\assets\\img\\gabarit\\creature\\21.png\";s:16:\"\0GameCard\0active\";i:0;s:17:\"\0GameCard\0visable\";i:1;}i:17;O:8:\"GameCard\":13:{s:12:\"\0GameCard\0id\";s:2:\"16\";s:17:\"\0GameCard\0libelle\";s:11:\"KRONOSAURUS\";s:14:\"\0GameCard\0type\";s:8:\"creature\";s:19:\"\0GameCard\0puissance\";s:1:\"1\";s:15:\"\0GameCard\0pvMax\";s:1:\"1\";s:14:\"\0GameCard\0mana\";s:1:\"1\";s:17:\"\0GameCard\0abilite\";a:1:{i:0;i:0;}s:12:\"\0GameCard\0pv\";s:1:\"1\";s:22:\"\0GameCard\0localisation\";i:1;s:16:\"\0GameCard\0indice\";i:2;s:14:\"\0GameCard\0path\";s:36:\".\\assets\\img\\gabarit\\creature\\16.png\";s:16:\"\0GameCard\0active\";i:0;s:17:\"\0GameCard\0visable\";i:1;}i:18;O:8:\"GameCard\":13:{s:12:\"\0GameCard\0id\";s:2:\"24\";s:17:\"\0GameCard\0libelle\";s:12:\"RAPTOR JESUS\";s:14:\"\0GameCard\0type\";s:8:\"speciale\";s:19:\"\0GameCard\0puissance\";s:1:\"9\";s:15:\"\0GameCard\0pvMax\";s:1:\"9\";s:14:\"\0GameCard\0mana\";s:1:\"9\";s:17:\"\0GameCard\0abilite\";a:1:{i:0;i:0;}s:12:\"\0GameCard\0pv\";s:1:\"9\";s:22:\"\0GameCard\0localisation\";i:1;s:16:\"\0GameCard\0indice\";i:1;s:14:\"\0GameCard\0path\";s:36:\".\\assets\\img\\gabarit\\speciale\\24.png\";s:16:\"\0GameCard\0active\";i:0;s:17:\"\0GameCard\0visable\";i:1;}i:19;O:8:\"GameCard\":13:{s:12:\"\0GameCard\0id\";s:2:\"23\";s:17:\"\0GameCard\0libelle\";s:12:\"ELASMASAURUS\";s:14:\"\0GameCard\0type\";s:8:\"creature\";s:19:\"\0GameCard\0puissance\";s:1:\"3\";s:15:\"\0GameCard\0pvMax\";s:1:\"6\";s:14:\"\0GameCard\0mana\";s:1:\"3\";s:17:\"\0GameCard\0abilite\";a:1:{i:0;s:1:\"1\";}s:12:\"\0GameCard\0pv\";s:1:\"6\";s:22:\"\0GameCard\0localisation\";i:1;s:16:\"\0GameCard\0indice\";i:1;s:14:\"\0GameCard\0path\";s:36:\".\\assets\\img\\gabarit\\creature\\23.png\";s:16:\"\0GameCard\0active\";i:0;s:17:\"\0GameCard\0visable\";i:1;}}s:15:\"\0GameDeck\0heros\";s:1:\"2\";}s:12:\"\0Joueur\0main\";a:3:{i:191;r:10;i:172;r:25;i:221;r:40;}s:14:\"\0Joueur\0pioche\";a:17:{i:0;r:55;i:1;r:70;i:2;r:85;i:3;r:100;i:4;r:115;i:5;r:130;i:6;r:145;i:7;r:160;i:8;r:175;i:9;r:190;i:10;r:205;i:11;r:220;i:12;r:235;i:13;r:250;i:14;r:265;i:15;r:280;i:16;r:295;}s:15:\"\0Joueur\0plateau\";a:0:{}s:16:\"\0Joueur\0defausse\";a:0:{}s:10:\"\0Joueur\0pv\";i:20;s:12:\"\0Joueur\0mana\";i:1;s:15:\"\0Joueur\0visable\";i:1;}i:1;O:6:\"Joueur\":10:{s:10:\"\0Joueur\0id\";s:2:\"14\";s:14:\"\0Joueur\0pseudo\";s:5:\"Albus\";s:12:\"\0Joueur\0deck\";O:8:\"GameDeck\":3:{s:12:\"\0GameDeck\0id\";s:2:\"76\";s:16:\"\0GameDeck\0cartes\";a:20:{i:0;O:8:\"GameCard\":13:{s:12:\"\0GameCard\0id\";s:1:\"4\";s:17:\"\0GameCard\0libelle\";s:13:\"L\'AGENT SMITH\";s:14:\"\0GameCard\0type\";s:8:\"creature\";s:19:\"\0GameCard\0puissance\";s:1:\"2\";s:15:\"\0GameCard\0pvMax\";s:1:\"1\";s:14:\"\0GameCard\0mana\";s:1:\"1\";s:17:\"\0GameCard\0abilite\";a:1:{i:0;i:0;}s:12:\"\0GameCard\0pv\";s:1:\"1\";s:22:\"\0GameCard\0localisation\";i:1;s:16:\"\0GameCard\0indice\";i:2;s:14:\"\0GameCard\0path\";s:35:\".\\assets\\img\\gabarit\\creature\\4.png\";s:16:\"\0GameCard\0active\";i:0;s:17:\"\0GameCard\0visable\";i:1;}i:1;O:8:\"GameCard\":13:{s:12:\"\0GameCard\0id\";s:1:\"6\";s:17:\"\0GameCard\0libelle\";s:6:\"CYPHER\";s:14:\"\0GameCard\0type\";s:8:\"creature\";s:19:\"\0GameCard\0puissance\";s:1:\"5\";s:15:\"\0GameCard\0pvMax\";s:1:\"3\";s:14:\"\0GameCard\0mana\";s:1:\"3\";s:17:\"\0GameCard\0abilite\";a:1:{i:0;i:0;}s:12:\"\0GameCard\0pv\";s:1:\"3\";s:22:\"\0GameCard\0localisation\";i:1;s:16:\"\0GameCard\0indice\";i:1;s:14:\"\0GameCard\0path\";s:35:\".\\assets\\img\\gabarit\\creature\\6.png\";s:16:\"\0GameCard\0active\";i:0;s:17:\"\0GameCard\0visable\";i:1;}i:2;O:8:\"GameCard\":13:{s:12:\"\0GameCard\0id\";s:1:\"2\";s:17:\"\0GameCard\0libelle\";s:8:\"MORPHEUS\";s:14:\"\0GameCard\0type\";s:4:\"sort\";s:19:\"\0GameCard\0puissance\";s:1:\"4\";s:15:\"\0GameCard\0pvMax\";N;s:14:\"\0GameCard\0mana\";s:1:\"3\";s:17:\"\0GameCard\0abilite\";a:1:{i:0;s:1:\"3\";}s:12:\"\0GameCard\0pv\";N;s:22:\"\0GameCard\0localisation\";i:1;s:16:\"\0GameCard\0indice\";i:1;s:14:\"\0GameCard\0path\";s:31:\".\\assets\\img\\gabarit\\sort\\2.png\";s:16:\"\0GameCard\0active\";i:0;s:17:\"\0GameCard\0visable\";i:1;}i:3;O:8:\"GameCard\":13:{s:12:\"\0GameCard\0id\";s:1:\"9\";s:17:\"\0GameCard\0libelle\";s:12:\"L\'ARCHITECTE\";s:14:\"\0GameCard\0type\";s:8:\"creature\";s:19:\"\0GameCard\0puissance\";s:1:\"8\";s:15:\"\0GameCard\0pvMax\";s:1:\"6\";s:14:\"\0GameCard\0mana\";s:1:\"7\";s:17:\"\0GameCard\0abilite\";a:1:{i:0;i:0;}s:12:\"\0GameCard\0pv\";s:1:\"6\";s:22:\"\0GameCard\0localisation\";i:1;s:16:\"\0GameCard\0indice\";i:2;s:14:\"\0GameCard\0path\";s:35:\".\\assets\\img\\gabarit\\creature\\9.png\";s:16:\"\0GameCard\0active\";i:0;s:17:\"\0GameCard\0visable\";i:1;}i:4;O:8:\"GameCard\":13:{s:12:\"\0GameCard\0id\";s:1:\"3\";s:17:\"\0GameCard\0libelle\";s:8:\"L\'ORACLE\";s:14:\"\0GameCard\0type\";s:4:\"sort\";s:19:\"\0GameCard\0puissance\";s:1:\"6\";s:15:\"\0GameCard\0pvMax\";N;s:14:\"\0GameCard\0mana\";s:1:\"5\";s:17:\"\0GameCard\0abilite\";a:1:{i:0;i:0;}s:12:\"\0GameCard\0pv\";N;s:22:\"\0GameCard\0localisation\";i:1;s:16:\"\0GameCard\0indice\";i:1;s:14:\"\0GameCard\0path\";s:31:\".\\assets\\img\\gabarit\\sort\\3.png\";s:16:\"\0GameCard\0active\";i:0;s:17:\"\0GameCard\0visable\";i:1;}i:5;O:8:\"GameCard\":13:{s:12:\"\0GameCard\0id\";s:1:\"5\";s:17:\"\0GameCard\0libelle\";s:20:\"LE MAÎTRE DES CLEFS\";s:14:\"\0GameCard\0type\";s:8:\"creature\";s:19:\"\0GameCard\0puissance\";s:1:\"2\";s:15:\"\0GameCard\0pvMax\";s:1:\"3\";s:14:\"\0GameCard\0mana\";s:1:\"2\";s:17:\"\0GameCard\0abilite\";a:1:{i:0;i:0;}s:12:\"\0GameCard\0pv\";s:1:\"3\";s:22:\"\0GameCard\0localisation\";i:1;s:16:\"\0GameCard\0indice\";i:2;s:14:\"\0GameCard\0path\";s:35:\".\\assets\\img\\gabarit\\creature\\5.png\";s:16:\"\0GameCard\0active\";i:0;s:17:\"\0GameCard\0visable\";i:1;}i:6;O:8:\"GameCard\":13:{s:12:\"\0GameCard\0id\";s:1:\"7\";s:17:\"\0GameCard\0libelle\";s:9:\"LES TWINS\";s:14:\"\0GameCard\0type\";s:8:\"creature\";s:19:\"\0GameCard\0puissance\";s:1:\"2\";s:15:\"\0GameCard\0pvMax\";s:1:\"4\";s:14:\"\0GameCard\0mana\";s:1:\"4\";s:17:\"\0GameCard\0abilite\";a:1:{i:0;i:0;}s:12:\"\0GameCard\0pv\";s:1:\"4\";s:22:\"\0GameCard\0localisation\";i:1;s:16:\"\0GameCard\0indice\";i:2;s:14:\"\0GameCard\0path\";s:35:\".\\assets\\img\\gabarit\\creature\\7.png\";s:16:\"\0GameCard\0active\";i:0;s:17:\"\0GameCard\0visable\";i:1;}i:7;O:8:\"GameCard\":13:{s:12:\"\0GameCard\0id\";s:1:\"1\";s:17:\"\0GameCard\0libelle\";s:7:\"TRINITY\";s:14:\"\0GameCard\0type\";s:4:\"sort\";s:19:\"\0GameCard\0puissance\";s:1:\"1\";s:15:\"\0GameCard\0pvMax\";N;s:14:\"\0GameCard\0mana\";s:1:\"1\";s:17:\"\0GameCard\0abilite\";a:1:{i:0;i:0;}s:12:\"\0GameCard\0pv\";N;s:22:\"\0GameCard\0localisation\";i:1;s:16:\"\0GameCard\0indice\";i:1;s:14:\"\0GameCard\0path\";s:31:\".\\assets\\img\\gabarit\\sort\\1.png\";s:16:\"\0GameCard\0active\";i:0;s:17:\"\0GameCard\0visable\";i:1;}i:8;O:8:\"GameCard\":13:{s:12:\"\0GameCard\0id\";s:2:\"10\";s:17:\"\0GameCard\0libelle\";s:17:\"LE FEMME EN ROUGE\";s:14:\"\0GameCard\0type\";s:8:\"creature\";s:19:\"\0GameCard\0puissance\";s:1:\"1\";s:15:\"\0GameCard\0pvMax\";s:1:\"3\";s:14:\"\0GameCard\0mana\";s:1:\"1\";s:17:\"\0GameCard\0abilite\";a:1:{i:0;s:1:\"1\";}s:12:\"\0GameCard\0pv\";s:1:\"3\";s:22:\"\0GameCard\0localisation\";i:1;s:16:\"\0GameCard\0indice\";i:1;s:14:\"\0GameCard\0path\";s:36:\".\\assets\\img\\gabarit\\creature\\10.png\";s:16:\"\0GameCard\0active\";i:0;s:17:\"\0GameCard\0visable\";i:1;}i:9;O:8:\"GameCard\":13:{s:12:\"\0GameCard\0id\";s:1:\"4\";s:17:\"\0GameCard\0libelle\";s:13:\"L\'AGENT SMITH\";s:14:\"\0GameCard\0type\";s:8:\"creature\";s:19:\"\0GameCard\0puissance\";s:1:\"2\";s:15:\"\0GameCard\0pvMax\";s:1:\"1\";s:14:\"\0GameCard\0mana\";s:1:\"1\";s:17:\"\0GameCard\0abilite\";a:1:{i:0;i:0;}s:12:\"\0GameCard\0pv\";s:1:\"1\";s:22:\"\0GameCard\0localisation\";i:1;s:16:\"\0GameCard\0indice\";i:1;s:14:\"\0GameCard\0path\";s:35:\".\\assets\\img\\gabarit\\creature\\4.png\";s:16:\"\0GameCard\0active\";i:0;s:17:\"\0GameCard\0visable\";i:1;}i:10;O:8:\"GameCard\":13:{s:12:\"\0GameCard\0id\";s:2:\"11\";s:17:\"\0GameCard\0libelle\";s:10:\"SENTINELLE\";s:14:\"\0GameCard\0type\";s:8:\"creature\";s:19:\"\0GameCard\0puissance\";s:1:\"3\";s:15:\"\0GameCard\0pvMax\";s:1:\"6\";s:14:\"\0GameCard\0mana\";s:1:\"3\";s:17:\"\0GameCard\0abilite\";a:2:{i:0;s:1:\"3\";i:1;s:1:\"1\";}s:12:\"\0GameCard\0pv\";s:1:\"6\";s:22:\"\0GameCard\0localisation\";i:1;s:16:\"\0GameCard\0indice\";i:2;s:14:\"\0GameCard\0path\";s:36:\".\\assets\\img\\gabarit\\creature\\11.png\";s:16:\"\0GameCard\0active\";i:0;s:17:\"\0GameCard\0visable\";i:1;}i:11;O:8:\"GameCard\":13:{s:12:\"\0GameCard\0id\";s:2:\"10\";s:17:\"\0GameCard\0libelle\";s:17:\"LE FEMME EN ROUGE\";s:14:\"\0GameCard\0type\";s:8:\"creature\";s:19:\"\0GameCard\0puissance\";s:1:\"1\";s:15:\"\0GameCard\0pvMax\";s:1:\"3\";s:14:\"\0GameCard\0mana\";s:1:\"1\";s:17:\"\0GameCard\0abilite\";a:1:{i:0;s:1:\"1\";}s:12:\"\0GameCard\0pv\";s:1:\"3\";s:22:\"\0GameCard\0localisation\";i:1;s:16:\"\0GameCard\0indice\";i:2;s:14:\"\0GameCard\0path\";s:36:\".\\assets\\img\\gabarit\\creature\\10.png\";s:16:\"\0GameCard\0active\";i:0;s:17:\"\0GameCard\0visable\";i:1;}i:12;O:8:\"GameCard\":13:{s:12:\"\0GameCard\0id\";s:1:\"6\";s:17:\"\0GameCard\0libelle\";s:6:\"CYPHER\";s:14:\"\0GameCard\0type\";s:8:\"creature\";s:19:\"\0GameCard\0puissance\";s:1:\"5\";s:15:\"\0GameCard\0pvMax\";s:1:\"3\";s:14:\"\0GameCard\0mana\";s:1:\"3\";s:17:\"\0GameCard\0abilite\";a:1:{i:0;i:0;}s:12:\"\0GameCard\0pv\";s:1:\"3\";s:22:\"\0GameCard\0localisation\";i:1;s:16:\"\0GameCard\0indice\";i:2;s:14:\"\0GameCard\0path\";s:35:\".\\assets\\img\\gabarit\\creature\\6.png\";s:16:\"\0GameCard\0active\";i:0;s:17:\"\0GameCard\0visable\";i:1;}i:13;O:8:\"GameCard\":13:{s:12:\"\0GameCard\0id\";s:1:\"7\";s:17:\"\0GameCard\0libelle\";s:9:\"LES TWINS\";s:14:\"\0GameCard\0type\";s:8:\"creature\";s:19:\"\0GameCard\0puissance\";s:1:\"2\";s:15:\"\0GameCard\0pvMax\";s:1:\"4\";s:14:\"\0GameCard\0mana\";s:1:\"4\";s:17:\"\0GameCard\0abilite\";a:1:{i:0;i:0;}s:12:\"\0GameCard\0pv\";s:1:\"4\";s:22:\"\0GameCard\0localisation\";i:1;s:16:\"\0GameCard\0indice\";i:1;s:14:\"\0GameCard\0path\";s:35:\".\\assets\\img\\gabarit\\creature\\7.png\";s:16:\"\0GameCard\0active\";i:0;s:17:\"\0GameCard\0visable\";i:1;}i:14;O:8:\"GameCard\":13:{s:12:\"\0GameCard\0id\";s:1:\"5\";s:17:\"\0GameCard\0libelle\";s:20:\"LE MAÎTRE DES CLEFS\";s:14:\"\0GameCard\0type\";s:8:\"creature\";s:19:\"\0GameCard\0puissance\";s:1:\"2\";s:15:\"\0GameCard\0pvMax\";s:1:\"3\";s:14:\"\0GameCard\0mana\";s:1:\"2\";s:17:\"\0GameCard\0abilite\";a:1:{i:0;i:0;}s:12:\"\0GameCard\0pv\";s:1:\"3\";s:22:\"\0GameCard\0localisation\";i:1;s:16:\"\0GameCard\0indice\";i:1;s:14:\"\0GameCard\0path\";s:35:\".\\assets\\img\\gabarit\\creature\\5.png\";s:16:\"\0GameCard\0active\";i:0;s:17:\"\0GameCard\0visable\";i:1;}i:15;O:8:\"GameCard\":13:{s:12:\"\0GameCard\0id\";s:2:\"12\";s:17:\"\0GameCard\0libelle\";s:12:\"LE CHAT NOIR\";s:14:\"\0GameCard\0type\";s:8:\"speciale\";s:19:\"\0GameCard\0puissance\";s:1:\"9\";s:15:\"\0GameCard\0pvMax\";s:1:\"9\";s:14:\"\0GameCard\0mana\";s:1:\"9\";s:17:\"\0GameCard\0abilite\";a:1:{i:0;i:0;}s:12:\"\0GameCard\0pv\";s:1:\"9\";s:22:\"\0GameCard\0localisation\";i:1;s:16:\"\0GameCard\0indice\";i:1;s:14:\"\0GameCard\0path\";s:36:\".\\assets\\img\\gabarit\\speciale\\12.png\";s:16:\"\0GameCard\0active\";i:0;s:17:\"\0GameCard\0visable\";i:1;}i:16;O:8:\"GameCard\":13:{s:12:\"\0GameCard\0id\";s:1:\"9\";s:17:\"\0GameCard\0libelle\";s:12:\"L\'ARCHITECTE\";s:14:\"\0GameCard\0type\";s:8:\"creature\";s:19:\"\0GameCard\0puissance\";s:1:\"8\";s:15:\"\0GameCard\0pvMax\";s:1:\"6\";s:14:\"\0GameCard\0mana\";s:1:\"7\";s:17:\"\0GameCard\0abilite\";a:1:{i:0;i:0;}s:12:\"\0GameCard\0pv\";s:1:\"6\";s:22:\"\0GameCard\0localisation\";i:1;s:16:\"\0GameCard\0indice\";i:1;s:14:\"\0GameCard\0path\";s:35:\".\\assets\\img\\gabarit\\creature\\9.png\";s:16:\"\0GameCard\0active\";i:0;s:17:\"\0GameCard\0visable\";i:1;}i:17;O:8:\"GameCard\":13:{s:12:\"\0GameCard\0id\";s:2:\"11\";s:17:\"\0GameCard\0libelle\";s:10:\"SENTINELLE\";s:14:\"\0GameCard\0type\";s:8:\"creature\";s:19:\"\0GameCard\0puissance\";s:1:\"3\";s:15:\"\0GameCard\0pvMax\";s:1:\"6\";s:14:\"\0GameCard\0mana\";s:1:\"3\";s:17:\"\0GameCard\0abilite\";a:2:{i:0;s:1:\"3\";i:1;s:1:\"1\";}s:12:\"\0GameCard\0pv\";s:1:\"6\";s:22:\"\0GameCard\0localisation\";i:1;s:16:\"\0GameCard\0indice\";i:1;s:14:\"\0GameCard\0path\";s:36:\".\\assets\\img\\gabarit\\creature\\11.png\";s:16:\"\0GameCard\0active\";i:0;s:17:\"\0GameCard\0visable\";i:1;}i:18;O:8:\"GameCard\":13:{s:12:\"\0GameCard\0id\";s:1:\"8\";s:17:\"\0GameCard\0libelle\";s:5:\"NIOBE\";s:14:\"\0GameCard\0type\";s:8:\"creature\";s:19:\"\0GameCard\0puissance\";s:1:\"7\";s:15:\"\0GameCard\0pvMax\";s:1:\"5\";s:14:\"\0GameCard\0mana\";s:1:\"5\";s:17:\"\0GameCard\0abilite\";a:1:{i:0;s:1:\"2\";}s:12:\"\0GameCard\0pv\";s:1:\"5\";s:22:\"\0GameCard\0localisation\";i:1;s:16:\"\0GameCard\0indice\";i:1;s:14:\"\0GameCard\0path\";s:35:\".\\assets\\img\\gabarit\\creature\\8.png\";s:16:\"\0GameCard\0active\";i:0;s:17:\"\0GameCard\0visable\";i:1;}i:19;O:8:\"GameCard\":13:{s:12:\"\0GameCard\0id\";s:1:\"8\";s:17:\"\0GameCard\0libelle\";s:5:\"NIOBE\";s:14:\"\0GameCard\0type\";s:8:\"creature\";s:19:\"\0GameCard\0puissance\";s:1:\"7\";s:15:\"\0GameCard\0pvMax\";s:1:\"5\";s:14:\"\0GameCard\0mana\";s:1:\"5\";s:17:\"\0GameCard\0abilite\";a:1:{i:0;s:1:\"2\";}s:12:\"\0GameCard\0pv\";s:1:\"5\";s:22:\"\0GameCard\0localisation\";i:1;s:16:\"\0GameCard\0indice\";i:2;s:14:\"\0GameCard\0path\";s:35:\".\\assets\\img\\gabarit\\creature\\8.png\";s:16:\"\0GameCard\0active\";i:0;s:17:\"\0GameCard\0visable\";i:1;}}s:15:\"\0GameDeck\0heros\";s:1:\"1\";}s:12:\"\0Joueur\0main\";a:0:{}s:14:\"\0Joueur\0pioche\";a:20:{i:0;r:344;i:1;r:359;i:2;r:374;i:3;r:389;i:4;r:404;i:5;r:419;i:6;r:434;i:7;r:449;i:8;r:464;i:9;r:479;i:10;r:494;i:11;r:510;i:12;r:525;i:13;r:540;i:14;r:555;i:15;r:570;i:16;r:585;i:17;r:600;i:18;r:616;i:19;r:631;}s:15:\"\0Joueur\0plateau\";a:0:{}s:16:\"\0Joueur\0defausse\";a:0:{}s:10:\"\0Joueur\0pv\";i:20;s:12:\"\0Joueur\0mana\";i:0;s:15:\"\0Joueur\0visable\";i:1;}}s:20:\"\0GameController\0tour\";i:1;s:19:\"\0GameController\0EoG\";b:0;s:21:\"\0GameController\0jeton\";i:0;s:28:\"\0GameController\0piocheEtMana\";i:1;s:13:\"\0*\0parameters\";a:2:{s:10:\"controller\";s:4:\"game\";s:6:\"action\";s:4:\"play\";}s:7:\"\0*\0data\";a:0:{}s:10:\"\0*\0session\";a:2:{s:4:\"u_id\";s:1:\"8\";s:10:\"u_language\";s:1:\"1\";}}', 8, 14, 1);
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `historique`
 --
 
@@ -395,20 +417,6 @@ CREATE TABLE `langue` (
 INSERT INTO `langue` (`l_id`, `l_libelle`) VALUES
 (1, 'français'),
 (2, 'english');
-
--- --------------------------------------------------------
-
---
--- Structure de la table `old_game`
---
-
-CREATE TABLE `old_game` (
-  `g_id` int(20) NOT NULL,
-  `g_data` text NOT NULL,
-  `g_player1` int(11) NOT NULL,
-  `g_player2` int(11) NOT NULL,
-  `g_running` tinyint(1) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -517,7 +525,7 @@ INSERT INTO `user` (`u_id`, `u_mail`, `u_pseudo`, `u_mdp`, `u_nom`, `u_prenom`, 
 (10, 'user3@mail.mail', 'User3', '$2y$10$XfAcsZlXpc6gdUkVp6uAh.hAtd5ckBXnQAI1xOeALVtkJqnLZeDYy', 'rtrthrty', 'rteryery', '2014-03-28', 1, 0, 'dit oui', 'oui'),
 (11, 'ronan.ruffault@hotmail.fr', 'ronan', '$2y$10$z5kQN.DNfuGqPQtlHSwHmeRcRb.WBlRYG/R2A7gjy3TJT9fs2OmfO', 'ruffault', 'ronan', '1990-09-07', 1, 0, 'ecrit ronan', 'ronan'),
 (12, 'jeanjean@mail.mail', 'JJ', '$2y$10$QzyiUEgZ4NYOz7KRBZaJTukENrJA1QP9tFxxfuaKpGmB0IhcHQSAm', 'Petitpapier', 'Jeanjean', '1998-10-01', 1, 0, 'Why?', 'Because'),
-(14, 'albus@mail.mail', 'Albus', '$2y$10$fOsfuaWyROKyF86n4ZeZQe3DePp6mErGvioT.r6XC28zYmBe0W6..', 'Dumbledore', 'Albus', '1910-10-10', 1, 0, 'kedh', 'lqkhzd');
+(14, 'albus@mail.mail', 'Albus', '$2y$10$fOsfuaWyROKyF86n4ZeZQe3DePp6mErGvioT.r6XC28zYmBe0W6..', 'Dumbledorrrr', 'Albus', '1910-10-10', 1, 0, 'kedh', 'lqkhzd');
 
 --
 -- Index pour les tables déchargées
@@ -591,6 +599,14 @@ ALTER TABLE `event_play`
   ADD KEY `FK_ep_hist` (`ep_hist`);
 
 --
+-- Index pour la table `game`
+--
+ALTER TABLE `game`
+  ADD PRIMARY KEY (`g_id`),
+  ADD KEY `g_player1` (`g_player1`),
+  ADD KEY `g_player2` (`g_player2`);
+
+--
 -- Index pour la table `historique`
 --
 ALTER TABLE `historique`
@@ -607,14 +623,6 @@ ALTER TABLE `historique`
 --
 ALTER TABLE `langue`
   ADD PRIMARY KEY (`l_id`);
-
---
--- Index pour la table `old_game`
---
-ALTER TABLE `old_game`
-  ADD PRIMARY KEY (`g_id`),
-  ADD KEY `g_player1` (`g_player1`),
-  ADD KEY `g_player2` (`g_player2`);
 
 --
 -- Index pour la table `partie`
@@ -670,31 +678,37 @@ ALTER TABLE `carte`
 -- AUTO_INCREMENT pour la table `deck`
 --
 ALTER TABLE `deck`
-  MODIFY `d_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
+  MODIFY `d_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=82;
 
 --
 -- AUTO_INCREMENT pour la table `event_att_card`
 --
 ALTER TABLE `event_att_card`
-  MODIFY `eac_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `eac_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT pour la table `event_att_player`
 --
 ALTER TABLE `event_att_player`
-  MODIFY `eap_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `eap_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT pour la table `event_play`
 --
 ALTER TABLE `event_play`
-  MODIFY `ep_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ep_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+
+--
+-- AUTO_INCREMENT pour la table `game`
+--
+ALTER TABLE `game`
+  MODIFY `g_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT pour la table `historique`
 --
 ALTER TABLE `historique`
-  MODIFY `h_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `h_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
 
 --
 -- AUTO_INCREMENT pour la table `langue`
@@ -703,22 +717,16 @@ ALTER TABLE `langue`
   MODIFY `l_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT pour la table `old_game`
---
-ALTER TABLE `old_game`
-  MODIFY `g_id` int(20) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT pour la table `partie`
 --
 ALTER TABLE `partie`
-  MODIFY `p_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `p_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT pour la table `partie_carte`
 --
 ALTER TABLE `partie_carte`
-  MODIFY `pc_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=121;
+  MODIFY `pc_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
 
 --
 -- AUTO_INCREMENT pour la table `personnage`
@@ -787,6 +795,13 @@ ALTER TABLE `event_play`
   ADD CONSTRAINT `FK_ep_hist` FOREIGN KEY (`ep_hist`) REFERENCES `historique` (`h_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
+-- Contraintes pour la table `game`
+--
+ALTER TABLE `game`
+  ADD CONSTRAINT `game_ibfk_1` FOREIGN KEY (`g_player1`) REFERENCES `user` (`u_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `game_ibfk_2` FOREIGN KEY (`g_player2`) REFERENCES `user` (`u_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Contraintes pour la table `historique`
 --
 ALTER TABLE `historique`
@@ -795,13 +810,6 @@ ALTER TABLE `historique`
   ADD CONSTRAINT `FK_historique_event` FOREIGN KEY (`h_event`) REFERENCES `event` (`e_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `FK_historique_joueur` FOREIGN KEY (`h_joueur`) REFERENCES `partie_joueur` (`pj_user_fk`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `FK_historique_partie` FOREIGN KEY (`h_partie`) REFERENCES `partie` (`p_id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Contraintes pour la table `old_game`
---
-ALTER TABLE `old_game`
-  ADD CONSTRAINT `old_game_ibfk_1` FOREIGN KEY (`g_player1`) REFERENCES `user` (`u_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `old_game_ibfk_2` FOREIGN KEY (`g_player2`) REFERENCES `user` (`u_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `partie_carte`
